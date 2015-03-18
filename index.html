@@ -204,6 +204,15 @@ Developing specifications</a> provide advice to  developers about how to incorpo
 <p class="bp" id="type_line_height"><a class="self" href="#type_line_height"></a>Line heights must allow for characters that are taller than English.</p>
 <p class="bp" id="type_box_size"><a class="self" href="#type_box_size"></a>Box sizes must allow for text expansion in translation.</p>
 <p class="bp" id="type_ruby"><a class="self" href="#type_ruby"></a>Ruby text alongside base text should be supported for CJK text.</p>
+<p class="bp" id="type_linebreak"><a class="self" href="#type_linebreak"></a>Line wrapping should take into account the special rules needed for non-Latin scripts.</p>
+<p>Various non-Latin writing systems don't simply wrap text on inter-word spaces. They have additional rules that must be respected. For example</p>
+<ul>
+<li>Chinese, Japanese and Korean wrap after characters, but don't put certain characters at the start/end of a line.</li>
+<li>Thai and other SE Asian scripts wrap at word boundaries, but words are not delimited by spaces – spaces are instead used to separate phrases.</li>
+<li>Tibetan wraps after the tsek character that follows a syllable – words are not separated by spaces, and lines can break within a word.</li>
+<li>Indic and other complex scripts break at orthographic syllable boundaries, which are often two or more grapheme clusters.</li>
+</ul>
+<p>See the <a href="http://www.w3.org/TR/css3-text/#line-breaking">CSS Text Level 3 specification</a> for additional background. (<a href="http://r12a.github.io/scripts/tutorial/part5">This tutorial</a> provides additional examples, if needed.)</p>
 </section>
 
 
