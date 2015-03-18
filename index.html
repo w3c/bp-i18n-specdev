@@ -116,9 +116,13 @@ Developing specifications</a> provide advice to  developers about how to incorpo
 					<li><a href="http://www.w3.org/International/techniques/developing-specs#string">Defining 'string' </a></li>
 					<li><a href="http://www.w3.org/International/techniques/developing-specs#indexing">Indexing strings </a></li>
 					<li><a href="http://www.w3.org/International/techniques/developing-specs#unicoderef">Referencing the Unicode Standard </a></li>
-  </ul>
-</section>
-<section id="language">
+	</ul>
+<p>What follows are explanations for recommendations that are not described in other locations.</p>
+    <p class="bp" id="char_escapes"><a class="self" href="#char_escapes"></a>Specifications should provide a mechanism for escaping characters, particularly those which are invisible or ambiguous.</p>
+<p>It is generally recommended that character escapes be provided so that difficult to enter or edit sequences can be introduced using a plain text editor. Escape sequences are particularly useful for invisible or ambiguous Unicode characters, including zero-width spaces, soft-hyphens, various bidi controls, mongolian vowel separators, etc. </p>
+<p>For advice on use of escapes in markup, but which is mostly generalisable to other formats, see <a href="http://www.w3.org/International/questions/qa-escapes">Using character escapes in markup and CSS</a>.</p>
+  </section>
+  <section id="language">
   <h2>Working with language</h2>
   <section id="lang_resource">
     <h3>Establishing the language of a resource as a whole</h3>
@@ -213,6 +217,10 @@ Developing specifications</a> provide advice to  developers about how to incorpo
 <li>Indic and other complex scripts break at orthographic syllable boundaries, which are often two or more grapheme clusters.</li>
 </ul>
 <p>See the <a href="http://www.w3.org/TR/css3-text/#line-breaking">CSS Text Level 3 specification</a> for additional background. (<a href="http://r12a.github.io/scripts/tutorial/part5">This tutorial</a> provides additional examples, if needed.)</p>
+<p class="bp" id="type_presentational_tags"><a class="self" href="#type_presentational_tags"></a>Avoid specifying presentational tags, such as <code class="kw" translate="no">b</code> for bold, and <code class="kw" translate="no">i</code> for italic.</p>
+<p> It is best to avoid presentational markup <code class="kw" translate="no">b</code>, <code class="kw" translate="no">i</code> or <code class="kw" translate="no">u</code>, since it isn't interoperable across writing systems and furthermore may cause unnecessary problems for localisation. In addition, some scripts have native approaches to things such as emphasis, that do not involve, and can be very different from, bolding, italicisation, etc.</p>
+<p>In the HTML case, there was a legacy issue, but unless there is one for your specification, the recommendation is that styling be used instead to determine the presentation of the text, and that any markup or tagging should allow for general semantic approaches.</p>
+<p>For an explanation of the issues surrounding <code class="kw" translate="no">b</code> and <code class="kw" translate="no">i</code> tags, see <a href="http://www.w3.org/International/questions/qa-b-and-i-tags">Using &lt;b&gt; and &lt;i&gt; elements</a>.</p>
 </section>
 
 
