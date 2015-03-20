@@ -150,21 +150,15 @@ body { font-size: 80%; margin: 2em; }
 
 
 
-
-
-
-@media aural {  
-  h1, h2, h3 { stress: 20; richness: 90 }
-  div.short-name { stress: 20; richness: 90 }
-  .hide { speak: none }
-  p.copyright { volume: x-soft; speech-rate: x-fast }
-  dt { pause-before: 20% }
-  pre { speak-punctuation: code } 
-}
-
-
-/* Added for Hangul layout doc */
-
-
 h4 { 	color: #005a9c; margin-top: 2em;  }
 .indent { margin-left: 3em; }
+
+
+.link { display: inline; }
+.desc { display: inline; margin-left: 1em;  }
+.desc:before { content: '— '; }
+
+.links { background-color: #a09de5; background-color: #EFEFF9; border: 1px solid #ccc; border-radius: 10px;  font-size: 90%; padding: 0 10px; margin-bottom: 50px; float: left; width: 60%;  }
+.xref { background-color: #feb; border: 1px solid #fc0; border-radius: 10px;  font-size: 90%; padding: 0 10px; margin-bottom: 50px; float: right;  width: 30%;  }
+
+.subtopic, .topic { clear: both; }
