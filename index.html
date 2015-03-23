@@ -4,13 +4,13 @@
     <title>Internationalization Best Practices for Spec Developers (Strawman)</title>
     <meta charset='utf-8'/>
 	<link rel="stylesheet" href="local.css" type="text/css" />
-    <!--script src="dumpdata.js" type="application/ecmascript"></script-->
+    <script src="dumpdata.js" type="application/ecmascript"></script>
     <!-- 
       === NOTA BENE ===
       For the three scripts below, if your spec resides on dev.w3 you can check them
       out in the same tree and use relative links so that they'll work offline,
      -->
-    <script src='http://www.w3.org/Tools/respec/respec-w3c-common' class='remove'></script>
+    <script src='http://www.w3.org/Tools/respec/respec-w3c-commonx' class='remove'></script>
     <script class='remove'>
       var respecConfig = {
           // specification status (e.g. WD, LCWD, NOTE, etc.). If in doubt use ED.
@@ -122,7 +122,7 @@ Developing specifications</a> provide advice to  developers about how to incorpo
 <section id="char_def" class="subtopic">
     <h3>Choosing a definition of 'character'</h3>
     <p class="bp" id="char_sounds"><a class="self" href="#char_sounds">&#x200B;</a>Specifications, software and content MUST NOT require or depend on a one-to-one correspondence between characters and the sounds of a language. <a href="/TR/charmod/#C001">more</a></p>
-    <p class="bp" id="char_display"><a class="self" href="#char_display">&#x200B;</a>Specifications, software and content MUST NOT require or depend on a one-to-one mapping between characters and units of displayed text.. <a href="/TR/charmod/#C002">more</a></p>
+    <p class="bp" id="char_display"><a class="self" href="#char_display">&#x200B;</a>Specifications, software and content MUST NOT require or depend on a one-to-one mapping between characters and units of displayed text. <a href="/TR/charmod/#C002">more</a></p>
     <p class="bp" id="char_logical"><a class="self" href="#char_logical">&#x200B;</a>Protocols, data formats and APIs MUST store, interchange or process text data in logical order. <a href="/TR/charmod/#C003">more</a></p>
     <p class="bp" id="char_logical_storage"><a class="self" href="#char_logical_storage">&#x200B;</a>Independent of whether some implementation uses logical selection or visual selection, characters selected MUST be kept in logical order in storage. <a href="/TR/charmod/#C075">more</a></p>
     <p class="bp" id="char_logical_discontiguous"><a class="self" href="#char_logical_discontiguous">&#x200B;</a>Specifications of protocols and APIs that involve selection of ranges SHOULD provide for discontiguous logical selections, at least to the extent necessary to support implementation of visual selection on screen on top of those protocols and APIs. <a href="/TR/charmod/#C004">more</a></p>
@@ -182,7 +182,7 @@ Developing specifications</a> provide advice to  developers about how to incorpo
     <p class="bp" id="char_10ffff"><a class="self" href="#char_10ffff">&#x200B;</a>Specifications MUST NOT allow code points above U+10FFFF. <a href="/TR/charmod/#C077">more</a></p>
     <p class="bp" id="char_internal_use"><a class="self" href="#char_internal_use">&#x200B;</a>Specifications SHOULD NOT allow the use of codepoints reserved by Unicode for internal use. <a href="/TR/charmod/#C079">more</a></p>
     <p class="bp" id="char_surrogate"><a class="self" href="#char_surrogate">&#x200B;</a>Specifications MUST NOT allow the use of surrogate code points. <a href="/TR/charmod/#C078.">more</a></p>
-    <p class="bp" id="char_compatibility"><a class="self" href="#char_compatibility">&#x200B;</a>Specifications SHOULD exclude compatibility characters in the syntactic elements (markup, delimiters, identifiers) of the formats they define.. <a href="/TR/charmod/#C050">more</a></p>
+    <p class="bp" id="char_compatibility"><a class="self" href="#char_compatibility">&#x200B;</a>Specifications SHOULD exclude compatibility characters in the syntactic elements (markup, delimiters, identifiers) of the formats they define. <a href="/TR/charmod/#C050">more</a></p>
 
 
     <section class="links">
@@ -368,7 +368,7 @@ Developing specifications</a> provide advice to  developers about how to incorpo
   <section id="char_string" class="subtopic">
     <h3>Defining 'string'</h3>
     <p class="bp" id="char_string_byte"><a class="self" href="#char_string_byte">&#x200B;</a>Specifications SHOULD NOT define a string as a 'byte string'. <a href="http://www.w3.org/TR/charmod/#C011">more</a></p>
-    <p class="bp" id="char_string_char"><a class="self" href="#char_string_char">&#x200B;</a>The 'character string' definition SHOULD be used by most specifications.. <a href="http://www.w3.org/TR/charmod/#C012">more</a></p>
+    <p class="bp" id="char_string_char"><a class="self" href="#char_string_char">&#x200B;</a>The 'character string' definition SHOULD be used by most specifications. <a href="http://www.w3.org/TR/charmod/#C012">more</a></p>
 
     <section class="links">
       <h4>Links</h4>
@@ -579,22 +579,29 @@ Developing specifications</a> provide advice to  developers about how to incorpo
 <section id="bidi_block" class="subtopic">
   <h3>Establishing the bidi direction for blocks, paragraphs, or similar chunks of content</h3>
   <p class="bp" id="bidi_block_change"><a class="self" href="#bidi_block_change">&#x200B;</a>The content author must be able to indicate parts of the text where the base direction changes. This should be achieved using attributes or metadata at a block level, and not rely on Unicode control characters. </p>
-  <p class="bp" id="bidi_block_auto"><a class="self" href="#bidi_block_auto">&#x200B;</a>It must be possible to also set the direction for content fragments to auto. This means that the base direction will be determined by examining the content itself. A typical approach here would be to set the direction based on the first strong directional character outside of any markup. </p>
+  <p class="bp" id="bidi_block_auto"><a class="self" href="#bidi_block_auto">&#x200B;</a>It must be possible to also set the direction for content fragments to auto. This means that the base direction will be determined by examining the content itself.</p>
+  <p class="bp" id="bidi_block_auto_receiver"><a class="self" href="#bidi_block_auto">&#x200B;</a>A typical approach here would be to set the direction based on the first strong directional character outside of any markup, but this is not the only possible method. The algorithm used to determine directionality when direction is set to auto should match that expected by the receiver. <a class="local" href="http://w3c.github.io/bp-i18n-specdev/#bidi_block_auto">more</a></p>
+  <p>The first-strong algorithm looks for the first character in the paragraph with a strong directional property according to the Unicode definitions. It then sets the base direction of the paragraph according to the direction of that character.</p>
+  <p>Note that the first-strong algorithm may incorrectly&nbsp;guess the direction of the paragraph when the first character is not typical of the rest of the paragraph, such as when a RTL paragraph or line starts with a LTR brand name or technical term.</p>
+  <p>For additional information about algorithms for detecting direction, see <a href="http://www.w3.org/TR/html-bidi/#auto-direction-algorithms">Estimation algorithms</a> in the document where this was discussed with reference to HTML.</p>
   <p class="bp" id="bidi_block_para"><a class="self" href="#bidi_block_para">&#x200B;</a>If the overall base direction is set to auto for plain text, the direction of content paragraphs should be determined on a paragraph by paragraph basis. </p>
-  <p class="bp" id="bidi_block_befaft"><a class="self" href="#bidi_block_befaft">&#x200B;</a>To indicate the beginning and end of a block of text you should use 'before' and 'after' (maybe block-start/block-end - the terminology is changing), rather than 'top' and 'bottom'. </p>
-  <p class="bp" id="bidi_dedicated_attr"><a class="self" href="#bidi_dedicated_attr">&#x200B;</a>Provide dedicated attributes for control of base direction and bidirectional overrides; do not rely on the user applying style properties to arbitrary markup to achieve bidi control </p>
+  <p class="bp" id="bidi_block_befaft"><a class="self" href="#bidi_block_befaft">&#x200B;</a>To indicate the sides of a block of text where relative to the start and end of its contained lines, you should use 'before' and 'after' (maybe block-start/block-end – the terminology is changing), rather than 'top' and 'bottom'. </p>
+  <p class="bp" id="bidi_inline_start_end"><a class="self" href="#bidi_inline_start_end">&#x200B;</a>To indicate the start/end of a line  you should use 'start' and 'end' rather than 'left' and 'right'. </p>
+  <p class="bp" id="bidi_dedicated_attr"><a class="self" href="#bidi_dedicated_attr">&#x200B;</a>Provide dedicated attributes for control of base direction and bidirectional overrides; do not rely on the user applying style properties to arbitrary markup to achieve bidi control.</p>
 </section>
 
 <section id="bidi_inline" class="subtopic">
   <h3>Establishing the bidi direction for spans of inline content</h3>
   <p class="bp" id="bidi_inline_change"><a class="self" href="#bidi_inline_change">&#x200B;</a>It must be possible to indicate spans of inline text where the base direction changes. If markup is available, this is the preferred method. Otherwise your specification must require that Unicode control characters are recognized by the receiving application, and correctly implemented.</p>
-  <p class="bp" id="bidi_inline_auto"><a class="self" href="#bidi_inline_auto">&#x200B;</a>It must be possible to also set the direction for a span to auto. This means that the base direction will be determined by examining the content itself. A typical approach here would be to set the direction based on the first strong directional character outside of any markup.</p>
-  <p class="bp" id="bidi_inline_rli"><a class="self" href="#bidi_inline_rli">&#x200B;</a>If users use Unicode control characters, the RLI/LRI/FSI...PDI characters must be supported by the application and recommended (rather than RLE/LRE...PDF) by the spec.</p>
-  <p class="bp" id="bidi_inline_rlm"><a class="self" href="#bidi_inline_rlm">&#x200B;</a>Use of RLM/LRM should be minimised, and expectations of what those controls can and cannot do should be clear in the spec.</p>
-  <p class="bp" id="bidi_inline_start_end"><a class="self" href="#bidi_inline_start_end">&#x200B;</a>To indicate the start/end of a line or paragraph you should use 'start' and 'end' rather than 'left' and 'right'. </p>
-  <p class="bp" id="bidi_inline_dedicated_attr"><a class="self" href="#bidi_inline_dedicated_attr">&#x200B;</a>Provide dedicated attributes for control of base direction and bidirectional overrides; do not rely on the user applying style properties to arbitrary markup to achieve bidi control.</p>
+  <p class="bp" id="bidi_inline_auto"><a class="self" href="#bidi_inline_auto">&#x200B;</a>It must be possible to also set the direction for a span to auto. This means that the base direction will be determined by examining the content itself. A typical approach here would be to set the direction based on the first strong directional character outside of any markup. <a class="local" href="http://w3c.github.io/bp-i18n-specdev/#bidi_inline_auto">more</a></p>
+  <p>The first-strong algorithm looks for the first character in the paragraph with a strong directional property according to the Unicode definitions. It then sets the base direction of the paragraph according to the direction of that character.</p>
+  <p>Note that the first-strong algorithm may incorrectly&nbsp;guess the direction of the paragraph when the first character is not typical of the rest of the paragraph, such as when a RTL paragraph or line starts with a LTR brand name or technical term.</p>
+  <p>For additional information about algorithms for detecting direction, see <a href="http://www.w3.org/TR/html-bidi/#auto-direction-algorithms">Estimation algorithms</a> in the document where this was discussed with reference to HTML.</p>
+  <p class="bp" id="bidi_inline_rli"><a class="self" href="#bidi_inline_rli">&#x200B;</a>If users use Unicode bidirectional control characters, the RLI/LRI/FSI with PDI characters must be supported by the application and recommended (rather than RLE/LRE with PDF) by the spec.</p>
+  <p class="bp" id="bidi_inline_rlm"><a class="self" href="#bidi_inline_rlm">&#x200B;</a>Use of RLM/LRM should be appropriate, and expectations of what those controls can and cannot do should be clear in the spec. <a class="local" href="http://w3c.github.io/bp-i18n-specdev/#bidi_inline_rlm">more</a></p>
+  <p>The Unicode bidirectional control characters <span class="uname">U+200F RIGHT-TO-LEFT MARK</span> and <span class="uname">U+200E LEFT-TO-RIGHT MARK</span> are not sufficient on their own to manage bidirectional text. They cannot produce a different base direction for embedded text. For that you need to be able to indicate the start and end of the range of the embedded text.&nbsp; This is best done by markup, if available, or failing that using the other Unicode bidirectional controls mentioned just above.</p><p class="bp" id="bidi_inline_dedicated_attr"><a class="self" href="#bidi_inline_dedicated_attr">&#x200B;</a>Provide dedicated attributes for control of base direction and bidirectional overrides; do not rely on the user applying style properties to arbitrary markup to achieve bidi control.</p>
   <p class="bp" id="bidi_inline_all_elems"><a class="self" href="#bidi_inline_all_elems">&#x200B;</a>Allow bidi attributes on all inline elements in markup that contain text.</p>
-  <p class="bp" id="bidi_inline_embed"><a class="self" href="#bidi_inline_embed">&#x200B;</a>Provide attributes that allow the user to (a) create an embedded base direction or (b) override the bidirectional algorithm altogether; the attribute should allow the user to set the direction to ltr or rtl in either of these two scenarios.</p>
+  <p class="bp" id="bidi_inline_embed"><a class="self" href="#bidi_inline_embed">&#x200B;</a>Provide attributes that allow the user to (a) create an embedded base direction or (b) override the bidirectional algorithm altogether; the attribute should allow the user to set the direction to LTR or RTL in either of these two scenarios.</p>
 </section>
 
 <section id="vertical" class="subtopic">
@@ -605,7 +612,8 @@ Developing specifications</a> provide advice to  developers about how to incorpo
 
   <section id="box_posn" class="subtopic">
     <h3>Setting box positioning coordinates when text direction varies</h3>
-    <p class="bp" id="vertical_box_posn"><a class="self" href="#vertical_box_posn">&#x200B;</a>Box positioning coordinates must take into account whether the text is horizontal or vertical </p>
+    <p class="bp" id="vertical_box_posn"><a class="self" href="#vertical_box_posn">&#x200B;</a>Box positioning coordinates must take into account whether the text is horizontal or vertical. <a class="local" href="http://w3c.github.io/bp-i18n-specdev/#vertical_box_posn">more</a></p>
+    <p>It is typical, when localizing a user interface or web page, to create mirror-images for the RTL and LTR versions. For example, it is likely that a box that appears near the left side of a window containing English content would appear near the right side of the window if the content is Arabic or Hebrew. It should preferably automatic for this to change, based on the base direction of the current context, unless there is a strong reason for using absolute geometry. One way to achieve this is to use keywords such as <code class="kw" translate="no">start</code> and <code class="kw" translate="no">end</code>, rather than <code class="kw" translate="no">left</code> and <code class="kw" translate="no">right</code>, to indicate position.</p>
   </section>
 </section>
 
@@ -687,8 +695,8 @@ Developing specifications</a> provide advice to  developers about how to incorpo
 <p>tbd</p>
 </section>
 
-<!--button onClick="document.getElementById('dump').value = dumpData(); document.getElementById('dump').select();">Dump data</button>
-<textarea id="dump" style="width: 100%; height: 400px;"></textarea-->
+<button onClick="document.getElementById('dump').value = dumpData(); document.getElementById('dump').select();">Dump data</button>
+<textarea id="dump" style="width: 100%; height: 400px;"></textarea>
 
 </body>
 </html>
