@@ -18,8 +18,10 @@ figure {
 .bp { /*background-color:#ffffcc; border: 1px solid #ccc;*/ 
 	background-color: #feb; 
 	border-radius: 8px; 
+	border-radius: 4px; 
 	padding: 5px; 
 	position: relative;  
+	margin-top: 30px; 
 	}
 .bp a {
 	font-style: italic;
@@ -31,28 +33,26 @@ figure {
 body {
 	counter-reset: bp;                  		 /* Set the section counter to 0 */
 	}
-.bp::before {
-	counter-increment: bp;             		  /* Increment the section counter*/
-	content: "BP" counter(bp) ": "; 		/* Display the counter */
-	font-weight: bold;
-	}
 a.self {
     position: absolute;
-    top: 5px;
-    left: -2.5em;
-    width: 2em;
-    height: 2em;
-    text-align: center;
+    top: -20px;
     border: medium none;
     transition: opacity 0.2s ease 0s;
     opacity: 0.5;
-	color: #ccc;
+	color: #999;
+	text-decoration: none;
 	}
 a.self:visited {
-	color: #ccc;
+	color: #999;
 	}
-a.self::before {
-    content: "§";
+a.self:hover {
+	color: red;
+	}
+a.self::after {
+	content:  attr(href); 	
+	font-weight: normal;
+	font-style: italic;
+	font-size: 80%;
 	}
 
 .editor-note { 
