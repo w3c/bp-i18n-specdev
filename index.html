@@ -421,6 +421,13 @@ Developing specifications</a> provide advice to  developers about how to incorpo
   </section>
     
   
+  <section id="char_ref_Unicode_char" class="subtopic">
+    <h3>Referring to Unicode characters</h3>
+    <p class="bp" id="char_ref_Uchar"><a class="self" href="#char_ref_Uchar">&#x200B;</a>Use U+XXXX syntax to represent Unicode code points in the specification. <a class="local" href="http://w3c.github.io/bp_i18n_specdev/#char_ref_Uchar">more</a></p>
+    <p>The U+XXXX format is well understood when referring to Unicode code points in a specification. These are space separated when appearing in a sequence. No additional decoration is needed. Note that a code point may contain four, five, or six hexadecimal digits. When fewer than four digits are needed, the code point number is zero filled. E.g. U+0020.</p>
+  </section>
+    
+  
   <section id="char_unicoderef" class="subtopic">
     <h3>Referencing the Unicode Standard</h3>
     <p class="bp" id="char_unicoderef_do"><a class="self" href="#char_unicoderef_do">&#x200B;</a>Since specifications in general need both a definition for their characters and the semantics associated with these characters, specifications SHOULD include a reference to the Unicode Standard, whether or not they include a reference to ISO/IEC 10646. <a href="http://www.w3.org/TR/charmod/#C062">more</a></p>
@@ -442,10 +449,11 @@ Developing specifications</a> provide advice to  developers about how to incorpo
     </section>
   </section>
 
-  
     
-    
-  </section>
+  </section><!-- end of characters section -->
+ 
+ 
+ 
   <section id="language" class="topic">
   <h2>Language</h2>
 
@@ -524,7 +532,15 @@ Developing specifications</a> provide advice to  developers about how to incorpo
 
   <section id="lang_values" class="subtopic">
     <h3>Defining language values</h3>
+    <p class="bp" id="lang_attribute_xml"><a class="self" href="#lang_attribute_xml">&#x200B;</a>Where language attributes already exist and are appropriate, do not create a new one.<a class="local" href="http://w3c.github.io/bp-i18n-specdev/#bidi_block_auto">more</a></p>
+    <p>For example, XML provides xml:lang which can be used in all XML formats to identify the text-processing language for a range of text.</p>
+    
+    
     <p class="bp" id="lang_values_bcp"><a class="self" href="#lang_values_bcp">&#x200B;</a>Language values should be BCP47 language tags.</p>
+ 
+    <p class="bp" id="lang_values_valid"><a class="self" href="#lang_values_valid">&#x200B;</a>Be specific about the form of language tags you expect. The word "valid" has special meaning in BCP 47. Generally "well-formed" is a better choice.</p>
+ 
+    <p class="bp" id="lang_matching_bcp"><a class="self" href="#lang_matching_bcp">&#x200B;</a>Reference BCP47 for language tag matching.</p>
  
      <section class="links">
       <h4>Links</h4>
@@ -643,6 +659,22 @@ Developing specifications</a> provide advice to  developers about how to incorpo
 <p>In the HTML case, there was a legacy issue, but unless there is one for your specification, the recommendation is that styling be used instead to determine the presentation of the text, and that any markup or tagging should allow for general semantic approaches.</p>
 <p>For an explanation of the issues surrounding <code class="kw" translate="no">b</code> and <code class="kw" translate="no">i</code> tags, see <a href="http://www.w3.org/International/questions/qa-b-and-i-tags">Using &lt;b&gt; and &lt;i&gt; elements</a>.</p>
 </section>
+</section>
+
+
+<section id="localizability" class="topic">
+<h2>Localizability</h2>
+<ul class="summary">
+  <li><a href="#loc_attributes">Defining elements and attributes</a></li>
+</ul>
+
+  <section id="loc_elements_attributes" class="subtopic"><h3>Defining elements and attributes</h3>
+<p class="bp" id="loc_attributes"><a class="self" href="#loc_attributes">&#x200B;</a>Do not define attribute values that will contain user readable content. Use elements for such content.  <a href="http://www.w3.org/TR/xml-i18n-bp/#DevAttributes">more</a></p>
+
+<p class="bp" id="loc_span"><a class="self" href="#loc_span">&#x200B;</a>Provide a way for authors to annotate arbitrary inline content using a <code class="kw" translate="no">span</code>-like element or construct.  <a href="http://www.w3.org/TR/xml-i18n-bp/#DevSpan">more</a></p>
+
+</section>
+
 </section>
 
 
