@@ -19,9 +19,10 @@ figure {
 	background-color: #feb; 
 	border-radius: 8px; 
 	border-radius: 4px; 
-	padding: 5px; 
+	padding: 10px; 
 	position: relative;  
-	margin-top: 30px; 
+	margin: 30px; 
+	margin-right: 60px; 
 	}
 .bp a {
 	font-style: italic;
