@@ -4,7 +4,7 @@
     <title>Internationalization Best Practices for Spec Developers (Strawman)</title>
     <meta charset='utf-8'/>
 	<link rel="stylesheet" href="local.css" type="text/css" />
-    <!--script src="dumpdata.js" type="application/ecmascript"></script-->
+    <script src="dumpdata.js" type="application/ecmascript"></script>
     <!-- 
       === NOTA BENE ===
       For the three scripts below, if your spec resides on dev.w3 you can check them
@@ -15,37 +15,15 @@
       var respecConfig = {
           // specification status (e.g. WD, LCWD, NOTE, etc.). If in doubt use ED.
           specStatus:           "ED",
-          noRecTrack: 			true, 
-          // the specification's short name, as in http://www.w3.org/TR/short-name/
+          //publishDate:  "2015-07-21",
+          //previousPublishDate:  "2014-12-16",
+          //previousMaturity:  "FPWD",
+
+
+          noRecTrack:           true,
           shortName:            "bp-i18n-specdev",
-
-          // if your specification has a subtitle that goes below the main
-          // formal title, define it here
-          // subtitle   :  "an excellent document",
-
-          // if you wish the publication date to be other than today, set this
-         // publishDate:  "2015-02-03",
-
-          // if the specification's copyright date is a range of years, specify
-          // the start date here:
-          // copyrightStart: "2005"
-
-          // if there is a previously published draft, uncomment this and set its YYYY-MM-DD date
-          // and its maturity status
-           //previousPublishDate:  "2014-08-24",
-           //previousMaturity:  "WD",
-
-          // if there a publicly available Editor's Draft, this is the link
-          edDraftURI:           "http://w3c.github.io/bp-i18n-specdev",
-
-          // if this is a LCWD, uncomment and set the end of its review period
-          // lcEnd: "2009-08-05",
-
-          // if you want to have extra CSS, append them to this list
-          // it is recommended that the respec.css stylesheet be kept
-          //extraCSS:             [
-		  //"http://dev.w3.org/2009/dap/ReSpec.js/css/respec.css",
-		  //"http://www.w3.org/International/docs/counter-styles/local.css"],
+          copyrightStart: 		"2014",
+          edDraftURI:   		"http://w3c.github.io/bp-i18n-specdev/",
 
           // editors, add as many as you like
           // only "name" is required
@@ -54,27 +32,24 @@
                 company: "W3C", companyURL: "" },
           ],
 
-          // authors, add as many as you like. 
-          // This is optional, uncomment if you have authors as well as editors.
-          // only "name" is required. Same format as editors.
 
-          //authors:  [
-           //   { name: "Ian Hickson", url: "",
-           //    company: "", companyURL: "" },
-           //  { name: "Tantek Çelı̇k", url: "",
-           //    company: "", companyURL: "" },
-           //  { name: "Tab Atkins", url: ""},
-          //],
-          
-          // name of the WG
           wg:           "Internationalization Working Group",
-          
-          // URI of the public WG page
           wgURI:        "http://www.w3.org/International/core/",
-          
-          // name (without the @w3c.org) of the public mailing to which comments are due
           wgPublicList: "www-international",
-          
+		  bugTracker: { new: "https://github.com/w3c/bp-i18n-specdev/issues", open: "https://github.com/w3c/bp-i18n-specdev/issues" } ,
+		otherLinks: [
+			{
+			key: "Github",
+			data: [
+				{
+			  	value: "repository",
+			  	href: "https://github.com/w3c/bp-i18n-specdev"
+		 		}
+				]
+			}
+			],
+
+
           // URI of the patent status for this WG, for Rec-track documents
           // !!!! IMPORTANT !!!!
           // This is important for Rec-track documents, do not copy a patent URI from a random
@@ -86,10 +61,18 @@
     </script>
   </head>
   <body>
-  <p id="sotd">This document provides advice to specification developers about how to incorporate requirements for international use. What is currently available here is expected to be useful immediately, but the document is in flux, and will grow over time as knowledge applied in reviews and discussions can be crystallized into guidelines.</p>
-    <p id='abstract'>The checklists in <a href="http://www.w3.org/International/techniques/developing-specs">Internationalization Techniques: 
+  <div id="sotd">
+  <p>This document provides advice to specification developers about how to incorporate requirements for international use. What is currently available here is expected to be useful immediately, but the document is in flux, and will grow over time as knowledge applied in reviews and discussions can be crystallized into guidelines.</p>
+    <div class="note">
+    <p data-lang="en" style="font-weight: bold; font-size: 120%">Sending comments on this document</p>
+  	<p data-lang="en">If you wish to make comments regarding this document, please raise them as <a href="https://github.com/w3c/bp-i18n-specdev/issues" style="font-size: 120%;">github issues</a><!-- against the <a href="http://www.w3.org/TR/2015/WD-ilreq-20150721/" style="font-size: 120%">latest dated version in /TR</a>-->. Only send comments by email if you are unable to raise issues on github (see links below).   All comments are welcome.</p>
+  	<p data-lang="en">To make it easier to track comments, please raise separate issues or emails for each comment, and point to the section you are commenting on using  a URL for the dated version of the document.</p>
+    </div>
+</div>
+  
+    <p id="abstract">The checklists in <a href="http://www.w3.org/International/techniques/developing-specs">Internationalization Techniques: 
 Developing specifications</a> provide advice to  developers about how to incorporate requirements for international use in their specifications. This document is a place to find explanations, examples and rationales that support the recommendations in the checklists. It is likely to be regularly updated and changed.</p>
-    
+
   <section id="intro">
     <h2>Introduction</h2>
       <p>Developers of specifications need advice  to ensure that what they produce will work for communities around the globe.</p>
@@ -775,13 +758,13 @@ Developing specifications</a> provide advice to  developers about how to incorpo
 </section>
 
 
-<section class='appendix'>
+<section class="appendix">
 <h2>Acknowledgements</h2>
 <p>tbd</p>
 </section>
 
-<!--button onClick="document.getElementById('dump').value = dumpData(); document.getElementById('dump').select();">Dump data</button>
-<textarea id="dump" style="width: 100%; height: 400px;"></textarea-->
+<button onClick="document.getElementById('dump').value = dumpData(); document.getElementById('dump').select();">Dump data</button>
+<textarea id="dump" style="width: 100%; height: 400px;"></textarea>
 
 </body>
 </html>
