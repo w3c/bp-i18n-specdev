@@ -81,7 +81,7 @@
       <p>The Internationalization (i18n) WG tries to assist working groups  by reviewing specifications and engaging in discussion. Often, however, such interventions come later in the process than would be ideal, or mean that the i18n WG has to repeat the same information for each working group it interacts with.</p>
       <p>It would be better if specification developers could access a checklist of best practices, which points  to explanations, examples and rationales where developers need it. Developers would then be able to build this knowledge into their work from the earliest stages, and could thereby reduce  rework needed when the i18n WG reviews their specification.</p>
       <p>This document contains the beginnings of a checklist, and points to locations where you can find explanations, examples and rationales for recommendations&nbsp;made.&nbsp; If there is no such other place, that extra information will be added to this document. It is still early days for this document, and it may also be used to develop ideas and organize them.</p>
-      <p>You may prefer to use <a href="http://www.w3.org/International/techniques/developing-specs-dynamic">Internationalization Techniques: Developing specifications</a> most of the time, since it uses JavasScript to  help you more quickly see what's available and drill down to the information you need. (Where needed, it links to this or other documents.) There is also a <a href="http://www.w3.org/International/techniques/developing-specs">non-dynamic version</a> of the document available.</p>
+      <p>You may prefer to use <a href="http://www.w3.org/International/techniques/developing-specs-dynamic">Internationalization Techniques: Developing specifications</a> most of the time, since it uses JavaScript to  help you more quickly see what's available and drill down to the information you need. (Where needed, it links to this or other documents.) There is also a <a href="http://www.w3.org/International/techniques/developing-specs">non-dynamic version</a> of the document available.</p>
       <!--p class="note">The number associated with a given best practice statement (the text in the yellow box) may change as the document changes. If you want to refer to a particular best practise statement in a time-persistent way, use the id associated with it.</p-->
   </section>
   <section id="characters" class="topic">
@@ -506,7 +506,7 @@
 
  <section id="lang_resource" class="subtopic">
     <h3>Establishing the language of a resource as a whole</h3>
-    <p>Here we are talking about a whole HTML page, an XML document, a Json file, a WebVTT script, etc. </p>
+    <p>Here we are talking about a whole HTML page, an XML document, a JSON file, a WebVTT script, etc. </p>
     <p class="bp" id="lang_whole_res"><a class="self" href="#lang_whole_res">&#x200B;</a>It must be possible to indicate the default text-processing language for the resource as a whole. <a class="local" href="http://w3c.github.io/bp-i18n-specdev/#lang_whole_res">more</a></p>
     <p>It saves trouble to identify the language, or at least the default language, of the resource as a whole in one place. For example, in an HTML file, this is done by setting the <code class="kw" translate="no">lang</code> attribute on the <code class="kw" translate="no">html</code> element.</p>
     <p>Content within the resource should inherit the language so set, unless it is specifically overridden.</p>
@@ -530,7 +530,7 @@
 
 <section id="lang_block" class="subtopic">
   <h3>Establishing the language of blocks, paragraphs, or similar chunks of content</h3>
-  <p>The word <dfn>block</dfn> is used here to refer to a structural component within the resource as a whole that groups content together and separates it from adjacent content such that the boundaries between one block and another are equivalent to paragraph or section boundaries in text. For example, this could refer to a block or paragraph in XML or HTML, an object declaration in Json, a cue in WebVTT, etc. Contrast this with <dfn>inline</dfn> content, which describes a range within a paragraph, sentence, etc.</p>
+  <p>The word <dfn>block</dfn> is used here to refer to a structural component within the resource as a whole that groups content together and separates it from adjacent content such that the boundaries between one block and another are equivalent to paragraph or section boundaries in text. For example, this could refer to a block or paragraph in XML or HTML, an object declaration in JSON, a cue in WebVTT, etc. Contrast this with <dfn>inline</dfn> content, which describes a range within a paragraph, sentence, etc.</p>
   <p class="bp" id="lang_block_inherit"><a class="self" href="#lang_block_inherit">&#x200B;</a>By default, blocks of content should inherit the text-processing language set for the resource as a whole.   <a class="local" href="http://w3c.github.io/bp-i18n-specdev/#lang_block_inherit">more</a></p>
   <p class="bp" id="lang_block_change"><a class="self" href="#lang_block_change">&#x200B;</a>It should be possible to indicate a change in language for blocks of content where the language changes. <a class="local" href="http://w3c.github.io/bp-i18n-specdev/#lang_block_change">more</a></p>
  
