@@ -31,8 +31,20 @@ figure {
 	display:none;
 	}
 
+.advisement { /*background-color:#ffffcc; border: 1px solid #ccc;*/ 
+	border-radius: 4px; 
+	position: relative;  
+	}
+.advisement a {
+	font-style: italic;
+	}
+.advisement a.local { 
+	display:none;
+	}
+
 body {
-	counter-reset: bp;                  		 /* Set the section counter to 0 */
+	counter-reset: advisement;                  		 /* Set the section counter to 0 */
+	/*counter-reset: bp;                  		  Set the section counter to 0 */
 	}
 a.self {
     position: absolute;
