@@ -56,7 +56,7 @@
           // document unless you know what you're doing. If in doubt ask your friendly neighbourhood
           // Team Contact.
           wgPatentURI:  "https://www.w3.org/2004/01/pp-impl/32113/status",
-		  maxTocLevel: 2,
+		  maxTocLevel: 3,
       };
     </script>
   </head>
@@ -93,14 +93,14 @@
 
 
 
-<section id="sec_resource" class="topic">
+<section id="resource" class="topic">
   <h2>Resources</h2>
 
 		<ul class="summary">
 					<li><a href="#lang_resource">Declaring language</a></li>
 					<li><a href="#lang_values">Defining language values</a></li>
 					<li><a href="#bidi_resource">Setting the default base direction</a></li>
-					<li><a href="resid-non_ascii">Defining resouce identifiers</a></li>
+					<li><a href="resid_non_ascii">Defining resouce identifiers</a></li>
   </ul>
 
 
@@ -117,7 +117,7 @@
     <p>When specifying the language for text-processing purposes you are declaring the language in which <strong>a specific range of text is actually written</strong>, so that user agents or applications that manipulate the text, such as voice browsers, spell checkers, or style processors, etc., can apply the appropriate rules to the text in question. So we are, by necessity, talking about associating a <em>single</em> language with a <em>specific</em> range of text.</p>
     <p class="advisement" id="tp_lang_values"><a class="self" href="#tp_lang_values">&#x200B;</a>A language declaration that indicates the text-processing language for a range of text must be associated with a single language  value. <a class="local" href="https://w3c.github.io/bp-i18n-specdev/#sec_text_processing_lang">more</a></p>
     <p>It is normal to express a text-processing language as the default language for processing the resource as a whole, but it may also be necessary to indicate where the language changes within the resource.</p>
-    <p class="advisement" id="lang_attribute_xml"><a class="self" href="#lang_attribute_xml">&#x200B;</a>Use the HTML <code class="kw" translate="no">lang</code> and XML <code class="kw" translate="no">xml:lang</code> language attributes where appropriate, rather than creating a new attribute or mechanism. <a class="local" href="https://www.w3.org/TR/international-specs/#lang_attribute_xml">more</a></p>
+    <p class="advisement" id="lang_attribute_xml"><a class="self" href="#lang_attribute_xml">&#x200B;</a>Use the HTML <code class="kw" translate="no">lang</code> and XML <code class="kw" translate="no">xml:lang</code> language attributes where appropriate, rather than creating a new attribute or mechanism. <a class="local" href="https://w3c.github.io/bp-i18n-specdev/#lang_attribute_xml">more</a></p>
     <p>For example, XML provides <code class="kw" translate="no">xml:lang</code> which can be used in all XML formats to identify the text-processing language for a range of text. It's useful to continue using that, since authors recognise it, as do XML processors.</p>
   </section>
   
@@ -127,18 +127,18 @@
     <p>This type of language declaration differs from that of the text-processing declaration in that (a)  the value for such declarations may be more than one  language subtag, and (b) the language value declared doesn't indicate which bits of a multilingual resource are in which language.</p>
     <p>The language(s) describing the intended use of a resource do not necessarily include every language used in a document. For example, many documents on the Web contain embedded fragments of content in different languages, whereas the page is clearly aimed at speakers of one particular language. For example, a German city-guide for Beijing may contain useful phrases in Chinese, but it is aimed at a German-speaking audience, not a Chinese one.</p>
     <p>On the other hand, it is also possible to imagine a situation where a document contains the same or parallel content in more than one language. For example, a web page may welcome Canadian readers with French content in the left column, and the same content in English in the right-hand column. Here the document is equally targeted at speakers of both languages, so there are two audience languages. Another use case is a blog or a news page aimed at a multilingual community, where some articles on a page are in one language and some in another. In this case, it may make sense to list more than one  language tag as the value of the language declaration.</p>
-    <p class="advisement" id="metadata_lang_values"><a class="self" href="#metadata_lang_values">&#x200B;</a>A metadata-type language declaration that indicates the intended use of the resource, rather than the language of a specific range of text, may be associated with multiple language  values.</p>
+    <p class="advisement" id="metadata_lang_values"><a class="self" href="#metadata_lang_values">&#x200B;</a>A metadata-type language declaration that indicates the intended use of the resource, rather than the language of a specific range of text, may be associated with multiple language  values. <a class="local" href="https://w3c.github.io/bp-i18n-specdev/#sec_lang_meta">more</a></p>
   </section>
   
   <section id="sec_lang_mixed">
     <h4>Declaring  language for the resource</h4>
-    <p class="advisement" id="lang_whole_res"><a class="self" href="#lang_whole_res">&#x200B;</a>The specification should indicate how to define the default text-processing language for the resource as a whole. <a class="local" href="https://www.w3.org/TR/international-specs/#lang_whole_res">more</a></p>
+    <p class="advisement" id="lang_whole_res"><a class="self" href="#lang_whole_res">&#x200B;</a>The specification should indicate how to define the default text-processing language for the resource as a whole. <a class="local" href="https://w3c.github.io/bp-i18n-specdev/#lang_whole_res">more</a></p>
     <p>It saves trouble to identify the language, or at least the default language, of the resource as a whole in one place. For example, in an HTML file, this is done by setting the <code class="kw" translate="no">lang</code> attribute on the <code class="kw" translate="no">html</code> element.</p>
-    <p class="advisement" id="lang_inherit"><a class="self" href="#lang_inherit">&#x200B;</a>Content within the resource should inherit the language of the text-processing declared at the resource level, unless it is specifically overridden. <a class="local" href="https://www.w3.org/TR/international-specs/#lang_tp_meta">more</a></p>
-    <p class="advisement" id="lang_tp_meta"><a class="self" href="#lang_tp_meta">&#x200B;</a>Consider whether it is necessary to have separate declarations to indicate the text-processing language versus metadata about the expected use of the resource. <a class="local" href="https://www.w3.org/TR/international-specs/#lang_tp_meta">more</a></p>
+    <p class="advisement" id="lang_inherit"><a class="self" href="#lang_inherit">&#x200B;</a>Content within the resource should inherit the language of the text-processing declared at the resource level, unless it is specifically overridden.</p>
+    <p class="advisement" id="lang_tp_meta"><a class="self" href="#lang_tp_meta">&#x200B;</a>Consider whether it is necessary to have separate declarations to indicate the text-processing language versus metadata about the expected use of the resource. <a class="local" href="https://w3c.github.io/bp-i18n-specdev/#lang_tp_meta">more</a></p>
     <p>In many cases a resource contains  text in only one language, and in many more cases the language declared as the default language for text-processing is the same as the language that describes the metadata about the resource as a whole. In such cases it makes sense to have a single declaration.</p>
     <p>It becomes problematic, however, to use a single declaration when it refers to more than one language unless there is a way to determine which one language should be used as the text-processing default.</p>
-    <p class="advisement" id="mixing_lang"><a class="self" href="#mixing_lang">&#x200B;</a>If there is only one language declaration for a resource, and it has more than one language tag as a value, it must be possible to identify the default text-processing language for the resource.</p>
+    <p class="advisement" id="lang_mixing"><a class="self" href="#lang_mixing">&#x200B;</a>If there is only one language declaration for a resource, and it has more than one language tag as a value, it must be possible to identify the default text-processing language for the resource. <a class="local" href="https://w3c.github.io/bp-i18n-specdev/#lang_tp_meta">more</a></p>
  </section>
   <section class="links">
       <h4>Links</h4>
@@ -146,7 +146,7 @@
         <h5>How to's</h5>
         <ul>
           <li class="w3">
-            <p class="link"><a href="https://www.w3.org/TR/international-specs/#lang_resource">Establishing the language of a resource as a whole</a></p>
+            <p class="link"><a href="https://w3c.github.io/bp-i18n-specdev/#lang_resource">Establishing the language of a resource as a whole</a></p>
             <p class="desc">In <a href="https://w3c.github.io/bp-i18n-specdev">Internationalization Best Practices for Spec Developers</a>.</p>
           </li>
           <li class="nonw3">
@@ -176,10 +176,10 @@
   <section id="sec_lang_values" class="subtopic">
     <h3>Defining language values</h3>
     
-      <p class="advisement" id="lang_use_bcp47"><a class="self" href="#lang_use_bcp47">&#x200B;</a>Values for language declarations must use BCP 47. <a class="local" href="https://www.w3.org/TR/international-specs/#lang_whole_res">more</a></p>
+      <p class="advisement" id="lang_use_bcp47"><a class="self" href="#lang_use_bcp47">&#x200B;</a>Values for language declarations must use BCP 47. <a class="local" href="https://w3c.github.io/bp-i18n-specdev/#sec_lang_values">more</a></p>
     <p>BCP 47 defines a method to combine subtags in order to create a much more powerful notation for language tags than that provided by the old ISO lists, but it is also backwards compatible with the ISO lists.</p>
     <p>For an overview of the key features of BCP 47, see <a href="https://www.w3.org/International/articles/language-tags/">Language tags in HTML and XML</a>.</p>
-    <p class="advisement" id="lang_bcp_not_rfc"><a class="self" href="#lang_bcp_not_rfc">&#x200B;</a>Refer to BCP 47, not to RFC 5646. <a class="local" href="https://www.w3.org/TR/international-specs/#lang_tp_meta">more</a></p>
+    <p class="advisement" id="lang_bcp_not_rfc"><a class="self" href="#lang_bcp_not_rfc">&#x200B;</a>Refer to BCP 47, not to RFC 5646. <a class="local" href="https://w3c.github.io/bp-i18n-specdev/#sec_lang_values">more</a></p>
     <p>The link to and name of BCP 47 was created specifically so that there is an unchanging reference to the definition of Tags for the Identification of Languages. RFCs 3066, 4646 and 5646 are versions of BCP 47.</p>
   
  
@@ -193,7 +193,7 @@
         <h5>How to's</h5>
         <ul>
           <li class="w3">
-            <p class="link"><a href="https://www.w3.org/TR/international-specs/#lang_resource">Establishing the language of a resource as a whole</a></p>
+            <p class="link"><a href="https://w3c.github.io/bp-i18n-specdev/#lang_resource">Establishing the language of a resource as a whole</a></p>
             <p class="desc">In <a href="https://w3c.github.io/bp-i18n-specdev">Internationalization Best Practices for Spec Developers</a>.</p>
           </li>
           <li class="nonw3">
@@ -242,14 +242,14 @@
 <p>פעילות הבינאום, W3C</p>
         </aside>
 
-    <p class="advisement" id="bidi_whole_res"><a class="self" href="#bidi_whole_res">&#x200B;</a>The spec should  indicate how to define a default direction for the resource as a whole, ie. set the overall base direction. </p>
-    <p class="advisement" id="bidi_res_default"><a class="self" href="#bidi_res_default">&#x200B;</a>The  default text direction, in the absence of other information, should be LTR. </p>
+    <p class="advisement" id="bidi_whole_res"><a class="self" href="#bidi_whole_res">&#x200B;</a>The spec should  indicate how to define a default base direction for the resource as a whole, ie. set the overall base direction. <a class="local" href="https://w3c.github.io/bp-i18n-specdev/#sec_bidi_resource">more</a></p>
+    <p class="advisement" id="bidi_res_default"><a class="self" href="#bidi_res_default">&#x200B;</a>The  default base direction, in the absence of other information, should be LTR. <a class="local" href="https://w3c.github.io/bp-i18n-specdev/#sec_bidi_resource">more</a></p>
     
-    <section id="sec_bidi_lang">
+    <section id="sec_bidi_values">
     <h4>Base direction values</h4>
-    <p class="advisement" id="bidi_values"><a class="self" href="#bidi_res_default">&#x200B;</a>Values for the default base direction should include left-to-right, right-to-left, and auto.</p>
+    <p class="advisement" id="bidi_values"><a class="self" href="#bidi_values">&#x200B;</a>Values for the default base direction should include left-to-right, right-to-left, and auto. <a class="local" href="https://w3c.github.io/bp-i18n-specdev/#bidi_values">more</a></p>
     <p>The <code class="kw" translate="no">auto</code> value allows automatic detection of the base direction for a piece of text. For example, the <code class="kw" translate="no">auto</code> value of <code class="kw" translate="no">dir</code> in HTML looks for the first strong directional character in the text, but ignores certain items of markup also, to guess the base direction of the text. Note that automatic detection algorithms are far from perfect. First-strong detection is unable to correctly identify text that is really right-to-left, but that begins with a strong LTR character. Algorithms that attempt to judge the base direction based on contents of the text are also problematic. The best scenario is one where the base direction is known and declared.</p>
-    <p class="advisement" id="bidi_lang"><a class="self" href="#bidi_lang">&#x200B;</a>Do not assume that direction can be determined from language information.</p>
+    <p class="advisement" id="bidi_lang"><a class="self" href="#bidi_lang">&#x200B;</a>Do not assume that direction can be determined from language information. <a class="local" href="https://w3c.github.io/bp-i18n-specdev/#bidi_lang">more</a></p>
     <p>The following are all reasons you cannot use language tags to provide information about base direction:</p>
     <ol>
     <li>you can't produce the <code class="kw" translate="no">auto</code> value with language tags.</li>
@@ -275,10 +275,10 @@
   </section>
   
 
-  <section id="sec_resid-non_ascii" class="subtopic">
+  <section id="sec_resid_non_ascii" class="subtopic">
     <h3>Defining resource identifiers</h3>
-<p class="advisement" id="resid-use_iris"><a href="#resid-use_iris">&#x200B;</a>Resource identifiers must permit the use of characters outside those of plain ASCII. <a href="https://github.com/w3c/web-annotation/issues/241">more</a></p>
-<p class="advisement" id="resid-iri_conversion"><a class="self" href="#resid-use_iris">&#x200B;</a> Specifications MUST define when the conversion from IRI references to URI references (or subsets thereof) takes place, in accordance with Internationalized Resource Identifiers (IRIs).</p>
+<p class="advisement" id="resid_use_iris"><a href="#resid_use_iris">&#x200B;</a>Resource identifiers must permit the use of characters outside those of plain ASCII. <a href="https://github.com/w3c/web-annotation/issues/241">discussion</a></p>
+<p class="advisement" id="resid_iri_conversion"><a class="self" href="#resid_iri_conversion">&#x200B;</a> Specifications MUST define when the conversion from IRI references to URI references (or subsets thereof) takes place, in accordance with Internationalized Resource Identifiers (IRIs). <a class="local" href="https://w3c.github.io/bp-i18n-specdev/#resid_iri_conversion">more</a></p>
 <p>Many current specifications already contain provisions in accordance with Internationalized Resource Identifiers (IRIs). For XML 1.0, see Section 4.2.2, External Entities. XML Schema Part 2: Datatypes provides the anyURI datatype (see Section 3.2.17). The XML Linking Language (XLink)  provides the href attribute (see Section 5.4, Locator Attribute).</p>
 <p>Document formats should allow IRIs to be used; handlers for protocols that do not currently support IRIs can convert the IRI to a URI when the IRI is dereferenced.</p>
 <section class="links">
@@ -313,8 +313,8 @@
     <p>The word <dfn>block</dfn> is used here to refer to a structural component within the resource as a whole that groups content together and separates it from adjacent content such that the boundaries between one block and another are equivalent to paragraph or section boundaries in text. For example, this could refer to a block or paragraph in XML or HTML, an object declaration in Json, a cue in WebVTT, etc. Contrast this with <dfn>inline</dfn> content, which describes a range within a paragraph, sentence, etc.</p>
     <section id="lang_block" class="subtopic">
   <h3>Establishing the language</h3>
-  <p class="advisement" id="lang_block_inherit"><a class="self" href="#lang_block_inherit">&#x200B;</a>By default, blocks of content should inherit the text-processing language set for the resource as a whole.   <a class="local" href="https://www.w3.org/TR/international-specs/#lang_block_inherit">more</a></p>
-  <p class="advisement" id="lang_block_change"><a class="self" href="#lang_block_change">&#x200B;</a>It should be possible to indicate a change in language for blocks of content where the language changes. <a class="local" href="https://www.w3.org/TR/international-specs/#lang_block_change">more</a></p>
+  <p class="advisement" id="lang_block_inherit"><a class="self" href="#lang_block_inherit">&#x200B;</a>By default, blocks of content should inherit the text-processing language set for the resource as a whole.   <a class="local" href="https://w3c.github.io/bp-i18n-specdev/#lang_block_inherit">more</a></p>
+  <p class="advisement" id="lang_block_change"><a class="self" href="#lang_block_change">&#x200B;</a>It should be possible to indicate a change in language for blocks of content where the language changes. <a class="local" href="https://w3c.github.io/bp-i18n-specdev/#lang_block_change">more</a></p>
  
      <section class="links">
       <h4>Links</h4>
@@ -322,7 +322,7 @@
         <h5>How to's</h5>
         <ul>
           <li class="w3">
-            <p class="link"><a href="https://www.w3.org/TR/international-specs/#lang_block">Establishing the language of blocks, paragraphs, or similar chunks of content</a></p>
+            <p class="link"><a href="https://w3c.github.io/bp-i18n-specdev/#lang_block">Establishing the language of blocks, paragraphs, or similar chunks of content</a></p>
             <p class="desc">In <a href="https://w3c.github.io/bp-i18n-specdev">Internationalization Best Practices for Spec Developers</a>.</p>
           </li>
         </ul>
@@ -335,7 +335,7 @@
   <h3>Establishing the base direction</h3>
   <p class="advisement" id="bidi_block_change"><a class="self" href="#bidi_block_change">&#x200B;</a>The content author must be able to indicate parts of the text where the base direction changes. This should be achieved using attributes or metadata at a block level, and not rely on Unicode control characters. </p>
   <p class="advisement" id="bidi_block_auto"><a class="self" href="#bidi_block_auto">&#x200B;</a>It must be possible to also set the direction for content fragments to auto. This means that the base direction will be determined by examining the content itself.</p>
-  <p class="advisement" id="bidi_block_auto_receiver"><a class="self" href="#bidi_block_auto_receiver">&#x200B;</a>A typical approach here would be to set the direction based on the first strong directional character outside of any markup, but this is not the only possible method. The algorithm used to determine directionality when direction is set to auto should match that expected by the receiver. <a class="local" href="https://www.w3.org/TR/international-specs/#bidi_block_auto">more</a></p>
+  <p class="advisement" id="bidi_block_auto_receiver"><a class="self" href="#bidi_block_auto_receiver">&#x200B;</a>A typical approach here would be to set the direction based on the first strong directional character outside of any markup, but this is not the only possible method. The algorithm used to determine directionality when direction is set to auto should match that expected by the receiver. <a class="local" href="https://w3c.github.io/bp-i18n-specdev/#bidi_block_auto">more</a></p>
   <p>The first-strong algorithm looks for the first character in the paragraph with a strong directional property according to the Unicode definitions. It then sets the base direction of the paragraph according to the direction of that character.</p>
   <p>Note that the first-strong algorithm may incorrectly&nbsp;guess the direction of the paragraph when the first character is not typical of the rest of the paragraph, such as when a RTL paragraph or line starts with a LTR brand name or technical term.</p>
   <p>For additional information about algorithms for detecting direction, see <a href="https://www.w3.org/TR/html-bidi/#auto-direction-algorithms">Estimation algorithms</a> in the document where this was discussed with reference to HTML.</p>
@@ -362,7 +362,7 @@
   <p>Here we refer to information that needs to be provided for a range of characters in the middle of a paragraph or string.</p>
   <section id="lang_inline" class="subtopic">
   <h3>Establishing the language</h3>
-  <p class="advisement" id="lang_inline_spans"><a class="self" href="#lang_inline_spans">&#x200B;</a>It should be possible to indicate language for spans of inline text where the language changes. <a class="local" href="https://www.w3.org/TR/international-specs/#lang_inline_spans">more</a></p>
+  <p class="advisement" id="lang_inline_spans"><a class="self" href="#lang_inline_spans">&#x200B;</a>It should be possible to indicate language for spans of inline text where the language changes. <a class="local" href="https://w3c.github.io/bp-i18n-specdev/#lang_inline_spans">more</a></p>
   <p>Where a switch in language can affect operations on the content, such as spell-checking, rendering, styling, voice production, translation, information retrieval, and so forth, it is necessary to indicate the range of text affected and identify the language of that content.</p>
  
      <section class="links">
@@ -371,7 +371,7 @@
         <h5>How to's</h5>
         <ul>
           <li class="w3">
-            <p class="link"><a href="https://www.w3.org/TR/international-specs/#lang_inline">Establishing the language of inline content spans</a></p>
+            <p class="link"><a href="https://w3c.github.io/bp-i18n-specdev/#lang_inline">Establishing the language of inline content spans</a></p>
             <p class="desc">In <a href="https://w3c.github.io/bp-i18n-specdev">Internationalization Best Practices for Spec Developers</a>.</p>
           </li>
         </ul>
@@ -383,12 +383,12 @@
 <section id="bidi_inline" class="subtopic">
   <h3>Setting base direction</h3>
   <p class="advisement" id="bidi_inline_change"><a class="self" href="#bidi_inline_change">&#x200B;</a>It must be possible to indicate spans of inline text where the base direction changes. If markup is available, this is the preferred method. Otherwise your specification must require that Unicode control characters are recognized by the receiving application, and correctly implemented.</p>
-  <p class="advisement" id="bidi_inline_auto"><a class="self" href="#bidi_inline_auto">&#x200B;</a>It must be possible to also set the direction for a span to auto. This means that the base direction will be determined by examining the content itself. A typical approach here would be to set the direction based on the first strong directional character outside of any markup. <a class="local" href="https://www.w3.org/TR/international-specs/#bidi_inline_auto">more</a></p>
+  <p class="advisement" id="bidi_inline_auto"><a class="self" href="#bidi_inline_auto">&#x200B;</a>It must be possible to also set the direction for a span to auto. This means that the base direction will be determined by examining the content itself. A typical approach here would be to set the direction based on the first strong directional character outside of any markup. <a class="local" href="https://w3c.github.io/bp-i18n-specdev/#bidi_inline_auto">more</a></p>
   <p>The first-strong algorithm looks for the first character in the paragraph with a strong directional property according to the Unicode definitions. It then sets the base direction of the paragraph according to the direction of that character.</p>
   <p>Note that the first-strong algorithm may incorrectly&nbsp;guess the direction of the paragraph when the first character is not typical of the rest of the paragraph, such as when a RTL paragraph or line starts with a LTR brand name or technical term.</p>
   <p>For additional information about algorithms for detecting direction, see <a href="https://www.w3.org/TR/html-bidi/#auto-direction-algorithms">Estimation algorithms</a> in the document where this was discussed with reference to HTML.</p>
   <p class="advisement" id="bidi_inline_rli"><a class="self" href="#bidi_inline_rli">&#x200B;</a>If users use Unicode bidirectional control characters, the RLI/LRI/FSI with PDI characters must be supported by the application and recommended (rather than RLE/LRE with PDF) by the spec.</p>
-  <p class="advisement" id="bidi_inline_rlm"><a class="self" href="#bidi_inline_rlm">&#x200B;</a>Use of RLM/LRM should be appropriate, and expectations of what those controls can and cannot do should be clear in the spec. <a class="local" href="https://www.w3.org/TR/international-specs/#bidi_inline_rlm">more</a></p>
+  <p class="advisement" id="bidi_inline_rlm"><a class="self" href="#bidi_inline_rlm">&#x200B;</a>Use of RLM/LRM should be appropriate, and expectations of what those controls can and cannot do should be clear in the spec. <a class="local" href="https://w3c.github.io/bp-i18n-specdev/#bidi_inline_rlm">more</a></p>
   <p>The Unicode bidirectional control characters <span class="uname">U+200F RIGHT-TO-LEFT MARK</span> and <span class="uname">U+200E LEFT-TO-RIGHT MARK</span> are not sufficient on their own to manage bidirectional text. They cannot produce a different base direction for embedded text. For that you need to be able to indicate the start and end of the range of the embedded text.&nbsp; This is best done by markup, if available, or failing that using the other Unicode bidirectional controls mentioned just above.</p><p class="advisement" id="bidi_inline_dedicated_attr"><a class="self" href="#bidi_inline_dedicated_attr">&#x200B;</a>Provide dedicated attributes for control of base direction and bidirectional overrides; do not rely on the user applying style properties to arbitrary markup to achieve bidi control.</p>
   <p class="advisement" id="bidi_inline_all_elems"><a class="self" href="#bidi_inline_all_elems">&#x200B;</a>Allow bidi attributes on all inline elements in markup that contain text.</p>
   <p class="advisement" id="bidi_inline_embed"><a class="self" href="#bidi_inline_embed">&#x200B;</a>Provide attributes that allow the user to (a) create an embedded base direction or (b) override the bidirectional algorithm altogether; the attribute should allow the user to set the direction to LTR or RTL in either of these two scenarios.</p>
@@ -594,7 +594,7 @@
   
   <section id="char_escapes" class="subtopic">
     <h3>Designing character escapes</h3>
-    <p class="advisement" id="char_escaping"><a class="self" href="#char_escaping">&#x200B;</a>Specifications should provide a mechanism for escaping characters, particularly those which are invisible or ambiguous. <a href="https://www.w3.org/TR/international-specs/#char_heuristics">more</a></p>
+    <p class="advisement" id="char_escaping"><a class="self" href="#char_escaping">&#x200B;</a>Specifications should provide a mechanism for escaping characters, particularly those which are invisible or ambiguous. <a href="https://w3c.github.io/bp-i18n-specdev/#char_heuristics">more</a></p>
       <p>It is generally recommended that character escapes be provided so that difficult to enter or edit sequences can be introduced using a plain text editor. Escape sequences are particularly useful for invisible or ambiguous Unicode characters, including zero-width spaces, soft-hyphens, various bidi controls, mongolian vowel separators, etc. </p>
       <p>For advice on use of escapes in markup, but which is mostly generalisable to other formats, see <a href="https://www.w3.org/International/questions/qa-escapes">Using character escapes in markup and CSS</a>.</p>
     <p class="advisement" id="char_esc_new"><a class="self" href="#char_esc_new">&#x200B;</a>Specifications SHOULD NOT invent a new escaping mechanism if an appropriate one already exists. <a href="https://www.w3.org/TR/charmod/#C042">more</a></p>
@@ -824,7 +824,7 @@
 
   <section id="box_posn" class="subtopic">
     <h3>Setting box positioning coordinates when text direction varies</h3>
-    <p class="advisement" id="vertical_box_posn"><a class="self" href="#vertical_box_posn">&#x200B;</a>Box positioning coordinates must take into account whether the text is horizontal or vertical. <a class="local" href="https://www.w3.org/TR/international-specs/#vertical_box_posn">more</a></p>
+    <p class="advisement" id="vertical_box_posn"><a class="self" href="#vertical_box_posn">&#x200B;</a>Box positioning coordinates must take into account whether the text is horizontal or vertical. <a class="local" href="https://w3c.github.io/bp-i18n-specdev/#vertical_box_posn">more</a></p>
     <p>It is typical, when localizing a user interface or web page, to create mirror-images for the RTL and LTR versions. For example, it is likely that a box that appears near the left side of a window containing English content would appear near the right side of the window if the content is Arabic or Hebrew. It should preferably automatic for this to change, based on the base direction of the current context, unless there is a strong reason for using absolute geometry. One way to achieve this is to use keywords such as <code class="kw" translate="no">start</code> and <code class="kw" translate="no">end</code>, rather than <code class="kw" translate="no">left</code> and <code class="kw" translate="no">right</code>, to indicate position.</p>
   </section>
 
@@ -835,7 +835,7 @@
 <p class="advisement" id="type_line_height"><a class="self" href="#type_line_height">&#x200B;</a>Line heights must allow for characters that are taller than English.</p>
 <p class="advisement" id="type_box_size"><a class="self" href="#type_box_size">&#x200B;</a>Box sizes must allow for text expansion in translation.</p>
 <p class="advisement" id="type_ruby"><a class="self" href="#type_ruby">&#x200B;</a>Ruby text alongside base text should be supported for CJK text.</p>
-<p class="advisement" id="type_linebreak"><a class="self" href="#type_linebreak">&#x200B;</a>Line wrapping should take into account the special rules needed for non-Latin scripts. <a class="local" href="https://www.w3.org/TR/international-specs/#type_linebreak">more</a></p>
+<p class="advisement" id="type_linebreak"><a class="self" href="#type_linebreak">&#x200B;</a>Line wrapping should take into account the special rules needed for non-Latin scripts. <a class="local" href="https://w3c.github.io/bp-i18n-specdev/#type_linebreak">more</a></p>
 <p>Various non-Latin writing systems don't simply wrap text on inter-word spaces. They have additional rules that must be respected. For example</p>
 <ul>
 <li>Chinese, Japanese and Korean wrap after characters, but don't put certain characters at the start/end of a line.</li>
@@ -844,7 +844,7 @@
 <li>Indic and other complex scripts break at orthographic syllable boundaries, which are often two or more grapheme clusters.</li>
 </ul>
 <p>See the <a href="https://www.w3.org/TR/css3-text/#line-breaking">CSS Text Level 3 specification</a> for additional background. (<a href="https://r12a.github.io/scripts/tutorial/part5">This tutorial</a> provides additional examples, if needed.)</p>
-<p class="advisement" id="type_presentational_tags"><a class="self" href="#type_presentational_tags">&#x200B;</a>Avoid specifying presentational tags, such as <code class="kw" translate="no">b</code> for bold, and <code class="kw" translate="no">i</code> for italic. <a class="local" href="https://www.w3.org/TR/international-specs/#type_presentational_tags">more</a></p>
+<p class="advisement" id="type_presentational_tags"><a class="self" href="#type_presentational_tags">&#x200B;</a>Avoid specifying presentational tags, such as <code class="kw" translate="no">b</code> for bold, and <code class="kw" translate="no">i</code> for italic. <a class="local" href="https://w3c.github.io/bp-i18n-specdev/#type_presentational_tags">more</a></p>
 <p> It is best to avoid presentational markup <code class="kw" translate="no">b</code>, <code class="kw" translate="no">i</code> or <code class="kw" translate="no">u</code>, since it isn't interoperable across writing systems and furthermore may cause unnecessary problems for localisation. In addition, some scripts have native approaches to things such as emphasis, that do not involve, and can be very different from, bolding, italicisation, etc.</p>
 <p>In the HTML case, there was a legacy issue, but unless there is one for your specification, the recommendation is that styling be used instead to determine the presentation of the text, and that any markup or tagging should allow for general semantic approaches.</p>
 <p>For an explanation of the issues surrounding <code class="kw" translate="no">b</code> and <code class="kw" translate="no">i</code> tags, see <a href="https://www.w3.org/International/questions/qa-b-and-i-tags">Using &lt;b&gt; and &lt;i&gt; elements</a>.</p>
@@ -865,13 +865,13 @@
 <p class="advisement" id="loc_time_utc"><a class="self" href="#loc_time_utc">&#x200B;</a>When defining time or date data types, ensure that the time zone or relationship to UTC is always defined.</p>
 
 <p class="advisement" id="loc_time_floating"><a class="self" href="#loc_time_floating">&#x200B;</a>Provide a health warning for conversion of time or date data types that are "floating" to/from incremental types, referring as necessary to the <a href="https://www.w3.org/TR/timezone/"><cite>Time Zones</cite> WG Note</a>.  <a href="https://www.w3.org/TR/timezone/">more</a></p>
-<p class="advisement" id="loc_time_leapsec"><a class="self" href="#loc_time_leapsec">&#x200B;</a>Allow for leap seconds in date and time data types.  <a href="https://www.w3.org/TR/international-specs/#loc_time_leapsec">more</a></p>
+<p class="advisement" id="loc_time_leapsec"><a class="self" href="#loc_time_leapsec">&#x200B;</a>Allow for leap seconds in date and time data types.  <a href="https://w3c.github.io/bp-i18n-specdev/#loc_time_leapsec">more</a></p>
 <p>These occur occasionally when the number of seconds in a minute is allowed to range from 0 to 60 (ie. there are sixty-ONE seconds in that minute).</p>
 <p class="advisement" id="loc_time_consistency"><a class="self" href="#loc_time_consistency">&#x200B;</a>Use consistent terminology when discussing date and time values. Use 'floating' time for time zone independent values.</p>
 <p class="advisement" id="loc_time_zone_offset"><a class="self" href="#loc_time_zone_offset">&#x200B;</a>Keep separate the definition of time zone from time zone offset.</p>
 <p class="advisement" id="loc_time_zone_ids"><a class="self" href="#loc_time_zone_ids">&#x200B;</a>Use IANA time zone IDs to identify time zones. Do not use offsets or LTO as a proxy for time zone.</p>
 <p class="advisement" id="loc_time_zone_field"><a class="self" href="#loc_time_zone_field">&#x200B;</a>Use a separate field to identify time zone.</p>
-<p class="advisement" id="loc_time_week"><a class="self" href="#loc_time_week">&#x200B;</a>When defining rules for a "week", allow for culturally specific rules to be applied.  <a href="https://www.w3.org/TR/international-specs/#loc_time_week">more</a></p>
+<p class="advisement" id="loc_time_week"><a class="self" href="#loc_time_week">&#x200B;</a>When defining rules for a "week", allow for culturally specific rules to be applied.  <a href="https://w3c.github.io/bp-i18n-specdev/#loc_time_week">more</a></p>
 <p>For example, the weekend is not always Saturday/Sunday; the first day of week is not always Sunday [or Monday or...], etc.</p>
 <p class="advisement" id="loc_time_week_number"><a class="self" href="#loc_time_week_number">&#x200B;</a>When defining rules for week number of year, allow for culturally specific rules to be applied.</p>
 <p class="advisement" id="loc_time_13"><a class="self" href="#loc_time_13">&#x200B;</a>When non-Gregorian calendars are permitted, note that the "month" field can go to 13 (undecimber).</p>
@@ -925,7 +925,7 @@
         <h5>How to's</h5>
         <ul>
           <li class="w3">
-            <p class="link"><a href="https://www.w3.org/TR/international-specs/#lang_negotiation">Providing for  content negotiation based on language</a></p>
+            <p class="link"><a href="https://w3c.github.io/bp-i18n-specdev/#lang_negotiation">Providing for  content negotiation based on language</a></p>
             <p class="desc">In <a href="https://w3c.github.io/bp-i18n-specdev">Internationalization Best Practices for Spec Developers</a>.</p>
           </li>
         </ul>
@@ -944,7 +944,7 @@
   <section id="plain_misc" class="subtopic">
     <h3>Miscellaneous</h3>
 <p class="advisement" id="plain_avoid"><a class="self" href="#plain_avoid">&#x200B;</a>Avoid natural language text in elements that only allow for plain text and in attribute values.</p>
-<p class="advisement" id="plain_span"><a class="self" href="#plain_span">&#x200B;</a>Provide a span-like element that can be used for any text content to apply information needed for internationalization. <a class="local" href="https://www.w3.org/TR/international-specs/#plain_span">more</a></p>
+<p class="advisement" id="plain_span"><a class="self" href="#plain_span">&#x200B;</a>Provide a span-like element that can be used for any text content to apply information needed for internationalization. <a class="local" href="https://w3c.github.io/bp-i18n-specdev/#plain_span">more</a></p>
 <p>Internationalization information may include a change of language, bidirectional text behaviour changes, translate flags, etc.</p>
 </section>
 </section>
