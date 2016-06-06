@@ -3,7 +3,6 @@
   <head>
     <title>Internationalization Best Practices for Spec Developers</title>
     <meta charset="utf-8"/>
-<link href="https://www.w3.org/StyleSheets/TR/2016/W3C-ED" rel="stylesheet">
 	<link rel="stylesheet" href="local.css" type="text/css" />
     <script src="devt/dumpdata.js" type="application/ecmascript"></script>
     <!-- 
@@ -11,7 +10,7 @@
       For the three scripts below, if your spec resides on dev.w3 you can check them
       out in the same tree and use relative links so that they'll work offline,
      -->
-    <script src="http://www.w3.org/Tools/respec/respec-w3c-common" class="remove"></script>
+    <script src="https://www.w3.org/Tools/respec/respec-w3c-common" class="remove"></script>
     <script class="remove">
       var respecConfig = {
           // specification status (e.g. WD, LCWD, NOTE, etc.). If in doubt use ED.
@@ -81,7 +80,7 @@
       <p>The Internationalization (i18n) WG tries to assist working groups  by reviewing specifications and engaging in discussion. Often, however, such interventions come later in the process than would be ideal, or mean that the i18n WG has to repeat the same information for each working group it interacts with.</p>
       <p>It would be better if specification developers could access a checklist of best practices, which points  to explanations, examples and rationales where developers need it. Developers would then be able to build this knowledge into their work from the earliest stages, and could thereby reduce  rework needed when the i18n WG reviews their specification.</p>
       <p>This document contains the beginnings of a checklist, and points to locations where you can find explanations, examples and rationales for recommendations&nbsp;made.&nbsp; If there is no such other place, that extra information will be added to this document. It is still early days for this document, and it may also be used to develop ideas and organize them.</p>
-      <p>You may prefer to use <a href="https://www.w3.org/International/techniques/developing-specs-dynamic">Internationalization Techniques: Developing specifications</a> most of the time, since it uses JavasScript to  help you more quickly see what's available and drill down to the information you need. (Where needed, it links to this or other documents.) There is also a <a href="https://www.w3.org/International/techniques/developing-specs">non-dynamic version</a> of the document available.</p>
+      <p>You may prefer to use <a href="https://www.w3.org/International/techniques/developing-specs?collapse">Internationalization Techniques: Developing specifications</a> most of the time, since it uses JavasScript to  help you more quickly see what's available and drill down to the information you need. (Where needed, it links to this or other documents.) There is also a <a href="https://www.w3.org/International/techniques/developing-specs">non-dynamic version</a> of the document available.</p>
       <!--p class="note">The number associated with a given best practice statement (the text in the yellow box) may change as the document changes. If you want to refer to a particular best practise statement in a time-persistent way, use the id associated with it.</p-->
 
 
@@ -94,7 +93,7 @@
 
 
 
-<section id="resource" class="topic">
+<section id="sec_resource" class="topic">
   <h2>Resources</h2>
 
 		<ul class="summary">
@@ -107,18 +106,18 @@
 
   <p>Here we are talking about an independent unit of data. Examples include a whole HTML page, an XML document, a Json file, a WebVTT script, an annotation, etc.</p>
   
-  <section id="sec_lang_types" class="subtopic">
+  <section id="sec_lang_decl" class="subtopic">
   <h3>Declaring language</h3>
   
   <p>Language information for a given resource can be used with two main objectives in mind: for text-processing, or as a statement of the intended use of the resource. We will explain the difference here.</p>
   
-  <section id="text_processing_lang">
+  <section id="sec_text_processing_lang">
     <h4>Text-processing language information</h4>
     <p>The <dfn>text-processing language</dfn> is the language that is relevant for processing the content when it comes to spell-checking, styling, voice production, etc. For such operations, only one language should be identified at a time for a given range of content.</p>
     <p>When specifying the language for text-processing purposes you are declaring the language in which <strong>a specific range of text is actually written</strong>, so that user agents or applications that manipulate the text, such as voice browsers, spell checkers, or style processors, etc., can apply the appropriate rules to the text in question. So we are, by necessity, talking about associating a <em>single</em> language with a <em>specific</em> range of text.</p>
-    <p class="advisement" id="tp_lang_values"><a class="self" href="#tp_lang_values">&#x200B;</a>A language declaration that indicates the text-processing language for a range of text must be associated with a single language  value.</p>
+    <p class="advisement" id="tp_lang_values"><a class="self" href="#tp_lang_values">&#x200B;</a>A language declaration that indicates the text-processing language for a range of text must be associated with a single language  value. <a class="local" href="https://w3c.github.io/bp-i18n-specdev/#sec_text_processing_lang">more</a></p>
     <p>It is normal to express a text-processing language as the default language for processing the resource as a whole, but it may also be necessary to indicate where the language changes within the resource.</p>
-    <p class="advisement" id="lang_attribute_xml"><a class="self" href="#lang_attribute_xml">&#x200B;</a>Use the HTML <code class="kw" translate="no">lang</code> and XML <code class="kw" translate="no">xml:lang</code> language attributes where appropriate, rather than creating a new attribute or mechanism.<a class="local" href="https://www.w3.org/TR/international-specs/#lang_attribute_xml">more</a></p>
+    <p class="advisement" id="lang_attribute_xml"><a class="self" href="#lang_attribute_xml">&#x200B;</a>Use the HTML <code class="kw" translate="no">lang</code> and XML <code class="kw" translate="no">xml:lang</code> language attributes where appropriate, rather than creating a new attribute or mechanism. <a class="local" href="https://www.w3.org/TR/international-specs/#lang_attribute_xml">more</a></p>
     <p>For example, XML provides <code class="kw" translate="no">xml:lang</code> which can be used in all XML formats to identify the text-processing language for a range of text. It's useful to continue using that, since authors recognise it, as do XML processors.</p>
   </section>
   
