@@ -269,7 +269,7 @@
             <p class="link"><a href="https://w3c.github.io/bp-i18n-specdev/#sec_bidi_resource">Setting the default base direction</a></p>
             <p class="desc">In <a href="https://w3c.github.io/bp-i18n-specdev">Internationalization Best Practices for Spec Developers</a>.</p>
           </li>
-          <li class="w3">
+          <li class="nonw3">
             <p class="link"><a href="http://unicode.org/reports/tr9/">Unicode Bidirectional Algorithm</a></p>
             <p class="desc">In Unicode® Standard Annex #9. Specifies the detail of how the bidirectional algorithm works.</p>
           </li>
@@ -324,10 +324,13 @@
 
 
 
-    <p>The word <dfn>block</dfn> is used here to refer to a structural component within the resource as a whole that groups content together and separates it from adjacent content such that the boundaries between one block and another are equivalent to paragraph or section boundaries in text. For example, this could refer to a block or paragraph in XML or HTML, an object declaration in Json, a cue in WebVTT, etc. Contrast this with <dfn>inline</dfn> content, which describes a range within a paragraph, sentence, etc.</p>
+    <p>The words <dfn>block</dfn> and/or <dfn>chunk</dfn> are used here to refer to a structural component within the resource as a whole that groups content together and separates it from adjacent content. Boundaries between one block and another are equivalent to paragraph or section boundaries in text, or discrete data items inside a file. </p>
+    <p>For example, this could refer to a block or paragraph in XML or HTML, an object declaration in Json, a cue in WebVTT, a line in a CSV file, etc. Contrast this with <dfn>inline</dfn> content, which describes a range within a paragraph, sentence, etc.</p>
+    <p>The interpretation of which structures defined in a spec are relevant to these requirements may require a little consideration, and will depend on the format of the data involved.</p>
     <section id="lang_block" class="subtopic">
   <h3>Establishing the language</h3>
   <p class="advisement" id="lang_block_inherit"><a class="self" href="#lang_block_inherit">&#x200B;</a>By default, blocks of content should inherit the text-processing language set for the resource as a whole.   <a class="local" href="https://w3c.github.io/bp-i18n-specdev/#lang_block_inherit">more</a></p>
+  <p>See <a href="#sec_lang_decl"></a> for guidance related to the default text-processing language information.</p>
   <p class="advisement" id="lang_block_change"><a class="self" href="#lang_block_change">&#x200B;</a>It should be possible to indicate a change in language for blocks of content where the language changes. <a class="local" href="https://w3c.github.io/bp-i18n-specdev/#lang_block_change">more</a></p>
  
      <section class="links">
@@ -336,7 +339,7 @@
         <h5>How to's</h5>
         <ul>
           <li class="w3">
-            <p class="link"><a href="https://w3c.github.io/bp-i18n-specdev/#lang_block">Establishing the language of blocks, paragraphs, or similar chunks of content</a></p>
+            <p class="link"><a href="https://w3c.github.io/bp-i18n-specdev/#lang_block">Establishing the language </a></p>
             <p class="desc">In <a href="https://w3c.github.io/bp-i18n-specdev">Internationalization Best Practices for Spec Developers</a>.</p>
           </li>
         </ul>
@@ -347,16 +350,32 @@
 
 <section id="bidi_block" class="subtopic">
   <h3>Establishing the base direction</h3>
-  <p class="advisement" id="bidi_block_change"><a class="self" href="#bidi_block_change">&#x200B;</a>The content author must be able to indicate parts of the text where the base direction changes. This should be achieved using attributes or metadata at a block level, and not rely on Unicode control characters. </p>
-  <p class="advisement" id="bidi_block_auto"><a class="self" href="#bidi_block_auto">&#x200B;</a>It must be possible to also set the direction for content fragments to auto. This means that the base direction will be determined by examining the content itself.</p>
-  <p class="advisement" id="bidi_block_auto_receiver"><a class="self" href="#bidi_block_auto_receiver">&#x200B;</a>A typical approach here would be to set the direction based on the first strong directional character outside of any markup, but this is not the only possible method. The algorithm used to determine directionality when direction is set to auto should match that expected by the receiver. <a class="local" href="https://w3c.github.io/bp-i18n-specdev/#bidi_block_auto">more</a></p>
+  <p class="advisement" id="bidi_block_change"><a class="self" href="#bidi_block_change">&#x200B;</a>The content author must be able to indicate parts of the text where the base direction changes. At the block level, this should be achieved using attributes or metadata, and should not rely on Unicode control characters. </p>
+  <p>Relying on Unicode control characters to establish direction for every block is not feasible because line breaks terminate the effect of such control characters. It also makes the data much less stable, and unnecessarily difficult to manage if control characters have to appear at every point where they would be needed.</p>
+  <p class="advisement" id="bidi_block_auto"><a class="self" href="#bidi_block_auto">&#x200B;</a>It must be possible to also set the direction for content fragments to <code class="kw" translate="no">auto</code>. This means that the base direction will be determined by examining the content itself.</p>
+  <p><a class="self" href="#bidi_block_auto_receiver">&#x200B;</a>A typical approach here would be to set the direction based on the first strong directional character outside of any markup, but this is not the only possible method. The algorithm used to determine directionality when direction is set to auto should match that expected by the receiver.</p>
   <p>The first-strong algorithm looks for the first character in the paragraph with a strong directional property according to the Unicode definitions. It then sets the base direction of the paragraph according to the direction of that character.</p>
   <p>Note that the first-strong algorithm may incorrectly&nbsp;guess the direction of the paragraph when the first character is not typical of the rest of the paragraph, such as when a RTL paragraph or line starts with a LTR brand name or technical term.</p>
   <p>For additional information about algorithms for detecting direction, see <a href="https://www.w3.org/TR/html-bidi/#auto-direction-algorithms">Estimation algorithms</a> in the document where this was discussed with reference to HTML.</p>
-  <p class="advisement" id="bidi_block_para"><a class="self" href="#bidi_block_para">&#x200B;</a>If the overall base direction is set to auto for plain text, the direction of content paragraphs should be determined on a paragraph by paragraph basis. </p>
+  <p class="advisement" id="bidi_block_para"><a class="self" href="#bidi_block_para">&#x200B;</a>If the overall base direction is set to <code class="kw" translate="no">auto</code> for plain text, the direction of content paragraphs should be determined on a paragraph by paragraph basis. </p>
   <p class="advisement" id="bidi_block_befaft"><a class="self" href="#bidi_block_befaft">&#x200B;</a>To indicate the sides of a block of text where relative to the start and end of its contained lines, you should use 'before' and 'after' (maybe block-start/block-end – the terminology is changing), rather than 'top' and 'bottom'. </p>
   <p class="advisement" id="bidi_inline_start_end"><a class="self" href="#bidi_inline_start_end">&#x200B;</a>To indicate the start/end of a line  you should use 'start' and 'end' rather than 'left' and 'right'. </p>
   <p class="advisement" id="bidi_dedicated_attr"><a class="self" href="#bidi_dedicated_attr">&#x200B;</a>Provide dedicated attributes for control of base direction and bidirectional overrides; do not rely on the user applying style properties to arbitrary markup to achieve bidi control.</p>
+  <p>For example, HTML has a <code class="kw" translate="no">dir</code> attribute that is capable of managing base direction without assistance from CSS styling. XML formats should define dedicated markup to represent directional information, even if they need CSS to achieve the required display, since the text may be used in other ways.</p>
+  <p>Style sheets such as CSS may not always be used with the data, or carried with the data when it is syndicated, etc. Directional information is fundamentally important to correct display of the data, and should be associated more closely and more permanently with the markup or data.</p>
+
+     <section class="links">
+      <h4>Links</h4>
+      <section class="howto">
+        <h5>How to's</h5>
+        <ul>
+          <li class="w3">
+            <p class="link"><a href="https://www.w3.org/TR/html-bidi/#auto-direction-algorithms">Estimation algorithms</a></p>
+            <p class="desc">In <a href="https://www.w3.org/TR/html-bidi/">Additional Requirements for Bidi in HTML &amp; CSS</a>.</p>
+          </li>
+        </ul>
+      </section>
+    </section>
 </section>
 
   
@@ -385,7 +404,7 @@
         <h5>How to's</h5>
         <ul>
           <li class="w3">
-            <p class="link"><a href="https://w3c.github.io/bp-i18n-specdev/#lang_inline">Establishing the language of inline content spans</a></p>
+            <p class="link"><a href="https://w3c.github.io/bp-i18n-specdev/#lang_inline">Establishing the language</a></p>
             <p class="desc">In <a href="https://w3c.github.io/bp-i18n-specdev">Internationalization Best Practices for Spec Developers</a>.</p>
           </li>
         </ul>
