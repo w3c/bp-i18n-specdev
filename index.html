@@ -3,6 +3,7 @@
   <head>
     <title>Internationalization Best Practices for Spec Developers</title>
     <meta charset="utf-8"/>
+    <link href="https://www.w3.org/StyleSheets/TR/2016/W3C-ED" rel="stylesheet">
 	<link rel="stylesheet" href="local.css" type="text/css" />
     <script src="devt/dumpdata.js" type="application/ecmascript"></script>
     <!-- 
@@ -16,8 +17,8 @@
           // specification status (e.g. WD, LCWD, NOTE, etc.). If in doubt use ED.
           specStatus:           "ED",
           //publishDate:  		"2015-10-20",
-          //previousPublishDate:  "2014-12-16",
-          //previousMaturity:  "FPWD",
+          previousPublishDate:  "2015-10-20",
+          previousMaturity:  	"FPWD",
 
 
           noRecTrack:           true,
@@ -29,12 +30,13 @@
           // only "name" is required
           editors:  [
               { name: "Richard Ishida", url: "",
-                company: "W3C", companyURL: "" },
+                company: "W3C", companyURL: "",
+    			w3cid: 39125 }
           ],
 
 
           wg:           "Internationalization Working Group",
-          wgURI:        "https://www.w3.org/International/core/",
+          wgURI:        "http://www.w3.org/International/core/",
           wgPublicList: "www-international",
 		  bugTracker: { new: "https://github.com/w3c/bp-i18n-specdev/issues", open: "https://github.com/w3c/bp-i18n-specdev/issues" } ,
 		otherLinks: [
@@ -56,22 +58,22 @@
           // document unless you know what you're doing. If in doubt ask your friendly neighbourhood
           // Team Contact.
           wgPatentURI:  "https://www.w3.org/2004/01/pp-impl/32113/status",
-		  maxTocLevel: 3,
+		  maxTocLevel: 2,
       };
     </script>
   </head>
   <body>
   <div id="sotd">
-  <p>This document provides advice to specification developers about how to incorporate requirements for international use. What is currently available here is expected to be useful immediately, but is a very early draft and the document is in flux, and will grow over time as knowledge applied in reviews and discussions can be crystallized into guidelines.</p>
+  <p>This document provides advice to specification developers about how to incorporate requirements for international use. What is currently available here is expected to be useful immediately, but is still an early draft and the document is in flux, and will grow over time as knowledge applied in reviews and discussions can be crystallized into guidelines.</p>
     <div class="note">
     <p data-lang="en" style="font-weight: bold; font-size: 120%">Sending comments on this document</p>
-  	<p data-lang="en">If you wish to make comments regarding this document, please raise them as <a href="https://github.com/w3c/bp-i18n-specdev/issues" style="font-size: 120%;">github issues</a>, point to the relevant section in the <a href="https://www.w3.org/TR/2015/WD-international-specs-20151020/" style="font-size: 120%">latest dated version in /TR</a>. Only send comments by email if you are unable to raise issues on github (see links below).   All comments are welcome.</p>
-  	<p data-lang="en">To make it easier to track comments, please raise separate issues or emails for each comment, and point to the section you are commenting on using  a URL for the dated version of the document.</p>
+  	<p data-lang="en">If you wish to make comments regarding this document, please raise them as <a href="https://github.com/w3c/bp-i18n-specdev/issues" style="font-size: 120%;">github issues</a>. Only send comments by email if you are unable to raise issues on github (see links below).</p>
+  	<p data-lang="en">To make it easier to track comments, please raise separate issues or emails for each comment, and point to the section you are commenting on using  a URL for the dated version of the document.   All comments are welcome.</p>
     </div>
 </div>
   
     <div id="abstract">
-      <p>This document provides a checklist of internationalization-related considerations when developing a specification. Most checklist items point to detailed supporting information in other documents. Where such information does not yet exist, it can be given a temporary home in this document. The dynamic page <a href="https://www.w3.org/International/techniques/developing-specs-dynamic">Internationalization Techniques: Developing specifications</a> is automatically generated from this document. <strong>The current version is still a very early draft, and it is expected that the information will change regularly as new content is added and existing content is modified in the light of experience and discussion.</strong></p>
+      <p>This document provides a checklist of internationalization-related considerations when developing a specification. Most checklist items point to detailed supporting information in other documents. Where such information does not yet exist, it can be given a temporary home in this document. The dynamic page <a href="https://www.w3.org/International/techniques/developing-specs-dynamic">Internationalization Techniques: Developing specifications</a> is automatically generated from this document. <strong>The current version is still an early draft, and it is expected that the information will change regularly as new content is added and existing content is modified in the light of experience and discussion.</strong></p>
   </div>
 
   <section id="intro">
@@ -353,7 +355,7 @@
   <p class="advisement" id="bidi_block_change"><a class="self" href="#bidi_block_change">&#x200B;</a>The content author must be able to indicate parts of the text where the base direction changes. At the block level, this should be achieved using attributes or metadata, and should not rely on Unicode control characters. </p>
   <p>Relying on Unicode control characters to establish direction for every block is not feasible because line breaks terminate the effect of such control characters. It also makes the data much less stable, and unnecessarily difficult to manage if control characters have to appear at every point where they would be needed.</p>
   <p class="advisement" id="bidi_block_auto"><a class="self" href="#bidi_block_auto">&#x200B;</a>It must be possible to also set the direction for content fragments to <code class="kw" translate="no">auto</code>. This means that the base direction will be determined by examining the content itself.</p>
-  <p><a class="self" href="#bidi_block_auto_receiver">&#x200B;</a>A typical approach here would be to set the direction based on the first strong directional character outside of any markup, but this is not the only possible method. The algorithm used to determine directionality when direction is set to auto should match that expected by the receiver.</p>
+  <p>A typical approach here would be to set the direction based on the first strong directional character outside of any markup, but this is not the only possible method. The algorithm used to determine directionality when direction is set to auto should match that expected by the receiver.</p>
   <p>The first-strong algorithm looks for the first character in the paragraph with a strong directional property according to the Unicode definitions. It then sets the base direction of the paragraph according to the direction of that character.</p>
   <p>Note that the first-strong algorithm may incorrectly&nbsp;guess the direction of the paragraph when the first character is not typical of the rest of the paragraph, such as when a RTL paragraph or line starts with a LTR brand name or technical term.</p>
   <p>For additional information about algorithms for detecting direction, see <a href="https://www.w3.org/TR/html-bidi/#auto-direction-algorithms">Estimation algorithms</a> in the document where this was discussed with reference to HTML.</p>
@@ -1006,15 +1008,20 @@
 
 <section class="appendix" id="app-c">
   <h2> Revision Log</h2>
+  <p>The following summarises substantive changes since the previous publication, but the material is still subject to significant flux as it develops. This should not be a reason not to use the document. What it so far contains is useful, and any shortfalls can be reported or discussed.</p>
   <ol>
-    <li>tbd</li>
+    <li>A variety of additional guidelines were added after working through previous review comments.</li>
+    <li>Structure of the document changed to better reflect the world as seen by spec developers.</li>
+    <li>Substantial improvements to the 'Resource' and 'Block' sections, based on a recent review.</li>
   </ol>
+    <p>See the <a href="https://github.com/w3c/bp-i18n-specdev/commits/gh-pages">github commit log</a> for more details.</p>
 </section>
 
 
 <section class="appendix">
 <h2>Acknowledgements</h2>
-<p>tbd</p>
+<p>Thanks to Addison Phillips for help reviewing old reviews for recommendations.</p>
+<p>Other people who contributed through reviews or issues include Steve Atkin, Andrew Cunnigham, Martin Dürst, Asmus Freytag, John Klensin, Tomer Mahlin, Florian Rivoal.</p>
 </section>
 
 <button onClick="document.getElementById('dump').value = dumpData(); document.getElementById('dump').select();">Dump data</button>
