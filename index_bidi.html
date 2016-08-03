@@ -101,7 +101,6 @@
 		<ul class="summary">
 					<li><a href="#lang_resource">Declaring language</a></li>
 					<li><a href="#lang_values">Defining language values</a></li>
-					<li><a href="#bidi_resource">Setting the default base direction</a></li>
 					<li><a href="resid_non_ascii">Defining resouce identifiers</a></li>
   </ul>
 
@@ -245,7 +244,6 @@
 
 		<ul class="summary">
 					<li><a href="#lang_block">Establishing the language</a></li>
-					<li><a href="#bidi_resource">Setting the base direction</a></li>
 					<li><a href="#lang_values">Defining language values</a></li>
 		</ul>
 
@@ -273,48 +271,13 @@
       </section>
     </section>
 </section>
-
-
-<section id="bidi_block" class="subtopic">
-  <h3>Establishing the base direction</h3>
-  <p class="advisement" id="bidi_block_change"><a class="self" href="#bidi_block_change">&#x200B;</a>The content author must be able to indicate parts of the text where the base direction changes. At the block level, this should be achieved using attributes or metadata, and should not rely on Unicode control characters. </p>
-  <p>Relying on Unicode control characters to establish direction for every block is not feasible because line breaks terminate the effect of such control characters. It also makes the data much less stable, and unnecessarily difficult to manage if control characters have to appear at every point where they would be needed.</p>
-  <p class="advisement" id="bidi_block_auto"><a class="self" href="#bidi_block_auto">&#x200B;</a>It must be possible to also set the direction for content fragments to <code class="kw" translate="no">auto</code>. This means that the base direction will be determined by examining the content itself.</p>
-  <p>A typical approach here would be to set the direction based on the first strong directional character outside of any markup, but this is not the only possible method. The algorithm used to determine directionality when direction is set to auto should match that expected by the receiver.</p>
-  <p>The first-strong algorithm looks for the first character in the paragraph with a strong directional property according to the Unicode definitions. It then sets the base direction of the paragraph according to the direction of that character.</p>
-  <p>Note that the first-strong algorithm may incorrectly&nbsp;guess the direction of the paragraph when the first character is not typical of the rest of the paragraph, such as when a RTL paragraph or line starts with a LTR brand name or technical term.</p>
-  <p>For additional information about algorithms for detecting direction, see <a href="https://www.w3.org/TR/html-bidi/#auto-direction-algorithms">Estimation algorithms</a> in the document where this was discussed with reference to HTML.</p>
-  <p class="advisement" id="bidi_block_para"><a class="self" href="#bidi_block_para">&#x200B;</a>If the overall base direction is set to <code class="kw" translate="no">auto</code> for plain text, the direction of content paragraphs should be determined on a paragraph by paragraph basis. </p>
-  <p class="advisement" id="bidi_block_befaft"><a class="self" href="#bidi_block_befaft">&#x200B;</a>To indicate the sides of a block of text where relative to the start and end of its contained lines, you should use 'before' and 'after' (maybe block-start/block-end – the terminology is changing), rather than 'top' and 'bottom'. </p>
-  <p class="advisement" id="bidi_inline_start_end"><a class="self" href="#bidi_inline_start_end">&#x200B;</a>To indicate the start/end of a line  you should use 'start' and 'end' rather than 'left' and 'right'. </p>
-  <p class="advisement" id="bidi_dedicated_attr"><a class="self" href="#bidi_dedicated_attr">&#x200B;</a>Provide dedicated attributes for control of base direction and bidirectional overrides; do not rely on the user applying style properties to arbitrary markup to achieve bidi control.</p>
-  <p>For example, HTML has a <code class="kw" translate="no">dir</code> attribute that is capable of managing base direction without assistance from CSS styling. XML formats should define dedicated markup to represent directional information, even if they need CSS to achieve the required display, since the text may be used in other ways.</p>
-  <p>Style sheets such as CSS may not always be used with the data, or carried with the data when it is syndicated, etc. Directional information is fundamentally important to correct display of the data, and should be associated more closely and more permanently with the markup or data.</p>
-
-     <section class="links">
-      <h4>Links</h4>
-      <section class="howto">
-        <h5>How to's</h5>
-        <ul>
-          <li class="w3">
-            <p class="link"><a href="https://www.w3.org/TR/html-bidi/#auto-direction-algorithms">Estimation algorithms</a></p>
-            <p class="desc">In <a href="https://www.w3.org/TR/html-bidi/">Additional Requirements for Bidi in HTML &amp; CSS</a>.</p>
-          </li>
-        </ul>
-      </section>
-    </section>
-</section>
-
-  
-  
-</section>
+  </section>
 
 
 <section id="inline" class="topic">
   <h2>Inline spans</h2>
 				<ul class="summary">
 				  <li><a href="#lang_inline">Establishing the language</a></li>
-				  <li><a href="#bidi_inline">Setting  base direction</a></li>
 				</ul>
   
 
@@ -338,22 +301,6 @@
       </section>
     </section>
 </section>
-
-
-<section id="bidi_inline" class="subtopic">
-  <h3>Setting base direction</h3>
-  <p class="advisement" id="bidi_inline_change"><a class="self" href="#bidi_inline_change">&#x200B;</a>It must be possible to indicate spans of inline text where the base direction changes. If markup is available, this is the preferred method. Otherwise your specification must require that Unicode control characters are recognized by the receiving application, and correctly implemented.</p>
-  <p class="advisement" id="bidi_inline_auto"><a class="self" href="#bidi_inline_auto">&#x200B;</a>It must be possible to also set the direction for a span to auto. This means that the base direction will be determined by examining the content itself. A typical approach here would be to set the direction based on the first strong directional character outside of any markup. <a class="local" href="https://w3c.github.io/bp-i18n-specdev/#bidi_inline_auto">more</a></p>
-  <p>The first-strong algorithm looks for the first character in the paragraph with a strong directional property according to the Unicode definitions. It then sets the base direction of the paragraph according to the direction of that character.</p>
-  <p>Note that the first-strong algorithm may incorrectly&nbsp;guess the direction of the paragraph when the first character is not typical of the rest of the paragraph, such as when a RTL paragraph or line starts with a LTR brand name or technical term.</p>
-  <p>For additional information about algorithms for detecting direction, see <a href="https://www.w3.org/TR/html-bidi/#auto-direction-algorithms">Estimation algorithms</a> in the document where this was discussed with reference to HTML.</p>
-  <p class="advisement" id="bidi_inline_rli"><a class="self" href="#bidi_inline_rli">&#x200B;</a>If users use Unicode bidirectional control characters, the RLI/LRI/FSI with PDI characters must be supported by the application and recommended (rather than RLE/LRE with PDF) by the spec.</p>
-  <p class="advisement" id="bidi_inline_rlm"><a class="self" href="#bidi_inline_rlm">&#x200B;</a>Use of RLM/LRM should be appropriate, and expectations of what those controls can and cannot do should be clear in the spec. <a class="local" href="https://w3c.github.io/bp-i18n-specdev/#bidi_inline_rlm">more</a></p>
-  <p>The Unicode bidirectional control characters <span class="uname">U+200F RIGHT-TO-LEFT MARK</span> and <span class="uname">U+200E LEFT-TO-RIGHT MARK</span> are not sufficient on their own to manage bidirectional text. They cannot produce a different base direction for embedded text. For that you need to be able to indicate the start and end of the range of the embedded text.&nbsp; This is best done by markup, if available, or failing that using the other Unicode bidirectional controls mentioned just above.</p><p class="advisement" id="bidi_inline_dedicated_attr"><a class="self" href="#bidi_inline_dedicated_attr">&#x200B;</a>Provide dedicated attributes for control of base direction and bidirectional overrides; do not rely on the user applying style properties to arbitrary markup to achieve bidi control.</p>
-  <p class="advisement" id="bidi_inline_all_elems"><a class="self" href="#bidi_inline_all_elems">&#x200B;</a>Allow bidi attributes on all inline elements in markup that contain text.</p>
-  <p class="advisement" id="bidi_inline_embed"><a class="self" href="#bidi_inline_embed">&#x200B;</a>Provide attributes that allow the user to (a) create an embedded base direction or (b) override the bidirectional algorithm altogether; the attribute should allow the user to set the direction to LTR or RTL in either of these two scenarios.</p>
-</section>
-
 </section>
 
 
@@ -429,12 +376,12 @@
   <li>Not all paragraphs using the first-strong method will have the correct base direction applied. In some cases, an Arabic or Hebrew, etc, paragraph may start with strong LTR characters. There must be a way to deal with this.</li>
   <li>Where a syntactic unit contains multiple lines of plain text (for example, a multiline cue text in a subtitling file), the first-strong heuristic needs to be applied to each line separately.</li>
   <li>There may be special rules that involve ignoring some sequence of characters or type of markup at the start of the paragraph before identifying the first strong character.</li>
-  <li>In some cases there are no strong characters in a paragraph, and the base direction can be critically important for the data to be understood correctly, eg. telephone numbers or Mac addresses. There needs to be a way to resort to an appropriate default for these cases.</li>
+  <li>In some cases there are no strong characters in a paragraph, and the base direction can be critically important for the data to be understood correctly, eg. telephone numbers or MAC addresses. There needs to be a way to resort to an appropriate default for these cases.</li>
   </ul></li>
   <li>Whether or not  any metadata is specified, if a paragraph contains a string that starts with one of the Unicode bidi control characters  RLI, LRI, FSI, LRE, RLE, LRO, or RLO and ends with PDF/PDI, these characters will determine the base direction for the contained string. These characters, when placed in the content, explicitly override any previously set direction by creating an inline range and assigning a base direction to it.
     <ul style="margin-left:0; margin-right:1em;"><li>The effect of such characters does not extend past paragraph boundaries, but the range ought to be explicitly ended using the PDF/PDI control character, especially if a paragraph end is not easily detectable by the application.)</li>
   <li>Because isolation is needed for bidirectional text to work properly, the Unicode Standard says that the isolating control codes RLI, LRI and FSI should be used rather than LRE or RLE. Unfortunately, those characters are still not widely supported.</li>
-  <li>If a string in a JSON object contains HTML markup, the dir attribute should be used on elements to indicate the base direction unless the default base direction is specified in an external location.</li>
+  <li>If a string in a JSON object contains HTML markup, the <code class="kw" translate="no">dir</code> attribute should be used on elements to indicate the base direction unless the default base direction is specified in an external location.</li>
     </ul>
   </li>
 </ol>
@@ -464,9 +411,10 @@
 <ol>
   <li>They are invisible in most editors and are therefore difficult to work with, and can easily lead to orphans and overlapping ranges. Furthermore, users often don't have the necessary characters available on their keyboard. They can be particularly difficult to manage when editing bidirectional inline text because it's hard to position the cursor in the correct place.</li>
   <li>It is sometimes necessary to choose which to use based on context or the type of the data, and this means that a content author typically needs to select the control codes – specifying control codes in this way for all paragraphs is time-consuming and error-prone.</li>
-  <li>Processors that extract parts of the data, add to it, or reuse in combination with other text it may incorrectly handle the control codes.</li>
+  <li>Processors that extract parts of the data, add to it, or reuse in combination with other text  may incorrectly handle the control codes.</li>
   <li>Search and comparison algorithms should ignore these characters, but typically don't.</li>
   </ol>
+<p>The last two items above may also hold for markup, but implementers often support included markup better than  included control codes.</p>
 <p>Don't expect users to add control codes at the start and end of every paragraph. That's far too much work.</p>
 </section>
 
@@ -491,7 +439,7 @@
     <ol>
     <li>you can't produce the <code class="kw" translate="no">auto</code> value with language tags.</li>
     <li>some languages are written with either RTL or LTR scripts.</li>
-    <li>the only reliable part of the language tag that would indicate the base direction is the script tag, but BCP47 recommends that you suppress the use of the script tag for languages that don't usually need it, such as  Hebrew (<code>suppressscript: Hebr</code>). Languages, such as Persian, that are usually written in a RTL script may be written in transcribed form, and it's not possible to guarrantee that the necessary script tag would be present to carry the directional information. In summary, you won't be able to rely on people supplying script tags as part of the language information in order to influence direction.</li>
+    <li>the only reliable part of the language tag that would indicate the base direction is the script tag, but BCP47 recommends that you suppress the use of the script tag for languages that don't usually need it, such as  Hebrew (<code>suppressscript: Hebr</code>). Languages, such as Persian, that are usually written in a RTL script may be written in transcribed form, and it's not possible to guarantee that the necessary script tag would be present to carry the directional information. In summary, you won't be able to rely on people supplying script tags as part of the language information in order to influence direction.</li>
     <li>the incidence of use of language tags and base direction markers don't necessarily coincide.</li>
     <li>they are not semantically equivalent.</li>
     </ol>
@@ -499,10 +447,14 @@
 </section>
 
 
-<section id="sec_bidi_resource" class="subtopic">
-    <h3>Setting the default base direction</h3>
+<section id="sec_bidi_markup" class="subtopic">
+	<h3>Handling direction in markup</h3>
+    
+  <section id="sec_default_base">
+    <h4>Setting the default base direction</h4>
     <p class="advisement" id="bidi_whole_res"><a class="self" href="#bidi_whole_res">&#x200B;</a>The spec should  indicate how to define a default base direction for the resource as a whole, ie. set the overall base direction. <a class="local" href="https://w3c.github.io/bp-i18n-specdev/#sec_bidi_resource">more</a></p>
     <p class="advisement" id="bidi_res_default"><a class="self" href="#bidi_res_default">&#x200B;</a>The  default base direction, in the absence of other information, should be LTR. <a class="local" href="https://w3c.github.io/bp-i18n-specdev/#sec_bidi_resource">more</a></p>
+    </section>
     
     <section id="sec_bidi_values">
     <h4>Base direction values</h4>
@@ -511,7 +463,7 @@
     </section>
     
     <section class="links">
-      <h4>Links</h4>
+      <h5>Links</h5>
       <section class="howto">
         <h5>How to's</h5>
         <ul>
@@ -536,11 +488,10 @@
         </ul>
       </section>
     </section>
-  </section>
   
   
   <section id="bidi_block" class="subtopic">
-  <h3>Establishing the base direction for paragraphs</h3>
+    <h4>Establishing the base direction for paragraphs</h4>
   <p class="advisement" id="bidi_block_change"><a class="self" href="#bidi_block_change">&#x200B;</a>The content author must be able to indicate parts of the text where the base direction changes. At the block level, this should be achieved using attributes or metadata, and should not rely on Unicode control characters. </p>
   <p>Relying on Unicode control characters to establish direction for every block is not feasible because line breaks terminate the effect of such control characters. It also makes the data much less stable, and unnecessarily difficult to manage if control characters have to appear at every point where they would be needed.</p>
   <p class="advisement" id="bidi_block_auto"><a class="self" href="#bidi_block_auto">&#x200B;</a>It must be possible to also set the direction for content fragments to <code class="kw" translate="no">auto</code>. This means that the base direction will be determined by examining the content itself.</p>
@@ -572,7 +523,7 @@
 
 
   <section id="bidi_inline" class="subtopic">
-    <h3>Setting base direction for inline text</h3>
+    <h4>Setting base direction for inline text</h4>
     <p class="advisement" id="bidi_inline_change"><a class="self" href="#bidi_inline_change">&#x200B;</a>It must be possible to indicate spans of inline text where the base direction changes. If markup is available, this is the preferred method. Otherwise your specification must require that Unicode control characters are recognized by the receiving application, and correctly implemented.</p>
     <p class="advisement" id="bidi_inline_auto"><a class="self" href="#bidi_inline_auto">&#x200B;</a>It must be possible to also set the direction for a span to auto. This means that the base direction will be determined by examining the content itself. A typical approach here would be to set the direction based on the first strong directional character outside of any markup. <a class="local" href="https://w3c.github.io/bp-i18n-specdev/#bidi_inline_auto">more</a></p>
     <p>The first-strong algorithm looks for the first character in the paragraph with a strong directional property according to the Unicode definitions. It then sets the base direction of the paragraph according to the direction of that character.</p>
@@ -584,7 +535,7 @@
     <p class="advisement" id="bidi_inline_all_elems"><a class="self" href="#bidi_inline_all_elems">&#x200B;</a>Allow bidi attributes on all inline elements in markup that contain text.</p>
     <p class="advisement" id="bidi_inline_embed"><a class="self" href="#bidi_inline_embed">&#x200B;</a>Provide attributes that allow the user to (a) create an embedded base direction or (b) override the bidirectional algorithm altogether; the attribute should allow the user to set the direction to LTR or RTL in either of these two scenarios.</p>
   </section>
-  
+  </section>
 </section>
 
 <section id="characters" class="topic">
