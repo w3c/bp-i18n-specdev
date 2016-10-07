@@ -89,8 +89,8 @@ del {
 	display: inline; 
 	color: silver; 
 	}
-h2 {
-	margin-top: 3em;
+section h2 {
+	margin-top: 5em;
 	margin-bottom: 0em;
 	}
 .head h2, #abstract h2, #sotd h2 {
