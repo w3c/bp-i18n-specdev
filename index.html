@@ -4,7 +4,6 @@
     <title>Internationalization Best Practices for Spec Developers</title>
     <meta charset="utf-8"/>
     <link href="https://www.w3.org/StyleSheets/TR/2016/W3C-ED" rel="stylesheet">
-	<link rel="stylesheet" href="local.css" type="text/css" />
     <!--script src="devt/dumpdata.js" type="application/ecmascript"></script-->
     <!-- 
       === NOTA BENE ===
@@ -61,6 +60,7 @@
 		  maxTocLevel: 2,
       };
     </script>
+	<link rel="stylesheet" href="local.css" type="text/css" />
   </head>
   <body>
   <div id="sotd">
@@ -96,7 +96,7 @@
 
 
 <section id="resource" class="topic">
-  <h2>Declaring language</h2>
+  <h2>Language</h2>
 
 		<ul class="summary">
 					<li><a href="#sec_lang_decl">Language basics</a></li>
@@ -315,7 +315,7 @@
 
 
 <section id="text_direction" class="topic">
-  <h2>Handling text direction</h2>
+  <h2>Text direction</h2>
 				<ul class="summary">
 				  <li><a href="#sec_dir_basic">Basic requirements</a></li>
 				  <li><a href="#sec_dir_background">Background information</a></li>
@@ -839,6 +839,8 @@
   </section>
   
   
+  
+  
   <section id="char_case" class="subtopic">
     <h3>Handling Case Folding</h3>
     <p class="advisement" id="char_case_sensitive"><a class="self" href="#char_case_sensitive">&#x200B;</a>Case sensitive matching is RECOMMENDED as the default for new protocols and formats. <a href="https://www.w3.org/TR/charmod-norm/#h-handlingcasefolding">more</a></p>
@@ -952,8 +954,73 @@
     
     
   </section>
+ 
+
+
+
+
+
+<section id="sec_resid_non_ascii" class="topic">
+    <h2>Resource identifiers</h2>
+    
+    <section id="sec_resid_basic" class="subtopic">
+  <h3>Basics</h3>
+
+<p class="advisement" id="resid_use_iris"><a href="#resid_use_iris">&#x200B;</a>Resource identifiers must permit the use of characters outside those of plain ASCII. <a href="https://github.com/w3c/web-annotation/issues/241">discussion</a></p>
+<p class="advisement" id="resid_iri_conversion"><a class="self" href="#resid_iri_conversion">&#x200B;</a> Specifications MUST define when the conversion from IRI references to URI references (or subsets thereof) takes place, in accordance with Internationalized Resource Identifiers (IRIs). <a class="local" href="https://w3c.github.io/bp-i18n-specdev/#resid_iri_conversion">more</a></p>
+<p>Many current specifications already contain provisions in accordance with Internationalized Resource Identifiers (IRIs). For XML 1.0, see Section 4.2.2, External Entities. XML Schema Part 2: Datatypes provides the anyURI datatype (see Section 3.2.17). The XML Linking Language (XLink)  provides the href attribute (see Section 5.4, Locator Attribute).</p>
+<p>Document formats should allow IRIs to be used; handlers for protocols that do not currently support IRIs can convert the IRI to a URI when the IRI is dereferenced.</p>
+<section class="links">
+  <h4>Links</h4>
+  <section class="howto">
+    <h5>How to's</h5>
+    <ul>
+      <li class="w3">
+        <p class="link"><a href="http://www.w3.org/International/iri-edit/draft-duerst-iri-08.txt">Internationalized Resource Identifiers (IRIs)</a></p>
+      </li>
+    </ul>
+  </section>
+</section>
+  </section>
+  </section>
+ 
   
   
+  <section id="markup" class="topic">
+<h2>Markup &amp; syntax</h2>
+<ul class="summary">
+  <li><a href="#markup_attributes">Defining elements and attributes</a></li>
+  <li><a href="#markup_identifiers">Defining identifiers</a></li>
+  <li><a href="#markup_plaintext">Working with plain text</a></li>
+</ul>
+
+  <section id="markup_elements_attributes" class="subtopic"><h3>Defining elements and attributes</h3>
+<p class="advisement" id="markup_attributes"><a class="self" href="#markup_attributes">&#x200B;</a>Do not define attribute values that will contain user readable content. Use elements for such content.  <a href="https://www.w3.org/TR/xml-i18n-bp/#DevAttributes">more</a></p>
+<p class="advisement" id="markup_attributes_fallback"><a class="self" href="#markup_attributes_fallback">&#x200B;</a>If you do define attribute values containing user readable content, provide a means to indicate directional and language information for that text separately from the text contained in the element.</p>
+
+<p class="advisement" id="markup_span"><a class="self" href="#markup_span">&#x200B;</a>Provide a way for authors to annotate arbitrary inline content using a <code class="kw" translate="no">span</code>-like element or construct.  <a href="https://www.w3.org/TR/xml-i18n-bp/#DevSpan">more</a></p>
+</section>
+
+
+
+  <section id="markup_identifiers" class="subtopic">
+<h3>Defining identifiers</h3>
+
+<p class="advisement" id="identifier_case"><a class="self" href="#identifier_case">&#x200B;</a>Identifiers should be case-sensitive.</p>
+</section>
+
+
+  <section id="markup_plaintext" class="subtopic">
+    <h3>Working with plain text</h3>
+<p class="advisement" id="plain_avoid"><a class="self" href="#plain_avoid">&#x200B;</a>Avoid natural language text in elements that only allow for plain text and in attribute values.</p>
+<p class="advisement" id="plain_span"><a class="self" href="#plain_span">&#x200B;</a>Provide a span-like element that can be used for any text content to apply information needed for internationalization. <a class="local" href="https://w3c.github.io/bp-i18n-specdev/#plain_span">more</a></p>
+<p>Internationalization information may include a change of language, bidirectional text behaviour changes, translate flags, etc.</p>
+</section>
+
+ </section>
+ 
+ 
+ 
   
   
   <section id="typography" class="topic">
@@ -1040,47 +1107,6 @@
 </section>
 
 </section>
-
-
-<section id="markup" class="topic">
-<h2>Markup</h2>
-<ul class="summary">
-  <li><a href="#markup_attributes">Defining elements and attributes</a></li>
-</ul>
-
-  <section id="markup_elements_attributes" class="subtopic"><h3>Defining elements and attributes</h3>
-<p class="advisement" id="markup_attributes"><a class="self" href="#markup_attributes">&#x200B;</a>Do not define attribute values that will contain user readable content. Use elements for such content.  <a href="https://www.w3.org/TR/xml-i18n-bp/#DevAttributes">more</a></p>
-<p class="advisement" id="markup_attributes_fallback"><a class="self" href="#markup_attributes_fallback">&#x200B;</a>If you do define attribute values containing user readable content, provide a means to indicate directional and language information for that text separately from the text contained in the element.</p>
-
-<p class="advisement" id="markup_span"><a class="self" href="#markup_span">&#x200B;</a>Provide a way for authors to annotate arbitrary inline content using a <code class="kw" translate="no">span</code>-like element or construct.  <a href="https://www.w3.org/TR/xml-i18n-bp/#DevSpan">more</a></p>
-</section>
-</section>
-
-
-
-<section id="sec_resid_non_ascii" class="topic">
-    <h2>Defining resource identifiers</h2>
-    
-    <section id="sec_resid_basic" class="subtopic">
-  <h3>Basics</h3>
-
-<p class="advisement" id="resid_use_iris"><a href="#resid_use_iris">&#x200B;</a>Resource identifiers must permit the use of characters outside those of plain ASCII. <a href="https://github.com/w3c/web-annotation/issues/241">discussion</a></p>
-<p class="advisement" id="resid_iri_conversion"><a class="self" href="#resid_iri_conversion">&#x200B;</a> Specifications MUST define when the conversion from IRI references to URI references (or subsets thereof) takes place, in accordance with Internationalized Resource Identifiers (IRIs). <a class="local" href="https://w3c.github.io/bp-i18n-specdev/#resid_iri_conversion">more</a></p>
-<p>Many current specifications already contain provisions in accordance with Internationalized Resource Identifiers (IRIs). For XML 1.0, see Section 4.2.2, External Entities. XML Schema Part 2: Datatypes provides the anyURI datatype (see Section 3.2.17). The XML Linking Language (XLink)  provides the href attribute (see Section 5.4, Locator Attribute).</p>
-<p>Document formats should allow IRIs to be used; handlers for protocols that do not currently support IRIs can convert the IRI to a URI when the IRI is dereferenced.</p>
-<section class="links">
-  <h4>Links</h4>
-  <section class="howto">
-    <h5>How to's</h5>
-    <ul>
-      <li class="w3">
-        <p class="link"><a href="http://www.w3.org/International/iri-edit/draft-duerst-iri-08.txt">Internationalized Resource Identifiers (IRIs)</a></p>
-      </li>
-    </ul>
-  </section>
-</section>
-  </section>
-  </section>
   
   
 
@@ -1109,35 +1135,6 @@
     </section>
  </section>
 </section>
-
-
-<section id="plaintext" class="topic">
-  <h2>Plain text support</h2>
-<ul class="summary">
-  <li><a href="#plain_misc">Miscellaneous</a></li>
-</ul>
-
-  <section id="plain_misc" class="subtopic">
-    <h3>Miscellaneous</h3>
-<p class="advisement" id="plain_avoid"><a class="self" href="#plain_avoid">&#x200B;</a>Avoid natural language text in elements that only allow for plain text and in attribute values.</p>
-<p class="advisement" id="plain_span"><a class="self" href="#plain_span">&#x200B;</a>Provide a span-like element that can be used for any text content to apply information needed for internationalization. <a class="local" href="https://w3c.github.io/bp-i18n-specdev/#plain_span">more</a></p>
-<p>Internationalization information may include a change of language, bidirectional text behaviour changes, translate flags, etc.</p>
-</section>
-</section>
-
-
-<section id="case" class="topic">
-<h2>Case distinctions</h2>
-<ul class="summary">
-  <li><a href="#case_misc">Miscellaneous</a></li>
-</ul>
-
-  <section id="case_misc" class="subtopic">
-    <h3>Miscellaneous</h3>
-<p class="advisement" id="case_identifiers"><a class="self" href="#case_identifiers">&#x200B;</a>Identifiers should be case-sensitive.</p>
-</section>
-</section>
-
 <section class="appendix" id="app_b">
   <h2>References</h2>
   <p>None.</p>
