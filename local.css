@@ -180,12 +180,31 @@ body { font-size: 80%; margin: 2em; }
 h4 { 	color: #005a9c; margin-top: 2em;  }
 .indent { margin-left: 3em; }
 
+.links h4, .xref h4 {
+    margin-top: 0;
+}
 
 .link { display: inline; }
 .desc { display: inline; margin-left: 1em;  }
 .desc:before { content: '— '; }
 
-.links { /*background-color: #a09de5; background-color: #EFEFF9; border: 1px solid #ccc; border-radius: 10px;*/  font-size: 90%; padding: 0 10px; margin-bottom: 50px; /*float: left; width: 60%;*/  }
-.xref { /* background-color: #feb; border: 1px solid #fc0; border-radius: 10px;*/  font-size: 90%; padding: 0 10px; margin-bottom: 50px; /*float: right;  width: 30%;*/  }
+.links { 
+	/*background-color: #a09de5; border: 1px solid #ccc; */  
+	font-size: 90%; 
+	padding: 1em;
+	background-color: #EFEFF9; 
+	border-radius: 5px;
+	margin-bottom: 20px; 
+	/*float: left; width: 60%;*/  
+	}
+.xref { 
+	/* background-color: #feb; border: 1px solid #fc0; border-radius: 10px;*/  
+	font-size: 90%; 
+	padding: 1em; 
+	background-color: #fbf4e0;
+	border-radius: 5px;
+	margin-bottom: 40px; 
+	/*float: right;  width: 30%;*/  
+	}
 
 .subtopic, .topic { clear: both; }
