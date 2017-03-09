@@ -4,7 +4,7 @@
     <title>Internationalization Best Practices for Spec Developers</title>
     <meta charset="utf-8"/>
     <link href="https://www.w3.org/StyleSheets/TR/2016/W3C-ED" rel="stylesheet">
-    <!--script src="devt/dumpdata.js" type="application/ecmascript"></script-->
+    <script src="devt/dumpdata.js" type="application/ecmascript"></script>
     <!-- 
       === NOTA BENE ===
       For the three scripts below, if your spec resides on dev.w3 you can check them
@@ -1026,18 +1026,57 @@
   <section id="typography" class="topic">
 <h2>Typographic support</h2>
 <ul class="summary">
-    <li><a href="#vertical">Enabling vertical text display</a></li>
+    <li><a href="#text_decoration">Text decoration</a></li>
+    <li><a href="#vertical">Vertical text</a></li>
     <li><a href="#box_posn">Setting box positioning coordinates when text direction varies</a></li>
 	<li><a href="#typ_misc">Miscellaneous</a></li>
 </ul>
 
  
+ <section id="text_decoration" class="subtopic">
+    <h3>Text decoration</h3>
+    <p class="advisement" id="textdec_skip"><a class="self" href="#textdec_skip">&#x200B;</a>Text decoration such as underline and overline should allow lines to skip ink.</p>
+    <p class="advisement" id="textdec_distance"><a class="self" href="#textdec_distance">&#x200B;</a>It should be possible to specify the distance of overlines and underlines from the text.  <a class="local" href="https://w3c.github.io/bp-i18n-specdev/#textdec_distance">more</a></p>
+    <p>​Skipping ink for text decoration such as underlines may not be appropriate for some scripts, such as Arabic, which prefers to move the underline further away from the baseline instead.</p>
+    
+ <section class="links">
+   <h4>Links</h4>
+ <section class="howto">
+   <h5>How to's</h5>
+   <ul>
+     <li class="w3">
+       <p class="link"><a href="http://w3c.github.io/typography/#text_decoration">Text decoration</a></p>
+       <p class="desc">In <a href="http://w3c.github.io/typography/">International text layout and typography index</a>.</p>
+     </li>
+   </ul>
+ </section>
+ </section>
+ </section>
+  
+  
  <section id="vertical" class="subtopic">
-    <h3>Enabling vertical text display</h3>
+    <h3>Vertical text</h3>
     <p class="advisement" id="vertical_support"><a class="self" href="#vertical_support">&#x200B;</a>It should be possible to render text vertically for languages such as Japanese, Chinese, Korean, Mongolian, etc. </p>
     <p class="advisement" id="vertical_lr_rl"><a class="self" href="#vertical_lr_rl">&#x200B;</a>Vertical text must support line progression from LTR (eg. Mongolian) and RTL (eg. Japanese) </p>
-  </section>
-  
+    <p class="advisement" id="vertical_lr_rl2"><a class="self" href="#vertical_lr_rl">&#x200B;</a>By default, text decoration, ruby, and the like in vertical text where lines run left to right (eg. Mongolian) should appear on the same side as for CJK vertical text. Placement should not rely on the <code class="kw" translate="no">before</code> and <code class="kw" translate="no">after</code> line locations.</p>
+    <p class="advisement" id="vertical_utr50"><a class="self" href="#vertical_utr50">&#x200B;</a>Vertical writing modes (only) should use UTR50 to apply default text orientation of characters.</p>
+    <p class="advisement" id="vertical_upright"><a class="self" href="#vertical_upright">&#x200B;</a>By default, glyphs of scripts that are normally horizontal should run along a line in vertical text such that the top of the character is toward the right side of the vertical line, but there should be a mechanism to allow them to progress down the line in upright orientation. Such a mechanism should use grapheme clusters as a minimum text unit, but where necessary allow syllabic clusters to be treated as a unit when they involved more than one grapheme cluster.</p>
+    <p class="advisement" id="vertical_upright_arabic"><a class="self" href="#vertical_upright_arabic">&#x200B;</a>Upright Arabic text in vertical lines should use isolated letter forms and the order of text should read top to bottom.</p>
+    <p class="advisement" id="vertical_tatechuyoko"><a class="self" href="#vertical_tatechuyoko">&#x200B;</a>It should be possible for some sequences of characters (particularly digits) to run horizontally within vertical lines (tate chu yoko).</p>
+    <p class="advisement" id="vertical_sideways"><a class="self" href="#vertical_sideways">&#x200B;</a>Writing modes should provide values like <code class="kw" translate="no">sideways-lr</code> and <code class="kw" translate="no">sideways-rl</code> in CSS to allow for vertical rotation of  lines of horizontal script text. UTR50 is not applicable for these cases.</p>
+ <section class="links">
+   <h4>Links</h4>
+ <section class="howto">
+   <h5>How to's</h5>
+   <ul>
+     <li class="w3">
+       <p class="link"><a href="http://w3c.github.io/typography/#vertical_text">Vertical text</a></p>
+       <p class="desc">In <a href="http://w3c.github.io/typography/">International text layout and typography index</a>.</p>
+     </li>
+   </ul>
+ </section>
+ </section>
+</section>  
   
 
   <section id="box_posn" class="subtopic">
@@ -1048,11 +1087,44 @@
 
  
  
+  
+
+  <section id="ruby" class="subtopic">
+    <h3>Ruby text annotations</h3>
+    <p class="advisement" id="type_ruby"><a class="self" href="#type_ruby">&#x200B;</a>'Ruby' style annotations alongside base text should be supported for Chinese, Japanese, Korean and Mongolian text, in both horizontal and vertical writing modes.</p>
+    <p class="advisement" id="ruby_zhuyin"><a class="self" href="#ruby_zhuyin">&#x200B;</a>Ruby implementations should  support zhuyin fuhao (bopomofo) ruby for Traditional Chinese.</p>
+    <p class="advisement" id="ruby_tabular"><a class="self" href="#ruby_tabular">&#x200B;</a>Ruby implementations should  support a tabular content model (such that ruby contents can be arranged in a sequence approximating to <code class="kw" translate="no">rb rb rt rt</code>).</p>
+    <p class="advisement" id="ruby_rb"><a class="self" href="#ruby_rb">&#x200B;</a>Ruby implementations should make it possible to use an explicit <code class="kw" translate="no">rb</code> tag for ruby bases.</p>
+    <p class="advisement" id="ruby_dblsided"><a class="self" href="#ruby_dblsided">&#x200B;</a>Ruby implementations should allow annotations to appear on either or both sides of the base text.</p>
+    <section class="links">
+      <h4>Links</h4>
+      <section class="background">
+        <h5>Background</h5>
+        <ul>
+          <li class="w3">
+            <p class="link"><a href="http://www.w3.org/International/questions/qa-ruby">What is ruby?</a></p>
+            <p class="desc">What are 'ruby' annotations?</p>
+          </li>
+        </ul>
+      </section>
+      <section class="howto">
+        <h5>How to's</h5>
+        <ul>
+          <li class="w3">
+            <p class="link"><a href="http://w3c.github.io/typography/#ruby_annotation">Ruby</a></p>
+            <p class="desc">In <a href="http://w3c.github.io/typography/">International text layout and typography index</a>.</p>
+          </li>
+        </ul>
+      </section>
+    </section>
+  </section>
+
+ 
+ 
   <section id="typ_misc" class="subtopic">
     <h3>Miscellaneous</h3>
 <p class="advisement" id="type_line_height"><a class="self" href="#type_line_height">&#x200B;</a>Line heights must allow for characters that are taller than English.</p>
 <p class="advisement" id="type_box_size"><a class="self" href="#type_box_size">&#x200B;</a>Box sizes must allow for text expansion in translation.</p>
-<p class="advisement" id="type_ruby"><a class="self" href="#type_ruby">&#x200B;</a>Ruby text alongside base text should be supported for CJK text.</p>
 <p class="advisement" id="type_linebreak"><a class="self" href="#type_linebreak">&#x200B;</a>Line wrapping should take into account the special rules needed for non-Latin scripts. <a class="local" href="https://w3c.github.io/bp-i18n-specdev/#type_linebreak">more</a></p>
 <p>Various non-Latin writing systems don't simply wrap text on inter-word spaces. They have additional rules that must be respected. For example</p>
 <ul>
@@ -1162,8 +1234,8 @@
 <p>Other people who contributed through reviews or issues include Steve Atkin, Andrew Cunnigham, Martin Dürst, Asmus Freytag, John Klensin, Tomer Mahlin, Florian Rivoal.</p>
 </section>
 
-<!--button onClick="document.getElementById('dump').value = dumpData(); document.getElementById('dump').select();">Dump data</button>
-<textarea id="dump" style="width: 100%; height: 400px;"></textarea-->
+<button onClick="document.getElementById('dump').value = dumpData(); document.getElementById('dump').select();">Dump data</button>
+<textarea id="dump" style="width: 100%; height: 400px;"></textarea>
 
 </body>
 </html>
