@@ -5,7 +5,7 @@
     <meta charset="utf-8"/>
     <link href="https://www.w3.org/StyleSheets/TR/2016/W3C-ED" rel="stylesheet">
     <script src="make_checklist.js" type="application/ecmascript"></script>
-    <script src="devt/dumpdata.js" type="application/ecmascript"></script>
+    <!--script src="devt/dumpdata.js" type="application/ecmascript"></script-->
     <!-- 
       === NOTA BENE ===
       For the three scripts below, if your spec resides on dev.w3 you can check them
@@ -1224,7 +1224,7 @@
 <p>You can take a snapshot of the checklist, and paste it into an issue in your Github repository. Then you can click on a checkbox alongside a checklist item to indicate whether or not your spec supports it, or you can add your own notes/questions by editing the issue.</p>
 <p>To do this, simply click on the button just below, then paste the output it generates into a new issue in your repository.</p>
 
-<p><button onClick="document.getElementById('issue').value = createIssueText(); document.getElementById('issue').select();">Create github issue checklist</button></p>
+<p><button onClick="document.getElementById('ghIssue').value = createIssueText(); document.getElementById('ghIssue').select();">Create github issue checklist</button></p>
 
 <textarea id="ghIssue" style="width: 100%; height: 400px;"></textarea>
 </section>
@@ -1245,7 +1245,7 @@
 <section class="appendix" id="ack">
 <h2>Acknowledgements</h2>
 <p>Thanks to Addison Phillips for help reviewing old reviews for recommendations.</p>
-<p>Other people who contributed through reviews or issues include Steve Atkin, Andrew Cunnigham, Martin Dürst, Asmus Freytag, John Klensin, Tomer Mahlin, Florian Rivoal.</p>
+<p>Other people who contributed through reviews or issues include Steve Atkin, Andrew Cunnigham, Martin Dürst, Asmus Freytag, John Klensin, Tomer Mahlin, Chaals McCathieNevile, Florian Rivoal.</p>
 </section>
 
 
