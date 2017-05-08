@@ -1059,9 +1059,9 @@
     <h3>Vertical text</h3>
     <p class="advisement" id="vertical_support"><a class="self" href="#vertical_support">&#x200B;</a>It should be possible to render text vertically for languages such as Japanese, Chinese, Korean, Mongolian, etc. </p>
     <p class="advisement" id="vertical_lr_rl"><a class="self" href="#vertical_lr_rl">&#x200B;</a>Vertical text must support line progression from LTR (eg. Mongolian) and RTL (eg. Japanese) </p>
-    <p class="advisement" id="vertical_lr_rl2"><a class="self" href="#vertical_lr_rl">&#x200B;</a>By default, text decoration, ruby, and the like in vertical text where lines run left to right (eg. Mongolian) should appear on the same side as for CJK vertical text. Placement should not rely on the <code class="kw" translate="no">before</code> and <code class="kw" translate="no">after</code> line locations.</p>
-    <p class="advisement" id="vertical_utr50"><a class="self" href="#vertical_utr50">&#x200B;</a>Vertical writing modes (only) should use UTR50 to apply default text orientation of characters.</p>
-    <p class="advisement" id="vertical_upright"><a class="self" href="#vertical_upright">&#x200B;</a>By default, glyphs of scripts that are normally horizontal should run along a line in vertical text such that the top of the character is toward the right side of the vertical line, but there should be a mechanism to allow them to progress down the line in upright orientation. Such a mechanism should use grapheme clusters as a minimum text unit, but where necessary allow syllabic clusters to be treated as a unit when they involved more than one grapheme cluster.</p>
+    <p class="advisement" id="vertical_lr_rl2"><a class="self" href="#vertical_lr_rl">&#x200B;</a>By default, text decoration, ruby, and the like in vertical text where lines are stacked from left to right (eg. Mongolian) should appear on the same side as for CJK vertical text. Placement should not rely on the <code class="kw" translate="no">before</code> and <code class="kw" translate="no">after</code> line locations.</p>
+    <p class="advisement" id="vertical_utr50"><a class="self" href="#vertical_utr50">&#x200B;</a>Vertical writing modes that are equivalent to the <code class="kw" translate="no">vertical-</code> values in CSS (only) should use UTR50 to apply default text orientation of characters. (This does not apply to writing modes that are equivalent to <code class="kw" translate="no">sideways-</code> in CSS.)</p>
+    <p class="advisement" id="vertical_upright"><a class="self" href="#vertical_upright">&#x200B;</a>By default, glyphs of scripts that are normally horizontal should run along a line in vertical text such that the top of the character is toward the right side of the vertical line, but there should also be a mechanism to allow them to progress down the line in upright orientation. Such a mechanism should use grapheme clusters as a minimum text unit, but where necessary allow syllabic clusters to be treated as a unit when they involve more than one grapheme cluster.</p>
     <p class="advisement" id="vertical_upright_arabic"><a class="self" href="#vertical_upright_arabic">&#x200B;</a>Upright Arabic text in vertical lines should use isolated letter forms and the order of text should read top to bottom.</p>
     <p class="advisement" id="vertical_tatechuyoko"><a class="self" href="#vertical_tatechuyoko">&#x200B;</a>It should be possible for some sequences of characters (particularly digits) to run horizontally within vertical lines (tate chu yoko).</p>
     <p class="advisement" id="vertical_sideways"><a class="self" href="#vertical_sideways">&#x200B;</a>Writing modes should provide values like <code class="kw" translate="no">sideways-lr</code> and <code class="kw" translate="no">sideways-rl</code> in CSS to allow for vertical rotation of  lines of horizontal script text. UTR50 is not applicable for these cases.</p>
@@ -1235,8 +1235,19 @@
 <p>Other people who contributed through reviews or issues include Steve Atkin, Andrew Cunnigham, Martin Dürst, Asmus Freytag, John Klensin, Tomer Mahlin, Florian Rivoal.</p>
 </section>
 
-<button onClick="document.getElementById('dump').value = dumpData(); document.getElementById('dump').select();">Dump data</button>
-<textarea id="dump" style="width: 100%; height: 400px;"></textarea>
+<section class="appendix">
+<h2>Create a github checklist</h2>
+<p>You can take a snapshot of the checklist, and paste it into an issue in your Github repository. Then you can click on a checkbox alongside a checklist item to indicate whether or not your spec supports it, or you can add your own notes/questions by editing the issue.</p>
+<p>To do this, simply click on the button just below, then paste the output it generates into a new issue in your repository.</p>
+</section>
+
+<button onClick="document.getElementById('issue').value = createIssueText(); document.getElementById('issue').select();">Create github issue checklist</button>
+<textarea id="issue" style="width: 100%; height: 400px;"></textarea>
+
+
+<!--button onClick="document.getElementById('dump').value = dumpData(); document.getElementById('dump').select();">Dump data</button>
+<textarea id="dump" style="width: 100%; height: 400px;"></textarea-->
+
 
 </body>
 </html>
