@@ -25,7 +25,10 @@ function createIssueText () {
 			// get the guidelines
 			var guidelines = h3s[j].querySelectorAll('.advisement')
 			for (var k=0;k<guidelines.length;k++) {
-				out += '1. [ ] '+guidelines[k].innerHTML+'\n'
+				var temp = guidelines[k].innerHTML
+				temp = temp.replace(/<a class="self"[^<]+<\/a>/,'')
+				out += '1. [ ] '+temp+'\n'
+				//out += '1. [ ] '+guidelines[k].innerHTML+'\n'
 				}
 			
 			out += '\n'
