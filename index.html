@@ -1148,6 +1148,7 @@
 <h2>Local dates, times and formats</h2>
 <ul class="summary">
   <li><a href="#loc_time">Working with time</a></li>
+  <li><a href="#loc_names">Working with personal names</a></li>
   <li><a href="#loc_forms">Designing forms</a></li>
   <li><a href="#loc_numbers">Working with numbers</a></li>
 </ul>
@@ -1170,8 +1171,39 @@
 </section>
 
 
+  <section id="loc_names" class="subtopic"><h3>Working with personal names</h3>
+<p class="advisement" id="loc_names_given_family"><a class="self" href="#loc_names_given_family">&#x200B;</a>Check whether you really need to store or access given name and family name separately.  <a href="https://www.w3.org/International/questions/qa-personal-names#singlefield">more</a></p>
+<p class="advisement" id="loc_names_limits"><a class="self" href="#loc_names_limits">&#x200B;</a>Avoid placing limits on the length of names, or if you do, make allowance for long strings.  <a href="https://www.w3.org/International/questions/qa-personal-names#singlefield">more</a></p>
+<p class="advisement" id="loc_names_first_last"><a class="self" href="#loc_names_first_last">&#x200B;</a>Try to avoid using the labels 'first name' and 'last name' in non-localized contexts.  <a href="https://www.w3.org/International/questions/qa-personal-names#splitting">more</a></p>
+<p class="advisement" id="loc_names_extra_fields"><a class="self" href="#loc_names_extra_fields">&#x200B;</a>Consider whether it would make sense to have one or more extra fields, in addition to the full name field, where users can provide part(s) of their name that you need to use for a specific purpose.  <a href="https://www.w3.org/International/questions/qa-personal-names#splitting">more</a></p>
+<p class="advisement" id="loc_names_how_contact"><a class="self" href="#loc_names_how_contact">&#x200B;</a>Allow for users to be asked separately how they would like you be addressed when someone contacts them.  <a href="https://www.w3.org/International/questions/qa-personal-names#splitting">more</a></p>
+<p class="advisement" id="loc_names_relevant_info"><a class="self" href="#loc_names_relevant_info">&#x200B;</a>If parts of a person's name are captured separately, ensure that the separate items can capture all relevant information.  <a href="https://www.w3.org/International/questions/qa-personal-names#splitting">more</a></p>
+<p class="advisement" id="loc_names_algorithms"><a class="self" href="#loc_names_algorithms">&#x200B;</a>Be careful about assumptions built into algorithms that pull out the parts of a name automatically.  <a href="https://www.w3.org/International/questions/qa-personal-names#splitting">more</a></p>
+<p class="advisement" id="loc_names_initials"><a class="self" href="#loc_names_initials">&#x200B;</a>Don't assume that a single letter name is an initial.  <a href="https://www.w3.org/International/questions/qa-personal-names#splitting">more</a></p>
+<p class="advisement" id="loc_names_famname_reqd"><a class="self" href="#loc_names_famname_reqd">&#x200B;</a>Don't require that people supply a family name.  <a href="https://www.w3.org/International/questions/qa-personal-names#splitting">more</a></p>
+<p class="advisement" id="loc_names_punctuation"><a class="self" href="#loc_names_punctuation">&#x200B;</a>Don't forget to allow people to use punctuation such as hyphens, apostrophes, etc. in names.  <a href="https://www.w3.org/International/questions/qa-personal-names#otherthings">more</a></p>
+<p class="advisement" id="loc_names_uppercase"><a class="self" href="#loc_names_uppercase">&#x200B;</a>Don't require names to be entered all in upper case.  <a href="https://www.w3.org/International/questions/qa-personal-names#otherthings">more</a></p>
+<p class="advisement" id="loc_names_spaces"><a class="self" href="#loc_names_spaces">&#x200B;</a>Allow the user to enter a name with spaces.  <a href="https://www.w3.org/International/questions/qa-personal-names#otherthings">more</a></p>
+<p class="advisement" id="loc_names_same_names"><a class="self" href="#loc_names_same_names">&#x200B;</a>Don't assume that members of the same family will share the same family name.  <a href="https://www.w3.org/International/questions/qa-personal-names#otherthings">more</a></p>
+<p class="advisement" id="loc_names_nee"><a class="self" href="#loc_names_nee">&#x200B;</a>It may be better for a form to ask for 'Previous name' rather than 'Maiden name' or 'née'.  <a href="https://www.w3.org/International/questions/qa-personal-names#otherthings">more</a></p>
+<p class="advisement" id="loc_names_latin_native"><a class="self" href="#loc_names_latin_native">&#x200B;</a>You may want to store the name in both Latin and native scripts, in which case you probably need to ask the user to submit their name in both native script and Latin-only form, as separate items.  <a href="https://www.w3.org/International/questions/qa-personal-names#encoding">more</a></p>
+</section>
+  <section class="links">
+    <h4>Links</h4>
+    <section class="background">
+      <h5>Background</h5>
+      <ul>
+        <li class="w3">
+          <p class="link"><a href="https://www.w3.org/International/questions/qa-personal-names">Personal names around the world</a></p>
+          <p class="desc">How do people's names differ around the world, and what are the implications of those differences on the design of forms, databases, ontologies, etc. for the Web?</p>
+        </li>
+      </ul>
+    </section>
+  </section>
+
+
   <section id="loc_forms" class="subtopic"><h3>Designing forms</h3>
-<p class="advisement" id="loc_forms_eai"><a class="self" href="#loc_forms_eai">&#x200B;</a>When defining email field validation, allow for EAI (smtputf8) names.</p>
+  <p class="advisement" id="loc_forms_eai"><a class="self" href="#loc_forms_eai">&#x200B;</a>When defining email field validation, allow for EAI (smtputf8) names.</p>
 </section>
 
 
