@@ -117,15 +117,15 @@
   <p class="advisement" id="lang_basics_inline"><a class="self" href="#lang_basics_inline">&#x200B;</a>Where possible, there should  be a way to label natural language changes in inline text. <a class="local" href="https://w3c.github.io/bp-i18n-specdev/#sec_lang_decl">more</a></p>
   <p>Text is rendered or processed differently according to the language it is in. For example, screen readers need to be prompted when a language changes, and spell checkers should be language-sensitive. When rendering text a knowledge of language is need in order to apply correct fonts, hyphenation, line-breaking, upper/lower case changes, and other features.</p>
   <p>For example, ideographic characters such as 雪, 刃, 直, 令, 垔 have slight but important differences when used with  Japanese vs Chinese fonts, and it's important not to apply a Chinese font to the Japanese text, and vice versa when it is presented to a user.</p>
-  <p class="advisement" id="lang_basics_meta"><a class="self" href="#lang_basics_meta">&#x200B;</a>Consider whether it is useful to express the intended linguistic audience of a resource, in addition to specifying the language used for text processing. <a class="local" href="https://w3c.github.io/bp-i18n-specdev/#sec_lang_decl">more</a></p>
+  <p class="advisement" id="lang_basics_meta"><a class="self" href="#lang_basics_meta">&#x200B;</a>Consider whether it is useful to express the <a href="https://w3c.github.io/bp-i18n-specdev/#sec_lang_meta">intended linguistic audience</a> of a resource, in addition to specifying the language used for <a href="https://w3c.github.io/bp-i18n-specdev/#sec_text_processing_lang">text processing</a>. <a class="local" href="https://w3c.github.io/bp-i18n-specdev/#sec_lang_decl">more</a></p>
    <p>Language information for a given resource can be used with two main objectives in mind: for text-processing, or as a statement of the intended use of the resource. We will explain the difference below.</p>
  
   <section id="sec_text_processing_lang">
     <h4>Text-processing language information</h4>
+    <p class="advisement" id="tp_lang_values"><a class="self" href="#tp_lang_values">&#x200B;</a>A language declaration that indicates the <a href="https://w3c.github.io/bp-i18n-specdev/#sec_text_processing_lang">text processing language</a> for a range of text must associate  a single language  value with a specific range of text. <a class="local" href="https://w3c.github.io/bp-i18n-specdev/#sec_text_processing_lang">more</a></p>
     <p>When specifying the <dfn>text-processing language</dfn> you are declaring the language in which <strong>a specific range of text is actually written</strong>, so that user agents or applications that manipulate the text, such as voice browsers, spell checkers,  style processors, hyphenators, etc., can apply the appropriate rules to the text in question. So we are, by necessity, talking about associating a <em>single</em> language with a <em>specific</em> range of text.</p>
-    <p class="advisement" id="tp_lang_values"><a class="self" href="#tp_lang_values">&#x200B;</a>A language declaration that indicates the text-processing language for a range of text must associate  a single language  value with a specific range of text. <a class="local" href="https://w3c.github.io/bp-i18n-specdev/#sec_text_processing_lang">more</a></p>
     <p>It is normal to express a text-processing language as the default language, for processing the resource as a whole, but it may also be necessary to indicate where the language changes within the resource.</p>
-    <p class="advisement" id="lang_attribute_xml"><a class="self" href="#lang_attribute_xml">&#x200B;</a>Use the HTML <code class="kw" translate="no">lang</code> and XML <code class="kw" translate="no">xml:lang</code> language attributes where appropriate, rather than creating a new attribute or mechanism. <a class="local" href="https://w3c.github.io/bp-i18n-specdev/#lang_attribute_xml">more</a></p>
+    <p class="advisement" id="lang_attribute_xml"><a class="self" href="#lang_attribute_xml">&#x200B;</a>Use the HTML <code class="kw" translate="no">lang</code> and XML <code class="kw" translate="no">xml:lang</code> language attributes where appropriate to identify the <a href="https://w3c.github.io/bp-i18n-specdev/#sec_text_processing_lang">text processing language</a>, rather than creating a new attribute or mechanism. <a class="local" href="https://w3c.github.io/bp-i18n-specdev/#lang_attribute_xml">more</a></p>
     To identify the text-processing language for a range of text, HTML provides the <code class="kw" translate="no">lang</code> attribute, while XML provides <code class="kw" translate="no">xml:lang</code> which can be used in all XML formats. It's useful to continue using those attributes for relevant markup formats, since authors recognize them, as do HTML and XML processors.
   </section>
   
@@ -133,9 +133,13 @@
     <h4>Language metadata about the resource as a whole</h4>
     <p>It may also be useful to describe the language of a resource <strong> as a whole</strong>. This type of language declaration typically indicates the <strong>intended use of the resource</strong>. For example, such metadata may be used for searching, serving the right language version, classification, etc. </p>
     <p>This type of language declaration differs from that of the text-processing declaration in that (a)  the value for such declarations may be more than one  language subtag, and (b) the language value declared doesn't indicate which bits of a multilingual resource are in which language.</p>
-    <p>The language(s) describing the intended use of a resource do not necessarily include every language used in a document. For example, many documents on the Web contain embedded fragments of content in different languages, whereas the page is clearly aimed at speakers of one particular language. For example, a German city-guide for Beijing may contain useful phrases in Chinese, but it is aimed at a German-speaking audience, not a Chinese one.</p>
+     <p class="advisement" id="metadata_lang_values"><a class="self" href="#metadata_lang_values">&#x200B;</a>It should be possible to associate a  metadata-type language declaration (which indicates the intended use of the resource rather than the language of a specific range of text)  with multiple language  values. <a class="local" href="https://w3c.github.io/bp-i18n-specdev/#sec_lang_meta">more</a></p>
+   <p>The language(s) describing the intended use of a resource do not necessarily include every language used in a document. For example, many documents on the Web contain embedded fragments of content in different languages, whereas the page is clearly aimed at speakers of one particular language. For example, a German city-guide for Beijing may contain useful phrases in Chinese, but it is aimed at a German-speaking audience, not a Chinese one.</p>
     <p>On the other hand, it is also possible to imagine a situation where a document contains the same or parallel content in more than one language. For example, a web page may welcome Canadian readers with French content in the left column, and the same content in English in the right-hand column. Here the document is equally targeted at speakers of both languages, so there are two audience languages. Another use case is a blog or a news page aimed at a multilingual community, where some articles on a page are in one language and some in another. In this case, it may make sense to list more than one  language tag as the value of the language declaration.</p>
-    <p class="advisement" id="metadata_lang_values"><a class="self" href="#metadata_lang_values">&#x200B;</a>A metadata-type language declaration that indicates the intended use of the resource, rather than the language of a specific range of text, may be associated with multiple language  values. <a class="local" href="https://w3c.github.io/bp-i18n-specdev/#sec_lang_meta">more</a></p>
+<p class="advisement" id="metadata_not_lang"><a class="self" href="#metadata_not_lang">&#x200B;</a>Attributes that express the language of external resources should not use the HTML <code class="kw" translate="no">lang</code> and XML <code class="kw" translate="no">xml:lang</code> language attributes, but should use a different attribute when they represent metadata (which indicates the intended use of the resource rather than the language of a specific range of text). <a class="local" href="https://w3c.github.io/bp-i18n-specdev/#sec_lang_meta">more</a></p>
+<p>Using a different attribute to indicate the language of an external resource allows the attribute to specify more than one language. It also works better if the resource pointed to is not in a single language. </p>
+<p>This distinction can be seen in HTML in the separation of the <code class="kw" translate="no">lang</code> and <code class="kw" translate="no">hreflang</code> attributes. The former indicates the language of the text within the HTML page; the latter is metadata indicating the  expected language of a page that is linked to.</p>
+<p>For a longer discussion of this see <a href="https://www.w3.org/International/questions/qa-when-xmllang">xml:lang in XML document schemas</a>. This article talks specifically about <code class="kw" translate="no">xml:lang</code>, but the concepts are applicable to other situations.</p>
   </section>
 
 <section class="links">
@@ -144,9 +148,13 @@
         <h5>How to's</h5>
         <ul>
           <li class="w3">
-            <p class="link"><a href="https://w3c.github.io/bp-i18n-specdev/#sec_lang_decl">Language basics</a></p>
-            <p class="desc">In <a href="https://w3c.github.io/bp-i18n-specdev/">Internationalization Best Practices for Spec Developers</a>.</p>
-          </li>
+<p class="link"><a href="https://www.w3.org/International/questions/qa-when-xmllang">xml:lang in XML document schemas</a></p>
+<p class="desc">When should I use <code class="kw" translate="no">xml:lang</code> and when should I define my own element or attribute for passing language values in an XML document schema (DTD)?</p>
+</li>
+<li class="w3">
+  <p class="link"><a href="https://w3c.github.io/bp-i18n-specdev/#sec_lang_decl">Language basics</a></p>
+  <p class="desc">In <a href="https://w3c.github.io/bp-i18n-specdev/">Internationalization Best Practices for Spec Developers</a>.</p>
+</li>
         </ul>
       </section>
 
@@ -317,7 +325,7 @@
 
 
 <section id="text_direction" class="topic">
-  <h2>Text direction</h2>
+<h2>Text direction</h2>
 				<ul class="summary">
 				  <li><a href="#sec_dir_basic">Basic requirements</a></li>
 				  <li><a href="#sec_dir_background">Background information</a></li>
