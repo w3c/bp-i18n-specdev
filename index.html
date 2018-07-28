@@ -571,6 +571,7 @@
 					<li><a href="#char_storing">Storing text </a></li>
 					<li><a href="#char_sort">Specifying sort and search functionality </a></li>
 					<li><a href="#char_string">Defining 'string' </a></li>
+					<li><a href="#char_truncation">Truncating or Limiting the Length of Strings</a></li>
 					<li><a href="#char_indexing">Indexing strings </a></li>
 					<li><a href="#char_unicoderef">Referencing the Unicode Standard </a></li>
 				</ul>
@@ -580,6 +581,32 @@
 
 <section id="char_def" class="subtopic">
     <h3>Choosing a definition of 'character'</h3>
+    
+    <p>The term <em>character</em> can refer to a variety of different concepts, depending on the user's point of view. This makes the term too imprecise to use when specifying algorithms, protocols, or document formats. Understanding how characters are defined and encoded in computing systems, along with the associated terminology, is thus a necessary prerequisite to discussing the processing of string data.</p>
+    
+    <p>At the highest level are <dfn>user-perceived characters</dfn>. These are the visual building blocks that someone familiar with a given script or writing system will perceive to be a single textual unit. At their simplest, user-perceived characters are tied 1:1 to their underlying computing representation: for example, the letter A (U+0041 LATIN CAPITAL LETTER A) is a single user-perceived character. But a user-perceived character can be formed, in some scripts, from more than one character. Indeed, in some cases, a single visible character might be formed from a long sequence of logical characters.</p>
+    
+    <p>User-perceived characters are represented on the screen (or other output, such as print) using <dfn>glyphs</dfn> or <dfn>graphemes</dfn>: these are the visual units in fonts and rendering software. [[!Unicode]] defines a specific type of grapheme: the <dfn>extended grapheme cluster</dfn> which most closely matches the underlying logical character sequence to a user-perceived character. When referring to 'graphemes' in this document, we mean extended grapheme clusters (unless otherwise called out).</p>
+    
+    <p>[[!Unicode]] is the set of logical characters (along with processing rules and other definitions) the are used in modern computing systems to encode text. In Unicode, a 'character' is a single abstract logical unit of text. Each character in Unicode is assigned a unique integer number between <code>0x0000</code> and <code>0x10FFFF</code>, which is called its <dfn>code point</dfn>. The term code point therefore unambiguously refers to a single logical Unicode character.</p>
+    
+    <p class=advisement id="char_term_def">Specifications SHOULD explicitly define the term 'character' to mean a Unicode code point.</p>
+    
+    <p>Unicode code points are just abstract integer values. A <dfn>character encoding form</dfn> (or "character encoding" for short) defines the rules by which code points are encoded into the memory of a computing system. When processing text, computers use an array of fixed-size integer units. One such common unit is the <dfn>byte</dfn> (or <em>octet</em>, since bytes have 8 bits per unit). There are also 16-bit, 32-bit, or other size units. These units are collectively called <dfn>code units</dfn>. Thus a <dfn>character encoding</dfn> is the set of rules for encoding code points in a character set such as Unicode to code units (and back again).</p>
+    
+    <p>The most common character encoding used on the Web is UTF-8. UTF-8 used bytes as its code unit. Each Unicode character encoded in UTF-8 takes between one and four bytes to encode.</p>
+    
+    <aside class=example>
+		<p>String: &#x092F;&#x0942;&#x0928;&#x093F;&#x0915;&#x094B;&#x0921;</p>
+		<p>Graphemes: &#x092F;&#x0942;&nbsp;&#x0928;&#x093F;&nbsp;&#x0915;&#x094B;&nbsp;&#x0921;</p>
+	    <p>Unicode characters:&#x092F;&nbsp;&#x0942;&nbsp;&#x0928;&nbsp;&#x093F;&nbsp;&#x0915;&nbsp;&#x094B;&nbsp;&#x0921;</p>
+	    <p>Code Points: 092F 0942 0928 093F 0915 094B 0921</p>
+	    <p>Code Units (UTF-8 bytes): E0 A4 AF E0 A5 82 E0 A4 A8 E0 A4 BF E0 A4 95 E0 A5 8B E0 A4 A1</p>
+    </aside>
+    
+    <aside class=example>
+    </aside>
+    
     <p class="advisement" id="char_sounds"><a class="self" href="#char_sounds">&#x200B;</a>Specifications, software and content MUST NOT require or depend on a one-to-one correspondence between characters and the sounds of a language. <a href="https://www.w3.org/TR/charmod/#C001">more</a></p>
     <p class="advisement" id="char_display"><a class="self" href="#char_display">&#x200B;</a>Specifications, software and content MUST NOT require or depend on a one-to-one mapping between characters and units of displayed text. <a href="https://www.w3.org/TR/charmod/#C002">more</a></p>
     <p class="advisement" id="char_logical"><a class="self" href="#char_logical">&#x200B;</a>Protocols, data formats and APIs MUST store, interchange or process text data in logical order. <a href="https://www.w3.org/TR/charmod/#C003">more</a></p>
@@ -800,7 +827,7 @@
     </section>
   </section>
     
-  
+ 
   <section id="char_sort" class="subtopic">
     <h3>Specifying sort and search functionality</h3>
     <p class="advisement" id="char_sort_units"><a class="self" href="#char_sort_units">&#x200B;</a>Software that sorts or searches text for users SHOULD do so on the basis of appropriate collation units and ordering rules for the relevant language and/or application. <a href="https://www.w3.org/TR/charmod/#C006">more</a></p>
@@ -901,6 +928,17 @@
       </section>
     </section>
     
+        
+ <section id="char_truncation" class="subtopic">
+    <h3>Truncating or Limiting the Length of Strings</h3>
+    <p>Some specifications, formats, or protocols or their implementations need to specify limits for the size of a given data structure or text field. This could be due to many reasons, such as limits on processing, memory, data structure size, and so forth. When selecting or specifying limits on the length of a given string, specifications or implementations need to ensure that they do not cause corruption in the text.</p>
+
+    <p class="advisement" id="char_trunc_units">Specifications that limit the length of a string MUST specify which type of unit (extended grapheme clusters, Unicode code points, or code units) the length limit uses.</p>
+    <p class="advisement" id="char_trunc_unit_rec">Specifications that limit the length of a string SHOULD specify the length in terms of Unicode code points.</p>
+    <p class="advisement" id="char_trunc_byte_boundary">If a specification sets a length limit in code units (such as bytes), it MUST specify that truncation can only occur on code point boundaries.</p>
+    <p class="advisement" id="char_trunk_indicator">If a specification specifies a length limit, it SHOULD specify that any string that is truncated include an indicator, such as ellipses, that the string has been altered.</p>    
+    <p class="advisement" id=""></p>
+ </section>
     
     <section id="char_indexing" class="subtopic">
       <h3>Indexing strings</h3>
