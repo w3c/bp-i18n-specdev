@@ -2,7 +2,7 @@
 
 
 figcaption {
-	 text-align: center;
+	text-align: center;
 	margin: 0.5em 2em;
 	font-style: italic;
 	font-size: 90%;
@@ -208,3 +208,13 @@ h4 { 	color: #005a9c; margin-top: 2em;  }
 	}
 
 .subtopic, .topic { clear: both; }
+
+.bigtext {
+    font-size: 36pt;
+    color: blue;
+    text-align: left;
+    }
+
+aside h2 {
+    margin-top: 0em;
+    }

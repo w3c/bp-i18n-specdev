@@ -579,34 +579,116 @@
 <p>See the <a href="https://encoding.spec.whatwg.org/">Encoding</a> specification for further guidelines related to use of character encodings.</p>
 <p>Another Character Model document is currently in development, entitled <a href="https://w3c.github.io/charmod-norm/">String Matching and Searching</a>. It looks at issues that arise when you try to compare two strings, be it identifiers or authored content.</p>
 
-<section id="char_def" class="subtopic">
-    <h3>Choosing a definition of 'character'</h3>
+<hr/>
+
+    <p>The term <em>character</em> is often used to mean different things in different contexts: it can variously refer to the visual, logical, or byte-level representation of a given piece of text. This makes the term too imprecise to use when specifying algorithms, protocols, or document formats. Understanding how characters are defined and encoded in computing systems, along with the associated terminology used to make such specification unambiguous, is thus a necessary prerequisite to discussing the processing of string data.</p>
     
-    <p>The term <em>character</em> can refer to a variety of different concepts, depending on the user's point of view. This makes the term too imprecise to use when specifying algorithms, protocols, or document formats. Understanding how characters are defined and encoded in computing systems, along with the associated terminology, is thus a necessary prerequisite to discussing the processing of string data.</p>
+    <p>The visual manifestation of a "character"&mdash;the shape most people mean when they say "character"&mdash;is what we call a <dfn>user-perceived character</dfn>. These visual building blocks are usually perceived to be a single unit of the visible text.</p>
     
-    <p>At the highest level are <dfn>user-perceived characters</dfn>. These are the visual building blocks that someone familiar with a given script or writing system will perceive to be a single textual unit. At their simplest, user-perceived characters are tied 1:1 to their underlying computing representation: for example, the letter A (U+0041 LATIN CAPITAL LETTER A) is a single user-perceived character. But a user-perceived character can be formed, in some scripts, from more than one character. Indeed, in some cases, a single visible character might be formed from a long sequence of logical characters.</p>
+    <p>At their simplest, user-perceived characters are a single shape that can be tied one-to-one to the underlying computing representation. But a user-perceived character can be formed, in some scripts, from more than one character. And a given logical character can take many different shapes due to such influences as font selection, style, or the surrounding context (such as adjacent characters). In some cases, a single user-perceived character might be formed from a long sequence of logical characters. And some logical characters (so-called "combining marks") are always used in conjunction with another character.</p>
     
-    <p>User-perceived characters are represented on the screen (or other output, such as print) using <dfn>glyphs</dfn> or <dfn>graphemes</dfn>: these are the visual units in fonts and rendering software. [[!Unicode]] defines a specific type of grapheme: the <dfn>extended grapheme cluster</dfn> which most closely matches the underlying logical character sequence to a user-perceived character. When referring to 'graphemes' in this document, we mean extended grapheme clusters (unless otherwise called out).</p>
+    <p>When user-perceived characters are represented visibly (on screen or in print), they are represented by individual rendering units. This visual unit is called a <dfn>grapheme</dfn> (the word <dfn>glyph</dfn> is also used). Graphemes are the visual units found in fonts and rendering software.</p>
     
-    <p>[[!Unicode]] is the set of logical characters (along with processing rules and other definitions) the are used in modern computing systems to encode text. In Unicode, a 'character' is a single abstract logical unit of text. Each character in Unicode is assigned a unique integer number between <code>0x0000</code> and <code>0x10FFFF</code>, which is called its <dfn>code point</dfn>. The term code point therefore unambiguously refers to a single logical Unicode character.</p>
+    <aside class=example>
+		<h5>Examples of user-perceived characters</h5>
+		<p>Here is the word for "Unicode" in the Latin, Katakana, Arabic, and Devanagari scripts.</p>
+		<p class=bigtext>Unicode
+		   <span lang=ja>&#x30E6;&#x30CB;&#x30B3;&#x30FC;&#x30C9;</span>
+		   <span lang=ar dir=rtl>&#x064A;&#x0648;&#x0646;&#x064A;&#x0643;&#x0648;</span>
+		   <span lang=hi>&#x092F;&#x0942;&#x0928;&#x093F;&#x0915;&#x094B;&#x0921;</span>
+		</p>
+		<p>The last example, in the Devanagari script (which is used to write Hindi, among other languages) is made up of four graphemes:</p>
+		<p class=bigtext lang=hi>&#x092F;&#x0942;&nbsp;&#x0928;&#x093F;&nbsp;&#x0915;&#x094B;&nbsp;&#x0921;</p>
+    </aside>
     
-    <p class=advisement id="char_term_def">Specifications SHOULD explicitly define the term 'character' to mean a Unicode code point.</p>
+    <p>Graphemes are encoded into computer systems using "logical characters". A <dfn>character set</dfn> is a set of logical characters: a specific collection of characters that can be used together to encode text. The most important character set is the <dfn>Universal Character Set</dfn>, also known as [[!Unicode]]. This character set includes all of the characters used to encode text, including historical or extinct writing systems as well as modern usage, private use, typesetting symbols, and other things, such as the emoji. Other character sets are defined subsets of Unicode. In Unicode, a 'character' is a single abstract logical unit of text. Each character in Unicode is assigned a unique integer number between <code>0x0000</code> and <code>0x10FFFF</code>, which is called its <dfn>code point</dfn>. The term code point therefore unambiguously refers to a single logical character and its integer representation.</p>
+
+    <p class=advisement id="char_term_def"><a class="self" href="#char_term_def">&#x200B;</a>Specifications SHOULD explicitly define the term 'character' to mean a Unicode code point.</p>
     
-    <p>Unicode code points are just abstract integer values. A <dfn>character encoding form</dfn> (or "character encoding" for short) defines the rules by which code points are encoded into the memory of a computing system. When processing text, computers use an array of fixed-size integer units. One such common unit is the <dfn>byte</dfn> (or <em>octet</em>, since bytes have 8 bits per unit). There are also 16-bit, 32-bit, or other size units. These units are collectively called <dfn>code units</dfn>. Thus a <dfn>character encoding</dfn> is the set of rules for encoding code points in a character set such as Unicode to code units (and back again).</p>
+    <p>The relationship between code points and graphemes can be complex. In most cases, a code point sequence that forms a single grapheme should be treated as a single textual unit. For example, when cursoring across text, an entire grapheme should select together. It shouldn't be possible to cursor into the "middle" of a grapheme or delete only a part of user-perceived character. Because the relationship is not one-to-one between code points and graphemes and because the relationship can be somewhat complex, [[!Unicode]] defines a specific type of grapheme: the <dfn>extended grapheme cluster</dfn> which most closely matches the mapping of the underlying logical character sequence to a user-perceived character. When referring to 'graphemes' in this document, we mean extended grapheme clusters (unless otherwise called out).</p>
     
-    <p>The most common character encoding used on the Web is UTF-8. UTF-8 used bytes as its code unit. Each Unicode character encoded in UTF-8 takes between one and four bytes to encode.</p>
+    <aside class=example>
+		<h5>Hindi example showing mapping from graphemes to code points</h5>
+		<p>Returning to the example above, the Hindi word for Unicode is made of four graphemes:</p>
+		<p class=bigtext lang=hi>&#x092F;&#x0942;&nbsp;<span style="color:red">&#x0928;&#x093F;</span>&nbsp;&#x0915;&#x094B;&nbsp;&#x0921;</p>
+		<p>Several of these graphemes are made up of more than one Unicode character because of the way that the Devanagari script works. In Devanagari, the basic set of "letters" are syllables ending with the short 'a' vowel sound. When you want to use a different vowel, you add a combining vowel character that changes the shape of the grapheme. The red text in the example above is the syllable "ni" in "Unicode". It is made of two characters: U+0928 (the syllable "na") and U+093F (combining "short i" sound):</p>
+		
+		<table>
+			<tr>
+				<td class=bigtext>&#x092f;</td>
+				<td class=bigtext>&#x0942;</td>
+				<td class=bigtext style="color:red">&#x0928;</td>
+				<td class=bigtext style="color:red">&#x093f;</td>
+				<td class=bigtext>&#x0915;</td>
+				<td class=bigtext>&#x094b;</td>
+				<td class=bigtext>&#x0921;</td>
+			</tr>
+			<tr>
+				<td><code>U+092F</code></td>
+				<td><code>U+0942</code></td>
+				<td><code>U+0928</code></td>
+				<td><code>U+093F</code></td>
+				<td><code>U+0915</code></td>
+				<td><code>U+094B</code></td>
+				<td><code>U+0921</code></td>
+			</tr>
+		</table>
+		
+    </aside>
+
+    <p>Another example of the complex relationship between code points and graphemes are certain emoji. The emoji character for "family" has a code point in Unicode: <span class="codepoint"><span lang="en">&#x1F46A;</span> [<span class="uname">U+1F46A FAMILY</span>]</span>. It can also be formed by using using a sequence of code points: <span class="uname">U+1F468 U+200D U+1F469 U+200D U+1F466</span>. Altering or adding other emoji characters can alter the composition of the family. For example the sequence <span class="uname" translate="no">&#x1f468;&#x200d;&#x1f469;&#x200d;&#x1f467;&#x200d;&#x1f467; U+1F468 U+200D U+1F469 U+200D U+1F467 U+200D U+1F467</span> results in a composed emoji character for a "family: man, woman, girl, girl" on systems that support this kind of composition. Many common emoji can <em>only</em> be formed using sequences of code points, but should be treated as a single user-perceived character when displaying or processing the text. You wouldn't want to put a line-break in the middle of the family!</p>    
+    
+    <p>Unicode code points are just abstract integer values: they are not the values actually present in the memory of the computer or serialized on the wire. When processing text, computers use an array of fixed-size integer units. One such common unit is the <dfn>byte</dfn> (or <em>octet</em>, since bytes have 8 bits per unit). There are also 16-bit, 32-bit, or other size units. In many programming languages, the unit is called a <code>char</code>, which suggests that strings are made of "characters". We use the term <dfn>code unit</dfn> to refer unambiguously to the programming and serialized representation of characters. For example, in C, a <code>char</code> is generally an 8-bit byte: each <code>char</code> is a 8-bit code unit. In Java or Javascript, a <code>char</code> is a 16-bit value.</p>
+    
+    <p>A set of rules for converting code points to or from code units is called a <dfn>character encoding form</dfn> (or just "character encoding" for short.</p>
+    
+    <aside class=example>
+       <h5>UTF-8 Character Encoding Form</h5>
+       
+       <p>The most common character encoding used on the Web is UTF-8. UTF-8 used the 8-bit byte as its code unit. Each Unicode character encoded in UTF-8 takes between one and four bytes to encode. ASCII characters take one byte to encode. Code points from 0x80 to 0x7FF take two bytes. Code points from 0x800 to 0xFFFF take three bytes. And code points from 0x10000 to 0x10FFFF (that is, the rest of Unicode) take four bytes each.</p>
+
+       <table>
+		   <tr>
+			   <td class=bigtext>A</td>
+			   <td class=bigtext>&#xc0;</td>
+		   </tr>
+		   <tr>
+			   <td><code>U+0041</code></td>
+			   <td><code>U+00C0</code></td>
+		   </tr>
+		   <tr>
+			   <td><code>0x41</code></td>
+			   <td><code>0xC3 0x80</code></td>
+		   </tr>
+		   <tr>
+			   <td class=bigtext>&#x928;</td>
+			   <td class=bigtext>&#x1F46A;</td>
+		   </tr>
+		   <tr>
+			   <td><code>U+0928</code></td>
+			   <td><code>U+1F46A</code></td>
+		   </tr>
+		   <tr>
+			   <td><code>0xE0 0xA4 0xA8</code></td>
+			   <td><code>0xF0 0x9F 0x91 0xAA</code></td>
+		   </tr>
+       </table>
+
+    </aside>
     
     <aside class=example>
 		<p>String: &#x092F;&#x0942;&#x0928;&#x093F;&#x0915;&#x094B;&#x0921;</p>
 		<p>Graphemes: &#x092F;&#x0942;&nbsp;&#x0928;&#x093F;&nbsp;&#x0915;&#x094B;&nbsp;&#x0921;</p>
 	    <p>Unicode characters:&#x092F;&nbsp;&#x0942;&nbsp;&#x0928;&nbsp;&#x093F;&nbsp;&#x0915;&nbsp;&#x094B;&nbsp;&#x0921;</p>
-	    <p>Code Points: 092F 0942 0928 093F 0915 094B 0921</p>
-	    <p>Code Units (UTF-8 bytes): E0 A4 AF E0 A5 82 E0 A4 A8 E0 A4 BF E0 A4 95 E0 A5 8B E0 A4 A1</p>
+	    <p>Code Points: <code>U+092F U+0942 U+0928 U+093F U+0915 U+094B U+0921</code></p>
+	    <p>Code Units (UTF-8 bytes): <code>E0 A4 AF E0 A5 82 E0 A4 A8 E0 A4 BF E0 A4 95 E0 A5 8B E0 A4 A1</code></p>
     </aside>
     
-    <aside class=example>
-    </aside>
+
+<section id="char_def" class="subtopic">
+    <h3>Choosing a definition of 'character'</h3>
     
+  
     <p class="advisement" id="char_sounds"><a class="self" href="#char_sounds">&#x200B;</a>Specifications, software and content MUST NOT require or depend on a one-to-one correspondence between characters and the sounds of a language. <a href="https://www.w3.org/TR/charmod/#C001">more</a></p>
     <p class="advisement" id="char_display"><a class="self" href="#char_display">&#x200B;</a>Specifications, software and content MUST NOT require or depend on a one-to-one mapping between characters and units of displayed text. <a href="https://www.w3.org/TR/charmod/#C002">more</a></p>
     <p class="advisement" id="char_logical"><a class="self" href="#char_logical">&#x200B;</a>Protocols, data formats and APIs MUST store, interchange or process text data in logical order. <a href="https://www.w3.org/TR/charmod/#C003">more</a></p>
@@ -933,10 +1015,10 @@
     <h3>Truncating or Limiting the Length of Strings</h3>
     <p>Some specifications, formats, or protocols or their implementations need to specify limits for the size of a given data structure or text field. This could be due to many reasons, such as limits on processing, memory, data structure size, and so forth. When selecting or specifying limits on the length of a given string, specifications or implementations need to ensure that they do not cause corruption in the text.</p>
 
-    <p class="advisement" id="char_trunc_units">Specifications that limit the length of a string MUST specify which type of unit (extended grapheme clusters, Unicode code points, or code units) the length limit uses.</p>
-    <p class="advisement" id="char_trunc_unit_rec">Specifications that limit the length of a string SHOULD specify the length in terms of Unicode code points.</p>
-    <p class="advisement" id="char_trunc_byte_boundary">If a specification sets a length limit in code units (such as bytes), it MUST specify that truncation can only occur on code point boundaries.</p>
-    <p class="advisement" id="char_trunk_indicator">If a specification specifies a length limit, it SHOULD specify that any string that is truncated include an indicator, such as ellipses, that the string has been altered.</p>    
+    <p class="advisement" id="char_trunc_units"><a class="self" href="#char_trunc_units">&#x200B;</a>Specifications that limit the length of a string MUST specify which type of unit (extended grapheme clusters, Unicode code points, or code units) the length limit uses.</p>
+    <p class="advisement" id="char_trunc_unit_rec"><a class="self" href="#char_trunc_unit_rec">&#x200B;</a>Specifications that limit the length of a string SHOULD specify the length in terms of Unicode code points.</p>
+    <p class="advisement" id="char_trunc_byte_boundary"><a class="self" href="#char_trunc_byte_boundary">&#x200B;</a>If a specification sets a length limit in code units (such as bytes), it MUST specify that truncation can only occur on code point boundaries.</p>
+    <p class="advisement" id="char_trunk_indicator"><a class="self" href="#char_trunc_indicator">&#x200B;</a>If a specification specifies a length limit, it SHOULD specify that any string that is truncated include an indicator, such as ellipses, that the string has been altered.</p>    
     <p class="advisement" id=""></p>
  </section>
     
