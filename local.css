@@ -218,3 +218,8 @@ h4 { 	color: #005a9c; margin-top: 2em;  }
 aside h2 {
     margin-top: 0em;
     }
+    
+table.cpExample {
+    table-layout: fixed;
+    width: 80%;
+    }

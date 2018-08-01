@@ -643,47 +643,45 @@
     <p>A set of rules for converting code points to or from code units is called a <dfn>character encoding form</dfn> (or just "character encoding" for short.</p>
     
     <aside class=example>
-       <h5>UTF-8 Character Encoding Form</h5>
+       <h2>UTF-8 Character Encoding Form</h2>
        
-       <p>The most common character encoding used on the Web is UTF-8. UTF-8 used the 8-bit byte as its code unit. Each Unicode character encoded in UTF-8 takes between one and four bytes to encode. ASCII characters take one byte to encode. Code points from 0x80 to 0x7FF take two bytes. Code points from 0x800 to 0xFFFF take three bytes. And code points from 0x10000 to 0x10FFFF (that is, the rest of Unicode) take four bytes each.</p>
+       <p>The most common character encoding used on the Web is UTF-8. UTF-8 uses 8-bit bytes as its code unit. Each Unicode code point encoded into UTF-8 takes between one and four bytes to encode. ASCII characters take one byte to encode. Code points from 0x80 to 0x7FF take two bytes. Code points from 0x800 to 0xFFFF take three bytes. And code points from 0x10000 to 0x10FFFF (that is, the rest of Unicode) take four bytes each.</p>
 
-       <table>
+       <table class=cpExample>
 		   <tr>
+			   <td>Grapheme</td>
 			   <td class=bigtext>A</td>
 			   <td class=bigtext>&#xc0;</td>
 		   </tr>
 		   <tr>
+			   <td>Code Point</td>
 			   <td><code>U+0041</code></td>
 			   <td><code>U+00C0</code></td>
 		   </tr>
 		   <tr>
+			   <td>Code Units (bytes)</td>
 			   <td><code>0x41</code></td>
 			   <td><code>0xC3 0x80</code></td>
 		   </tr>
 		   <tr>
+			   <td>Grapheme</td>
 			   <td class=bigtext>&#x928;</td>
 			   <td class=bigtext>&#x1F46A;</td>
 		   </tr>
 		   <tr>
+			   <td>Code Point</td>
 			   <td><code>U+0928</code></td>
 			   <td><code>U+1F46A</code></td>
 		   </tr>
 		   <tr>
+			   <td>Code Units (bytes)</td>
 			   <td><code>0xE0 0xA4 0xA8</code></td>
 			   <td><code>0xF0 0x9F 0x91 0xAA</code></td>
 		   </tr>
        </table>
 
     </aside>
-    
-    <aside class=example>
-		<p>String: &#x092F;&#x0942;&#x0928;&#x093F;&#x0915;&#x094B;&#x0921;</p>
-		<p>Graphemes: &#x092F;&#x0942;&nbsp;&#x0928;&#x093F;&nbsp;&#x0915;&#x094B;&nbsp;&#x0921;</p>
-	    <p>Unicode characters:&#x092F;&nbsp;&#x0942;&nbsp;&#x0928;&nbsp;&#x093F;&nbsp;&#x0915;&nbsp;&#x094B;&nbsp;&#x0921;</p>
-	    <p>Code Points: <code>U+092F U+0942 U+0928 U+093F U+0915 U+094B U+0921</code></p>
-	    <p>Code Units (UTF-8 bytes): <code>E0 A4 AF E0 A5 82 E0 A4 A8 E0 A4 BF E0 A4 95 E0 A5 8B E0 A4 A1</code></p>
-    </aside>
-    
+   
 
 <section id="char_def" class="subtopic">
     <h3>Choosing a definition of 'character'</h3>
