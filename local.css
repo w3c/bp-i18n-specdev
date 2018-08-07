@@ -223,3 +223,18 @@ table.cpExample {
     table-layout: fixed;
     width: 80%;
     }
+    
+p.sidenote {
+    color: gray;
+    font-size:60%;
+    }
+    
+table.truncExample th,td {
+    vertical-align: top;
+    }
+    
+table.truncExample kbd,code {
+    color: blue;
+    font-size: larger;
+    }
+
