@@ -237,4 +237,21 @@ table.truncExample kbd,code {
     color: blue;
     font-size: larger;
     }
+    
+code.error {
+    color: white;
+    background-color: red;
+    }
+    
+table.truncationExample {
+  /*  table-layout: fixed; */
+    width: 100%;
+    border: 2px solid black;
+    border-collapse: collapse;
+    }
+    
+table.truncationExample td {
+    border: 1px solid gray;
+    text-align: center;
+}
 

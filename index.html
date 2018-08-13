@@ -1024,56 +1024,278 @@
     
     <p>Otherwise most limits are expressed in terms of code points in Unicode or code units (such as bytes) in a specific character encoding. Code points provides the best user experience, since all Unicode code points are treated identically: if text is truncated after 40 code points, all languages and scripts get the same number of code points to work with. By contrast, when the size limit is expressed in code units such as bytes in UTF-8, users who write in a language that mostly uses ASCII letters get many more characters (code points) for a given size limit than user's whose language is mostly made up of characters that take 2-, 3-, or 4-bytes per code point.</p>
     
-    <aside class=example>
-		<h2>Text truncation in UTF-8</h2>
-		<p>Below you can see the effect of truncating a given string of text encoded in UTF-8 on a 40-byte boundary. There are several things to notice here.</p>
-		<p>First, the number of characters in the truncated string decreases as the number of bytes required per character goes up. So the Cyrillic string has half the number of characters as the ASCII string. The Chinese string has about 1/3 the number. And the emoji string has 1/4.</p>
-		<p>Second, in two of the three examples, the text is truncated on a byte boundary in the middle of a character. The resulting "dangling byte" is rendered as U+FFFD and the byte sequence itself is not valid UTF-8. This can interfere with the validity of a given text file. Unlike many legacy character encodings, UTF-8 is highly patterned, so the the longest broken character sequence that can result from mid-character truncation is one character. By contrast, in many legacy encodings, a file or document containing a mid-character truncated string can be wholly changed or rendered unintelligible after that point.</p>
-		<table class=truncExample>
-		<tr>
-			<th>Script</th>
-			<th>Truncated Length<br>(code points)</th>
-			<th>Avg. Bytes/Code Point</th>
-			<th>Truncated Text<br>Byte Values</th>
-		</tr>
-		<tr>
-			<td rowspan=2>ASCII</strong>
-			<td rowspan=2>40</td> 
-			<td rowspan=2>1</td>
-			<td><kbd>In the loveliest town of all, where the </kbd></td>
-		</tr>
-		<tr>
-			<td><code>49 6E 20 74 68 65 20 6C 6F 76 65 6C 69 65 73 74 20 74 6F 77 6E 20 6F 66 20 61 6C 6C 2C 20 77 68 65 72 65 20 74 68 65 20</code></td>
-		</tr>
-		<tr>
-			<td rowspan=2>Cyrillic</td>
-			<td rowspan=2>22</td></strong> 
-			<td rowspan=2>2</td>
-			<td><kbd>В самом прекрасном го�</kbd></td>
-	    </tr>
-	    <tr>
-			<td><code>D0 92 20 D1 81 D0 B0 D0 BC D0 BE D0 BC 20 D0 BF D1 80 D0 B5 D0 BA D1 80 D0 B0 D1 81 D0 BD D0 BE D0 BC 20 D0 B3 D0 BE <span style="color:red">D0</span></code></td>
-	    </tr>
-		<tr>
-			<td rowspan=2>Han</td>
-			<td rowspan=2>14</td> 
-			<td rowspan=2>3</td>
-			<td><kbd lang="zh">在最美丽的城镇，那里的房屋�</kbd></td>
-		</tr>
-		<tr>
-			<td><code>E5 9C A8 E6 9C 80 E7 BE 8E E4 B8 BD E7 9A 84 E5 9F 8E E9 95 87 EF BC 8C E9 82 A3 E9 87 8C E7 9A 84 E6 88 BF E5 B1 8B <span style="color:red">E5</span></code></td>
-	    </tr>
-		<tr>
-			<td rowspan=2>Emoji</td>
-			<td rowspan=2>10</em> 
-			<td rowspan=2>4</td>
-			<td><kbd>🙊🙁😢😠😧😎😽😉😄😮</kbd></td>
-		</tr>
-		<tr>
-			<td><code>F0 9F 99 8A F0 9F 99 81 F0 9F 98 A2 F0 9F 98 A0 F0 9F 98 A7 F0 9F 98 8E F0 9F 98 BD F0 9F 98 89 F0 9F 98 84 F0 9F 98 AE</code></td>
-		</tr>
+    <p>Below you can see the effect of truncating strings in different scripts on an arbitrary byte boundary. In this case, each string is encoded in UTF-8 and truncated after the 40th byte. There are several things to notice here.</p>
+    
+	<p>First, as the number of bytes-per-character goes up, the number of characters available inside the byte count limit goes down. ASCII has four times the available characters as emoji, three times as many as languages such as Chinese, and roughly twice as many as the Cyrillic example.</p>
+	
+	<p>Second, in two of the three examples, the byte boundary for truncation falls in the middle of a character. The resulting "dangling byte" is rendered as U+FFFD and the byte sequence itself is not valid UTF-8. If the byte sequence were then serialized into a file format, such as JSON or CSV, the surrounding file might not be wholly valid or the file processor might generate errors because the byte sequence itself is invalid. Unlike many legacy character encodings, UTF-8 is highly patterned, so the longest broken character sequence that can result from mid-character truncation is one character. By contrast, in many legacy encodings, a file or document containing a mid-character truncated string can be wholly changed or rendered unintelligible after that point.</p>
+
+		
+		<table class=truncationExample>
+<tr>
+	<td rowspan=2>ASCII</td>
+<td colspan=1><kbd>I</kbd></td>
+<td colspan=1><kbd>n</kbd></td>
+<td colspan=1><kbd> </kbd></td>
+<td colspan=1><kbd>t</kbd></td>
+<td colspan=1><kbd>h</kbd></td>
+<td colspan=1><kbd>e</kbd></td>
+<td colspan=1><kbd> </kbd></td>
+<td colspan=1><kbd>l</kbd></td>
+<td colspan=1><kbd>o</kbd></td>
+<td colspan=1><kbd>v</kbd></td>
+<td colspan=1><kbd>e</kbd></td>
+<td colspan=1><kbd>l</kbd></td>
+<td colspan=1><kbd>i</kbd></td>
+<td colspan=1><kbd>e</kbd></td>
+<td colspan=1><kbd>s</kbd></td>
+<td colspan=1><kbd>t</kbd></td>
+<td colspan=1><kbd> </kbd></td>
+<td colspan=1><kbd>t</kbd></td>
+<td colspan=1><kbd>o</kbd></td>
+<td colspan=1><kbd>w</kbd></td>
+<td colspan=1><kbd>n</kbd></td>
+<td colspan=1><kbd> </kbd></td>
+<td colspan=1><kbd>o</kbd></td>
+<td colspan=1><kbd>f</kbd></td>
+<td colspan=1><kbd> </kbd></td>
+<td colspan=1><kbd>a</kbd></td>
+<td colspan=1><kbd>l</kbd></td>
+<td colspan=1><kbd>l</kbd></td>
+<td colspan=1><kbd>,</kbd></td>
+<td colspan=1><kbd> </kbd></td>
+<td colspan=1><kbd>w</kbd></td>
+<td colspan=1><kbd>h</kbd></td>
+<td colspan=1><kbd>e</kbd></td>
+<td colspan=1><kbd>r</kbd></td>
+<td colspan=1><kbd>e</kbd></td>
+<td colspan=1><kbd> </kbd></td>
+<td colspan=1><kbd>t</kbd></td>
+<td colspan=1><kbd>h</kbd></td>
+<td colspan=1><kbd>e</kbd></td>
+<td colspan=1><kbd> </kbd></td>
+</tr><tr>
+<td><code>49</code></td>
+<td><code>6E</code></td>
+<td><code>20</code></td>
+<td><code>74</code></td>
+<td><code>68</code></td>
+<td><code>65</code></td>
+<td><code>20</code></td>
+<td><code>6C</code></td>
+<td><code>6F</code></td>
+<td><code>76</code></td>
+<td><code>65</code></td>
+<td><code>6C</code></td>
+<td><code>69</code></td>
+<td><code>65</code></td>
+<td><code>73</code></td>
+<td><code>74</code></td>
+<td><code>20</code></td>
+<td><code>74</code></td>
+<td><code>6F</code></td>
+<td><code>77</code></td>
+<td><code>6E</code></td>
+<td><code>20</code></td>
+<td><code>6F</code></td>
+<td><code>66</code></td>
+<td><code>20</code></td>
+<td><code>61</code></td>
+<td><code>6C</code></td>
+<td><code>6C</code></td>
+<td><code>2C</code></td>
+<td><code>20</code></td>
+<td><code>77</code></td>
+<td><code>68</code></td>
+<td><code>65</code></td>
+<td><code>72</code></td>
+<td><code>65</code></td>
+<td><code>20</code></td>
+<td><code>74</code></td>
+<td><code>68</code></td>
+<td><code>65</code></td>
+<td><code>20</code></td>
+</tr>
+<tr>
+	<td rowspan=2>Cyrillic</td>
+<td colspan=2><kbd>В</kbd></td>
+<td colspan=1><kbd> </kbd></td>
+<td colspan=2><kbd>с</kbd></td>
+<td colspan=2><kbd>а</kbd></td>
+<td colspan=2><kbd>м</kbd></td>
+<td colspan=2><kbd>о</kbd></td>
+<td colspan=2><kbd>м</kbd></td>
+<td colspan=1><kbd> </kbd></td>
+<td colspan=2><kbd>п</kbd></td>
+<td colspan=2><kbd>р</kbd></td>
+<td colspan=2><kbd>е</kbd></td>
+<td colspan=2><kbd>к</kbd></td>
+<td colspan=2><kbd>р</kbd></td>
+<td colspan=2><kbd>а</kbd></td>
+<td colspan=2><kbd>с</kbd></td>
+<td colspan=2><kbd>н</kbd></td>
+<td colspan=2><kbd>о</kbd></td>
+<td colspan=2><kbd>м</kbd></td>
+<td colspan=1><kbd> </kbd></td>
+<td colspan=2><kbd>г</kbd></td>
+<td colspan=2><kbd>о</kbd></td>
+<td colspan=1><kbd>�</kbd></td>
+</tr><tr>
+<td><code>D0</code></td>
+<td><code>92</code></td>
+<td><code>20</code></td>
+<td><code>D1</code></td>
+<td><code>81</code></td>
+<td><code>D0</code></td>
+<td><code>B0</code></td>
+<td><code>D0</code></td>
+<td><code>BC</code></td>
+<td><code>D0</code></td>
+<td><code>BE</code></td>
+<td><code>D0</code></td>
+<td><code>BC</code></td>
+<td><code>20</code></td>
+<td><code>D0</code></td>
+<td><code>BF</code></td>
+<td><code>D1</code></td>
+<td><code>80</code></td>
+<td><code>D0</code></td>
+<td><code>B5</code></td>
+<td><code>D0</code></td>
+<td><code>BA</code></td>
+<td><code>D1</code></td>
+<td><code>80</code></td>
+<td><code>D0</code></td>
+<td><code>B0</code></td>
+<td><code>D1</code></td>
+<td><code>81</code></td>
+<td><code>D0</code></td>
+<td><code>BD</code></td>
+<td><code>D0</code></td>
+<td><code>BE</code></td>
+<td><code>D0</code></td>
+<td><code>BC</code></td>
+<td><code>20</code></td>
+<td><code>D0</code></td>
+<td><code>B3</code></td>
+<td><code>D0</code></td>
+<td><code>BE</code></td>
+<td><code class=error>D0</code></td>
+</tr>
+<tr>
+	<td rowspan=2>Han</td>
+<td colspan=3><kbd>在</kbd></td>
+<td colspan=3><kbd>最</kbd></td>
+<td colspan=3><kbd>美</kbd></td>
+<td colspan=3><kbd>丽</kbd></td>
+<td colspan=3><kbd>的</kbd></td>
+<td colspan=3><kbd>城</kbd></td>
+<td colspan=3><kbd>镇</kbd></td>
+<td colspan=3><kbd>，</kbd></td>
+<td colspan=3><kbd>那</kbd></td>
+<td colspan=3><kbd>里</kbd></td>
+<td colspan=3><kbd>的</kbd></td>
+<td colspan=3><kbd>房</kbd></td>
+<td colspan=3><kbd>屋</kbd></td>
+<td colspan=1><kbd>�</kbd></td>
+</tr><tr>
+<td><code>E5</code></td>
+<td><code>9C</code></td>
+<td><code>A8</code></td>
+<td><code>E6</code></td>
+<td><code>9C</code></td>
+<td><code>80</code></td>
+<td><code>E7</code></td>
+<td><code>BE</code></td>
+<td><code>8E</code></td>
+<td><code>E4</code></td>
+<td><code>B8</code></td>
+<td><code>BD</code></td>
+<td><code>E7</code></td>
+<td><code>9A</code></td>
+<td><code>84</code></td>
+<td><code>E5</code></td>
+<td><code>9F</code></td>
+<td><code>8E</code></td>
+<td><code>E9</code></td>
+<td><code>95</code></td>
+<td><code>87</code></td>
+<td><code>EF</code></td>
+<td><code>BC</code></td>
+<td><code>8C</code></td>
+<td><code>E9</code></td>
+<td><code>82</code></td>
+<td><code>A3</code></td>
+<td><code>E9</code></td>
+<td><code>87</code></td>
+<td><code>8C</code></td>
+<td><code>E7</code></td>
+<td><code>9A</code></td>
+<td><code>84</code></td>
+<td><code>E6</code></td>
+<td><code>88</code></td>
+<td><code>BF</code></td>
+<td><code>E5</code></td>
+<td><code>B1</code></td>
+<td><code>8B</code></td>
+<td><code class=error>E5</code></td>
+</tr>
+<tr>
+	<td rowspan=2>Emoji</td>
+<td colspan=4><kbd>🙊</kbd></td>
+<td colspan=4><kbd>🙁</kbd></td>
+<td colspan=4><kbd>😢</kbd></td>
+<td colspan=4><kbd>😠</kbd></td>
+<td colspan=4><kbd>😧</kbd></td>
+<td colspan=4><kbd>😎</kbd></td>
+<td colspan=4><kbd>😽</kbd></td>
+<td colspan=4><kbd>😉</kbd></td>
+<td colspan=4><kbd>😄</kbd></td>
+<td colspan=4><kbd>😮</kbd></td>
+</tr><tr>
+<td><code>F0</code></td>
+<td><code>9F</code></td>
+<td><code>99</code></td>
+<td><code>8A</code></td>
+<td><code>F0</code></td>
+<td><code>9F</code></td>
+<td><code>99</code></td>
+<td><code>81</code></td>
+<td><code>F0</code></td>
+<td><code>9F</code></td>
+<td><code>98</code></td>
+<td><code>A2</code></td>
+<td><code>F0</code></td>
+<td><code>9F</code></td>
+<td><code>98</code></td>
+<td><code>A0</code></td>
+<td><code>F0</code></td>
+<td><code>9F</code></td>
+<td><code>98</code></td>
+<td><code>A7</code></td>
+<td><code>F0</code></td>
+<td><code>9F</code></td>
+<td><code>98</code></td>
+<td><code>8E</code></td>
+<td><code>F0</code></td>
+<td><code>9F</code></td>
+<td><code>98</code></td>
+<td><code>BD</code></td>
+<td><code>F0</code></td>
+<td><code>9F</code></td>
+<td><code>98</code></td>
+<td><code>89</code></td>
+<td><code>F0</code></td>
+<td><code>9F</code></td>
+<td><code>98</code></td>
+<td><code>84</code></td>
+<td><code>F0</code></td>
+<td><code>9F</code></td>
+<td><code>98</code></td>
+<td><code>AE</code></td>
+</tr>
 		</table>
-    </aside>
+
 
     <p class="advisement" id="char_trunc_units"><a class="self" href="#char_trunc_units">&#x200B;</a>Specifications that limit the length of a string MUST specify which type of unit (extended grapheme clusters, Unicode code points, or code units) the length limit uses.</p>
     <p class="advisement" id="char_trunc_unit_rec"><a class="self" href="#char_trunc_unit_rec">&#x200B;</a>Specifications that limit the length of a string SHOULD specify the length in terms of Unicode code points.</p>
