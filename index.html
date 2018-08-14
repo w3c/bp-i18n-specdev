@@ -1018,20 +1018,18 @@
     
     <p>There are many reasons why a length limit might be needed in a specification or format. Generally length limits correspond to underlying limits in the implementation, such as the use of fixed-size fields in a database or data store, the desire to fit into practical boundaries such as packet size, or some other implementation detail related to storage allocation or efficiency.</p>
     
-    <p>When truncating strings, it's necessary to decide what units to use when counting the size of the string. In many cases this is beyond the control of the specification, since the truncation is occuring for some preordained reason. However, when the choice is available, some general guidelines can be applied.</p>
+    <p>When truncating strings, it's necessary to decide what units to use when counting the size of the string. In many cases this is beyond the control of the specification, since the truncation is occuring for some preordained reason, such as the size of a fixed-length field in a file format or database. However, when the choice is available, some general guidelines can be applied.</p>
     
-    <p>If the limitation is related to the number of display positions, the grapheme count usually corresponds most closely to the expected limit. Note that proportional width fonts, combining marks, complex scripts, and many other factors complicate counting "screen positions". In Web pages, for example, the CSS <kbd>text-overflow</kbd> property provides visual truncation without disturbing the content of the text. Attempts to estimate the size of a given piece of text based on the number of Unicode code points or even the number of grapheme clusters is mostly futile.</p>
+    <p>If the limitation is related to the number of display positions, the grapheme cluster count usually corresponds most closely to the limit expected by users. Note that proportional width fonts, combining marks, complex scripts, accessibility options, and many other factors complicate counting "screen positions". In Web pages, for example, the CSS <kbd>text-overflow</kbd> property provides visual truncation without disturbing the content of the text. Specifying or estimating the presentation size of a given piece of text based on the number of Unicode code points or even the number of grapheme clusters can be wildly inaccurate.</p>
     
-    <p>Otherwise most limits are expressed in terms of code points in Unicode or code units (such as bytes) in a specific character encoding. Code points provides the best user experience, since all Unicode code points are treated identically: if text is truncated after 40 code points, all languages and scripts get the same number of code points to work with. By contrast, when the size limit is expressed in code units such as bytes in UTF-8, users who write in a language that mostly uses ASCII letters get many more characters (code points) for a given size limit than user's whose language is mostly made up of characters that take 2-, 3-, or 4-bytes per code point.</p>
+    <p>Most limits have to do with storage limitations and thus are expressed in terms of Unicode code points or the code units (such as bytes) in a specific character encoding. Counting code points provides the best user experience, since all Unicode code points are treated identically: if text is truncated after a specific number code points (such as 36 in the example below), all languages and scripts get the same number of code points to work with.</p>
     
-    <p>Below you can see the effect of truncating strings in different scripts on an arbitrary byte boundary. In this case, each string is encoded in UTF-8 and truncated after the 40th byte. There are several things to notice here.</p>
+    <p>By contrast, when the size limit is expressed in code units in a variable width encoding (such as UTF-8 or UTF-16), the number of characters a user can encode for a given limit depends on the data being encoded. In UTF-8, for example, users who write in a language that mostly uses ASCII letters get many more characters (code points) for a given size limit than users whose language is mostly made up of characters that take 2-, 3-, or 4-bytes per code point. If the limit is reasonably large, this might not matter, but shorter limits can make it difficult or impossible to fit an appropriate amount of text.</p>
     
-	<p>First, as the number of bytes-per-character goes up, the number of characters available inside the byte count limit goes down. ASCII has four times the available characters as emoji, three times as many as languages such as Chinese, and roughly twice as many as the Cyrillic example.</p>
+    <p>Below you can see the effect of truncating strings in different scripts on an arbitrary code unit boundary. In this case, each string is encoded in UTF-8 and truncated after the 38th byte. There are several things to notice here.</p>
+    
 	
-	<p>Second, in two of the three examples, the byte boundary for truncation falls in the middle of a character. The resulting "dangling byte" is rendered as U+FFFD and the byte sequence itself is not valid UTF-8. If the byte sequence were then serialized into a file format, such as JSON or CSV, the surrounding file might not be wholly valid or the file processor might generate errors because the byte sequence itself is invalid. Unlike many legacy character encodings, UTF-8 is highly patterned, so the longest broken character sequence that can result from mid-character truncation is one character. By contrast, in many legacy encodings, a file or document containing a mid-character truncated string can be wholly changed or rendered unintelligible after that point.</p>
-
-		
-		<table class=truncationExample>
+<table class=truncationExample>
 <tr>
 	<td rowspan=2>ASCII</td>
 <td colspan=1><kbd>I</kbd></td>
@@ -1072,8 +1070,6 @@
 <td colspan=1><kbd> </kbd></td>
 <td colspan=1><kbd>t</kbd></td>
 <td colspan=1><kbd>h</kbd></td>
-<td colspan=1><kbd>e</kbd></td>
-<td colspan=1><kbd> </kbd></td>
 </tr><tr>
 <td><code>49</code></td>
 <td><code>6E</code></td>
@@ -1113,8 +1109,6 @@
 <td><code>20</code></td>
 <td><code>74</code></td>
 <td><code>68</code></td>
-<td><code>65</code></td>
-<td><code>20</code></td>
 </tr>
 <tr>
 	<td rowspan=2>Cyrillic</td>
@@ -1138,7 +1132,6 @@
 <td colspan=2><kbd>м</kbd></td>
 <td colspan=1><kbd> </kbd></td>
 <td colspan=2><kbd>г</kbd></td>
-<td colspan=2><kbd>о</kbd></td>
 <td colspan=1><kbd>�</kbd></td>
 </tr><tr>
 <td><code>D0</code></td>
@@ -1178,8 +1171,6 @@
 <td><code>20</code></td>
 <td><code>D0</code></td>
 <td><code>B3</code></td>
-<td><code>D0</code></td>
-<td><code>BE</code></td>
 <td><code class=error>D0</code></td>
 </tr>
 <tr>
@@ -1196,8 +1187,7 @@
 <td colspan=3><kbd>里</kbd></td>
 <td colspan=3><kbd>的</kbd></td>
 <td colspan=3><kbd>房</kbd></td>
-<td colspan=3><kbd>屋</kbd></td>
-<td colspan=1><kbd>�</kbd></td>
+<td colspan=2><kbd>�</kbd></td>
 </tr><tr>
 <td><code>E5</code></td>
 <td><code>9C</code></td>
@@ -1235,10 +1225,8 @@
 <td><code>E6</code></td>
 <td><code>88</code></td>
 <td><code>BF</code></td>
-<td><code>E5</code></td>
-<td><code>B1</code></td>
-<td><code>8B</code></td>
 <td><code class=error>E5</code></td>
+<td><code class=error>B1</code></td>
 </tr>
 <tr>
 	<td rowspan=2>Emoji</td>
@@ -1251,7 +1239,7 @@
 <td colspan=4><kbd>😽</kbd></td>
 <td colspan=4><kbd>😉</kbd></td>
 <td colspan=4><kbd>😄</kbd></td>
-<td colspan=4><kbd>😮</kbd></td>
+<td colspan=2><kbd>&#xfffd;</kbd></td>
 </tr><tr>
 <td><code>F0</code></td>
 <td><code>9F</code></td>
@@ -1289,14 +1277,15 @@
 <td><code>9F</code></td>
 <td><code>98</code></td>
 <td><code>84</code></td>
-<td><code>F0</code></td>
-<td><code>9F</code></td>
-<td><code>98</code></td>
-<td><code>AE</code></td>
+<td><code class=error>F0</code></td>
+<td><code class=error>9F</code></td>
 </tr>
-		</table>
+</table>
 
-
+	<p>First, as the number of bytes-per-character goes up, the number of characters available inside the byte count limit goes down. ASCII has four times the available characters as emoji, three times as many as languages such as Chinese, and roughly twice as many as the Cyrillic example.</p>
+	
+	<p>Second, in each of the non-ASCII example the byte boundary for truncation falls in the middle of a character. The resulting "dangling bytes" are rendered as U+FFFD and the byte sequence itself is not valid UTF-8. If the byte sequence were then serialized into a file format, such as JSON or CSV, the surrounding file might not be wholly valid or the file processor might generate errors because the byte sequence itself is invalid. Unlike many legacy character encodings, UTF-8 is highly patterned, so the longest broken character sequence that can result from mid-character truncation is one character. By contrast, in many legacy encodings, a file or document containing a mid-character truncated string can be wholly changed or rendered unintelligible after that point.</p>
+	
     <p class="advisement" id="char_trunc_units"><a class="self" href="#char_trunc_units">&#x200B;</a>Specifications that limit the length of a string MUST specify which type of unit (extended grapheme clusters, Unicode code points, or code units) the length limit uses.</p>
     <p class="advisement" id="char_trunc_unit_rec"><a class="self" href="#char_trunc_unit_rec">&#x200B;</a>Specifications that limit the length of a string SHOULD specify the length in terms of Unicode code points.</p>
     <p class="advisement" id="char_trunc_byte_boundary"><a class="self" href="#char_trunc_byte_boundary">&#x200B;</a>If a specification sets a length limit in code units (such as bytes), it MUST specify that truncation can only occur on code point boundaries.</p>
