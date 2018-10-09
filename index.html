@@ -687,15 +687,12 @@
     <h3>Choosing a definition of 'character'</h3>
     
   
-    <p class="advisement" id="char_sounds"><a class="self" href="#char_sounds">&#x200B;</a>Specifications, software and content MUST NOT require or depend on a one-to-one correspondence between characters and the sounds of a language. <a href="https://www.w3.org/TR/charmod/#C001">more</a></p>
-    <p class="advisement" id="char_display"><a class="self" href="#char_display">&#x200B;</a>Specifications, software and content MUST NOT require or depend on a one-to-one mapping between characters and units of displayed text. <a href="https://www.w3.org/TR/charmod/#C002">more</a></p>
-    <p class="advisement" id="char_logical"><a class="self" href="#char_logical">&#x200B;</a>Protocols, data formats and APIs MUST store, interchange or process text data in logical order. <a href="https://www.w3.org/TR/charmod/#C003">more</a></p>
-    <p class="advisement" id="char_logical_storage"><a class="self" href="#char_logical_storage">&#x200B;</a>Independent of whether some implementation uses logical selection or visual selection, characters selected MUST be kept in logical order in storage. <a href="https://www.w3.org/TR/charmod/#C075">more</a></p>
-    <p class="advisement" id="char_logical_discontiguous"><a class="self" href="#char_logical_discontiguous">&#x200B;</a>Specifications of protocols and APIs that involve selection of ranges SHOULD provide for discontiguous logical selections, at least to the extent necessary to support implementation of visual selection on screen on top of those protocols and APIs. <a href="https://www.w3.org/TR/charmod/#C004">more</a></p>
-    <p class="advisement" id="char_keystroke"><a class="self" href="#char_keystroke">&#x200B;</a>Specifications and software MUST NOT require nor depend on a single keystroke resulting in a single character, nor that a single character be input with a single keystroke (even with modifiers), nor that keyboards are the same all over the world. <a href="https://www.w3.org/TR/charmod/#C005">more</a></p>
+     <p class="advisement" id="char_specific"><a class="self" href="#char_specific">&#x200B;</a>Specifications SHOULD use specific terms, when available, instead of the general term 'character'. <a href="https://www.w3.org/TR/charmod/#C067">more</a></p>
+    <p class="advisement" id="char_define"><a class="self" href="#char_define">&#x200B;</a>When specifications use the term 'character' the specifications MUST define which meaning they intend, and  SHOULD explicitly define the term 'character' to mean a Unicode code point. <a href="https://www.w3.org/TR/charmod/#C010">more</a></p>
     <p class="advisement" id="char_physical_storage"><a class="self" href="#char_physical_storage">&#x200B;</a>Specifications, software and content MUST NOT require or depend on a one-to-one relationship between characters and units of physical storage. <a href="https://www.w3.org/TR/charmod/#C009">more</a></p>
-    <p class="advisement" id="char_define"><a class="self" href="#char_define">&#x200B;</a>When specifications use the term 'character' the specifications MUST define which meaning they intend. <a href="https://www.w3.org/TR/charmod/#C010">more</a></p>
-    <p class="advisement" id="char_specific"><a class="self" href="#char_specific">&#x200B;</a>Specifications SHOULD use specific terms, when available, instead of the general term 'character'. <a href="https://www.w3.org/TR/charmod/#C067">more</a></p>
+   <p class="advisement" id="char_sounds"><a class="self" href="#char_sounds">&#x200B;</a>Specifications, software and content MUST NOT require or depend on a one-to-one correspondence between characters and the sounds of a language. <a href="https://www.w3.org/TR/charmod/#C001">more</a></p>
+    <p class="advisement" id="char_display"><a class="self" href="#char_display">&#x200B;</a>Specifications, software and content MUST NOT require or depend on a one-to-one mapping between characters and units of displayed text. <a href="https://www.w3.org/TR/charmod/#C002">more</a></p>
+    <p class="advisement" id="char_keystroke"><a class="self" href="#char_keystroke">&#x200B;</a>Specifications and software MUST NOT require nor depend on a single keystroke resulting in a single character, nor that a single character be input with a single keystroke (even with modifiers), nor that keyboards are the same all over the world. <a href="https://www.w3.org/TR/charmod/#C005">more</a></p>
   
   <section class="links"><h4>Links</h4>
   <section class="howto"><h5>How to's</h5>
@@ -890,7 +887,8 @@
   <section id="char_storing" class="subtopic">
     <h3>Storing text</h3>
     <p class="advisement" id="char_storing_logical"><a class="self" href="#char_storing_logical">&#x200B;</a>Protocols, data formats and APIs MUST store, interchange or process text data in logical order. <a href="https://www.w3.org/TR/charmod/#C003">more</a></p>
-    <p class="advisement" id="char_storing_discontiguous"><a class="self" href="#char_storing_discontiguous">&#x200B;</a>Specifications of protocols and APIs that involve selection of ranges SHOULD provide for discontiguous logical selections, at least to the extent necessary to support implementation of visual selection on screen on top of those protocols and APIs. <a href="https://www.w3.org/TR/charmod/#C004">more</a></p>
+     <p class="advisement" id="char_logical_storage"><a class="self" href="#char_logical_storage">&#x200B;</a>Independent of whether some implementation uses logical selection or visual selection, characters selected MUST be kept in logical order in storage. <a href="https://www.w3.org/TR/charmod/#C075">more</a></p>
+   <p class="advisement" id="char_storing_discontiguous"><a class="self" href="#char_storing_discontiguous">&#x200B;</a>Specifications of protocols and APIs that involve selection of ranges SHOULD provide for discontiguous logical selections, at least to the extent necessary to support implementation of visual selection on screen on top of those protocols and APIs. <a href="https://www.w3.org/TR/charmod/#C004">more</a></p>
 
 
     <section class="links">
@@ -1362,7 +1360,7 @@
 
 
 <section id="sec_resid_non_ascii" class="topic">
-    <h2>Resource identifiers</h2>
+<h2>Resource identifiers</h2>
     
     <section id="sec_resid_basic" class="subtopic">
   <h3>Basics</h3>
