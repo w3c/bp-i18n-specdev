@@ -584,71 +584,24 @@
 
 <hr/>
 
-    <p>The term <em>character</em> is often used to mean different things in different contexts: it can variously refer to the visual, logical, or byte-level representation of a given piece of text. This makes the term too imprecise to use when specifying algorithms, protocols, or document formats. Understanding how characters are defined and encoded in computing systems, along with the associated terminology used to make such specification unambiguous, is thus a necessary prerequisite to discussing the processing of string data.</p>
+    <p>The term <em>character</em> can be used to mean different things in different contexts: it can variously refer to the visual, logical, or byte-level representation of a given piece of text. This makes the term too imprecise to use when specifying algorithms, protocols, or document formats. Understanding how characters are defined and encoded in computing systems, along with the associated terminology used to make such specification unambiguous, is thus a necessary prerequisite to discussing the processing of string data.</p>
     
-    <p>The visual manifestation of a "character"&mdash;the shape most people mean when they say "character"&mdash;is what we call a <dfn>user-perceived character</dfn>. These visual building blocks are usually perceived to be a single unit of the visible text.</p>
+    <p>Things are at their simplest when there is a one-to-one mapping between each layer of character encoding. But the different languages and scripts of the world and the different means of processing them result in sometimes quite complex relationships between what the user perceives as a character, what is stored in fonts, what is shown as output, how those characters are processed in the computer, and finally how they are stored in the computer's memory. Each of these layers can refer informally to "characters", but refer to something different than on another layer. Specialized terms are therefore needed in order to have a clear conversation about text processing. This section briefly introduces the necessary concepts, without delving into the full details, and recommends the terminology for use in specifications that deal with these concepts.</p>
     
-    <p>At their simplest, user-perceived characters are a single shape that can be tied one-to-one to the underlying computing representation. But a user-perceived character can be formed, in some scripts, from more than one character. And a given logical character can take many different shapes due to such influences as font selection, style, or the surrounding context (such as adjacent characters). In some cases, a single user-perceived character might be formed from a long sequence of logical characters. And some logical characters (so-called "combining marks") are always used in conjunction with another character.</p>
-    
-    <p>When user-perceived characters are represented visibly (on screen or in print), they are represented by individual rendering units. This visual unit is called a <dfn>grapheme</dfn> (the word <dfn>glyph</dfn> is also used). Graphemes are the visual units found in fonts and rendering software.</p>
-    
-    <aside class=example>
-		<h5>Examples of user-perceived characters</h5>
-		<p>Here is the word for "Unicode" in the Latin, Katakana, Arabic, and Devanagari scripts.</p>
-		<p class=bigtext>Unicode
-		   <span lang=ja>&#x30E6;&#x30CB;&#x30B3;&#x30FC;&#x30C9;</span>
-		   <span lang=ar dir=rtl>&#x064A;&#x0648;&#x0646;&#x064A;&#x0643;&#x0648;</span>
-		   <span lang=hi>&#x092F;&#x0942;&#x0928;&#x093F;&#x0915;&#x094B;&#x0921;</span>
-		</p>
-		<p>The last example, in the Devanagari script (which is used to write Hindi, among other languages) is made up of four graphemes:</p>
-		<p class=bigtext lang=hi>&#x092F;&#x0942;&nbsp;&#x0928;&#x093F;&nbsp;&#x0915;&#x094B;&nbsp;&#x0921;</p>
-    </aside>
-    
-    <p>Graphemes are encoded into computer systems using "logical characters". A <dfn>character set</dfn> is a set of logical characters: a specific collection of characters that can be used together to encode text. The most important character set is the <dfn>Universal Character Set</dfn>, also known as [[!Unicode]]. This character set includes all of the characters used to encode text, including historical or extinct writing systems as well as modern usage, private use, typesetting symbols, and other things, such as the emoji. Other character sets are defined subsets of Unicode. In Unicode, a 'character' is a single abstract logical unit of text. Each character in Unicode is assigned a unique integer number between <code>0x0000</code> and <code>0x10FFFF</code>, which is called its <dfn>code point</dfn>. The term code point therefore unambiguously refers to a single logical character and its integer representation.</p>
-
-    <p class=advisement id="char_term_def"><a class="self" href="#char_term_def">&#x200B;</a>Specifications SHOULD explicitly define the term 'character' to mean a Unicode code point.</p>
-    
-    <p>The relationship between code points and graphemes can be complex. In most cases, a code point sequence that forms a single grapheme should be treated as a single textual unit. For example, when cursoring across text, an entire grapheme should select together. It shouldn't be possible to cursor into the "middle" of a grapheme or delete only a part of user-perceived character. Because the relationship is not one-to-one between code points and graphemes and because the relationship can be somewhat complex, [[!Unicode]] defines a specific type of grapheme: the <dfn>extended grapheme cluster</dfn> which most closely matches the mapping of the underlying logical character sequence to a user-perceived character. When referring to 'graphemes' in this document, we mean extended grapheme clusters (unless otherwise called out).</p>
-    
-    <aside class=example>
-		<h5>Hindi example showing mapping from graphemes to code points</h5>
-		<p>Returning to the example above, the Hindi word for Unicode is made of four graphemes:</p>
-		<p class=bigtext lang=hi>&#x092F;&#x0942;&nbsp;<span style="color:red">&#x0928;&#x093F;</span>&nbsp;&#x0915;&#x094B;&nbsp;&#x0921;</p>
-		<p>Several of these graphemes are made up of more than one Unicode character because of the way that the Devanagari script works. In Devanagari, the basic set of "letters" are syllables ending with the short 'a' vowel sound. When you want to use a different vowel, you add a combining vowel character that changes the shape of the grapheme. The red text in the example above is the syllable "ni" in "Unicode". It is made of two characters: U+0928 (the syllable "na") and U+093F (combining "short i" sound):</p>
-		
-		<table>
-			<tr>
-				<td class=bigtext>&#x092f;</td>
-				<td class=bigtext>&#x0942;</td>
-				<td class=bigtext style="color:red">&#x0928;</td>
-				<td class=bigtext style="color:red">&#x093f;</td>
-				<td class=bigtext>&#x0915;</td>
-				<td class=bigtext>&#x094b;</td>
-				<td class=bigtext>&#x0921;</td>
-			</tr>
-			<tr>
-				<td><code>U+092F</code></td>
-				<td><code>U+0942</code></td>
-				<td><code>U+0928</code></td>
-				<td><code>U+093F</code></td>
-				<td><code>U+0915</code></td>
-				<td><code>U+094B</code></td>
-				<td><code>U+0921</code></td>
-			</tr>
-		</table>
-		
-    </aside>
-
-    <p>Another example of the complex relationship between code points and graphemes are certain emoji. The emoji character for "family" has a code point in Unicode: <span class="codepoint"><span lang="en">&#x1F46A;</span> [<span class="uname">U+1F46A FAMILY</span>]</span>. It can also be formed by using using a sequence of code points: <span class="uname">U+1F468 U+200D U+1F469 U+200D U+1F466</span>. Altering or adding other emoji characters can alter the composition of the family. For example the sequence <span class="uname" translate="no">&#x1f468;&#x200d;&#x1f469;&#x200d;&#x1f467;&#x200d;&#x1f467; U+1F468 U+200D U+1F469 U+200D U+1F467 U+200D U+1F467</span> results in a composed emoji character for a "family: man, woman, girl, girl" on systems that support this kind of composition. Many common emoji can <em>only</em> be formed using sequences of code points, but should be treated as a single user-perceived character when displaying or processing the text. You wouldn't want to put a line-break in the middle of the family!</p>    
-    
-    <p>Unicode code points are just abstract integer values: they are not the values actually present in the memory of the computer or serialized on the wire. When processing text, computers use an array of fixed-size integer units. One such common unit is the <dfn>byte</dfn> (or <em>octet</em>, since bytes have 8 bits per unit). There are also 16-bit, 32-bit, or other size units. In many programming languages, the unit is called a <code>char</code>, which suggests that strings are made of "characters". We use the term <dfn>code unit</dfn> to refer unambiguously to the programming and serialized representation of characters. For example, in C, a <code>char</code> is generally an 8-bit byte: each <code>char</code> is a 8-bit code unit. In Java or Javascript, a <code>char</code> is a 16-bit value.</p>
-    
-    <p>A set of rules for converting code points to or from code units is called a <dfn>character encoding form</dfn> (or just "character encoding" for short.</p>
+    <p> The basis for modern text encoding is [[!Unicode]] (also known, sometimes, as the <dfn>Universal Character Set</dfn>). In Unicode, a 'character' is a single abstract logical unit of text. Each character in Unicode is assigned a unique integer number between <code>0x0000</code> and <code>0x10FFFF</code>, which is called its <dfn>code point</dfn>. The term code point therefore unambiguously refers to a single logical character and its integer representation.</p>
+     
+    <p class=advisement id="char_term_def"><a class="self" href="#char_term_def">&#x200B;</a>Specifications SHOULD explicitly define the term 'character' to mean a Unicode code point.</p>     
+		 
+	<p>As implied by the name "Universal Character Set", Unicode is a <dfn>character set</dfn>: a specific set of logical characters that can be used together to encode text. Unicode includes all of the characters used to encode text, including historical or extinct writing systems, as well as modern usage, private use, typesetting symbols, and other things, such as the emoji. Other character sets are defined subsets of Unicode.</p>
+	
+	<p>Unicode code points are just abstract integer values: they are not the values actually present in the memory of the computer or serialized on the wire. When processing text, computers use an array of fixed-size integer units. One such common unit is the <dfn>byte</dfn> (or <em>octet</em>, since bytes have 8 bits per unit). There are also 16-bit, 32-bit, or other size units. In many programming languages, the unit is called a <code>char</code>, which suggests that strings are made of "characters". We use the term <dfn>code unit</dfn> to refer unambiguously to the programming and serialized representation of characters. For example, in C, a <code>char</code> is generally an 8-bit byte: each <code>char</code> is a 8-bit code unit. In Java or Javascript, a <code>char</code> is a 16-bit value.</p>
+	
+	<p>The set of rules for converting code points to or from code units is called a <dfn>character encoding form</dfn> (or just "character encoding" for short.</p>
     
     <aside class=example>
        <h2>UTF-8 Character Encoding Form</h2>
        
-       <p>The most common character encoding used on the Web is UTF-8. UTF-8 uses 8-bit bytes as its code unit. Each Unicode code point encoded into UTF-8 takes between one and four bytes to encode. ASCII characters take one byte to encode. Code points from 0x80 to 0x7FF take two bytes. Code points from 0x800 to 0xFFFF take three bytes. And code points from 0x10000 to 0x10FFFF (that is, the rest of Unicode) take four bytes each.</p>
+       <p>The most common (and default) character encoding used on the Web is UTF-8. UTF-8 uses 8-bit bytes as its code unit. Each Unicode code point encoded into UTF-8 takes between one and four bytes (code units) to encode. ASCII characters take one byte to encode. Code points from 0x80 to 0x7FF take two bytes. Code points from 0x800 to 0xFFFF take three bytes. And code points from 0x10000 to 0x10FFFF (that is, the rest of Unicode) take four bytes each.</p>
 
        <table class=cpExample>
 		   <tr>
@@ -684,7 +637,62 @@
        </table>
 
     </aside>
+	
+    <p>The visual manifestation of a "character"&mdash;the shape most people mean when they say "character"&mdash;is what we call a <dfn>user-perceived character</dfn>. These visual building blocks are usually perceived to be a single unit ("character") in the text, but they can be composed of multiple code points.</p>
+    
+    <p>Fonts are made up of a collection of visible presentation units. Each one is called a <dfn>glyph</dfn>. A user-perceived character might have multiple glyphs in a given font, due to the need for different contextual presentation.</p>
+    
+    <p>A visual or typographic character unit that makes up a user-perceived character is called a <dfn>grapheme cluster</dfn> or <dfn>grapheme</dfn> for short. Operations such as text selection or cursor movement usually fall on grapheme cluster boundaries.</p>
+    
+    <p>At their simplest, a grapheme cluster can have a one-to-one mapping to a code point. But in many scripts a grapheme cluster is the user-perceived manifestation of a sequence of code points.</p>
+    
    
+    <aside class=example>
+		<h5>Examples of user-perceived characters</h5>
+		<p>Here is the word for "Unicode" in the Latin, Katakana, Arabic, and Devanagari scripts.</p>
+		<p class=bigtext>Unicode
+		   <span lang=ja>&#x30E6;&#x30CB;&#x30B3;&#x30FC;&#x30C9;</span>
+		   <span lang=ar dir=rtl>&#x064A;&#x0648;&#x0646;&#x064A;&#x0643;&#x0648;</span>
+		   <span lang=hi>&#x092F;&#x0942;&#x0928;&#x093F;&#x0915;&#x094B;&#x0921;</span>
+		</p>
+		<p>The last example, in the Devanagari script (which is used to write Hindi, among other languages) is made up of four graphemes:</p>
+		<p class=bigtext lang=hi>&#x092F;&#x0942;&nbsp;&#x0928;&#x093F;&nbsp;&#x0915;&#x094B;&nbsp;&#x0921;</p>
+    </aside>
+        
+    <p>The relationship between code points and graphemes can be complex. In most cases, a code point sequence that forms a single grapheme should be treated as a single textual unit. For example, when cursoring across text, an entire grapheme should select together. It shouldn't be possible to cursor into the "middle" of a grapheme or delete only a part of user-perceived character. Because the relationship is not one-to-one between code points and graphemes and because the relationship can be somewhat complex, [[!Unicode]] defines a specific type of grapheme: the <dfn>extended grapheme cluster</dfn> which most closely matches the mapping of the underlying logical character sequence to a user-perceived character. When referring to 'graphemes' in this document, we mean extended grapheme clusters (unless otherwise called out).</p>
+    
+    <aside class=example>
+		<h5>Hindi example showing mapping from graphemes to code points</h5>
+		<p>Returning to the example above, the Hindi word for Unicode is made of four graphemes:</p>
+		<p class=bigtext lang=hi>&#x092F;&#x0942;&nbsp;<span style="color:red">&#x0928;&#x093F;</span>&nbsp;&#x0915;&#x094B;&nbsp;&#x0921;</p>
+		<p>Several of these graphemes are made up of more than one Unicode character because of the way that the Devanagari script works. In Devanagari, the basic set of "letters" are syllables ending with the short 'a' vowel sound. When you want to use a different vowel, you add a combining vowel character that changes the shape of the grapheme. The red text in the example above is the syllable "ni" in "Unicode". It is made of two characters: U+0928 (the syllable "na") and U+093F (combining "short i" sound):</p>
+		
+		<table>
+			<tr>
+				<td class=bigtext>&#x092f;</td>
+				<td class=bigtext>&#x0942;</td>
+				<td class=bigtext style="color:red">&#x0928;</td>
+				<td class=bigtext style="color:red">&#x093f;</td>
+				<td class=bigtext>&#x0915;</td>
+				<td class=bigtext>&#x094b;</td>
+				<td class=bigtext>&#x0921;</td>
+			</tr>
+			<tr>
+				<td><code>U+092F</code></td>
+				<td><code>U+0942</code></td>
+				<td><code>U+0928</code></td>
+				<td><code>U+093F</code></td>
+				<td><code>U+0915</code></td>
+				<td><code>U+094B</code></td>
+				<td><code>U+0921</code></td>
+			</tr>
+		</table>
+		
+    </aside>
+
+    <p>Another example of the complex relationship between code points and graphemes are certain emoji. The emoji character for "family" has a code point in Unicode: <span class="codepoint"><span lang="en">&#x1F46A;</span> [<span class="uname">U+1F46A FAMILY</span>]</span>. It can also be formed by using using a sequence of code points: <span class="uname">U+1F468 U+200D U+1F469 U+200D U+1F466</span>. Altering or adding other emoji characters can alter the composition of the family. For example the sequence <span class="uname" translate="no">&#x1f468;&#x200d;&#x1f469;&#x200d;&#x1f467;&#x200d;&#x1f467; U+1F468 U+200D U+1F469 U+200D U+1F467 U+200D U+1F467</span> results in a composed emoji character for a "family: man, woman, girl, girl" on systems that support this kind of composition. Many common emoji can <em>only</em> be formed using sequences of code points, but should be treated as a single user-perceived character when displaying or processing the text. You wouldn't want to put a line-break in the middle of the family!</p>    
+    
+
 
 <section id="char_def" class="subtopic">
     <h3>Choosing a definition of 'character'</h3>
