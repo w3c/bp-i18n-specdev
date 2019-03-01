@@ -238,3 +238,6 @@ table.truncExample kbd,code {
     font-size: larger;
     }
 
+.summary .secno {
+	display: none;
+	}
