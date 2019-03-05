@@ -469,7 +469,7 @@
 
 
     
-<section id="sec_bidi_values">
+<section id="sec_bidi_values" class="subtopic">
 <h3>Base direction values</h3>
 <p class="advisement" id="bidi_values"><a class="self" href="#bidi_values">&#x200B;</a>Values for the default base direction should include left-to-right, right-to-left, and auto. <a class="local" href="https://w3c.github.io/bp-i18n-specdev/#bidi_values">more</a></p>
 <p>The <code class="kw" translate="no">auto</code> value allows automatic detection of the base direction for a piece of text. For example, the <code class="kw" translate="no">auto</code> value of <code class="kw" translate="no">dir</code> in HTML looks for the first strong directional character in the text, but ignores certain items of markup also, to guess the base direction of the text. Note that automatic detection algorithms are far from perfect. First-strong detection is unable to correctly identify text that is really right-to-left, but that begins with a strong LTR character. Algorithms that attempt to judge the base direction based on contents of the text are also problematic. The best scenario is one where the base direction is known and declared.</p>
@@ -569,7 +569,7 @@
 
 
 
-  <section id="bidi_inline">
+  <section id="bidi_inline" class="subtopic">
     <h3>Setting base direction for inline or substring text</h3>
 <p>'Inline text' here has a readily understandable meaning in markup. It also applies to strings (eg. in JSON, CVS, or other plain text formats), meaning runs of characters which don't include all the characters in the string.</p>
     <p class="advisement" id="bidi_inline_change"><a class="self" href="#bidi_inline_change">&#x200B;</a>It must be possible to indicate spans of inline text where the base direction changes. If markup is available, this is the preferred method. Otherwise your specification must require that Unicode control characters are recognized by the receiving application, and correctly implemented.</p>
@@ -633,11 +633,11 @@
 		<p class=bigtext lang=hi>&#x092F;&#x0942;&nbsp;&#x0928;&#x093F;&nbsp;&#x0915;&#x094B;&nbsp;&#x0921;</p>
     </aside>
     
-    <p>Graphemes are encoded into computer systems using "logical characters". A <dfn>character set</dfn> is a set of logical characters: a specific collection of characters that can be used together to encode text. The most important character set is the <dfn>Universal Character Set</dfn>, also known as [[!Unicode]]. This character set includes all of the characters used to encode text, including historical or extinct writing systems as well as modern usage, private use, typesetting symbols, and other things, such as the emoji. Other character sets are defined subsets of Unicode. In Unicode, a 'character' is a single abstract logical unit of text. Each character in Unicode is assigned a unique integer number between <code>0x0000</code> and <code>0x10FFFF</code>, which is called its <dfn>code point</dfn>. The term code point therefore unambiguously refers to a single logical character and its integer representation.</p>
+    <p>Graphemes are encoded into computer systems using "logical characters". A <dfn>character set</dfn> is a set of logical characters: a specific collection of characters that can be used together to encode text. The most important character set is the <dfn>Universal Character Set</dfn>, also known as [[Unicode]]. This character set includes all of the characters used to encode text, including historical or extinct writing systems as well as modern usage, private use, typesetting symbols, and other things, such as the emoji. Other character sets are defined subsets of Unicode. In Unicode, a 'character' is a single abstract logical unit of text. Each character in Unicode is assigned a unique integer number between <code>0x0000</code> and <code>0x10FFFF</code>, which is called its <dfn>code point</dfn>. The term code point therefore unambiguously refers to a single logical character and its integer representation.</p>
 
     <p class=advisement id="char_term_def"><a class="self" href="#char_term_def">&#x200B;</a>Specifications SHOULD explicitly define the term 'character' to mean a Unicode code point.</p>
     
-    <p>The relationship between code points and graphemes can be complex. In most cases, a code point sequence that forms a single grapheme should be treated as a single textual unit. For example, when cursoring across text, an entire grapheme should select together. It shouldn't be possible to cursor into the "middle" of a grapheme or delete only a part of user-perceived character. Because the relationship is not one-to-one between code points and graphemes and because the relationship can be somewhat complex, [[!Unicode]] defines a specific type of grapheme: the <dfn>extended grapheme cluster</dfn> which most closely matches the mapping of the underlying logical character sequence to a user-perceived character. When referring to 'graphemes' in this document, we mean extended grapheme clusters (unless otherwise called out).</p>
+    <p>The relationship between code points and graphemes can be complex. In most cases, a code point sequence that forms a single grapheme should be treated as a single textual unit. For example, when cursoring across text, an entire grapheme should select together. It shouldn't be possible to cursor into the "middle" of a grapheme or delete only a part of user-perceived character. Because the relationship is not one-to-one between code points and graphemes and because the relationship can be somewhat complex, [[Unicode]] defines a specific type of grapheme: the <dfn>extended grapheme cluster</dfn> which most closely matches the mapping of the underlying logical character sequence to a user-perceived character. When referring to 'graphemes' in this document, we mean extended grapheme clusters (unless otherwise called out).</p>
     
     <aside class=example>
 		<h5>Hindi example showing mapping from graphemes to code points</h5>
@@ -1114,7 +1114,7 @@
 	
     <p class="advisement" id="text_n11n_sensitive_operations"><a class="self" href="#text_n11n_sensitive_operations">&#x200B;</a>Normalization-sensitive operations MUST NOT be performed unless the implementation has first either confirmed through inspection that the text is in normalized form or it has re-normalized the text itself. Private agreements MAY be created within private systems which are not subject to these rules, but any externally observable results MUST be the same as if the rules had been obeyed. <a href="https://www.w3.org/TR/charmod-norm/#normalizing-spec">more</a></p>
 	
-<p class="advisement" id="text_n11n_mechanism2"><a class="self" href="#text_n11n_mechanism">&#x200B;</a>A normalizing text-processing component which modifies text and performs normalization-sensitive operations MUST behave as if normalization took place after each modification, so that any subsequent normalization-sensitive operations always behave as if they were dealing with normalized text. <a href="https://www.w3.org/TR/charmod-norm/#normalizing-spec">more</a></p>
+<p class="advisement" id="text_n11n_mechanism"><a class="self" href="#text_n11n_mechanism">&#x200B;</a>A normalizing text-processing component which modifies text and performs normalization-sensitive operations MUST behave as if normalization took place after each modification, so that any subsequent normalization-sensitive operations always behave as if they were dealing with normalized text. <a href="https://www.w3.org/TR/charmod-norm/#normalizing-spec">more</a></p>
 <section class="links">
   <h4>Links</h4>
       <section class="background">
@@ -1377,11 +1377,11 @@
   <section id="typography" class="topic">
 <h2>Typographic support</h2>
 <ul class="summary">
-    <li><a href="#text_decoration">Text decoration</a></li>
-    <li><a href="#vertical">Vertical text</a></li>
-    <li><a href="#box_posn">Setting box positioning coordinates when text direction varies</a></li>
-	<li><a href="#tuby">Ruby text annotations</a></li>
-	<li><a href="#typ_misc">Miscellaneous</a></li>
+    <li><a href="#text_decoration"></a></li>
+    <li><a href="#vertical"></a></li>
+    <li><a href="#box_posn"></a></li>
+	<li><a href="#ruby"></a></li>
+	<li><a href="#typ_misc"></a></li>
 </ul>
 
  
