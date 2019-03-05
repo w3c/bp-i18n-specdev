@@ -327,9 +327,10 @@
 <section id="text_direction" class="topic">
 <h2>Text direction</h2>
 				<ul class="summary">
-				  <li><a href="#sec_dir_basic">Basic requirements</a></li>
-				  <li><a href="#sec_dir_background">Background information</a></li>
-				  <li><a href="#sec_bidi_markup">Handling direction in markup</a></li>
+				  <li><a href="#sec_dir_basic"></a></li>
+				  <li><a href="#sec_dir_background"></a></li>
+				  <li><a href="#sec_bidi_markup"></a></li>
+				  <li><a href="#sec_bidi_strings"></a></li>
 				</ul>
   
 
@@ -556,6 +557,49 @@
       </section>
     </section>
   </section>
+
+
+
+
+
+<section id="sec_bidi_strings" class="subtopic">
+	<h3>Handling direction for strings</h3>
+<p class="note">The information in this section is pulled from <a href="https://w3c.github.io/string-meta/">Requirements for Language and Direction Metadata in Data Formats</a>. That document is still being written, so these guidelines are likely to change at any time.</p>
+    
+  <p class="advisement" id="bidi_strings_metadata"><a class="self" href="#bidi_strings_metadata">&#x200B;</a>Provide metadata constructs that can be used to indicate the base direction of any natural language string. <a href="https://w3c.github.io/string-meta/#best-practices-recommendations-and-gaps">more</a></p>
+
+  <p class="advisement" id="bidi_strings_metadata"><a class="self" href="#bidi_strings_metadata">&#x200B;</a>Specify that consumers of strings should use  heuristics, preferably based on the Unicode Standard first-strong algorithm, to detect the base direction of a string except where metadata is provided. <a href="https://w3c.github.io/string-meta/#best-practices-recommendations-and-gaps">more</a></p>
+
+  <p class="advisement" id="bidi_strings_default"><a class="self" href="#bidi_strings_default">&#x200B;</a>Where possible, define a field to  indicate the default direction for all strings in a given resource or document. <a href="https://w3c.github.io/string-meta/#best-practices-recommendations-and-gaps">more</a></p>
+
+  <p class="advisement" id="bidi_strings_metadata_and_default"><a class="self" href="#bidi_strings_metadata_and_default">&#x200B;</a>Do NOT assume that a creating a document-level default without the ability to change direction for any string is sufficient. <a href="https://w3c.github.io/string-meta/#best-practices-recommendations-and-gaps">more</a></p>
+
+  <p class="advisement" id="bidi_strings_script_tag"><a class="self" href="#bidi_strings_script_tag">&#x200B;</a>If metadata is not available due to legacy implementations and cannot otherwise be provided, specifications MAY allow a base direction to be interpolated from available language metadata. <a href="https://w3c.github.io/string-meta/#best-practices-recommendations-and-gaps">more</a></p>
+
+  <p class="advisement" id="bidi_strings_paired_controls"><a class="self" href="#bidi_strings_paired_controls">&#x200B;</a>Specifications MUST NOT require the production or use of paired bidi controls. <a href="https://w3c.github.io/string-meta/#best-practices-recommendations-and-gaps">more</a></p>
+
+  <section class="links">
+      <h4>Links</h4>
+      <section class="howto">
+        <h5>How to's</h5>
+<ul>
+<li class="w3">
+<p class="link"><a href="https://w3c.github.io/string-meta/">Requirements for Language and Direction Metadata in Data Formats</a></p>
+<ul>
+<li class="sub">
+<p class="link"><a href="https://w3c.github.io/string-meta/#best-practices-recommendations-and-gaps">Best Practices, Recommendations, and Gaps</a></p>
+</li>
+<li class="sub">
+<p class="link"><a href="https://w3c.github.io/string-meta/#requirements-and-use-cases">Requirements and Use Cases</a></p>
+</li>
+<li class="sub">
+<p class="link"><a href="https://w3c.github.io/string-meta/#approaches-considered-for-identifying-the-base-direction">Approaches Considered for Identifying the Base Direction</a></p>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+</section>
 </section>
 
 
@@ -906,7 +950,7 @@
         </ul>
       </section>
     </section>
-  </section>
+</section>
 <section id="char_string" class="subtopic">
 <h3>Defining 'string'</h3>
       <p class="advisement" id="char_string_byte"><a class="self" href="#char_string_byte">&#x200B;</a>Specifications SHOULD NOT define a string as a 'byte string'. <a href="https://www.w3.org/TR/charmod/#C011">more</a></p>
