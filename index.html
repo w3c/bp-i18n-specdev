@@ -193,11 +193,15 @@
  
     <p class="advisement" id="lang_values_valid"><a class="self" href="#lang_values_valid">&#x200B;</a>Be specific about what level of conformance you expect for language tags. The word "valid" has special meaning in BCP 47. Generally "well-formed" is a better choice.</p>
  
- <p>A well-formed BCP 47 language tag has hyphen-separated subtags with specific lengths and in a particular order. Valid BCP 47 language tags are well-formed but also use only subtags that are listed in the IANA Subtag Registry. Note that the IANA Subtag Registry is frequently updated with new subtags.</p>
+ <p>A <strong>well-formed</strong> BCP 47 language tag has hyphen-separated subtags with specific lengths and in a particular order. A <strong>valid</strong> BCP 47 language tag is well-formed but also is ensures that only subtags that are listed in the IANA Subtag Registry are used. Note that the IANA Subtag Registry is frequently updated with new subtags.</p>
+ 
+ <p>When specifying conformance, <q>well-formed</q> is usually preferred because the validity requirements are more difficult to manage and don't add value to the specification in question; in most cases, specifications are primarily concerned with matching tags or ranges of tags rather than the meaning of each subtag.The subtag registry is fairly sizeable and is updated with new subtags and other information sporadically throughout the year. Validation of the contents of the subtags is not required for this.</p>
+ 
+ <p>In addition, BCP 47 has an extension mechanism which defines add-on subtag sequences. One extension, [[RFC6067]] (Unicode Locales), for example, is commonly used for controlling the internationalization features of JavaScript (and has other uses). Validating these additional subtags is likely out of scope for most specifications.</p>
  
     <p class="advisement" id="lang_matching_bcp"><a class="self" href="#lang_matching_bcp">&#x200B;</a>Reference BCP47 for language tag matching.</p>
  
- <p>BCP 47 contains one RFC dedicated to the syntax and subtags of language tags, and another dedicated to how to match two or more subtags.  (This topic needs more detail, and may merit being a separate section.)</p>
+ <p>BCP 47 contains one RFC dedicated to the syntax and content of language tags ([[RFC5646]]), and another ([[RFC4647]]) dedicated to how to match language tags. Specifications are usually most concerned with comparing and matching different language tags or language ranges and there are several choices specification authors can make in defining how to match language tags. (This topic needs more detail, and may merit being a separate section.)</p>
      <section class="links">
       <h4>Links</h4>
       <section class="howto">
@@ -588,7 +592,7 @@
     
     <p>Things are at their simplest when there is a one-to-one mapping between each layer of character encoding. But the different languages and scripts of the world and the different means of processing them result in sometimes quite complex relationships between what the user perceives as a character, what is stored in fonts, what is shown as output, how those characters are processed in the computer, and finally how they are stored in the computer's memory. Each of these layers can refer informally to "characters", but refer to something different than on another layer. Specialized terms are therefore needed in order to have a clear conversation about text processing. This section briefly introduces the necessary concepts, without delving into the full details, and recommends the terminology for use in specifications that deal with these concepts.</p>
     
-    <p> The basis for modern text encoding is [[!Unicode]] (also known, sometimes, as the <dfn>Universal Character Set</dfn>). In Unicode, a 'character' is a single abstract logical unit of text. Each character in Unicode is assigned a unique integer number between <code>0x0000</code> and <code>0x10FFFF</code>, which is called its <dfn>code point</dfn>. The term code point therefore unambiguously refers to a single logical character and its integer representation.</p>
+    <p> The basis for modern text encoding is [[Unicode]] (also known, sometimes, as the <dfn>Universal Character Set</dfn>). In Unicode, a 'character' is a single abstract logical unit of text. Each character in Unicode is assigned a unique integer number between <code>0x0000</code> and <code>0x10FFFF</code>, which is called its <dfn>code point</dfn>. The term code point therefore unambiguously refers to a single logical character and its integer representation.</p>
      
     <p class=advisement id="char_term_def"><a class="self" href="#char_term_def">&#x200B;</a>Specifications SHOULD explicitly define the term 'character' to mean a Unicode code point.</p>     
 		 
@@ -659,7 +663,7 @@
 		<p class=bigtext lang=hi>&#x092F;&#x0942;&nbsp;&#x0928;&#x093F;&nbsp;&#x0915;&#x094B;&nbsp;&#x0921;</p>
     </aside>
         
-    <p>The relationship between code points and graphemes can be complex. In most cases, a code point sequence that forms a single grapheme should be treated as a single textual unit. For example, when cursoring across text, an entire grapheme should select together. It shouldn't be possible to cursor into the "middle" of a grapheme or delete only a part of user-perceived character. Because the relationship is not one-to-one between code points and graphemes and because the relationship can be somewhat complex, [[!Unicode]] defines a specific type of grapheme: the <dfn>extended grapheme cluster</dfn> which most closely matches the mapping of the underlying logical character sequence to a user-perceived character. When referring to 'graphemes' in this document, we mean extended grapheme clusters (unless otherwise called out).</p>
+    <p>The relationship between code points and graphemes can be complex. In most cases, a code point sequence that forms a single grapheme should be treated as a single textual unit. For example, when cursoring across text, an entire grapheme should select together. It shouldn't be possible to cursor into the "middle" of a grapheme or delete only a part of user-perceived character. Because the relationship is not one-to-one between code points and graphemes and because the relationship can be somewhat complex, [[Unicode]] defines a specific type of grapheme: the <dfn>extended grapheme cluster</dfn> which most closely matches the mapping of the underlying logical character sequence to a user-perceived character. When referring to 'graphemes' in this document, we mean extended grapheme clusters (unless otherwise called out).</p>
     
     <aside class=example>
 		<h5>Hindi example showing mapping from graphemes to code points</h5>
