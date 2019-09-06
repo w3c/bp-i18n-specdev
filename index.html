@@ -5,7 +5,7 @@
     <meta charset="utf-8"/>
     <link href="https://www.w3.org/StyleSheets/TR/2016/W3C-ED" rel="stylesheet">
     <script src="make_checklist.js" type="application/ecmascript"></script>
-    <!--script src="devt/dumpdata.js" type="application/ecmascript"></script-->
+    <script src="index-data/dumpdata.js" type="application/ecmascript"></script>
     <!-- 
       === NOTA BENE ===
       For the three scripts below, if your spec resides on dev.w3 you can check them
@@ -334,9 +334,10 @@
 <section id="text_direction" class="topic">
 <h2>Text direction</h2>
 				<ul class="summary">
-				  <li><a href="#sec_dir_basic">Basic requirements</a></li>
-				  <li><a href="#sec_dir_background">Background information</a></li>
-				  <li><a href="#sec_bidi_markup">Handling direction in markup</a></li>
+				  <li><a href="#sec_dir_basic"></a></li>
+				  <li><a href="#sec_dir_background"></a></li>
+				  <li><a href="#sec_bidi_markup"></a></li>
+				  <li><a href="#sec_bidi_strings"></a></li>
 				</ul>
   
 
@@ -474,6 +475,16 @@
 </section>
 
 
+    
+<section id="sec_bidi_values" class="subtopic">
+<h3>Base direction values</h3>
+<p class="advisement" id="bidi_values"><a class="self" href="#bidi_values">&#x200B;</a>Values for the default base direction should include left-to-right, right-to-left, and auto. <a class="local" href="https://w3c.github.io/bp-i18n-specdev/#bidi_values">more</a></p>
+<p>The <code class="kw" translate="no">auto</code> value allows automatic detection of the base direction for a piece of text. For example, the <code class="kw" translate="no">auto</code> value of <code class="kw" translate="no">dir</code> in HTML looks for the first strong directional character in the text, but ignores certain items of markup also, to guess the base direction of the text. Note that automatic detection algorithms are far from perfect. First-strong detection is unable to correctly identify text that is really right-to-left, but that begins with a strong LTR character. Algorithms that attempt to judge the base direction based on contents of the text are also problematic. The best scenario is one where the base direction is known and declared.</p>
+</section>
+
+
+
+
 <section id="sec_bidi_markup" class="subtopic">
 	<h3>Handling direction in markup</h3>
     
@@ -481,13 +492,7 @@
     <h4>Setting the default base direction</h4>
     <p class="advisement" id="bidi_whole_res"><a class="self" href="#bidi_whole_res">&#x200B;</a>The spec should  indicate how to define a default base direction for the resource as a whole, ie. set the overall base direction. <a class="local" href="https://w3c.github.io/bp-i18n-specdev/#bidi_whole_res">more</a></p>
     <p class="advisement" id="bidi_res_default"><a class="self" href="#bidi_res_default">&#x200B;</a>The  default base direction, in the absence of other information, should be LTR. <a class="local" href="https://w3c.github.io/bp-i18n-specdev/#bidi_res_default">more</a></p>
-    </section>
-    
-    <section id="sec_bidi_values">
-    <h4>Base direction values</h4>
-    <p class="advisement" id="bidi_values"><a class="self" href="#bidi_values">&#x200B;</a>Values for the default base direction should include left-to-right, right-to-left, and auto. <a class="local" href="https://w3c.github.io/bp-i18n-specdev/#bidi_values">more</a></p>
-    <p>The <code class="kw" translate="no">auto</code> value allows automatic detection of the base direction for a piece of text. For example, the <code class="kw" translate="no">auto</code> value of <code class="kw" translate="no">dir</code> in HTML looks for the first strong directional character in the text, but ignores certain items of markup also, to guess the base direction of the text. Note that automatic detection algorithms are far from perfect. First-strong detection is unable to correctly identify text that is really right-to-left, but that begins with a strong LTR character. Algorithms that attempt to judge the base direction based on contents of the text are also problematic. The best scenario is one where the base direction is known and declared.</p>
-    </section>
+</section>
     
   
   
@@ -508,48 +513,6 @@
   <p>Style sheets such as CSS may not always be used with the data, or carried with the data when it is syndicated, etc. Directional information is fundamentally important to correct display of the data, and should be associated more closely and more permanently with the markup or data.</p>
 </section>
 
-
-
-  <section id="bidi_inline">
-    <h4>Setting base direction for inline text</h4>
-    <p class="advisement" id="bidi_inline_change"><a class="self" href="#bidi_inline_change">&#x200B;</a>It must be possible to indicate spans of inline text where the base direction changes. If markup is available, this is the preferred method. Otherwise your specification must require that Unicode control characters are recognized by the receiving application, and correctly implemented.</p>
-    <p class="advisement" id="bidi_inline_auto"><a class="self" href="#bidi_inline_auto">&#x200B;</a>It must be possible to also set the direction for a span to auto. This means that the base direction will be determined by examining the content itself. A typical approach here would be to set the direction based on the first strong directional character outside of any markup. <a class="local" href="https://w3c.github.io/bp-i18n-specdev/#bidi_inline_auto">more</a></p>
-    <p>The first-strong algorithm looks for the first character in the paragraph with a strong directional property according to the Unicode definitions. It then sets the base direction of the paragraph according to the direction of that character.</p>
-    <p>Note that the first-strong algorithm may incorrectly&nbsp;guess the direction of the paragraph when the first character is not typical of the rest of the paragraph, such as when a RTL paragraph or line starts with a LTR brand name or technical term.</p>
-    <p>For additional information about algorithms for detecting direction, see <a href="https://www.w3.org/TR/html-bidi/#auto-direction-algorithms">Estimation algorithms</a> in the document where this was discussed with reference to HTML.</p>
-    <p class="advisement" id="bidi_inline_rli"><a class="self" href="#bidi_inline_rli">&#x200B;</a>If users use Unicode bidirectional control characters, the RLI/LRI/FSI with PDI characters must be supported by the application and recommended (rather than RLE/LRE with PDF) by the spec.</p>
-    <p class="advisement" id="bidi_inline_rlm"><a class="self" href="#bidi_inline_rlm">&#x200B;</a>Use of RLM/LRM should be appropriate, and expectations of what those controls can and cannot do should be clear in the spec. <a class="local" href="https://w3c.github.io/bp-i18n-specdev/#bidi_inline_rlm">more</a></p>
-    <p>The Unicode bidirectional control characters <span class="uname">U+200F RIGHT-TO-LEFT MARK</span> and <span class="uname">U+200E LEFT-TO-RIGHT MARK</span> are not sufficient on their own to manage bidirectional text. They cannot produce a different base direction for embedded text. For that you need to be able to indicate the start and end of the range of the embedded text.&nbsp; This is best done by markup, if available, or failing that using the other Unicode bidirectional controls mentioned just above.</p><p class="advisement" id="bidi_inline_dedicated_attr"><a class="self" href="#bidi_inline_dedicated_attr">&#x200B;</a>Provide dedicated attributes for control of base direction and bidirectional overrides; do not rely on the user applying style properties to arbitrary markup to achieve bidi control.</p>
-    <p class="advisement" id="bidi_inline_all_elems"><a class="self" href="#bidi_inline_all_elems">&#x200B;</a>Allow bidi attributes on all inline elements in markup that contain text.</p>
-    <p class="advisement" id="bidi_inline_embed"><a class="self" href="#bidi_inline_embed">&#x200B;</a>Provide attributes that allow the user to (a) create an embedded base direction or (b) override the bidirectional algorithm altogether; the attribute should allow the user to set the direction to LTR or RTL in either of these two scenarios.</p>
-  </section>
-      <!--section class="links">
-      <h5>Links</h5>
-      <section class="howto">
-        <h5>How to's</h5>
-        <ul>
-          <li class="w3">
-            <p class="link"><a href="https://w3c.github.io/bp-i18n-specdev/#sec_bidi_resource">Setting the default base direction</a></p>
-            <p class="desc">In <a href="https://w3c.github.io/bp-i18n-specdev/">Internationalization Best Practices for Spec Developers</a>.</p>
-          </li>
-          <li class="nonw3">
-            <p class="link"><a href="http://unicode.org/reports/tr9/">Unicode Bidirectional Algorithm</a></p>
-            <p class="desc">In Unicode® Standard Annex #9. Specifies the detail of how the bidirectional algorithm works.</p>
-          </li>
-        </ul>
-      </section>
-      
-      <section class="background">
-        <h5>Background</h5>
-        <ul>
-          <li class="w3">
-            <p class="link"><a href="https://www.w3.org/International/articles/inline-bidi-markup/uba-basics">Unicode Bidirectional Algorithm basics</a></p>
-            <p class="desc">Article describing the basics about how the Unicode Bidirectional Algorithm works.</p>
-          </li>
-        </ul>
-      </section>
-    </section-->
-
   <section class="links">
       <h4>Links</h4>
       <section class="howto">
@@ -561,9 +524,81 @@
           </li>
         </ul>
       </section>
-    </section>
-  </section>
 </section>
+</section>
+
+
+
+
+
+<section id="sec_bidi_strings" class="subtopic">
+	<h3>Handling base direction for strings</h3>
+<p class="note">The information in this section is pulled from <a href="https://w3c.github.io/string-meta/">Requirements for Language and Direction Metadata in Data Formats</a>. That document is still being written, so these guidelines are likely to change at any time.</p>
+    
+  <p class="advisement" id="bidi_strings_metadata"><a class="self" href="#bidi_strings_metadata">&#x200B;</a>Provide metadata constructs that can be used to indicate the base direction of any natural language string. <a href="https://w3c.github.io/string-meta/#best-practices-recommendations-and-gaps">more</a></p>
+
+  <p class="advisement" id="bidi_strings_metadata"><a class="self" href="#bidi_strings_metadata">&#x200B;</a>Specify that consumers of strings should use  heuristics, preferably based on the Unicode Standard first-strong algorithm, to detect the base direction of a string except where metadata is provided. <a href="https://w3c.github.io/string-meta/#best-practices-recommendations-and-gaps">more</a></p>
+
+  <p class="advisement" id="bidi_strings_default"><a class="self" href="#bidi_strings_default">&#x200B;</a>Where possible, define a field to  indicate the default direction for all strings in a given resource or document. <a href="https://w3c.github.io/string-meta/#best-practices-recommendations-and-gaps">more</a></p>
+
+  <p class="advisement" id="bidi_strings_metadata_and_default"><a class="self" href="#bidi_strings_metadata_and_default">&#x200B;</a>Do NOT assume that a creating a document-level default without the ability to change direction for any string is sufficient. <a href="https://w3c.github.io/string-meta/#best-practices-recommendations-and-gaps">more</a></p>
+
+  <p class="advisement" id="bidi_strings_script_tag"><a class="self" href="#bidi_strings_script_tag">&#x200B;</a>If metadata is not available due to legacy implementations and cannot otherwise be provided, specifications MAY allow a base direction to be interpolated from available language metadata. <a href="https://w3c.github.io/string-meta/#best-practices-recommendations-and-gaps">more</a></p>
+
+  <p class="advisement" id="bidi_strings_paired_controls"><a class="self" href="#bidi_strings_paired_controls">&#x200B;</a>Specifications MUST NOT require the production or use of paired bidi controls. <a href="https://w3c.github.io/string-meta/#best-practices-recommendations-and-gaps">more</a></p>
+
+  <section class="links">
+      <h4>Links</h4>
+      <section class="howto">
+        <h5>How to's</h5>
+<ul>
+<li class="w3">
+<p class="link"><a href="https://w3c.github.io/string-meta/">Requirements for Language and Direction Metadata in Data Formats</a></p>
+<ul>
+<li class="sub">
+<p class="link"><a href="https://w3c.github.io/string-meta/#best-practices-recommendations-and-gaps">Best Practices, Recommendations, and Gaps</a></p>
+</li>
+<li class="sub">
+<p class="link"><a href="https://w3c.github.io/string-meta/#requirements-and-use-cases">Requirements and Use Cases</a></p>
+</li>
+<li class="sub">
+<p class="link"><a href="https://w3c.github.io/string-meta/#approaches-considered-for-identifying-the-base-direction">Approaches Considered for Identifying the Base Direction</a></p>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+</section>
+
+
+
+
+
+
+
+  <section id="bidi_inline" class="subtopic">
+    <h3>Setting base direction for inline or substring text</h3>
+<p>'Inline text' here has a readily understandable meaning in markup. It also applies to strings (eg. in JSON, CVS, or other plain text formats), meaning runs of characters which don't include all the characters in the string.</p>
+    <p class="advisement" id="bidi_inline_change"><a class="self" href="#bidi_inline_change">&#x200B;</a>It must be possible to indicate spans of inline text where the base direction changes. If markup is available, this is the preferred method. Otherwise your specification must require that Unicode control characters are recognized by the receiving application, and correctly implemented.</p>
+    <p class="advisement" id="bidi_inline_auto"><a class="self" href="#bidi_inline_auto">&#x200B;</a>It must be possible to also set the direction for a span to auto. This means that the base direction will be determined by examining the content itself. A typical approach here would be to set the direction based on the first strong directional character outside of any markup. <a class="local" href="https://w3c.github.io/bp-i18n-specdev/#bidi_inline_auto">more</a></p>
+    <p>The first-strong algorithm looks for the first character in the paragraph with a strong directional property according to the Unicode definitions. It then sets the base direction of the paragraph according to the direction of that character.</p>
+    <p>Note that the first-strong algorithm may incorrectly&nbsp;guess the direction of the paragraph when the first character is not typical of the rest of the paragraph, such as when a RTL paragraph or line starts with a LTR brand name or technical term.</p>
+    <p>For additional information about algorithms for detecting direction, see <a href="https://www.w3.org/TR/html-bidi/#auto-direction-algorithms">Estimation algorithms</a> in the document where this was discussed with reference to HTML.</p>
+    <p class="advisement" id="bidi_inline_rli"><a class="self" href="#bidi_inline_rli">&#x200B;</a>If users use Unicode bidirectional control characters, the isolating RLI/LRI/FSI with PDI characters must be supported by the application and recommended (rather than RLE/LRE with PDF) by the spec.</p>
+    <p class="advisement" id="bidi_inline_rlm"><a class="self" href="#bidi_inline_rlm">&#x200B;</a>Use of RLM/LRM should be appropriate, and expectations of what those controls can and cannot do should be clear in the spec. <a class="local" href="https://w3c.github.io/bp-i18n-specdev/#bidi_inline_rlm">more</a></p>
+    <p>The Unicode bidirectional control characters <span class="uname">U+200F RIGHT-TO-LEFT MARK</span> and <span class="uname">U+200E LEFT-TO-RIGHT MARK</span> are not sufficient on their own to manage bidirectional text. They cannot produce a different base direction for embedded text. For that you need to be able to indicate the start and end of the range of the embedded text.&nbsp; This is best done by markup, if available, or failing that using the other Unicode bidirectional controls mentioned just above.</p>
+<p class="advisement" id="bidi_inline_dedicated_attr"><a class="self" href="#bidi_inline_dedicated_attr">&#x200B;</a>For markup, provide dedicated attributes for control of base direction and bidirectional overrides; do not rely on the user applying style properties to arbitrary markup to achieve bidi control.</p>
+    <p class="advisement" id="bidi_inline_all_elems"><a class="self" href="#bidi_inline_all_elems">&#x200B;</a>For markup, allow bidi attributes on all inline elements in markup that contain text.</p>
+    <p class="advisement" id="bidi_inline_embed"><a class="self" href="#bidi_inline_embed">&#x200B;</a>For markup, provide attributes that allow the user to (a) create an embedded base direction or (b) override the bidirectional algorithm altogether; the attribute should allow the user to set the direction to LTR or RTL or the aforementioned Auto in either of these two scenarios.</p>
+</section>
+
+
+</section>
+
+
+
+
+
 
 <section id="characters" class="topic">
 <h2>Characters</h2>
@@ -576,15 +611,12 @@
 					<li><a href="#char_identifying">Identifying character encodings </a></li>
 					<li><a href="#char_escapes">Designing character escapes </a></li>
 					<li><a href="#char_storing">Storing text </a></li>
-					<li><a href="#char_sort">Specifying sort and search functionality </a></li>
-					<li><a href="#char_string">Defining 'string' </a></li>
-					<li><a href="#char_truncation">Truncating or Limiting the Length of Strings</a></li>
-					<li><a href="#char_indexing">Indexing strings </a></li>
-					<li><a href="#char_unicoderef">Referencing the Unicode Standard </a></li>
+<li><a href="#char_string">Defining 'string' </a></li>
+<li><a href="#char_unicoderef">Referencing the Unicode Standard </a></li>
 				</ul>
 <p>See the <a href="https://www.w3.org/TR/charmod/">Character Model for the World Wide Web: Fundamentals</a> for basic guidelines related to the use of characters and encodings.</p>
 <p>See the <a href="https://encoding.spec.whatwg.org/">Encoding</a> specification for further guidelines related to use of character encodings.</p>
-<p>Another Character Model document is currently in development, entitled <a href="https://w3c.github.io/charmod-norm/">String Matching and Searching</a>. It looks at issues that arise when you try to compare two strings, be it identifiers or authored content.</p>
+<p>Another Character Model document is currently in development, entitled <a href="https://w3c.github.io/charmod-norm/">String Matching</a>. It looks at issues that arise when you try to compare two strings, be it identifiers or authored content.</p>
 
 <hr/>
 
@@ -662,7 +694,11 @@
 		<p>The last example, in the Devanagari script (which is used to write Hindi, among other languages) is made up of four graphemes:</p>
 		<p class=bigtext lang=hi>&#x092F;&#x0942;&nbsp;&#x0928;&#x093F;&nbsp;&#x0915;&#x094B;&nbsp;&#x0921;</p>
     </aside>
-        
+    
+    <p>Graphemes are encoded into computer systems using "logical characters". A <dfn>character set</dfn> is a set of logical characters: a specific collection of characters that can be used together to encode text. The most important character set is the <dfn>Universal Character Set</dfn>, also known as [[Unicode]]. This character set includes all of the characters used to encode text, including historical or extinct writing systems as well as modern usage, private use, typesetting symbols, and other things, such as the emoji. Other character sets are defined subsets of Unicode. In Unicode, a 'character' is a single abstract logical unit of text. Each character in Unicode is assigned a unique integer number between <code>0x0000</code> and <code>0x10FFFF</code>, which is called its <dfn>code point</dfn>. The term code point therefore unambiguously refers to a single logical character and its integer representation.</p>
+
+    <p class=advisement id="char_term_def"><a class="self" href="#char_term_def">&#x200B;</a>Specifications SHOULD explicitly define the term 'character' to mean a Unicode code point.</p>
+    
     <p>The relationship between code points and graphemes can be complex. In most cases, a code point sequence that forms a single grapheme should be treated as a single textual unit. For example, when cursoring across text, an entire grapheme should select together. It shouldn't be possible to cursor into the "middle" of a grapheme or delete only a part of user-perceived character. Because the relationship is not one-to-one between code points and graphemes and because the relationship can be somewhat complex, [[Unicode]] defines a specific type of grapheme: the <dfn>extended grapheme cluster</dfn> which most closely matches the mapping of the underlying logical character sequence to a user-perceived character. When referring to 'graphemes' in this document, we mean extended grapheme clusters (unless otherwise called out).</p>
     
     <aside class=example>
@@ -696,7 +732,50 @@
 
     <p>Another example of the complex relationship between code points and graphemes are certain emoji. The emoji character for "family" has a code point in Unicode: <span class="codepoint"><span lang="en">&#x1F46A;</span> [<span class="uname">U+1F46A FAMILY</span>]</span>. It can also be formed by using using a sequence of code points: <span class="uname">U+1F468 U+200D U+1F469 U+200D U+1F466</span>. Altering or adding other emoji characters can alter the composition of the family. For example the sequence <span class="uname" translate="no">&#x1f468;&#x200d;&#x1f469;&#x200d;&#x1f467;&#x200d;&#x1f467; U+1F468 U+200D U+1F469 U+200D U+1F467 U+200D U+1F467</span> results in a composed emoji character for a "family: man, woman, girl, girl" on systems that support this kind of composition. Many common emoji can <em>only</em> be formed using sequences of code points, but should be treated as a single user-perceived character when displaying or processing the text. You wouldn't want to put a line-break in the middle of the family!</p>    
     
+    <p>Unicode code points are just abstract integer values: they are not the values actually present in the memory of the computer or serialized on the wire. When processing text, computers use an array of fixed-size integer units. One such common unit is the <dfn>byte</dfn> (or <em>octet</em>, since bytes have 8 bits per unit). There are also 16-bit, 32-bit, or other size units. In many programming languages, the unit is called a <code>char</code>, which suggests that strings are made of "characters". We use the term <dfn>code unit</dfn> to refer unambiguously to the programming and serialized representation of characters. For example, in C, a <code>char</code> is generally an 8-bit byte: each <code>char</code> is a 8-bit code unit. In Java or Javascript, a <code>char</code> is a 16-bit value.</p>
+    
+    <p>A set of rules for converting code points to or from code units is called a <dfn>character encoding form</dfn> (or just "character encoding" for short.</p>
+    
+    <aside class=example>
+       <h2>UTF-8 Character Encoding Form</h2>
+       
+       <p>The most common character encoding used on the Web is UTF-8. UTF-8 uses 8-bit bytes as its code unit. Each Unicode code point encoded into UTF-8 takes between one and four bytes to encode. ASCII characters take one byte to encode. Code points from 0x80 to 0x7FF take two bytes. Code points from 0x800 to 0xFFFF take three bytes. And code points from 0x10000 to 0x10FFFF (that is, the rest of Unicode) take four bytes each.</p>
 
+       <table class=cpExample>
+		   <tr>
+			   <td>Grapheme</td>
+			   <td class=bigtext>A</td>
+			   <td class=bigtext>&#xc0;</td>
+		   </tr>
+		   <tr>
+			   <td>Code Point</td>
+			   <td><code>U+0041</code></td>
+			   <td><code>U+00C0</code></td>
+		   </tr>
+		   <tr>
+			   <td>Code Units (bytes)</td>
+			   <td><code>0x41</code></td>
+			   <td><code>0xC3 0x80</code></td>
+		   </tr>
+		   <tr>
+			   <td>Grapheme</td>
+			   <td class=bigtext>&#x928;</td>
+			   <td class=bigtext>&#x1F46A;</td>
+		   </tr>
+		   <tr>
+			   <td>Code Point</td>
+			   <td><code>U+0928</code></td>
+			   <td><code>U+1F46A</code></td>
+		   </tr>
+		   <tr>
+			   <td>Code Units (bytes)</td>
+			   <td><code>0xE0 0xA4 0xA8</code></td>
+			   <td><code>0xF0 0x9F 0x91 0xAA</code></td>
+		   </tr>
+       </table>
+
+    </aside>
+   
 
 <section id="char_def" class="subtopic">
     <h3>Choosing a definition of 'character'</h3>
@@ -761,6 +840,7 @@
     <p class="advisement" id="char_internal_use"><a class="self" href="#char_internal_use">&#x200B;</a>Specifications SHOULD NOT allow the use of codepoints reserved by Unicode for internal use. <a href="https://www.w3.org/TR/charmod/#C079">more</a></p>
     <p class="advisement" id="char_surrogate"><a class="self" href="#char_surrogate">&#x200B;</a>Specifications MUST NOT allow the use of surrogate code points. <a href="https://www.w3.org/TR/charmod/#C078">more</a></p>
     <p class="advisement" id="char_compatibility"><a class="self" href="#char_compatibility">&#x200B;</a>Specifications SHOULD exclude compatibility characters in the syntactic elements (markup, delimiters, identifiers) of the formats they define. <a href="https://www.w3.org/TR/charmod/#C050">more</a></p>
+<p class="advisement" id="char_user_defined_values"><a class="self" href="#char_user_defined_values">&#x200B;</a>Specifications SHOULD allow the full range of Unicode for user-defined values. <a href="https://www.w3.org/TR/charmod-norm/#sec_unicode_cs">more</a></p>
 
 
     <section class="links">
@@ -899,7 +979,7 @@
   </section>
     
   
-  <section id="char_storing" class="subtopic">
+<section id="char_storing" class="subtopic">
     <h3>Storing text</h3>
     <p class="advisement" id="char_storing_logical"><a class="self" href="#char_storing_logical">&#x200B;</a>Protocols, data formats and APIs MUST store, interchange or process text data in logical order. <a href="https://www.w3.org/TR/charmod/#C003">more</a></p>
      <p class="advisement" id="char_logical_storage"><a class="self" href="#char_logical_storage">&#x200B;</a>Independent of whether some implementation uses logical selection or visual selection, characters selected MUST be kept in logical order in storage. <a href="https://www.w3.org/TR/charmod/#C075">more</a></p>
@@ -918,88 +998,9 @@
         </ul>
       </section>
     </section>
-  </section>
-    
- 
-  <section id="char_sort" class="subtopic">
-    <h3>Specifying sort and search functionality</h3>
-    <p class="advisement" id="char_sort_units"><a class="self" href="#char_sort_units">&#x200B;</a>Software that sorts or searches text for users SHOULD do so on the basis of appropriate collation units and ordering rules for the relevant language and/or application. <a href="https://www.w3.org/TR/charmod/#C006">more</a></p>
-    <p class="advisement" id="char_sort_user"><a class="self" href="#char_sort_user">&#x200B;</a>Where searching or sorting is done dynamically, particularly in a multilingual environment, the 'relevant language' SHOULD be determined to be that of the current user, and may thus differ from user to user. <a href="https://www.w3.org/TR/charmod/#C007">more</a></p>
-    <p class="advisement" id="char_sort_alternatives"><a class="self" href="#char_sort_alternatives">&#x200B;</a>Software that allows users to sort or search text SHOULD allow the user to select alternative rules for collation units and ordering. <a href="https://www.w3.org/TR/charmod/#C066">more</a></p>
-    <p class="advisement" id="char_sort_anything"><a class="self" href="#char_sort_anything">&#x200B;</a>Specifications and implementations of sorting and searching algorithms SHOULD accommodate text that contains any character in Unicode. <a href="https://www.w3.org/TR/charmod/#C008">more</a></p>
-
-
-    <section class="links">
-      <h4>Links</h4>
-      <section class="howto">
-        <h5>How to's</h5>
-        <ul>
-         <li class="w3">
-            <p class="link"><a href="https://www.w3.org/TR/charmod/#sec-CollationUnits">Units of collation</a></p>
-            <p class="desc">In W3C Recommendation, <a href="https://www.w3.org/TR/charmod/">Character Model for the World Wide Web</a>.</p>
-          </li>
-        </ul>
-      </section>
-    </section>
-  </section>
-  <section id="char_n11n" class="subtopic">
-    <h3>Converting to a Common Unicode Form</h3>
-    <p class="advisement" id="char_n11n_nfc"><a class="self" href="#char_n11n_nfc">&#x200B;</a>Specifications of text-based formats and protocols MAY specify that all or part of the textual content of that format or protocol is normalized using Unicode Normalization Form C (NFC). <a href="https://www.w3.org/TR/charmod-norm/#h-convertingtocommonunicodeform">more</a></p>
-    <p class="advisement" id="char_n11n_security"><a class="self" href="#char_n11n_security">&#x200B;</a>Specifications that do not normalize MUST document or provide a health-warning if canonically equivalent but disjoint Unicode character sequences represent a security issue. <a href="https://www.w3.org/TR/charmod-norm/#h-non-normalizing">more</a></p>
-    <p class="advisement" id="char_n11n_assumptions"><a class="self" href="#char_n11n_assumptions">&#x200B;</a>Specifications and implementations MUST NOT assume that content is in any particular normalization form. <a href="https://www.w3.org/TR/charmod-norm/#h-non-normalizing">more</a></p>
-    <p class="advisement" id="char_n11n_comparison"><a class="self" href="#char_n11n_comparison">&#x200B;</a>Specifications MUST specify that string matching takes the form of "code point-by-code point" comparison of the Unicode character sequence, or, if a specific Unicode character encoding is specified, code unit-by-code unit comparison of the sequences. <a href="https://www.w3.org/TR/charmod-norm/#h-non-normalizing">more</a></p>
-    <p class="advisement" id="char_n11n_regex"><a class="self" href="#char_n11n_regex">&#x200B;</a>Specifications that define a regular expression syntax MUST provide at least Basic Unicode Level 1 support per <cite>Unicode Technical Standard #18: Unicode Regular Expressions</cite> and SHOULD provide Extended or Tailored (Levels 2 and 3) support. <a href="https://www.w3.org/TR/charmod-norm/#h-non-normalizing">more</a></p>
-    <p class="advisement" id="char_n11n_comparison2"><a class="self" href="#char_n11n_comparison2">&#x200B;</a>Specifications of text-based formats and protocols that, as part of their syntax definition, require that the text be in normalized form MUST define string matching in terms of normalized string comparison and MUST define the normalized form to be NFC. <a href="https://www.w3.org/TR/charmod-norm/#h-normalizing-spec">more</a></p>
-    <p class="advisement" id="char_n11n_suspect"><a class="self" href="#char_n11n_suspect">&#x200B;</a>A normalizing text-processing component which receives suspect text MUST NOT perform any normalization-sensitive operations unless it has first either confirmed through inspection that the text is in normalized form or it has re-normalized the text itself. Private agreements MAY, however, be created within private systems which are not subject to these rules, but any externally observable results MUST be the same as if the rules had been obeyed. <a href="https://www.w3.org/TR/charmod-norm/#h-normalizing-spec">more</a></p>
-    <p class="advisement" id="char_n11n_constructs"><a class="self" href="#char_n11n_constructs">&#x200B;</a>Specifications of text-based languages and protocols SHOULD define precisely the construct boundaries necessary to obtain a complete definition of full-normalization. These definitions SHOULD include at least the boundaries between markup and character data as well as entity boundaries (if the language has any include mechanism) , SHOULD include any other boundary that may create denormalization when instances of the language are processed, but SHOULD NOT include character escapes designed to express arbitrary characters. <a href="https://www.w3.org/TR/charmod-norm/#h-normalizing-spec">more</a></p>
-    <p class="advisement" id="char_n11n_implementation"><a class="self" href="#char_n11n_implementation">&#x200B;</a>Where operations can produce denormalized output from normalized text input, specifications of API components (functions/methods) that implement these operations MUST define whether normalization is the responsibility of the caller or the callee. Specifications MAY state that performing normalization is optional for some API components; in this case the default SHOULD be that normalization is performed, and an explicit option SHOULD be used to switch normalization off. Specifications SHOULD NOT make the implementation of normalization optional. <a href="https://www.w3.org/TR/charmod-norm/#h-normalizing-spec">more</a></p>
-    <p class="advisement" id="char_n11n_mechanism"><a class="self" href="#char_n11n_mechanism">&#x200B;</a>Specifications that define a mechanism (for example an API or a defining language) for producing textual data object SHOULD require that the final output of this mechanism be normalized. <a href="https://www.w3.org/TR/charmod-norm/#h-normalizing-spec">more</a></p>
-    <section class="links">
-      <h4>Links</h4>
-      <section class="howto">
-        <h5>How to's</h5>
-        <ul>
-           <li class="w3">
-            <p class="link"><a href="https://www.w3.org/TR/charmod-norm/#convertingToCommonUnicodeForm">Converting to a Common Unicode Form</a></p>
-            <p class="desc">In W3C Working Draft, <a href="https://www.w3.org/TR/charmod-norm/">Character Model for the World Wide Web: String Matching and Searching</a>.</p>
-          </li>
-        </ul>
-      </section>
-    </section>
-  </section>
-  
-  
-  
-  
-  <section id="char_case" class="subtopic">
-    <h3>Handling Case Folding</h3>
-    <p class="advisement" id="char_case_sensitive"><a class="self" href="#char_case_sensitive">&#x200B;</a>Case sensitive matching is RECOMMENDED as the default for new protocols and formats. <a href="https://www.w3.org/TR/charmod-norm/#h-handlingcasefolding">more</a></p>
-    <p class="advisement" id="char_case_unicodecf"><a class="self" href="#char_case_unicodecf">&#x200B;</a>Because the "simple" case-fold mapping removes information that can be important to forming an identity match, the "Common plus Full" (or "Unicode C+F") case fold mapping is RECOMMENDED for Unicode case-insensitive matching. <a href="https://www.w3.org/TR/charmod-norm/#h-handlingcasefolding">more</a></p>
-    <p class="advisement" id="char_case_asciici"><a class="self" href="#char_case_asciici">&#x200B;</a>ASCII case-insensitive matching MUST only be applied to vocabularies that are restricted to ASCII. Unicode case-insensitivity MUST be used for all other vocabularies. <a href="https://www.w3.org/TR/charmod-norm/#h-handlingcasefolding">more</a></p>
-    <p class="advisement" id="char_case_asciicinot"><a class="self" href="#char_case_asciicinot">&#x200B;</a>If the vocabulary is not restricted to ASCII or permits user-defined values that use a broader range of Unicode, ASCII case-insensitive matching MUST NOT be required. <a href="https://www.w3.org/TR/charmod-norm/#h-handlingcasefolding">more</a></p>
-    <p class="advisement" id="char_case_vocabularies"><a class="self" href="#char_case_vocabularies">&#x200B;</a>The Unicode C+F case-fold form is RECOMMENDED as the case-insensitive matching for vocabularies. The Unicode C+S form MUST NOT be used for string identity matching on the Web. <a href="https://www.w3.org/TR/charmod-norm/#h-handlingcasefolding">more</a></p>
-    <p class="advisement" id="char_case_options"><a class="self" href="#char_case_options">&#x200B;</a>Specifications and implementations that define string matching as part of the definition of a format, protocol, or formal language (which might include operations such as parsing, matching, tokenizing, etc.) MUST define the criteria and matching forms used. These MUST be one of: (a) Case-sensitive (b) Unicode case-insensitive using Unicode case-folding C+F (c) ASCII case-insensitive. <a href="https://www.w3.org/TR/charmod-norm/#h-handlingcasefolding">more</a></p>
-    <p class="advisement" id="char_case_noci"><a class="self" href="#char_case_noci">&#x200B;</a>Specifications SHOULD NOT specify case-insensitive comparison of strings. <a href="https://www.w3.org/TR/charmod-norm/#h-handlingcasefolding">more</a></p>
-    <p class="advisement" id="char_case_unicodecf2"><a class="self" href="#char_case_unicodecf2">&#x200B;</a>Specifications that specify case-insensitive comparison for non-ASCII vocabularies SHOULD specify Unicode case-folding C+F. <a href="https://www.w3.org/TR/charmod-norm/#h-handlingcasefolding">more</a></p>
-    <p class="advisement" id="char_case_asciionly"><a class="self" href="#char_case_asciionly">&#x200B;</a>Specifications MAY specify ASCII case-insensitive comparison for portions of a format or protocol that are restricted to an ASCII-only vocabulary. <a href="https://www.w3.org/TR/charmod-norm/#h-handlingcasefolding">more</a></p>
-    <p class="advisement" id="char_case_nonascii"><a class="self" href="#char_case_nonascii">&#x200B;</a>Specifications and implementations MUST NOT specify ASCII-only case-insensitive matching for values or constructs that permit non-ASCII characters. <a href="https://www.w3.org/TR/charmod-norm/#h-handlingcasefolding">more</a></p>
-    <section class="links">
-      <h4>Links</h4>
-      <section class="howto">
-        <h5>How to's</h5>
-        <ul>
-           <li class="w3">
-            <p class="link"><a href="https://www.w3.org/TR/charmod-norm/#handlingCaseFolding">Handling Case Folding</a></p>
-            <p class="desc">In W3C Working Draft, <a href="https://www.w3.org/TR/charmod-norm/">Character Model for the World Wide Web: String Matching and Searching</a>.</p>
-          </li>
-        </ul>
-      </section>
-    </section>
-  </section>
-    
-    
-    <section id="char_string" class="subtopic">
-      <h3>Defining 'string'</h3>
+</section>
+<section id="char_string" class="subtopic">
+<h3>Defining 'string'</h3>
       <p class="advisement" id="char_string_byte"><a class="self" href="#char_string_byte">&#x200B;</a>Specifications SHOULD NOT define a string as a 'byte string'. <a href="https://www.w3.org/TR/charmod/#C011">more</a></p>
       <p class="advisement" id="char_string_char"><a class="self" href="#char_string_char">&#x200B;</a>The 'character string' definition SHOULD be used by most specifications. <a href="https://www.w3.org/TR/charmod/#C012">more</a></p>
       
@@ -1019,330 +1020,12 @@
         <h4>See also</h4>
         <p><a href="#char_indexing">Indexing strings </a> and <a href="#char_def">Choosing a definition of 'character'</a>.</p>
       </section>
-    </section>
-    
-        
- <section id="char_truncation" class="subtopic">
-    <h3>Truncating or Limiting the Length of Strings</h3>
-    
-    <p>Some specifications, formats, or protocols or their implementations need to specify limits for the size of a given data structure or text field. This could be due to many reasons, such as limits on processing, memory, data structure size, and so forth. When selecting or specifying limits on the length of a given string, specifications or implementations need to ensure that they do not cause corruption in the text.</p>
-    
-    <p class="advisement" id="char_trunc_no_limit"><a class="self" href="#char_trunc_no_limit">&#x200B;</a>Specifications SHOULD NOT limit the size of data fields unless there is a specific practical or technical limitation.</p>
-    
-    <p>There are many reasons why a length limit might be needed in a specification or format. Generally length limits correspond to underlying limits in the implementation, such as the use of fixed-size fields in a database or data store, the desire to fit into practical boundaries such as packet size, or some other implementation detail related to storage allocation or efficiency.</p>
-    
-    <p>When truncating strings, it's necessary to decide what units to use when counting the size of the string. In many cases this is beyond the control of the specification, since the truncation is occuring for some preordained reason, such as the size of a fixed-length field in a file format or database. However, when the choice is available, some general guidelines can be applied.</p>
-    
-    <p>If the limitation is related to the number of display positions, the grapheme cluster count usually corresponds most closely to the limit expected by users. Note that proportional width fonts, combining marks, complex scripts, accessibility options, and many other factors complicate counting "screen positions". In Web pages, for example, the CSS <kbd>text-overflow</kbd> property provides visual truncation without disturbing the content of the text. Specifying or estimating the presentation size of a given piece of text based on the number of Unicode code points or even the number of grapheme clusters can be wildly inaccurate.</p>
-    
-    <p>Most limits have to do with storage limitations and thus are expressed in terms of Unicode code points or the code units (such as bytes) in a specific character encoding. Counting code points provides the best user experience, since all Unicode code points are treated identically: if text is truncated after a specific number code points (such as 36 in the example below), all languages and scripts get the same number of code points to work with.</p>
-    
-    <p>By contrast, when the size limit is expressed in code units in a variable width encoding (such as UTF-8 or UTF-16), the number of characters a user can encode for a given limit depends on the data being encoded. In UTF-8, for example, users who write in a language that mostly uses ASCII letters get many more characters (code points) for a given size limit than users whose language is mostly made up of characters that take 2-, 3-, or 4-bytes per code point. If the limit is reasonably large, this might not matter, but shorter limits can make it difficult or impossible to fit an appropriate amount of text.</p>
-    
-    <p>Below you can see the effect of truncating strings in different scripts on an arbitrary code unit boundary. In this case, each string is encoded in UTF-8 and truncated after the 38th byte. There are several things to notice here.</p>
-    
-	
-<table class=truncationExample>
-<tr>
-	<td rowspan=2>ASCII</td>
-<td colspan=1><kbd>I</kbd></td>
-<td colspan=1><kbd>n</kbd></td>
-<td colspan=1><kbd> </kbd></td>
-<td colspan=1><kbd>t</kbd></td>
-<td colspan=1><kbd>h</kbd></td>
-<td colspan=1><kbd>e</kbd></td>
-<td colspan=1><kbd> </kbd></td>
-<td colspan=1><kbd>l</kbd></td>
-<td colspan=1><kbd>o</kbd></td>
-<td colspan=1><kbd>v</kbd></td>
-<td colspan=1><kbd>e</kbd></td>
-<td colspan=1><kbd>l</kbd></td>
-<td colspan=1><kbd>i</kbd></td>
-<td colspan=1><kbd>e</kbd></td>
-<td colspan=1><kbd>s</kbd></td>
-<td colspan=1><kbd>t</kbd></td>
-<td colspan=1><kbd> </kbd></td>
-<td colspan=1><kbd>t</kbd></td>
-<td colspan=1><kbd>o</kbd></td>
-<td colspan=1><kbd>w</kbd></td>
-<td colspan=1><kbd>n</kbd></td>
-<td colspan=1><kbd> </kbd></td>
-<td colspan=1><kbd>o</kbd></td>
-<td colspan=1><kbd>f</kbd></td>
-<td colspan=1><kbd> </kbd></td>
-<td colspan=1><kbd>a</kbd></td>
-<td colspan=1><kbd>l</kbd></td>
-<td colspan=1><kbd>l</kbd></td>
-<td colspan=1><kbd>,</kbd></td>
-<td colspan=1><kbd> </kbd></td>
-<td colspan=1><kbd>w</kbd></td>
-<td colspan=1><kbd>h</kbd></td>
-<td colspan=1><kbd>e</kbd></td>
-<td colspan=1><kbd>r</kbd></td>
-<td colspan=1><kbd>e</kbd></td>
-<td colspan=1><kbd> </kbd></td>
-<td colspan=1><kbd>t</kbd></td>
-<td colspan=1><kbd>h</kbd></td>
-</tr><tr>
-<td><code>49</code></td>
-<td><code>6E</code></td>
-<td><code>20</code></td>
-<td><code>74</code></td>
-<td><code>68</code></td>
-<td><code>65</code></td>
-<td><code>20</code></td>
-<td><code>6C</code></td>
-<td><code>6F</code></td>
-<td><code>76</code></td>
-<td><code>65</code></td>
-<td><code>6C</code></td>
-<td><code>69</code></td>
-<td><code>65</code></td>
-<td><code>73</code></td>
-<td><code>74</code></td>
-<td><code>20</code></td>
-<td><code>74</code></td>
-<td><code>6F</code></td>
-<td><code>77</code></td>
-<td><code>6E</code></td>
-<td><code>20</code></td>
-<td><code>6F</code></td>
-<td><code>66</code></td>
-<td><code>20</code></td>
-<td><code>61</code></td>
-<td><code>6C</code></td>
-<td><code>6C</code></td>
-<td><code>2C</code></td>
-<td><code>20</code></td>
-<td><code>77</code></td>
-<td><code>68</code></td>
-<td><code>65</code></td>
-<td><code>72</code></td>
-<td><code>65</code></td>
-<td><code>20</code></td>
-<td><code>74</code></td>
-<td><code>68</code></td>
-</tr>
-<tr>
-	<td rowspan=2>Cyrillic</td>
-<td colspan=2><kbd>В</kbd></td>
-<td colspan=1><kbd> </kbd></td>
-<td colspan=2><kbd>с</kbd></td>
-<td colspan=2><kbd>а</kbd></td>
-<td colspan=2><kbd>м</kbd></td>
-<td colspan=2><kbd>о</kbd></td>
-<td colspan=2><kbd>м</kbd></td>
-<td colspan=1><kbd> </kbd></td>
-<td colspan=2><kbd>п</kbd></td>
-<td colspan=2><kbd>р</kbd></td>
-<td colspan=2><kbd>е</kbd></td>
-<td colspan=2><kbd>к</kbd></td>
-<td colspan=2><kbd>р</kbd></td>
-<td colspan=2><kbd>а</kbd></td>
-<td colspan=2><kbd>с</kbd></td>
-<td colspan=2><kbd>н</kbd></td>
-<td colspan=2><kbd>о</kbd></td>
-<td colspan=2><kbd>м</kbd></td>
-<td colspan=1><kbd> </kbd></td>
-<td colspan=2><kbd>г</kbd></td>
-<td colspan=1><kbd>�</kbd></td>
-</tr><tr>
-<td><code>D0</code></td>
-<td><code>92</code></td>
-<td><code>20</code></td>
-<td><code>D1</code></td>
-<td><code>81</code></td>
-<td><code>D0</code></td>
-<td><code>B0</code></td>
-<td><code>D0</code></td>
-<td><code>BC</code></td>
-<td><code>D0</code></td>
-<td><code>BE</code></td>
-<td><code>D0</code></td>
-<td><code>BC</code></td>
-<td><code>20</code></td>
-<td><code>D0</code></td>
-<td><code>BF</code></td>
-<td><code>D1</code></td>
-<td><code>80</code></td>
-<td><code>D0</code></td>
-<td><code>B5</code></td>
-<td><code>D0</code></td>
-<td><code>BA</code></td>
-<td><code>D1</code></td>
-<td><code>80</code></td>
-<td><code>D0</code></td>
-<td><code>B0</code></td>
-<td><code>D1</code></td>
-<td><code>81</code></td>
-<td><code>D0</code></td>
-<td><code>BD</code></td>
-<td><code>D0</code></td>
-<td><code>BE</code></td>
-<td><code>D0</code></td>
-<td><code>BC</code></td>
-<td><code>20</code></td>
-<td><code>D0</code></td>
-<td><code>B3</code></td>
-<td><code class=error>D0</code></td>
-</tr>
-<tr>
-	<td rowspan=2>Han</td>
-<td colspan=3><kbd>在</kbd></td>
-<td colspan=3><kbd>最</kbd></td>
-<td colspan=3><kbd>美</kbd></td>
-<td colspan=3><kbd>丽</kbd></td>
-<td colspan=3><kbd>的</kbd></td>
-<td colspan=3><kbd>城</kbd></td>
-<td colspan=3><kbd>镇</kbd></td>
-<td colspan=3><kbd>，</kbd></td>
-<td colspan=3><kbd>那</kbd></td>
-<td colspan=3><kbd>里</kbd></td>
-<td colspan=3><kbd>的</kbd></td>
-<td colspan=3><kbd>房</kbd></td>
-<td colspan=2><kbd>�</kbd></td>
-</tr><tr>
-<td><code>E5</code></td>
-<td><code>9C</code></td>
-<td><code>A8</code></td>
-<td><code>E6</code></td>
-<td><code>9C</code></td>
-<td><code>80</code></td>
-<td><code>E7</code></td>
-<td><code>BE</code></td>
-<td><code>8E</code></td>
-<td><code>E4</code></td>
-<td><code>B8</code></td>
-<td><code>BD</code></td>
-<td><code>E7</code></td>
-<td><code>9A</code></td>
-<td><code>84</code></td>
-<td><code>E5</code></td>
-<td><code>9F</code></td>
-<td><code>8E</code></td>
-<td><code>E9</code></td>
-<td><code>95</code></td>
-<td><code>87</code></td>
-<td><code>EF</code></td>
-<td><code>BC</code></td>
-<td><code>8C</code></td>
-<td><code>E9</code></td>
-<td><code>82</code></td>
-<td><code>A3</code></td>
-<td><code>E9</code></td>
-<td><code>87</code></td>
-<td><code>8C</code></td>
-<td><code>E7</code></td>
-<td><code>9A</code></td>
-<td><code>84</code></td>
-<td><code>E6</code></td>
-<td><code>88</code></td>
-<td><code>BF</code></td>
-<td><code class=error>E5</code></td>
-<td><code class=error>B1</code></td>
-</tr>
-<tr>
-	<td rowspan=2>Emoji</td>
-<td colspan=4><kbd>🙊</kbd></td>
-<td colspan=4><kbd>🙁</kbd></td>
-<td colspan=4><kbd>😢</kbd></td>
-<td colspan=4><kbd>😠</kbd></td>
-<td colspan=4><kbd>😧</kbd></td>
-<td colspan=4><kbd>😎</kbd></td>
-<td colspan=4><kbd>😽</kbd></td>
-<td colspan=4><kbd>😉</kbd></td>
-<td colspan=4><kbd>😄</kbd></td>
-<td colspan=2><kbd>&#xfffd;</kbd></td>
-</tr><tr>
-<td><code>F0</code></td>
-<td><code>9F</code></td>
-<td><code>99</code></td>
-<td><code>8A</code></td>
-<td><code>F0</code></td>
-<td><code>9F</code></td>
-<td><code>99</code></td>
-<td><code>81</code></td>
-<td><code>F0</code></td>
-<td><code>9F</code></td>
-<td><code>98</code></td>
-<td><code>A2</code></td>
-<td><code>F0</code></td>
-<td><code>9F</code></td>
-<td><code>98</code></td>
-<td><code>A0</code></td>
-<td><code>F0</code></td>
-<td><code>9F</code></td>
-<td><code>98</code></td>
-<td><code>A7</code></td>
-<td><code>F0</code></td>
-<td><code>9F</code></td>
-<td><code>98</code></td>
-<td><code>8E</code></td>
-<td><code>F0</code></td>
-<td><code>9F</code></td>
-<td><code>98</code></td>
-<td><code>BD</code></td>
-<td><code>F0</code></td>
-<td><code>9F</code></td>
-<td><code>98</code></td>
-<td><code>89</code></td>
-<td><code>F0</code></td>
-<td><code>9F</code></td>
-<td><code>98</code></td>
-<td><code>84</code></td>
-<td><code class=error>F0</code></td>
-<td><code class=error>9F</code></td>
-</tr>
-</table>
-
-	<p>First, as the number of bytes-per-character goes up, the number of characters available inside the byte count limit goes down. ASCII has four times the available characters as emoji, three times as many as languages such as Chinese, and roughly twice as many as the Cyrillic example.</p>
-	
-	<p>Second, in each of the non-ASCII example the byte boundary for truncation falls in the middle of a character. The resulting "dangling bytes" are rendered as U+FFFD and the byte sequence itself is not valid UTF-8. If the byte sequence were then serialized into a file format, such as JSON or CSV, the surrounding file might not be wholly valid or the file processor might generate errors because the byte sequence itself is invalid. Unlike many legacy character encodings, UTF-8 is highly patterned, so the longest broken character sequence that can result from mid-character truncation is one character. By contrast, in many legacy encodings, a file or document containing a mid-character truncated string can be wholly changed or rendered unintelligible after that point.</p>
-	
-    <p class="advisement" id="char_trunc_units"><a class="self" href="#char_trunc_units">&#x200B;</a>Specifications that limit the length of a string MUST specify which type of unit (extended grapheme clusters, Unicode code points, or code units) the length limit uses.</p>
-    <p class="advisement" id="char_trunc_unit_rec"><a class="self" href="#char_trunc_unit_rec">&#x200B;</a>Specifications that limit the length of a string SHOULD specify the length in terms of Unicode code points.</p>
-    <p class="advisement" id="char_trunc_byte_boundary"><a class="self" href="#char_trunc_byte_boundary">&#x200B;</a>If a specification sets a length limit in code units (such as bytes), it MUST specify that truncation can only occur on code point boundaries.</p>
-    <p class="advisement" id="char_trunc_indicator"><a class="self" href="#char_trunc_indicator">&#x200B;</a>If a specification specifies a length limit, it SHOULD specify that any string that is truncated include an indicator, such as ellipses, that the string has been altered.</p>    
-    <p class="advisement" id="char_trunc_min_size"><a class="self" href="#char_trunc_min_size">&#x200B;</a>When specifying a length limitation in code units (such as bytes), specifications SHOULD set the maximum length in a way that accommodates users whose language requires multibyte code unit sequences.</p>
- </section>
-    
-    <section id="char_indexing" class="subtopic">
-      <h3>Indexing strings</h3>
-      <p class="advisement" id="char_index_char"><a class="self" href="#char_index_char">&#x200B;</a>The character string is RECOMMENDED as a basis for string indexing. <a href="https://www.w3.org/TR/charmod/#C051">more</a></p>
-      <p class="advisement" id="char_index_codeunit"><a class="self" href="#char_index_codeunit">&#x200B;</a>A code unit string MAY be used as a basis for string indexing if this results in a significant improvement in the efficiency of internal operations when compared to the use of character string. <a href="https://www.w3.org/TR/charmod/#C052">more</a></p>
-      <p class="advisement" id="char_index_grapheme"><a class="self" href="#char_index_grapheme">&#x200B;</a>Grapheme clusters MAY be used as a basis for string indexing in applications where user interaction is the primary concern. <a href="https://www.w3.org/TR/charmod/#C071">more</a></p>
-      <p class="advisement" id="char_index_grapheme_plus"><a class="self" href="#char_index_grapheme_plus">&#x200B;</a>Specifications that define indexing in terms of grapheme clusters MUST either: (a) define grapheme clusters in terms of default grapheme clusters as defined in Unicode Standard Annex #29, Text Boundaries [UTR #29], or (b) define specifically how tailoring is applied to the indexing operation. <a href="https://www.w3.org/TR/charmod/#C074">more</a></p>
-      <p>Need to check the above recommendation, since extended grapheme clusters are now recommended.</p>
-      <p class="advisement" id="char_index_byte"><a class="self" href="#char_index_byte">&#x200B;</a>The use of byte strings for indexing is NOT RECOMMENDED. <a href="https://www.w3.org/TR/charmod/#C072">more</a></p>
-      <p class="advisement" id="char_index_substrings"><a class="self" href="#char_index_substrings">&#x200B;</a>Specifications that need a way to identify substrings or point within a string SHOULD provide ways other than string indexing to perform this operation. <a href="https://www.w3.org/TR/charmod/#C053">more</a></p>
-      <p class="advisement" id="char_index_counting"><a class="self" href="#char_index_counting">&#x200B;</a>Specifications SHOULD understand and process single characters as substrings, and treat indices as boundary positions between counting units, regardless of the choice of counting units. <a href="https://www.w3.org/TR/charmod/#C055">more</a></p>
-      <p class="advisement" id="char_index_api"><a class="self" href="#char_index_api">&#x200B;</a>Specifications of APIs SHOULD NOT specify single characters or single 'units of encoding' as argument or return types. <a href="https://www.w3.org/TR/charmod/#C056">more</a></p>
-      <p class="advisement" id="char_index_0"><a class="self" href="#char_index_0">&#x200B;</a>When the positions between the units are counted for string indexing, starting with an index of 0 for the position at the start of the string is the RECOMMENDED solution, with the last index then being equal to the number of counting units in the string. <a href="https://www.w3.org/TR/charmod/#C057">more</a></p>
-      
-      <section class="links">
-        <h4>Links</h4>
-        <section class="howto">
-          <h5>How to's</h5>
-          <ul>
-            <li class="w3">
-              <p class="link"><a href="https://www.w3.org/TR/charmod/#sec-stringIndexing">String indexing</a></p>
-              <p class="desc">In W3C Recommendation, <a href="https://www.w3.org/TR/charmod/">Character Model for the World Wide Web</a>.</p>
-            </li>
-          </ul>
-        </section>
-      </section>
-      <section class="xref">
-        <h4>See also</h4>
-        <p><a href="#char_string">Defining 'string'</a>.</p>
-      </section>
-    </section>
-    
-    
-    <section id="char_ref_Unicode_char" class="subtopic">
-      <h3>Referring to Unicode characters</h3>
+</section>
+<section id="char_ref_Unicode_char" class="subtopic">
+<h3>Referring to Unicode characters</h3>
       <p class="advisement" id="char_ref_Uchar"><a class="self" href="#char_ref_Uchar">&#x200B;</a>Use U+XXXX syntax to represent Unicode code points in the specification. <a class="local" href="https://w3c.github.io/bp-i18n-specdev/#char_ref_Uchar">more</a></p>
       <p>The U+XXXX format is well understood when referring to Unicode code points in a specification. These are space separated when appearing in a sequence. No additional decoration is needed. Note that a code point may contain four, five, or six hexadecimal digits. When fewer than four digits are needed, the code point number is zero filled. E.g. U+0020.</p>
-    </section>
+</section>
     
     
     <section id="char_unicoderef" class="subtopic">
@@ -1368,6 +1051,322 @@
     
     
   </section>
+  
+  
+  
+  
+  
+  
+  
+<section id="operations" class="topic">
+<h2>Text-processing</h2>
+
+<p>In this section:</p>
+	<ul class="summary">
+	<li><a href="#char_indexing"></a></li>
+	<li><a href="#string_match"></a></li>
+	<li><a href="#text_n11n"></a></li>
+	<li><a href="#text_case"></a></li>
+	<li><a href="#char_truncation"></a></li>
+	<li><a href="#char_sort"></a></li>
+	</ul>
+
+
+<section id="char_indexing" class="subtopic">
+      <h3>Choosing text units for segmentation, indexing, etc.</h3>
+	  
+      <p class="advisement" id="char_index_char"><a class="self" href="#char_index_char">&#x200B;</a>The character string is RECOMMENDED as a basis for string indexing. <a href="https://www.w3.org/TR/charmod/#C051">more</a></p>
+	  
+      <p class="advisement" id="char_index_grapheme"><a class="self" href="#char_index_grapheme">&#x200B;</a>Grapheme clusters MAY be used as a basis for string indexing in applications where user interaction is the primary concern. <a href="https://www.w3.org/TR/charmod/#C071">more</a></p>
+	  
+<p class="advisement" id="char_index_grapheme_plus"><a class="self" href="#char_index_grapheme_plus">&#x200B;</a>Specifications that define indexing in terms of grapheme clusters MUST either: (a) define grapheme clusters in terms of extended grapheme clusters as defined in Unicode Standard Annex #29, Text Boundaries [UTR #29], or (b) define specifically how tailoring is applied to the indexing operation. <a href="https://www.w3.org/TR/charmod/#C074">more</a></p>
+
+<p class="advisement" id="char_index_byte"><a class="self" href="#char_index_byte">&#x200B;</a>The use of byte strings for indexing is NOT RECOMMENDED. <a href="https://www.w3.org/TR/charmod/#C072">more</a></p>
+
+       <p class="advisement" id="char_index_codeunit"><a class="self" href="#char_index_codeunit">&#x200B;</a>A UTF-16 code unit string is NOT RECOMMENDED as a basis for string indexing, even if this results in a significant improvement in the efficiency of internal operations when compared to the use of character string. <a href="https://www.w3.org/TR/charmod/#C052">more</a></p>
+	   
+     <p class="advisement" id="char_index_substrings"><a class="self" href="#char_index_substrings">&#x200B;</a>Specifications that need a way to identify substrings or point within a string SHOULD consider ways other than string indexing to perform this operation. <a href="https://www.w3.org/TR/charmod/#C053">more</a></p>
+      <p class="advisement" id="char_index_counting"><a class="self" href="#char_index_counting">&#x200B;</a>Specifications SHOULD understand and process single characters as substrings, and treat indices as boundary positions between counting units, regardless of the choice of counting units. <a href="https://www.w3.org/TR/charmod/#C055">more</a></p>
+      <p class="advisement" id="char_index_api"><a class="self" href="#char_index_api">&#x200B;</a>Specifications of APIs SHOULD NOT specify single characters or single 'units of encoding' as argument or return types. <a href="https://www.w3.org/TR/charmod/#C056">more</a></p>
+      <p class="advisement" id="char_index_0"><a class="self" href="#char_index_0">&#x200B;</a>When the positions between the units are counted for string indexing, starting with an index of 0 for the position at the start of the string is the RECOMMENDED solution, with the last index then being equal to the number of counting units in the string. <a href="https://www.w3.org/TR/charmod/#C057">more</a></p>
+
+<section class="links">
+<h4>Links</h4>
+<section class="howto">
+<h5>How to's</h5>
+<ul>
+<li class="w3">
+<p class="link"><a href="https://www.w3.org/TR/charmod/">Character Model for the World Wide Web: Fundamentals</a></p>
+<ul>
+<li class="sub">
+<p class="link"><a href="https://www.w3.org/TR/charmod/#sec-stringIndexing">String indexing</a></p>
+</li>
+</ul></li>
+</ul>
+</section>
+</section>
+
+<section class="xref">
+<h4>See also</h4>
+        <p><a href="#char_string"></a>.</p>
+</section>
+</section>
+ 
+  
+  
+  
+  
+  <section id="string_match" class="subtopic">
+    <h3>Matching string identity for identifiers and syntactic content</h3>
+	
+    <p class="advisement" id="string_match_steps"><a class="self" href="#string_match_steps">&#x200B;</a>String identity matching for identifiers and syntactic content should involve the following steps: (a) Ensure the strings to be compared constitute a sequence of Unicode code points (b) Expand all character escapes and includes (c) Perform any appropriate case-folding and Unicode normalization step (d) Perform any additional matching tailoring specific to the specification, and (e) Compare the resulting sequences of code points for identity. <a href="https://www.w3.org/TR/charmod-norm/#matchingAlgorithm">more</a></p>
+	
+    <p class="advisement" id="string_match_default"><a class="self" href="#string_match_default">&#x200B;</a>The default recommendation for matching strings in identifiers and syntactic content is to do no normalization (ie. case folding or Unicode Normalization) of content. <a href="https://www.w3.org/TR/charmod-norm/#performNorm">more</a></p>
+	
+    <p class="advisement" id="string_match_other_normalization"><a class="self" href="#string_match_other_normalization">&#x200B;</a><a class="termref" href="https://www.w3.org/TR/charmod-norm/#ASCIIFoldNormalizationStep">'ASCII case fold'</a> and <a href="https://www.w3.org/TR/charmod-norm/#CanonicalFoldNormalizationStep" class="termref">'Unicode canonical case fold'</a> approaches should only be used in special circumstances. <a href="https://www.w3.org/TR/charmod-norm/#performNorm">more</a></p>
+	
+    <p class="advisement" id="string_match_compatibility"><a class="self" href="#string_match_compatibility">&#x200B;</a>A <a href="https://www.w3.org/TR/charmod-norm/#CompatibilityFoldNormalizationStep" class="termref">'Unicode compatibility case fold'</a> approach should not be used. <a href="https://www.w3.org/TR/charmod-norm/#performNorm">more</a></p>
+
+    <p class="advisement" id="string_match_boundaries"><a class="self" href="#string_match_boundaries">&#x200B;</a>Specifications of vocabularies MUST define the boundaries between syntactic content and character data as well as entity boundaries (if the language has any include mechanism). <a href="https://www.w3.org/TR/charmod-norm/#normalizationChoice">more</a></p>
+
+
+    <section class="links">
+      <h4>Links</h4>
+	  
+	<section class="howto">
+	  <h5>How to's</h5>
+        <ul>
+			<li class="w3">
+            <p class="link"><a href="https://www.w3.org/TR/charmod-norm/">Character Model for the World Wide Web: String Matching</a></p>
+			<ul>
+           <li class="sub">
+            <p class="link"><a href="https://www.w3.org/TR/charmod-norm/#identityMatching">String Matching of Syntactic Content in Document Formats and Protocols</a></p>
+          </li>
+</ul>
+</li>
+        </ul>
+		</section>
+   </section>
+
+<section class="xref">
+<h4>See also</h4>
+<p><a href="#text_n11n"></a>.</p>
+<p><a href="#text_case"></a>.</p>
+</section>
+</section>
+  
+  
+  
+  
+  
+  
+  <section id="text_n11n" class="subtopic">
+    <h3>Working with  Unicode Normalization</h3>
+	    <p class="advisement" id="text_n11n_default"><a class="self" href="#text_n11n_default">&#x200B;</a>Specifications SHOULD NOT specify a Unicode normalization form for encoding, storage, or interchange of a given vocabulary. <a href="https://www.w3.org/TR/charmod-norm/#normalizationChoice">more</a></p>
+		
+    <p class="advisement" id="text_n11n_no_change"><a class="self" href="#text_n11n_no_change">&#x200B;</a>Implementations MUST NOT alter the normalization form of syntactic or natural language content being exchanged, read, parsed, or processed except when required to do so as a side-effect of text transformation such as transcoding the content to a Unicode character encoding, case folding, or other user-initiated change, as consumers or the content itself might depend on the de-normalized representation. <a href="https://www.w3.org/TR/charmod-norm/#normalizationChoice">more</a></p>
+	
+<p class="advisement" id="text_n11n_compatibility"><a class="self" href="#text_n11n_compatibility">&#x200B;</a>Specifications SHOULD NOT specify compatibility normalization forms (NFKC, NFKD). <a href="https://www.w3.org/TR/charmod-norm/#normalizationChoice">more</a></p>
+
+<p class="advisement" id="text_n11n_security"><a class="self" href="#text_n11n_security">&#x200B;</a>Specifications MUST document or provide a health-warning if canonically equivalent but disjoint Unicode character sequences represent a security issue. <a href="https://www.w3.org/TR/charmod-norm/#normalizationChoice">more</a></p>
+	
+    <p class="advisement" id="text_n11n_operations"><a class="self" href="#text_n11n_operations">&#x200B;</a>Where operations can produce denormalized output from normalized text input, specifications MUST define whether the resulting output is required to be normalized or not. Specifications MAY state that performing normalization is optional for some operations; in this case the default SHOULD be that normalization is performed, and an explicit option SHOULD be used to switch normalization off. <a href="https://www.w3.org/TR/charmod-norm/#normalizing-spec">more</a></p>
+	
+    <p class="advisement" id="text_n11n_implementation"><a class="self" href="#text_n11n_implementation">&#x200B;</a>Specifications that require normalization MUST NOT make the implementation of normalization optional. <a href="https://www.w3.org/TR/charmod-norm/#normalizing-spec">more</a></p>
+	
+    <p class="advisement" id="text_n11n_sensitive_operations"><a class="self" href="#text_n11n_sensitive_operations">&#x200B;</a>Normalization-sensitive operations MUST NOT be performed unless the implementation has first either confirmed through inspection that the text is in normalized form or it has re-normalized the text itself. Private agreements MAY be created within private systems which are not subject to these rules, but any externally observable results MUST be the same as if the rules had been obeyed. <a href="https://www.w3.org/TR/charmod-norm/#normalizing-spec">more</a></p>
+	
+<p class="advisement" id="text_n11n_mechanism"><a class="self" href="#text_n11n_mechanism">&#x200B;</a>A normalizing text-processing component which modifies text and performs normalization-sensitive operations MUST behave as if normalization took place after each modification, so that any subsequent normalization-sensitive operations always behave as if they were dealing with normalized text. <a href="https://www.w3.org/TR/charmod-norm/#normalizing-spec">more</a></p>
+<section class="links">
+  <h4>Links</h4>
+      <section class="background">
+        <h5>Background reading</h5>
+        <ul>
+			<li class="w3">
+            <p class="link"><a href="https://www.w3.org/TR/charmod-norm/">Character Model for the World Wide Web: String Matching</a></p>
+			<ul>
+           <li class="sub">
+            <p class="link"><a href="https://www.w3.org/TR/charmod-norm/#unicodeNormalization">Unicode Normalization</a></p>
+          </li>
+           <li class="sub">
+            <p class="link"><a href="https://www.w3.org/TR/charmod-norm/#normalizationLimitations">Identical-Appearing Characters and the Limitations of Normalization</a></p>
+          </li>
+           <li class="sub">
+            <p class="link"><a href="https://www.w3.org/TR/charmod-norm/#normalizationAndCasefold">Interaction of Normalization and Case Folding</a></p>
+          </li>
+		  </ul></li>
+        </ul>
+      </section>
+	  <section class="howto">
+        <h5>How to's</h5>
+        <ul>
+			<li class="w3">
+            <p class="link"><a href="https://www.w3.org/TR/charmod-norm/">Character Model for the World Wide Web: String Matching</a></p>
+			<ul>
+           <li class="sub">
+            <p class="link"><a href="https://www.w3.org/TR/charmod-norm/#performNorm">Performing the Appropriate Normalization Step</a></p>
+          </li>
+           <li class="sub">
+            <p class="link"><a href="https://www.w3.org/TR/charmod-norm/#normalizationChoice">Additional Considerations for Normalization</a></p></li>
+		  </ul></li>
+        </ul>
+		</section>
+  </section>
+  </section>
+  
+  
+  
+  
+  <section id="text_case" class="subtopic">
+    <h3>Case folding</h3>
+
+    <p class="advisement" id="text_case_options"><a class="self" href="#text_case_options">&#x200B;</a>Specifications and implementations that define string matching as part of the definition of a format, protocol, or formal language (which might include operations such as parsing, matching, tokenizing, etc.) MUST define the criteria and matching forms used. These MUST be one of: (a) case-sensitive (b) Unicode case-insensitive using Unicode full case-folding (c) ASCII case-insensitive.</p>
+
+<p class="advisement" id="text_case_sensitive"><a class="self" href="#text_case_sensitive">&#x200B;</a>Case-sensitive matching is RECOMMENDED for matching syntactic content, including user-defined values. <a href="https://www.w3.org/TR/charmod-norm/#sec_case_sensitive">more</a></p>
+	
+  <p class="advisement" id="text_case_unicode_full"><a class="self" href="#text_case_unicode_full">&#x200B;</a>Specifications that define case-insensitive matching in vocabularies that include more than the Basic Latin (ASCII) range of Unicode MUST specify Unicode full casefold matching. <a href="https://www.w3.org/TR/charmod-norm/#sec_unicode_cs">more</a></p>
+  
+<p class="advisement" id="text_case_asciici"><a class="self" href="#text_case_asciici">&#x200B;</a>Specifications that define case-insensitive matching in vocabularies limited to the Basic Latin (ASCII) subset of Unicode MAY specify ASCII case-insensitive matching. <a href="https://www.w3.org/TR/charmod-norm/#sec_ascii_cs">more</a></p>
+
+<p class="advisement" id="text_case_nonascii"><a class="self" href="#text_case_nonascii">&#x200B;</a>If language-sensitive case-sensitive matching is specified, Unicode case mappings SHOULD be tailored according to language and the source of the language used for each tailoring MUST be specified. <a href="https://www.w3.org/TR/charmod-norm/#sec_language_tailoring">more</a></p>
+
+    <p class="advisement" id="text_case_vocabularies"><a class="self" href="#text_case_vocabularies">&#x200B;</a>Specifications that define case-insensitive matching in vocabularies SHOULD NOT specify language-sensitive case-insensitive matching. <a href="https://www.w3.org/TR/charmod-norm/#sec_language_tailoring">more</a></p>
+
+	<section class="links">
+  <h4>Links</h4>
+      <section class="background">
+        <h5>Background reading</h5>
+        <ul>
+			<li class="w3">
+            <p class="link"><a href="https://www.w3.org/TR/charmod-norm/">Character Model for the World Wide Web: String Matching</a></p>
+			<ul>
+           <li class="sub">
+            <p class="link"><a href="https://www.w3.org/TR/charmod-norm/#definitionCaseFolding">Case Mapping and Case Folding</a></p>
+          </li>
+</ul></li>
+        </ul>
+      </section>
+	  <section class="howto">
+        <h5>How to's</h5>
+        <ul>
+			<li class="w3">
+            <p class="link"><a href="https://www.w3.org/TR/charmod-norm/">Character Model for the World Wide Web: String Matching</a></p>
+			<ul>
+           <li class="sub">
+            <p class="link"><a href="https://www.w3.org/TR/charmod-norm/#handlingCaseFolding">Additional Considerations for Case Folding</a></p></li>
+		  </ul></li>
+        </ul>
+		</section>
+  </section>
+</section>
+  
+  
+  
+  
+  
+<section id="char_truncation" class="subtopic">
+   <h3>Truncating or limiting the length of strings</h3>
+    
+    <p>Some specifications, formats, or protocols or their implementations need to specify limits for the size of a given data structure or text field. This could be due to many reasons, such as limits on processing, memory, data structure size, and so forth. When selecting or specifying limits on the length of a given string, specifications or implementations need to ensure that they do not cause corruption in the text.</p>
+    
+    <p class="advisement" id="char_trunc_no_limit"><a class="self" href="#char_trunc_no_limit">&#x200B;</a>Specifications SHOULD NOT limit the size of data fields unless there is a specific practical or technical limitation.</p>
+    
+    <p>There are many reasons why a length limit might be needed in a specification or format. Generally length limits correspond to underlying limits in the implementation, such as the use of fixed-size fields in a database or data store, the desire to fit into practical boundaries such as packet size, or some other implementation detail related to storage allocation or efficiency.</p>
+    
+    <p>When truncating strings, it's necessary to decide what units to use when counting the size of the string. In many cases this is beyond the control of the specification, since the truncation is occuring for some preordained reason. However, when the choice is available, some general guidelines can be applied.</p>
+    
+    <p>If the limitation is related to the number of display positions, the grapheme count usually corresponds most closely to the expected limit. Note that proportional width fonts, combining marks, complex scripts, and many other factors complicate counting "screen positions". In Web pages, for example, the CSS <kbd>text-overflow</kbd> property provides visual truncation without disturbing the content of the text. Attempts to estimate the size of a given piece of text based on the number of Unicode code points or even the number of grapheme clusters is mostly futile.</p>
+    
+    <p>Otherwise most limits are expressed in terms of code points in Unicode or code units (such as bytes) in a specific character encoding. Code points provides the best user experience, since all Unicode code points are treated identically: if text is truncated after 40 code points, all languages and scripts get the same number of code points to work with. By contrast, when the size limit is expressed in code units such as bytes in UTF-8, users who write in a language that mostly uses ASCII letters get many more characters (code points) for a given size limit than user's whose language is mostly made up of characters that take 2-, 3-, or 4-bytes per code point.</p>
+    
+    <aside class=example>
+		<h2>Text truncation in UTF-8</h2>
+		<p>Below you can see the effect of truncating a given string of text encoded in UTF-8 on a 40-byte boundary. There are several things to notice here.</p>
+		<p>First, the number of characters in the truncated string decreases as the number of bytes required per character goes up. So the Cyrillic string has half the number of characters as the ASCII string. The Chinese string has about 1/3 the number. And the emoji string has 1/4.</p>
+		<p>Second, in two of the three examples, the text is truncated on a byte boundary in the middle of a character. The resulting "dangling byte" is rendered as U+FFFD and the byte sequence itself is not valid UTF-8. This can interfere with the validity of a given text file. Unlike many legacy character encodings, UTF-8 is highly patterned, so the the longest broken character sequence that can result from mid-character truncation is one character. By contrast, in many legacy encodings, a file or document containing a mid-character truncated string can be wholly changed or rendered unintelligible after that point.</p>
+		<table class=truncExample>
+		<tr>
+			<th>Script</th>
+			<th>Truncated Length<br>(code points)</th>
+			<th>Avg. Bytes/Code Point</th>
+			<th>Truncated Text<br>Byte Values</th>
+		</tr>
+		<tr>
+			<td rowspan=2>ASCII
+			<td rowspan=2>40</td> 
+			<td rowspan=2>1</td>
+			<td><kbd>In the loveliest town of all, where the </kbd></td>
+		</tr>
+		<tr>
+			<td><code>49 6E 20 74 68 65 20 6C 6F 76 65 6C 69 65 73 74 20 74 6F 77 6E 20 6F 66 20 61 6C 6C 2C 20 77 68 65 72 65 20 74 68 65 20</code></td>
+		</tr>
+		<tr>
+			<td rowspan=2>Cyrillic</td>
+			<td rowspan=2>22</td> 
+			<td rowspan=2>2</td>
+			<td><kbd>В самом прекрасном го�</kbd></td>
+	    </tr>
+	    <tr>
+			<td><code>D0 92 20 D1 81 D0 B0 D0 BC D0 BE D0 BC 20 D0 BF D1 80 D0 B5 D0 BA D1 80 D0 B0 D1 81 D0 BD D0 BE D0 BC 20 D0 B3 D0 BE <span style="color:red">D0</span></code></td>
+	    </tr>
+		<tr>
+			<td rowspan=2>Han</td>
+			<td rowspan=2>14</td> 
+			<td rowspan=2>3</td>
+			<td><kbd lang="zh">在最美丽的城镇，那里的房屋�</kbd></td>
+		</tr>
+		<tr>
+			<td><code>E5 9C A8 E6 9C 80 E7 BE 8E E4 B8 BD E7 9A 84 E5 9F 8E E9 95 87 EF BC 8C E9 82 A3 E9 87 8C E7 9A 84 E6 88 BF E5 B1 8B <span style="color:red">E5</span></code></td>
+	    </tr>
+		<tr>
+			<td rowspan=2>Emoji</td>
+			<td rowspan=2>10 
+			<td rowspan=2>4</td>
+			<td><kbd>🙊🙁😢😠😧😎😽😉😄😮</kbd></td>
+		</tr>
+		<tr>
+			<td><code>F0 9F 99 8A F0 9F 99 81 F0 9F 98 A2 F0 9F 98 A0 F0 9F 98 A7 F0 9F 98 8E F0 9F 98 BD F0 9F 98 89 F0 9F 98 84 F0 9F 98 AE</code></td>
+		</tr>
+		</table>
+    </aside>
+
+    <p class="advisement" id="char_trunc_units"><a class="self" href="#char_trunc_units">&#x200B;</a>Specifications that limit the length of a string MUST specify which type of unit (extended grapheme clusters, Unicode code points, or code units) the length limit uses.</p>
+    <p class="advisement" id="char_trunc_unit_rec"><a class="self" href="#char_trunc_unit_rec">&#x200B;</a>Specifications that limit the length of a string SHOULD specify the length in terms of Unicode code points.</p>
+    <p class="advisement" id="char_trunc_byte_boundary"><a class="self" href="#char_trunc_byte_boundary">&#x200B;</a>If a specification sets a length limit in code units (such as bytes), it MUST specify that truncation can only occur on code point boundaries.</p>
+    <p class="advisement" id="char_trunc_indicator"><a class="self" href="#char_trunc_indicator">&#x200B;</a>If a specification specifies a length limit, it SHOULD specify that any string that is truncated include an indicator, such as ellipses, that the string has been altered.</p>    
+    <p class="advisement" id="char_trunc_min_size"><a class="self" href="#char_trunc_min_size">&#x200B;</a>When specifying a length limitation in code units (such as bytes), specifications SHOULD set the maximum length in a way that accommodates users whose language requires multibyte code unit sequences.</p>
+</section>
+
+
+
+
+	
+<section id="char_sort" class="subtopic">
+<h3>Specifying sort and search functionality</h3>
+    <p class="advisement" id="char_sort_units"><a class="self" href="#char_sort_units">&#x200B;</a>Software that sorts or searches text for users SHOULD do so on the basis of appropriate collation units and ordering rules for the relevant language and/or application. <a href="https://www.w3.org/TR/charmod/#C006">more</a></p>
+    <p class="advisement" id="char_sort_user"><a class="self" href="#char_sort_user">&#x200B;</a>Where searching or sorting is done dynamically, particularly in a multilingual environment, the 'relevant language' SHOULD be determined to be that of the current user, and may thus differ from user to user. <a href="https://www.w3.org/TR/charmod/#C007">more</a></p>
+    <p class="advisement" id="char_sort_alternatives"><a class="self" href="#char_sort_alternatives">&#x200B;</a>Software that allows users to sort or search text SHOULD allow the user to select alternative rules for collation units and ordering. <a href="https://www.w3.org/TR/charmod/#C066">more</a></p>
+    <p class="advisement" id="char_sort_anything"><a class="self" href="#char_sort_anything">&#x200B;</a>Specifications and implementations of sorting and searching algorithms SHOULD accommodate text that contains any character in Unicode. <a href="https://www.w3.org/TR/charmod/#C008">more</a></p>
+
+
+    <section class="links">
+      <h4>Links</h4>
+ 	  <section class="howto">
+        <h5>How to's</h5>
+        <ul>
+			<li class="w3">
+            <p class="link"><a href="https://www.w3.org/TR/charmod/">Character Model for the World Wide Web: Fundamentals</a></p>
+			<ul>
+           <li class="sub">
+            <p class="link"><a href="https://www.w3.org/TR/charmod/#sec-CollationUnits">Units of collation</a></p>
+          </li>
+</ul>
+</li>
+        </ul>
+		</section>
+</section>
+</section>
+</section>
  
 
 
@@ -1440,11 +1439,11 @@
   <section id="typography" class="topic">
 <h2>Typographic support</h2>
 <ul class="summary">
-    <li><a href="#text_decoration">Text decoration</a></li>
-    <li><a href="#vertical">Vertical text</a></li>
-    <li><a href="#box_posn">Setting box positioning coordinates when text direction varies</a></li>
-	<li><a href="#ruby">Ruby text annotations</a></li>
-	<li><a href="#typ_misc">Miscellaneous</a></li>
+    <li><a href="#text_decoration"></a></li>
+    <li><a href="#vertical"></a></li>
+    <li><a href="#box_posn"></a></li>
+	<li><a href="#ruby"></a></li>
+	<li><a href="#typ_misc"></a></li>
 </ul>
 
  
@@ -1694,8 +1693,8 @@
 </section>
 
 
-<!--button onClick="document.getElementById('dump').value = dumpData(); document.getElementById('dump').select();">Dump data</button>
-<textarea id="dump" style="width: 100%; height: 400px;"></textarea-->
+<button onClick="document.getElementById('dump').value = dumpData(); document.getElementById('dump').select();">Dump data</button>
+<textarea id="dump" style="width: 100%; height: 400px;"></textarea>
 
 
 </body>

@@ -255,3 +255,6 @@ table.truncationExample td {
     text-align: center;
 }
 
+.summary .secno {
+	display: none;
+	}
