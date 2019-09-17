@@ -199,7 +199,7 @@
 
     <p>There might be cases where a specification really wants implementation-level checking for validity. In those cases, the result of a tag failing to be valid has to be specified (should the application die, warn the user, etc.). It's also a problem that the registry is sizeable and changes over time, so each implementation is registry-version dependent. The changes over time are often minor, but real users will encounter interoperability issues if random (out of date) implementations of the specification reject language tags that have become valid at a later date.</p>
  
-    <p>In addition, BCP 47 has an extension mechanism which defines add-on subtag sequences. For example, one extension [[RFC6067]] (Unicode Locales, which uses the singleton <code>-u</code>), is commonly used for controlling the internationalization features of JavaScript (and has other uses). Validating these additional subtags is likely out of scope for most specifications.</p> 
+    <p>In addition, BCP 47 has an extension mechanism which defines add-on subtag sequences. For example, one extension [[RFC6067]] (Unicode Locales, which uses the singleton <span class=kw translate=no>-u</span>), is commonly used for controlling the internationalization features of JavaScript (and has other uses). Validating these additional subtags is likely out of scope for most specifications.</p> 
     
     <p class="advisement" id="lang_values_valid"><a class="self" href="#lang_values_valid">&#x200B;</a>Specifications should require content and content authors to use "valid" language tags.</p>
      
