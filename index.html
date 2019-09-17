@@ -197,11 +197,9 @@
 
     <p>Generally most specifications are concerned with selecting resources (such as spell check, tokenizers, fonts, etc.) or with matching (selecting which string to show, for example) and don't directly care about the content of the language tag. Invalid-but-well-formed tags just don't match anything and usually fallback schemes provide some behavior that is appropriate.</p>
 
-    <p>There might be cases where a specification really wants implementation-level checking. In those cases, the result of a tag failing to be valid has to be specified (should the application die, warn the user, etc.). It's also a problem that the registry changes over time, so each implementation is registry-version dependent. The changes over time are small, minor, and mostly "not that interesting", but they do exist and real users may encounter interoperability issues if random (out of date) spec implementations reject their (perfectly valid) language tags.</p>
+    <p>There might be cases where a specification really wants implementation-level checking for validity. In those cases, the result of a tag failing to be valid has to be specified (should the application die, warn the user, etc.). It's also a problem that the registry is sizeable and changes over time, so each implementation is registry-version dependent. The changes over time are often minor, but real users will encounter interoperability issues if random (out of date) implementations of the specification reject language tags that have become valid at a later date.</p>
  
     <p>In addition, BCP 47 has an extension mechanism which defines add-on subtag sequences. For example, one extension [[RFC6067]] (Unicode Locales, which uses the singleton <code>-u</code>), is commonly used for controlling the internationalization features of JavaScript (and has other uses). Validating these additional subtags is likely out of scope for most specifications.</p> 
-    
-    <p>Also the subtag registry is fairly sizeable and is updated from time-to-time with new subtags and other information throughout the year. Validation of the contents of the subtags is not required for most specifications to operate on laguage tags sucessfully.</p>
     
     <p class="advisement" id="lang_values_valid"><a class="self" href="#lang_values_valid">&#x200B;</a>Specifications should require content and content authors to use "valid" language tags.</p>
      
