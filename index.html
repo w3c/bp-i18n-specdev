@@ -195,7 +195,7 @@
 
     <p>Most specifications are second-order consumers of language metadata &ndash; they are using data already provided in the document format (HTML <span class=kw translate=no>lang</span>, XML <span class=kw translate=no>xml:lang</span>, or the document format's language fields/attributes).</p>
 
-    <p>Generally most specifications are concerned with selecting resources (such as spell check, tokenizers, fonts, etc.) or with matching (selecting which string to show, for example) and don't directly care about the content of the language tag. Invalid-but-well-formed tags just don't match anything and usually fallback schemes provide some behavior that is appropriate.</p>
+    <p>Generally most specifications are concerned with selecting resources (such as spell checkers, tokenizers, fonts, etc.) or with matching (selecting which string to show, for example) and don't directly care about the content of the language tag. Invalid-but-well-formed tags just don't match anything and usually fallback schemes provide some behavior that is appropriate.</p>
 
     <p>There might be cases where a specification really wants implementation-level checking for validity. In those cases, the result of a tag failing to be valid has to be specified (should the application die, warn the user, etc.). It's also a problem that the registry is sizeable and changes over time, so each implementation is registry-version dependent. The changes over time are often minor, but real users will encounter interoperability issues if random (out of date) implementations of the specification reject language tags that have become valid at a later date.</p>
  
