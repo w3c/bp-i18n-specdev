@@ -185,13 +185,26 @@
     <p>BCP 47 defines a method to combine subtags in order to create a much more powerful notation for language tags than that provided by the old ISO lists, but it is also backwards compatible with the ISO lists.</p>
     <p>For an overview of the key features of BCP 47, see <a href="https://www.w3.org/International/articles/language-tags/">Language tags in HTML and XML</a>.</p>
     <p class="advisement" id="lang_bcp_not_rfc"><a class="self" href="#lang_bcp_not_rfc">&#x200B;</a>Refer to BCP 47, not to RFC 5646. <a class="local" href="https://w3c.github.io/bp-i18n-specdev/#sec_lang_values">more</a></p>
-    <p>The link to and name of BCP 47 was created specifically so that there is an unchanging reference to the definition of Tags for the Identification of Languages. RFCs 3066, 4646 and 5646 are versions of BCP 47.</p>
-  
+    <p>The link to and name of BCP 47 was created specifically so that there is an unchanging reference to the definition of Tags for the Identification of Languages. RFCs 1766, 3066, 4646 were previous (superseded) versions and 5646 is the current version of BCP 47.</p>
  
-    <p class="advisement" id="lang_values_valid"><a class="self" href="#lang_values_valid">&#x200B;</a>Be specific about what level of conformance you expect for language tags. The word "valid" has special meaning in BCP 47. Generally "well-formed" is a better choice.</p>
+    <p class="advisement" id="lang_values_specificity"><a class="self" href="#lang_values_specificity">&#x200B</a>Be specific about what level of conformance you expect for language tags: BCP 47 defines two levels of conformance, "valid" and "well-formed".</p>
+
+    <p>A <strong>well-formed</strong> BCP 47 language tag follows the syntax defined for a language tag: implementations check that each language tag consists of hyphen-separated subtags; each subtag has a specific length and specific content (letters, digits or specific combinations) depending on the placement in the tag. A <strong>valid</strong> BCP 47 language tag is well-formed but additionally ensures that only subtags that are listed in the IANA Subtag Registry are used. Note that the IANA Subtag Registry is frequently updated with new subtags.</p>    
+
+    <p class="advisement" id="lang_checking_well_formed"><a class="self" href="#lang_checking_well_formed">&#x200B;</a>Specifications may require implementations to check if language tags are "valid", but in most circumstances should only require that the language tags be "well-formed".</p>
+
+    <p>Most specifications are second-order consumers of language metadata &ndash; they are using data already provided in the document format (HTML <span class=kw translate=no>lang</span>, XML <span class=kw translate=no>xml:lang</span>, or the document format's language fields/attributes).</p>
+
+    <p>Generally most specifications are concerned with selecting resources (such as spell checkers, tokenizers, fonts, etc.) or with matching (selecting which string to show, for example) and don't directly care about the content of the language tag. Invalid-but-well-formed tags just don't match anything and usually fallback schemes provide some behavior that is appropriate.</p>
+
+    <p>There might be cases where a specification really wants implementation-level checking for validity. In those cases, the result of a tag failing to be valid has to be specified (should the application die, warn the user, etc.). It's also a problem that the registry is sizeable and changes over time, so each implementation is registry-version dependent. The changes over time are often minor, but real users will encounter interoperability issues if random (out of date) implementations of the specification reject language tags that have become valid at a later date.</p>
  
- <p>A well-formed BCP 47 language tag has hyphen-separated subtags with specific lengths and in a particular order. Valid BCP 47 language tags are well-formed but also use only subtags that are listed in the IANA Subtag Registry. Note that the IANA Subtag Registry is frequently updated with new subtags.</p>
- 
+    <p>In addition, BCP 47 has an extension mechanism which defines add-on subtag sequences. For example, one extension [[RFC6067]] (Unicode Locales, which uses the singleton <span class=kw translate=no>-u</span>), is commonly used for controlling the internationalization features of JavaScript (and has other uses). Validating these additional subtags is likely out of scope for most specifications.</p> 
+    
+    <p class="advisement" id="lang_values_valid"><a class="self" href="#lang_values_valid">&#x200B;</a>Specifications should require content and content authors to use "valid" language tags.</p>
+     
+    <p>Normative language regarding language tags might be different between content and implementation requirements. Specification authors need to carefully consider what conformance requirements and tests are needed for their specification and what implementations are required to do. One solution is to normatively require that "valid" language tags be used by content authors but only require implementations to check for "well-formed" language tags.</p> 
+    
     <p class="advisement" id="lang_matching_bcp"><a class="self" href="#lang_matching_bcp">&#x200B;</a>Reference BCP47 for language tag matching.</p>
  
  <p>BCP 47 contains one RFC dedicated to the syntax and subtags of language tags, and another dedicated to how to match two or more subtags.  (This topic needs more detail, and may merit being a separate section.)</p>
