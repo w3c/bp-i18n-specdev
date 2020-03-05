@@ -1497,13 +1497,23 @@
 
 
 <section id="locale" class="topic">
-<h2>Local dates, times and formats</h2>
+<h2>Locales, date and time values, and locally affected formats</h2>
 <ul class="summary">
+  <li><a href="#loc_neutral">Working with locale-affected values</a></li>
   <li><a href="#loc_time">Working with time</a></li>
   <li><a href="#loc_names">Working with personal names</a></li>
   <li><a href="#loc_forms">Designing forms</a></li>
   <li><a href="#loc_numbers">Working with numbers</a></li>
 </ul>
+
+<section id="loc_neutral" class="subtopic">
+	<h2>Working with locale-affected values</h2>
+
+<p>Software systems that support languages and cultural preferences are said to be "internationalized". An internationalized system uses APIs to provide language or culturally specific processing, based on user preferences. These user preferences are usually referred to as a "Locale". For more information on general internationalization terminology, see <em>Language Tags and Locale Identifiers</em> [[LTLI]]</p>
+
+<p class="advisement" id="loc_neutral_neutral"><a class="self" href="#loc_neutral_neutral">&#x200B;</a>When definining data formats, use locale-neutral serialization forms.</p>
+
+</section>
 
   <section id="loc_time" class="subtopic"><h3>Working with time</h3>
 <p class="advisement" id="loc_time_preCE"><a class="self" href="#loc_time_preCE">&#x200B;</a>When defining calendar and date systems, be sure to allow for dates prior to the common era, or at least define handling of dates outside the most common range.</p>
