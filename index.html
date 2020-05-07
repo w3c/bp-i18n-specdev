@@ -1102,7 +1102,8 @@
   
   <section id="text_n11n" class="subtopic">
     <h3>Working with  Unicode Normalization</h3>
-	    <p class="advisement" id="text_n11n_default"><a class="self" href="#text_n11n_default">&#x200B;</a>Specifications SHOULD NOT specify a Unicode normalization form for encoding, storage, or interchange of a given vocabulary. <a href="https://www.w3.org/TR/charmod-norm/#normalizationChoice">more</a></p>
+
+	<p class="advisement" id="text_n11n_default"><a class="self" href="#text_n11n_default">&#x200B;</a>Specifications SHOULD NOT specify a Unicode normalization form for encoding, storage, or interchange of a given vocabulary. <a href="https://www.w3.org/TR/charmod-norm/#normalizationChoice">more</a></p>
 		
     <p class="advisement" id="text_n11n_no_change"><a class="self" href="#text_n11n_no_change">&#x200B;</a>Implementations MUST NOT alter the normalization form of syntactic or natural language content being exchanged, read, parsed, or processed except when required to do so as a side-effect of text transformation such as transcoding the content to a Unicode character encoding, case folding, or other user-initiated change, as consumers or the content itself might depend on the de-normalized representation. <a href="https://www.w3.org/TR/charmod-norm/#normalizationChoice">more</a></p>
 	
@@ -1116,7 +1117,28 @@
 	
     <p class="advisement" id="text_n11n_sensitive_operations"><a class="self" href="#text_n11n_sensitive_operations">&#x200B;</a>Normalization-sensitive operations MUST NOT be performed unless the implementation has first either confirmed through inspection that the text is in normalized form or it has re-normalized the text itself. Private agreements MAY be created within private systems which are not subject to these rules, but any externally observable results MUST be the same as if the rules had been obeyed. <a href="https://www.w3.org/TR/charmod-norm/#normalizing-spec">more</a></p>
 	
-<p class="advisement" id="text_n11n_mechanism"><a class="self" href="#text_n11n_mechanism">&#x200B;</a>A normalizing text-processing component which modifies text and performs normalization-sensitive operations MUST behave as if normalization took place after each modification, so that any subsequent normalization-sensitive operations always behave as if they were dealing with normalized text. <a href="https://www.w3.org/TR/charmod-norm/#normalizing-spec">more</a></p>
+    <p class="advisement" id="text_n11n_mechanism"><a class="self" href="#text_n11n_mechanism">&#x200B;</a>A normalizing text-processing component which modifies text and performs normalization-sensitive operations MUST behave as if normalization took place after each modification, so that any subsequent normalization-sensitive operations always behave as if they were dealing with normalized text. <a href="https://www.w3.org/TR/charmod-norm/#normalizing-spec">more</a></p>
+    
+    <section id="spec_n11n" class="subtopic">
+	<h4>Specifying Unicode Normalization and health warnings</h4>
+    
+    <p>Unicode Normaliztion and its use or adoption in Specifications is a complex topic. The Internationalization Working Group has developed a document describing the considerations for the matching and comparison of strings <cite class="link"><a href="https://www.w3.org/TR/charmod-norm/">Character Model for the World Wide Web: String Matching</a></cite> [[CHARMOD-NORM]].</p>
+    
+    <p>Specifications sometimes find it necessary to include health warnings related to Unicode normalization. Following are prototypes for different health warnings recommended by I18N.</p>
+    
+    <p>For specifications that do not permit normalization, we suggest the following health warning. Note that this version is necessarily non-specific about "values"; specification authors might wish to be more specific about the fields, attributes, or elements that are affected.</p>
+    
+    <p class="note">This specification does not permit Unicode normalization of values for the purposes of comparison. Values that are visually and semantically identical but use different Unicode character sequences will not match. Content authors are advised to use the same encoding sequence consistently or to avoid potentially troublesome characters when choosing values. For more information, see [[CHARMOD-NORM]].</p>
+    
+    <p>For specifications that require normalization as part of string matching (such as when matching IDs or user-defined tokens):</p>
+    
+     <p class="warning">This specification applies Unicode normalization during the matching of values. This can have an effect on the appearance and meaning of the affected text. For more information, see [[CHARMOD-NORM]].</p> 
+    
+    <p>Contact the I18N WG for alternatives or assistance if the above do not meet your needs or you're not sure about usage.</p>
+    
+  </section>
+    
+    
 <section class="links">
   <h4>Links</h4>
       <section class="background">
