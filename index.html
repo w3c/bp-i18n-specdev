@@ -4,8 +4,8 @@
     <title>Internationalization Best Practices for Spec Developers</title>
     <meta charset="utf-8"/>
     <link href="https://www.w3.org/StyleSheets/TR/2016/W3C-ED" rel="stylesheet">
-    <script src="make_checklist.js" type="application/ecmascript"></script>
-    <script src="index-data/dumpdata.js" type="application/ecmascript"></script>
+    <script src="make_checklist.js"></script>
+    <script src="index-data/dumpdata.js"></script>
     <!-- 
       === NOTA BENE ===
       For the three scripts below, if your spec resides on dev.w3 you can check them
@@ -532,7 +532,7 @@
     
   <p class="advisement" id="bidi_strings_metadata"><a class="self" href="#bidi_strings_metadata">&#x200B;</a>Provide metadata constructs that can be used to indicate the base direction of any natural language string. <a href="https://w3c.github.io/string-meta/#best-practices-recommendations-and-gaps">more</a></p>
 
-  <p class="advisement" id="bidi_strings_metadata"><a class="self" href="#bidi_strings_metadata">&#x200B;</a>Specify that consumers of strings should use  heuristics, preferably based on the Unicode Standard first-strong algorithm, to detect the base direction of a string except where metadata is provided. <a href="https://w3c.github.io/string-meta/#best-practices-recommendations-and-gaps">more</a></p>
+  <p class="advisement" id="bidi_strings_heuristics"><a class="self" href="#bidi_strings_heuristics">&#x200B;</a>Specify that consumers of strings should use  heuristics, preferably based on the Unicode Standard first-strong algorithm, to detect the base direction of a string except where metadata is provided. <a href="https://w3c.github.io/string-meta/#best-practices-recommendations-and-gaps">more</a></p>
 
   <p class="advisement" id="bidi_strings_default"><a class="self" href="#bidi_strings_default">&#x200B;</a>Where possible, define a field to  indicate the default direction for all strings in a given resource or document. <a href="https://w3c.github.io/string-meta/#best-practices-recommendations-and-gaps">more</a></p>
 
