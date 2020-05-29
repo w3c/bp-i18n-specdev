@@ -2,7 +2,7 @@
 
 ### Documents
 - [Editor's copy](https://w3c.github.io/bp-i18n-specdev/)
-- [WD](http://www.w3.org/TR/international-specs/)
+- [WD](https://www.w3.org/TR/international-specs/)
 - [Checklist-style view](https://www.w3.org/International/techniques/developing-specs?collapse)
 - [Same, fully expanded](https://www.w3.org/International/techniques/developing-specs)
 
