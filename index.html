@@ -1122,10 +1122,12 @@
     
     <section id="spec_n11n" class="subtopic">
 	<h4>Specifying Unicode Normalization</h4>
+	
+	<p class="advisement" id="text_n11n_specification"><a class="self" text="#text_n11n_specification">&#x200B;</a>Specifications that specify comparison or matching of strings SHOULD specify the appropriate note or warning regarding Unicode normalization.</p>
     
     <p>The use or adoption of Unicode Normalization in a specification is usually part of defining how <a href="#string_match_steps">matching</a> takes place in a given format or protocol. To help specification authors and implementers understand some of the complexity involved, the Internationalization Working Group has developed a document describing the considerations for the matching and comparison of strings: <cite class="link"><a href="https://www.w3.org/TR/charmod-norm/">Character Model for the World Wide Web: String Matching</a></cite> [[CHARMOD-NORM]].</p>
     
-    <p>One of the choices specifications need to make is whether (or not) to require Unicode Normalization as part of matching various "values" defined as part of the specification's vocabulary. Values are commonly part of a document format or protocol's syntax, and include such things are attribute names or values; element names or values; IDs; and so forth. Specifications that follow the <a href="#text_n11n_default">recommendation</a> to <em>not</em> employ normalization as part of matching should include the following Note as a reminder to content authors.</p>
+    <p>One of the choices specifications need to make is whether (or not) to require Unicode Normalization as part of matching various "values" defined as part of the specification's vocabulary. Values are commonly part of a document format or protocol's syntax, and include such things as: attribute names or values, element names or values, IDs, and so forth. Specifications that follow the <a href="#text_n11n_default">recommendation</a> to <em>not</em> employ normalization as part of matching should include the following Note as a reminder to content authors.</p>
         
     <div class="example" id="n11n_note_figure">
 	   <p>Example note. Necessarily this version is non-specific about what constitutes "values": specifications may wish to be more specific.</p>
