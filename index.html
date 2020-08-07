@@ -1625,6 +1625,25 @@
 <p class="advisement" id="loc_numbers_shape_display"><a class="self" href="#loc_numbers_shape_display">&#x200B;</a>When formatting numeric values for display, allow for culturally sensitive display, including the use of non-ASCII digits (digit shaping).</p>
 </section>
 
+<section id="localization" class="subtopic"><h3>Localization</h3>
+
+<p><a href="https://www.w3.org/TR/ltli/#localization">Localization</a> [[LTLI]] enables users to employ software in the language and locale of their choice. Specifications for protocols and document formats need to consider how to provide the language and formatting that the end-user expects.</p>
+
+<p class="advisement" id="l10n_api_message_id">APIs and protocols SHOULD provide language independent identifiers for errors. For example, HTTP result codes, such as the familiar <code>404</code> help users communicate which error they received or look up a translation.</p>
+
+<p class="advisement" id="l10n_api_error_message_metadata">APIs and protocols SHOULD include language and direction metadata for all natural language messages, including errors, to ensure proper presentation, even if localization is not provided. See also [[STRING-META]]</p>
+
+<p class="advisement" id="l10n_api_error_message_language">All natural language fields or messages, including error messages, defined by a given API or protocol SHOULD be localized into the preferred locale of the user or, if that language is not available, supplied with a suitable fallback or default.</p>
+
+<p class="advisement" id="l10n_api_lang_nego">Specifications for APIs or protocols SHOULD define how the user's locale is determined (this is called <a href="#lang_negotiation">language negotiation</a>).</p>
+
+<p class="advisement" id="l10n_api_lang_defaulting">Specifications MAY define a specific default language for messages or errors in an API or protocol.</p>
+
+<p>Note that specifications do not need to require that messages be returned in all possible or all available locales.</p>
+
+
+</section>
+
 </section>
 
 
