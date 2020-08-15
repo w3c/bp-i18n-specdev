@@ -241,3 +241,10 @@ table.truncExample kbd,code {
 .summary .secno {
 	display: none;
 	}
+	
+.example_div {
+    margin-left: 4em;
+    margin-right: 4em;
+    font-size: 90%;
+	}
+

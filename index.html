@@ -1131,8 +1131,9 @@
         
     <div class="example" id="n11n_note_figure">
 	   <p>Example note. Necessarily this version is non-specific about what constitutes "values": specifications may wish to be more specific.</p>
-		    
-       <p class="note">This specification does not permit Unicode normalization of values for the purposes of comparison. Values that are visually and semantically identical but use different Unicode character sequences will not match. Content authors are advised to use the same encoding sequence consistently or to avoid potentially troublesome characters when choosing values. For more information, see [[CHARMOD-NORM]].</p>
+	   <div class="example_div">
+           <p class="note example_note">This specification does not permit Unicode normalization of values for the purposes of comparison. Values that are visually and semantically identical but use different Unicode character sequences will not match. Content authors are advised to use the same encoding sequence consistently or to avoid potentially troublesome characters when choosing values. For more information, see [[CHARMOD-NORM]].</p>
+       </div>
     </div>
     
     <p>Specifications that choose to require require normalization as part of string matching should include the following warning:</p>
@@ -1140,7 +1141,9 @@
     <div class="example" id="n11n_warning_figure">
      <p>Example warning. Necessarily this version is non-specific about what constitutes "values": specifications may wish to be more specific.</p>
      
-     <p class="warning">This specification applies Unicode normalization during the matching of values. This can have an effect on the appearance and meaning of the affected text. For more information, see [[CHARMOD-NORM]].</p> 
+       <div class="example_div">
+         <p class="warning">This specification applies Unicode normalization during the matching of values. This can have an effect on the appearance and meaning of the affected text. For more information, see [[CHARMOD-NORM]].</p> 
+       </div>
     </div>
     
     <p>Contact the I18N WG for alternatives or assistance if the above do not meet your needs or you're not sure about usage.</p>
@@ -1629,18 +1632,21 @@
 
 <p><a href="https://www.w3.org/TR/ltli/#localization">Localization</a> [[LTLI]] enables users to employ software in the language and locale of their choice. Specifications for protocols and document formats need to consider how to provide the language and formatting that the end-user expects.</p>
 
-<p class="advisement" id="l10n_api_message_id">APIs and protocols SHOULD provide language independent identifiers for errors. For example, HTTP result codes, such as the familiar <code>404</code> help users communicate which error they received or look up a translation.</p>
+<p class="advisement" id="l10n_api_message_id">APIs and protocols SHOULD provide language independent identifiers for errors.</p>
 
-<p class="advisement" id="l10n_api_error_message_metadata">APIs and protocols SHOULD include language and direction metadata for all natural language messages, including errors, to ensure proper presentation, even if localization is not provided. See also [[STRING-META]].</p>
+<p>For example, HTTP result codes, such as the familiar <code>404</code>, help users communicate which error they received or look up a translation.</p>
+
+<p class="advisement" id="l10n_api_error_message_metadata">APIs and protocols SHOULD include language and base direction metadata for all natural language messages and data fields.</p>
+
+<p>Natural language data values need language and base direction in order to ensure proper presentation, even if localized messages are not provided. This includes any error messages or other internal messages that are human readable in an API or protocol. See also [[STRING-META]].</p>
 
 <p class="advisement" id="l10n_api_error_message_language">All natural language fields or messages, including error messages, defined by a given API or protocol SHOULD be localized into the preferred locale of the user or, if that language is not available, supplied with a suitable fallback or default.</p>
 
-<p class="advisement" id="l10n_api_lang_nego">Specifications for APIs or protocols SHOULD define how the user's locale is determined (this is called <a href="#lang_negotiation">language negotiation</a>).</p>
+<p class="advisement" id="l10n_api_lang_nego">Specifications for APIs or protocols SHOULD define how the user's locale is determined (this is sometimes called <a href="#lang_negotiation">language negotiation</a>).</p>
 
 <p class="advisement" id="l10n_api_lang_defaulting">Specifications MAY define a specific default language for messages or errors in an API or protocol.</p>
 
-<p>Note that specifications do not need to require that messages be returned in all possible or all available locales.</p>
-
+<p class="note">Specifications do not need to require that messages be returned in all possible or all available locales. It is sufficient to make it possible to localize the end-user's customer experience. Implementations can choose which languages or locales to support.</p>
 
 </section>
 
