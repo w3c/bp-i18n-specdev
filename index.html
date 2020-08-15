@@ -1094,7 +1094,9 @@
 
   <section id="text_n11n" class="subtopic">
     <h3>Working with  Unicode Normalization</h3>
-	    <p class="advisement" id="text_n11n_default"><a class="self" href="#text_n11n_default">&#x200B;</a>Specifications SHOULD NOT specify a Unicode normalization form for encoding, storage, or interchange of a given vocabulary. <a href="https://www.w3.org/TR/charmod-norm/#normalizationChoice">more</a></p>
+
+	<p class="advisement" id="text_n11n_default"><a class="self" href="#text_n11n_default">&#x200B;</a>Specifications SHOULD NOT specify a Unicode normalization form for encoding, storage, or interchange of a given vocabulary. <a href="https://www.w3.org/TR/charmod-norm/#normalizationChoice">more</a></p>
+		
 
     <p class="advisement" id="text_n11n_no_change"><a class="self" href="#text_n11n_no_change">&#x200B;</a>Implementations MUST NOT alter the normalization form of syntactic or natural language content being exchanged, read, parsed, or processed except when required to do so as a side-effect of text transformation such as transcoding the content to a Unicode character encoding, case folding, or other user-initiated change, as consumers or the content itself might depend on the de-normalized representation. <a href="https://www.w3.org/TR/charmod-norm/#normalizationChoice">more</a></p>
 
@@ -1107,8 +1109,40 @@
     <p class="advisement" id="text_n11n_implementation"><a class="self" href="#text_n11n_implementation">&#x200B;</a>Specifications that require normalization MUST NOT make the implementation of normalization optional. <a href="https://www.w3.org/TR/charmod-norm/#normalizing-spec">more</a></p>
 
     <p class="advisement" id="text_n11n_sensitive_operations"><a class="self" href="#text_n11n_sensitive_operations">&#x200B;</a>Normalization-sensitive operations MUST NOT be performed unless the implementation has first either confirmed through inspection that the text is in normalized form or it has re-normalized the text itself. Private agreements MAY be created within private systems which are not subject to these rules, but any externally observable results MUST be the same as if the rules had been obeyed. <a href="https://www.w3.org/TR/charmod-norm/#normalizing-spec">more</a></p>
-
-<p class="advisement" id="text_n11n_mechanism"><a class="self" href="#text_n11n_mechanism">&#x200B;</a>A normalizing text-processing component which modifies text and performs normalization-sensitive operations MUST behave as if normalization took place after each modification, so that any subsequent normalization-sensitive operations always behave as if they were dealing with normalized text. <a href="https://www.w3.org/TR/charmod-norm/#normalizing-spec">more</a></p>
+	
+    <p class="advisement" id="text_n11n_mechanism"><a class="self" href="#text_n11n_mechanism">&#x200B;</a>A normalizing text-processing component which modifies text and performs normalization-sensitive operations MUST behave as if normalization took place after each modification, so that any subsequent normalization-sensitive operations always behave as if they were dealing with normalized text. <a href="https://www.w3.org/TR/charmod-norm/#normalizing-spec">more</a></p>
+    
+    <section id="spec_n11n" class="subtopic">
+	<h4>Specifying Unicode Normalization</h4>
+	
+	<p class="advisement" id="text_n11n_specification"><a class="self" text="#text_n11n_specification">&#x200B;</a>Specifications that perform comparison or matching of string values SHOULD specify the appropriate note or warning regarding Unicode normalization.</p>
+    
+    <p>The use or adoption of Unicode Normalization in a specification is usually part of defining how <a href="#string_match_steps">matching</a> takes place in a given format or protocol. To help specification authors and implementers understand some of the complexity involved, the Internationalization Working Group has developed a document describing the considerations for the matching and comparison of strings: <cite class="link"><a href="https://www.w3.org/TR/charmod-norm/">Character Model for the World Wide Web: String Matching</a></cite> [[CHARMOD-NORM]].</p>
+    
+    <p>One of the choices specifications need to make is whether (or not) to require Unicode Normalization as part of matching various "values" defined as part of the specification's vocabulary. Values are commonly part of a document format or protocol's syntax, and include such things as: attribute names or values, element names or values, IDs, and so forth. Specifications that follow the <a href="#text_n11n_default">recommendation</a> to <em>not</em> employ normalization as part of matching should include the following Note as a reminder to content authors.</p>
+        
+    <div class="example" id="n11n_note_figure">
+	   <p>Example note. Necessarily this version is non-specific about what constitutes "values": specifications may wish to be more specific.</p>
+	   <div class="example_div">
+           <p class="note example_note">This specification does not permit Unicode normalization of values for the purposes of comparison. Values that are visually and semantically identical but use different Unicode character sequences will not match. Content authors are advised to use the same encoding sequence consistently or to avoid potentially troublesome characters when choosing values. For more information, see [[CHARMOD-NORM]].</p>
+       </div>
+    </div>
+    
+    <p>Specifications that choose to require require normalization as part of string matching should include the following warning:</p>
+    
+    <div class="example" id="n11n_warning_figure">
+     <p>Example warning. Necessarily this version is non-specific about what constitutes "values": specifications may wish to be more specific.</p>
+     
+       <div class="example_div">
+         <p class="warning">This specification applies Unicode normalization during the matching of values. This can have an effect on the appearance and meaning of the affected text. For more information, see [[CHARMOD-NORM]].</p> 
+       </div>
+    </div>
+    
+    <p>Contact the I18N WG for alternatives or assistance if the above do not meet your needs or you're not sure about usage.</p>
+    
+  </section>
+    
+    
 <section class="links">
   <h4>Links</h4>
       <section class="background">
@@ -1584,6 +1618,28 @@
   <section id="loc_numbers" class="subtopic"><h3>Working with numbers</h3>
 <p class="advisement" id="loc_numbers_shape_parse"><a class="self" href="#loc_numbers_shape_parse">&#x200B;</a>When parsing user input of numeric values, allow for digit shaping (non-ASCII digits).</p>
 <p class="advisement" id="loc_numbers_shape_display"><a class="self" href="#loc_numbers_shape_display">&#x200B;</a>When formatting numeric values for display, allow for culturally sensitive display, including the use of non-ASCII digits (digit shaping).</p>
+</section>
+
+<section id="localization" class="subtopic"><h3>Localization</h3>
+
+<p><a href="https://www.w3.org/TR/ltli/#localization">Localization</a> [[LTLI]] enables users to employ software in the language and locale of their choice. Specifications for protocols and document formats need to consider how to provide the language and formatting that the end-user expects.</p>
+
+<p class="advisement" id="l10n_api_message_id">APIs and protocols SHOULD provide language independent identifiers for errors.</p>
+
+<p>For example, HTTP result codes, such as the familiar <code>404</code>, help users communicate which error they received or look up a translation.</p>
+
+<p class="advisement" id="l10n_api_error_message_metadata">APIs and protocols SHOULD include language and base direction metadata for all natural language messages and data fields.</p>
+
+<p>Natural language data values need language and base direction in order to ensure proper presentation, even if localized messages are not provided. This includes any error messages or other internal messages that are human readable in an API or protocol. See also [[STRING-META]].</p>
+
+<p class="advisement" id="l10n_api_error_message_language">All natural language fields or messages, including error messages, defined by a given API or protocol SHOULD be localized into the preferred locale of the user or, if that language is not available, supplied with a suitable fallback or default.</p>
+
+<p class="advisement" id="l10n_api_lang_nego">Specifications for APIs or protocols SHOULD define how the user's locale is determined (this is sometimes called <a href="#lang_negotiation">language negotiation</a>).</p>
+
+<p class="advisement" id="l10n_api_lang_defaulting">Specifications MAY define a specific default language for messages or errors in an API or protocol.</p>
+
+<p class="note">Specifications do not need to require that messages be returned in all possible or all available locales. It is sufficient to make it possible to localize the end-user's customer experience. Implementations can choose which languages or locales to support.</p>
+
 </section>
 
 </section>
