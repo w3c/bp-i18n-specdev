@@ -1307,6 +1307,15 @@
     <p class="advisement" id="char_trunc_units"><a class="self" href="#char_trunc_units">&#x200B;</a>Specifications that limit the length of a string MUST specify which type of unit (extended grapheme clusters, Unicode code points, or code units) the length limit uses.</p>
     <p class="advisement" id="char_trunc_unit_rec"><a class="self" href="#char_trunc_unit_rec">&#x200B;</a>Specifications that limit the length of a string SHOULD specify the length in terms of Unicode code points.</p>
     <p class="advisement" id="char_trunc_byte_boundary"><a class="self" href="#char_trunc_byte_boundary">&#x200B;</a>If a specification sets a length limit in code units (such as bytes), it MUST specify that truncation can only occur on code point boundaries.</p>
+    <p>Note that this best practice applies equally to specifications based on UTF-16, which uses 16-bit code units, not just to multibyte encodings such as UTF-8.</p>
+    <p>Specifications or APIs that interact with the [[DOM]] need to contend with the fact that character data, including operations such as <kbd>length</kbd>, <kbd>substringData</kbd>, <kbd>insertData</kbd>, <kbd>deleteData</kbd>, and so forth, is specified using UTF-16 code units, not Unicode code points. This can lead to inappropriate mid-character (code point) truncation. Specifications that reference DOM should specify that string operations not occur inside code points, and, where appropriate avoid starting or ending inside grapheme boundaries. Specifications should also include a health warning for implementers and users.</p>
+    <div class=example>
+		<p>Example warning. Modify this health warning as appropriate for your specification:</p>
+		<div class="example_div">
+		<p class="warning">Arbitrary index values in the DOM may not fall on character or grapheme boundaries. Implementations and users should avoid incorrectly starting or ending operations in the middle of a user-perceived character sequence.</p>
+		</div>
+    </div>
+    <p class="advisement" id="char_trunc_grapheme_boundary"><a class="self" href="#char_trunc_grapheme_boundary">&#x200B;</a>Specifications that limit the length of a string SHOULD require truncation on grapheme boundaries, as truncation in the midst of a combining or joining sequence can alter the meaning of the string.</p>
     <p class="advisement" id="char_trunc_indicator"><a class="self" href="#char_trunc_indicator">&#x200B;</a>If a specification specifies a length limit, it SHOULD specify that any string that is truncated include an indicator, such as ellipses, that the string has been altered.</p>
     <p class="advisement" id="char_trunc_min_size"><a class="self" href="#char_trunc_min_size">&#x200B;</a>When specifying a length limitation in code units (such as bytes), specifications SHOULD set the maximum length in a way that accommodates users whose language requires multibyte code unit sequences.</p>
 </section>
