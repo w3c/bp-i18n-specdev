@@ -33,6 +33,7 @@ function dumpData () {
         
 		var h3s = h2s[i].querySelectorAll('.subtopic')		
 		for (var j=0;j<h3s.length;j++) {
+			if (h3s[j].querySelector('h3') == null) continue
 			var h3 = h3s[j].querySelector('h3').textContent
 			re = /[0-9]+\.[0-9]+ /
 			h3 = h3.replace(re, '')
