@@ -102,16 +102,16 @@ function createIssueText () {
 		var h2 = h2s[i].querySelector('h2').textContent
 		var re = /[0-9]+\. /
 		h2 = h2.replace(re, '')
-		console.log(h2)
+		console.log('h2', h2)
 		out += '## '+h2+'\n'
 
 		// get the h3 level sections
-		var h3s = h2s[i].querySelectorAll('.subtopic')		
+		var h3s = h2s[i].querySelectorAll('.subtopic')
 		for (var j=0;j<h3s.length;j++) {
 			var h3 = h3s[j].querySelector('h3').textContent
 			re = /[0-9]+\.[0-9]+ /
 			h3 = h3.replace(re, '')
-			console.log(h3)
+			console.log('h3',h3)
 			out += '### '+h3+'\n'
 			// get the guidelines
 			var guidelines = h3s[j].querySelectorAll('.advisement')
