@@ -2733,8 +2733,8 @@
 </section>
 
 
-<button onClick="document.getElementById('dump').value = dumpData(); document.getElementById('dump').select();">Dump data</button>
-<textarea id="dump" style="width: 100%; height: 400px;"></textarea>
+<!--button onClick="document.getElementById('dump').value = dumpData(); document.getElementById('dump').select();">Dump data</button>
+<textarea id="dump" style="width: 100%; height: 400px;"></textarea-->
 
 
 <script>
@@ -2748,13 +2748,6 @@ for (let i=0; i<reqs.length; i++) {
 		a.className = 'self-link'
 		reqs[i].prepend(a)
 		}
-	}
-
-// TEMPORARY
-anchors = document.querySelectorAll('.req a')
-console.log('anchors length',anchors.length)
-for (let i=0; i<anchors.length; i++) {
-	anchors[i].target = '_blank'
 	}
 </script>
 
