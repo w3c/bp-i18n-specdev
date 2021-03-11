@@ -425,6 +425,7 @@
 	<li>[[[#sec_dir_background]]]</li>
 	<li>[[[#sec_bidi_markup]]]</li>
 	<li>[[[#sec_bidi_strings]]]</li>
+	<li>[[[#bidi_inline]]]</li>
 	</ul>
 
 
@@ -847,6 +848,7 @@
 	<li>[[[#char_escapes]]]</li>
 	<li>[[[#char_storing]]]</li>
 	<li>[[[#char_string]]]</li>
+	<li>[[[#char_ref_Unicode_char]]]</li>
 	<li>[[[#char_unicoderef]]]</li>
 	</ul>
 
@@ -2727,8 +2729,13 @@
   <h2> Revision Log</h2>
   <p>The following summarises substantive changes since the previous publication, but the material is still subject to significant flux as it develops. This should not be a reason not to use the document. What it so far contains is useful, and any shortfalls can be reported or discussed.</p>
   <ol>
-    <li>A variety of additional guidelines were added after working through previous review comments.</li>
-    <li>Structure of the document changed to better reflect the world as seen by spec developers.</li>
+    <li>The checklist generator tool was moved to the top of the document.</li>
+    <li>The table of contents now reports 3 levels of heading.</li>
+<li>Lists of links to documents that provide useful background or an overview of a section have been moved to the start of that section. So also have 'see also' links.</li>
+<li>Each advisement now carries its own set of links. This makes the links more relevant and more easily noticeable. It also makes it easier to list multiple links, and because the links indicate the target document title, readers do not have to follow the link to know whether they have already read the document pointed to.</li>
+<li>Links associated with an advisement are of two types: 'explanations &amp; examples' typically points to a location in another document from which this advisement was lifted, and surrounds it there with explanatory text; 'more' links provide further reading in other documents.</li>
+<li>Self-links for each advisement have been changed so that they match the standard style used for headings (§ to the side of the text). This also significantly reduces the complexity of authoring the markup.</li>
+<li>Generally, the markup in the document source has been greatly simplified, making it easier and quicker to maintain the document.</li>
   </ol>
     <p>See the <a href="https://github.com/w3c/bp-i18n-specdev/commits/gh-pages">github commit log</a> for more details.</p>
 </section>
@@ -2737,7 +2744,7 @@
 <section class="appendix" id="ack">
 <h2>Acknowledgements</h2>
 <p>Thanks to Addison Phillips for help reviewing old reviews for recommendations.</p>
-<p>Other people who contributed through reviews or issues include Steve Atkin, Andrew Cunnigham, Martin Dürst, Asmus Freytag, John Klensin, Tomer Mahlin, Chaals McCathieNevile, Florian Rivoal.</p>
+<p>Other people who contributed through reviews or issues include Steve Atkin, Andrew Cunningham, Martin Dürst, Asmus Freytag, John Klensin, Tomer Mahlin, Chaals McCathieNevile, Florian Rivoal.</p>
 </section>
 
 
