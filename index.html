@@ -703,9 +703,9 @@
 <ul>
 <li class="w3"><p class="link"><a href="https://w3c.github.io/string-meta/">Strings on the Web: Language and Direction Metadata</a>.</p>
 	<ul>
-	<li class="w3"><p class="link"><a href="https://w3c.github.io/string-meta/#best-practices-recommendations-and-gaps">Best Practices, Recommendations, and Gaps</a>.</p></li>
-	<li class="w3"><p class="link"><a href="https://w3c.github.io/string-meta/#requirements-and-use-cases">Requirements and Use Cases</a>.</p></li>
-	<li class="w3"><p class="link"><a href="https://w3c.github.io/string-meta/#approaches-considered-for-identifying-the-base-direction">Approaches Considered for Identifying the Base Direction</a>.</p></li>
+	<li class="w3"><p class="link"><a href="https://w3c.github.io/string-meta/#bp-and-reco">Best Practices, Recommendations, and Gaps</a>.</p></li>
+	<li class="w3"><p class="link"><a href="https://w3c.github.io/string-meta/#use_cases">Requirements and Use Cases</a>.</p></li>
+	<li class="w3"><p class="link"><a href="https://w3c.github.io/string-meta/#bidi-approaches">Approaches Considered for Identifying the Base Direction</a>.</p></li>
 	</ul>
 </li>
 </ul>
@@ -717,42 +717,42 @@
 	<div class="req" id="bidi_strings_metadata">
 	<p class="advisement">Provide metadata constructs that can be used to indicate the base direction of any natural language string.</p>
 	<details class="links"><summary>more</summary>
-	<p><a href="https://w3c.github.io/string-meta/#best-practices-recommendations-and-gaps">Best Practices, Recommendations, and Gaps</a>, in <cite>Strings on the Web: Language and Direction Metadata</cite></p>
+	<p><a href="https://w3c.github.io/string-meta/#bp-and-reco">Best Practices, Recommendations, and Gaps</a>, in <cite>Strings on the Web: Language and Direction Metadata</cite></p>
 	</details>
 	</div>
 
 	<div class="req" id="bidi_strings_heuristics">
 	<p class="advisement">Specify that consumers of strings should use  heuristics, preferably based on the Unicode Standard first-strong algorithm, to detect the base direction of a string except where metadata is provided.</p>
 	<details class="links"><summary>more</summary>
-	<p><a href="https://w3c.github.io/string-meta/#best-practices-recommendations-and-gaps">Best Practices, Recommendations, and Gaps</a>, in <cite>Strings on the Web: Language and Direction Metadata</cite></p>
+	<p><a href="https://w3c.github.io/string-meta/#bp-and-reco">Best Practices, Recommendations, and Gaps</a>, in <cite>Strings on the Web: Language and Direction Metadata</cite></p>
 	</details>
 	</div>
 
 	<div class="req" id="bidi_strings_default">
 	<p class="advisement">Where possible, define a field to  indicate the default direction for all strings in a given resource or document.</p>
 	<details class="links"><summary>more</summary>
-	<p><a href="https://w3c.github.io/string-meta/#best-practices-recommendations-and-gaps">Best Practices, Recommendations, and Gaps</a>, in <cite>Strings on the Web: Language and Direction Metadata</cite></p>
+	<p><a href="https://w3c.github.io/string-meta/#bp-and-reco">Best Practices, Recommendations, and Gaps</a>, in <cite>Strings on the Web: Language and Direction Metadata</cite></p>
 	</details>
 	</div>
 
 	<div class="req" id="bidi_strings_metadata_and_default">
 	<p class="advisement">Do NOT assume that a creating a document-level default without the ability to change direction for any string is sufficient.</p>
 	<details class="links"><summary>more</summary>
-	<p><a href="https://w3c.github.io/string-meta/#best-practices-recommendations-and-gaps">Best Practices, Recommendations, and Gaps</a>, in <cite>Strings on the Web: Language and Direction Metadata</cite></p>
+	<p><a href="https://w3c.github.io/string-meta/#bp-and-reco">Best Practices, Recommendations, and Gaps</a>, in <cite>Strings on the Web: Language and Direction Metadata</cite></p>
 	</details>
 	</div>
 
 	<div class="req" id="bidi_strings_script_tag">
 	<p class="advisement">If metadata is not available due to legacy implementations and cannot otherwise be provided, specifications MAY allow a base direction to be interpolated from available language metadata.</p>
 	<details class="links"><summary>more</summary>
-	<p><a href="https://w3c.github.io/string-meta/#best-practices-recommendations-and-gaps">Best Practices, Recommendations, and Gaps</a>, in <cite>Strings on the Web: Language and Direction Metadata</cite></p>
+	<p><a href="https://w3c.github.io/string-meta/#bp-and-reco">Best Practices, Recommendations, and Gaps</a>, in <cite>Strings on the Web: Language and Direction Metadata</cite></p>
 	</details>
 	</div>
 
 	<div class="req" id="bidi_strings_paired_controls">
 	<p class="advisement">Specifications MUST NOT require the production or use of paired bidi controls.</p>
 	<details class="links"><summary>more</summary>
-	<p><a href="https://w3c.github.io/string-meta/#best-practices-recommendations-and-gaps">Best Practices, Recommendations, and Gaps</a>, in <cite>Strings on the Web: Language and Direction Metadata</cite></p>
+	<p><a href="https://w3c.github.io/string-meta/#bp-and-reco">Best Practices, Recommendations, and Gaps</a>, in <cite>Strings on the Web: Language and Direction Metadata</cite></p>
 	</details>
 	</div>
 
@@ -2319,7 +2319,7 @@
 <p class="links_title">Useful background and overviews for this section</p>
 <ul>
 <li class="w3"><p class="link"><a href="https://w3c.github.io/typography/#cursive">What is ruby?</a>, W3C article.</p></li>
-<li class="w3"><p class="link"><a href="https://w3c.github.io/typography/#ruby_annotation">Ruby</a>, in the Language enablement index.</p></li>
+<li class="w3"><p class="link"><a href="https://w3c.github.io/typography/#inline_notes">Ruby</a>, in the Language enablement index.</p></li>
 </ul>
 </aside>
 
@@ -2668,7 +2668,7 @@
 <h3>Localization</h3>
 
 
-<p><a href="https://www.w3.org/TR/ltli/#localization">Localization</a> [[LTLI]] enables users to employ software in the language and locale of their choice. Specifications for protocols and document formats need to consider how to provide the language and formatting that the end-user expects.</p>
+<p><a href="https://www.w3.org/TR/ltli/#dfn-localization">Localization</a> [[LTLI]] enables users to employ software in the language and locale of their choice. Specifications for protocols and document formats need to consider how to provide the language and formatting that the end-user expects.</p>
 
 
 	<div class="req" id="l10n_api_message_id">
