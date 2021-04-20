@@ -2666,6 +2666,34 @@
 
 <p><a href="https://www.w3.org/TR/ltli/#dfn-localization">Localization</a> [[LTLI]] enables users to employ software in the language and locale of their choice. Specifications for protocols and document formats need to consider how to provide the language and formatting that the end-user expects.</p>
 
+<p>Natural language data values need language and base direction in order to ensure proper presentation, even if localized messages are not provided. This includes any error messages or other internal messages that are human readable in an API or protocol. See also [[STRING-META]].</p>
+
+	<div class="req" id="l10n_api_message_metadata">
+	<p class="advisement">APIs and protocols SHOULD include language and base direction metadata for all natural language messages and data fields.</p>
+	</div>
+
+	<div class="req" id="l10n_api_message_language">
+	<p class="advisement">All natural language fields or messages, including error messages, defined by a given API or protocol SHOULD be localized into the preferred locale of the user or, if that language is not available, supplied with a suitable fallback or default.</p>
+	</div>
+
+	<div class="req" id="l10n_api_lang_nego">
+	<p class="advisement">Specifications for APIs or protocols SHOULD define how the user's locale is determined (this is sometimes called <a href="#lang_negotiation">language negotiation</a>).</p>
+	</div>
+	
+	<div class="req" id="l10n_api_lang_defaulting">
+	<p class="advisement">Specifications MAY define a specific default language for messages or errors in an API or protocol.</p>
+	</div>
+
+<p class="note">Specifications do not need to require that messages be returned in all possible or all available locales. It is sufficient to make it possible to localize the end-user's customer experience. Implementations can choose which languages or locales to support.</p>
+
+<section id="errors" class="subtopic">
+<h3>Errors and Exceptions</h3>
+
+<p>Protocols, APIs, and document formats sometimes provide a field to pass a human-readable error or exception message from a service to the caller in the form of a string. In general, and as <a href="#l10n_api_message_metadata">indicated above</a>, any natural language text conveying human readable messages or human readable content needs to be associated with language and direction metadata. Where this metadata is missing, the processing or display of the text might be compromised.</p>
+
+<p>Often the intention of the specification author in providing an error or exception message is to convey debugging information to a software developer. Specification authors sometimes assume that error or exception messages are not seen by end users; that software developers will prefer these messages to be unlocalized or appear in a specific language (usually English); or that there are other "practical reasons" why localization of error messages can turn out to be a barrier. For example, there are annecdotes about developers finding it easier to search the Web with the (usually obscure) text of an error because the message itself is insufficiently good at explaining the problem. Searching for this text might produce a result in the developer's preferred language that is more helpful.</p>
+
+<p>Error messages are messages and they are intended for humans, not machines. In many cases, the error message encompasses all of the additional information about what went wrong and, in some cases, the caller is obliged to show the message to the actual end user because there is no other way to convey to the caller about how to fix the problem ("Your credit card has expired"; "The value 10484977 is too large" [oops, forgot the decimal point]; etc.). Localization of these types of messages is actually a good thing and may even be obligatory in some applications.</p>
 
 	<div class="req" id="l10n_api_message_id">
 	<p class="advisement">APIs and protocols SHOULD provide language independent identifiers for errors.</p>
@@ -2673,25 +2701,15 @@
 
 <p>For example, HTTP result codes, such as the familiar <code>404</code>, help users communicate which error they received or look up a translation.</p>
 
-	<div class="req" id="l10n_api_error_message_metadata">
-	<p class="advisement">APIs and protocols SHOULD include language and base direction metadata for all natural language messages and data fields.</p>
-	</div>
+    <div class="req" id="l10n_api_error_message_optional">
+    <p class="advisement">Natural language error message fields, when provided, SHOULD be optional and SHOULD include language and direction metadata.</p>
+    </div>
 
-<p>Natural language data values need language and base direction in order to ensure proper presentation, even if localized messages are not provided. This includes any error messages or other internal messages that are human readable in an API or protocol. See also [[STRING-META]].</p>
+    <div class="req" id="l10n_api_error_message_language">
+    <p class="advisement">Natural language error message fields, when provided, SHOULD match the user interface language negotiated for the request when possible.</p>
+    </div>
 
-	<div class="req" id="l10n_api_error_message_language">
-	<p class="advisement">All natural language fields or messages, including error messages, defined by a given API or protocol SHOULD be localized into the preferred locale of the user or, if that language is not available, supplied with a suitable fallback or default.</p>
-	</div>
-
-	<div class="req" id="l10n_api_lang_nego">
-	<p class="advisement">Specifications for APIs or protocols SHOULD define how the user's locale is determined (this is sometimes called <a href="#lang_negotiation">language negotiation</a>).</p>
-	</div>
-
-	<div class="req" id="l10n_api_lang_defaulting">
-	<p class="advisement">Specifications MAY define a specific default language for messages or errors in an API or protocol.</p>
-	</div>
-
-<p class="note">Specifications do not need to require that messages be returned in all possible or all available locales. It is sufficient to make it possible to localize the end-user's customer experience. Implementations can choose which languages or locales to support.</p>
+</section>
 
 </section>
 </section>
