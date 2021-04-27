@@ -2677,7 +2677,6 @@
 	<div class="req" id="l10n_api_lang_nego">
 	<p class="advisement">Specifications for APIs or protocols SHOULD define how the user's locale is determined (this is sometimes called <a href="#lang_negotiation">language negotiation</a>).</p>
 	</div>
-	
 	<div class="req" id="l10n_api_lang_defaulting">
 	<p class="advisement">Specifications MAY define a specific default language for messages or errors in an API or protocol.</p>
 	</div>
@@ -2687,7 +2686,8 @@
 <section id="errors" class="subtopic">
 <h3>Errors and Exceptions</h3>
 
-<p>Protocols, APIs, and document formats sometimes provide a field to pass a human-readable error or exception message from a service to the caller in the form of a string. In general, and as <a href="#l10n_api_message_metadata">indicated above</a>, any <a>textual content</a> conveying human readable messages or human readable content needs to be associated with language and direction metadata. Where this metadata is missing, the processing or display of the text might be compromised.</p>
+
+<p>Protocols, APIs, and document formats sometimes provide a field to pass a human-readable error or exception message from a service to the caller in the form of a string. In general, and as <a href="#l10n_api_message_metadata">indicated above</a>, any natural language text conveying human-readable messages or human-readable content needs to be associated with language and direction metadata. Where this metadata is missing, the processing or display of the text might be compromised.</p>
 
 <p>Often the intention of the specification author in providing an error or exception message is to convey debugging information to a software developer. Specification authors sometimes assume that error or exception messages are not seen by end users; that software developers will prefer these messages to be unlocalized or appear in a specific language (usually English); or that there are other "practical reasons" why localization of error messages can turn out to be a barrier. For example, there are annecdotes about developers finding it easier to search the Web with the (usually obscure) text of an error because the message itself is insufficiently good at explaining the problem. Searching for this text might produce a result in the developer's preferred language that is more helpful.</p>
 
