@@ -112,7 +112,7 @@
 
 
  	<div class="req" id="lang_basics_1">
-	<p class="advisement">It should be possible to associate a language with any piece of natural language text that will be read by a user.</p>
+	<p class="advisement">It should be possible to associate a language with any piece of <a>natural language</a> text.</p>
 	<details class="links"><summary>more</summary>
 	<p><a href="https://www.w3.org/International/questions/qa-lang-why">Why use the language attribute?</a></p>
 	<p><a href="https://w3c.github.io/i18n-drafts/articles/lang-bidi-use-cases/index.en">Use cases for bidi and language metadata on the Web</a></p>
@@ -122,7 +122,7 @@
 
 
  	<div class="req" id="lang_basics_inline">
-	<p class="advisement">Where possible, there should  be a way to label natural language changes in inline text.</p>
+	<p class="advisement">Where possible, there should  be a way to label <a>natural language</a> changes in inline text.</p>
 	</div>
   
   <p>Text is rendered or processed differently according to the language it is in. For example, screen readers need to be prompted when a language changes, and spell checkers should be language-sensitive. When rendering text a knowledge of language is need in order to apply correct fonts, hyphenation, line-breaking, upper/lower case changes, and other features.</p>
@@ -427,11 +427,11 @@
 
 
 	<div class="req" id="dir_paragraphs">
-	<p class="advisement">It must be possible to indicate base direction for each individual paragraph-level item of natural language text that will be read by someone.</p>
+	<p class="advisement">It must be possible to indicate base direction for each individual paragraph-level item of <a>natural language</a> text that will be read by someone.</p>
 	</div>
 
 	<div class="req" id="dir_inline">
-	<p class="advisement">It must be possible to indicate base direction changes for embedded runs of inline bidirectional text for all natural language text that will be read by someone.</p>
+	<p class="advisement">It must be possible to indicate base direction changes for embedded runs of inline bidirectional text for all <a>textual content</a>.</p>
 	</div>
 
 	<div class="req" id="dir_reasonable">
@@ -715,7 +715,7 @@
 
 
 	<div class="req" id="bidi_strings_metadata">
-	<p class="advisement">Provide metadata constructs that can be used to indicate the base direction of any natural language string.</p>
+	<p class="advisement">Provide metadata constructs that can be used to indicate the base direction of any <a>natural language</a> string.</p>
 	<details class="links"><summary>more</summary>
 	<p><a href="https://w3c.github.io/string-meta/#bp-and-reco">Best Practices, Recommendations, and Gaps</a>, in <cite>Strings on the Web: Language and Direction Metadata</cite></p>
 	</details>
@@ -1735,7 +1735,7 @@
 	</div>
 
 	<div class="req" id="text_n11n_no_change">
-	<p class="advisement">Implementations MUST NOT alter the normalization form of syntactic or natural language content being exchanged, read, parsed, or processed except when required to do so as a side-effect of text transformation such as transcoding the content to a Unicode character encoding, case folding, or other user-initiated change, as consumers or the content itself might depend on the de-normalized representation.</p>
+	<p class="advisement">Implementations MUST NOT alter the normalization form of <a>syntactic content</a> or <a>textual content</a> being exchanged, read, parsed, or processed except when required to do so as a side-effect of text transformation such as transcoding the content to a Unicode character encoding, case folding, or other user-initiated change, as consumers or the content itself might depend on the de-normalized representation.</p>
 	<details class="links"><summary>explanations &amp; examples</summary>
 	<p><a href="https://www.w3.org/TR/charmod-norm/#normalizationChoice">Additional Considerations for Normalization</a>, in Character Model for the World Wide Web: String Matching.</p>
 	</details>
@@ -1887,12 +1887,6 @@
 	</details>
 	</div>
 </section>
-
-
-
-
-
-
 
 
 <section id="char_truncation" class="subtopic">
@@ -2154,7 +2148,11 @@
 <h3>Working with plain text</h3>
 
   	<div class="req" id="plain_avoid">
-	<p class="advisement">Avoid natural language text in elements that only allow for plain text and in attribute values.</p>
+	<p class="advisement">Avoid <a>natural language</a> text in elements or attribute values that only allow for plain text.</p>
+	</div>
+	
+	<div class="req" id="plain_attr_avoid">
+	<p class="advisement">Avoid defining attribute values whose content will be <a>natural language</a> text.</p>
 	</div>
 
   	<div class="req" id="plain_span">
@@ -2162,7 +2160,7 @@
 	</div>
 
 
-<p>Internationalization information may include a change of language, bidirectional text behaviour changes, translate flags, etc.</p>
+<p>Internationalization information may include language and base direction metadata, inline changes of language, bidirectional text behavioural changes, translate flags, etc.</p>
 </section>
 </section>
 
@@ -2669,11 +2667,11 @@
 <p>Natural language data values need language and base direction in order to ensure proper presentation, even if localized messages are not provided. This includes any error messages or other internal messages that are human readable in an API or protocol. See also [[STRING-META]].</p>
 
 	<div class="req" id="l10n_api_message_metadata">
-	<p class="advisement">APIs and protocols SHOULD include language and base direction metadata for all natural language messages and data fields.</p>
+	<p class="advisement">APIs and protocols SHOULD include language and base direction metadata for all <a>natural language</a> messages and data fields.</p>
 	</div>
 
 	<div class="req" id="l10n_api_message_language">
-	<p class="advisement">All natural language fields or messages, including error messages, defined by a given API or protocol SHOULD be localized into the preferred locale of the user or, if that language is not available, supplied with a suitable fallback or default.</p>
+	<p class="advisement">All <a>natural language</a> fields or messages, including error messages, defined by a given API or protocol SHOULD be localized into the preferred locale of the user or, if that language is not available, supplied with a suitable fallback or default.</p>
 	</div>
 
 	<div class="req" id="l10n_api_lang_nego">
@@ -2689,7 +2687,7 @@
 <section id="errors" class="subtopic">
 <h3>Errors and Exceptions</h3>
 
-<p>Protocols, APIs, and document formats sometimes provide a field to pass a human-readable error or exception message from a service to the caller in the form of a string. In general, and as <a href="#l10n_api_message_metadata">indicated above</a>, any natural language text conveying human readable messages or human readable content needs to be associated with language and direction metadata. Where this metadata is missing, the processing or display of the text might be compromised.</p>
+<p>Protocols, APIs, and document formats sometimes provide a field to pass a human-readable error or exception message from a service to the caller in the form of a string. In general, and as <a href="#l10n_api_message_metadata">indicated above</a>, any <a>textual content</a> conveying human readable messages or human readable content needs to be associated with language and direction metadata. Where this metadata is missing, the processing or display of the text might be compromised.</p>
 
 <p>Often the intention of the specification author in providing an error or exception message is to convey debugging information to a software developer. Specification authors sometimes assume that error or exception messages are not seen by end users; that software developers will prefer these messages to be unlocalized or appear in a specific language (usually English); or that there are other "practical reasons" why localization of error messages can turn out to be a barrier. For example, there are annecdotes about developers finding it easier to search the Web with the (usually obscure) text of an error because the message itself is insufficiently good at explaining the problem. Searching for this text might produce a result in the developer's preferred language that is more helpful.</p>
 
@@ -2735,7 +2733,22 @@
 </section>
 
 
-
+<section class="appendix" id="glossary">
+	<h2>Glossary</h2>
+	<p>This appendix contains terminology necessary to understanding this document. In cases where the term has been defined in another document, a link is provided, since usually the original document contains additional explanatory material necessary to or helpful in understanding.</p>
+	
+	<p class="definition"><dfn data-lt="natural language">Natural Language</dfn> The spoken, written, or signed communications used by human beings. [[LTLI]]</p>
+	
+	<p class="definition"><dfn data-lt="syntactic content">Syntactic Content.</dfn> Any text in a document format or protocol that belongs to the structure of the format or protocol. [[CHARMOD-NORM]]</p>
+	
+	<p class="definition"><dfn data-lt="user-supplied value|user-supplied values">User-Supplied Value</dfn> Unreserved <a>syntactic content</a> in a vocabulary that is assigned by users, as distinct from reserved keywords in a given format or protocol. [[CHARMOD-NORM]]</p>
+	
+	<p class="definition"><dfn>Textual Content</dfn> The language-bearing content in a document and <strong>not</strong> to any of the surrounding or embedded <a>syntactic content</a> that form part of the document structure. You can think of it as the actual "content" of the document or the "message" in a given protocol. Note that syntactic content can have textual content embedded in it, such as when an [[HTML]] <kbd>img</kbd> element has an <kbd>alt</kbd> attribute containing a description of the image. [[CHARMOD-NORM]]</p>
+	
+		
+	<p class="note">In this document, the term <a>natural language</a> is usually used to refer to the portions of a document or protocol intended for human consumption. The term <a>textual content</a> is used to refer to the natural language content of formal languages, protocol syntaxes and the like, as distinct from <a>syntactic content</a> or <a>user-supplied values</a>.</p>
+	
+</section>
 
 
 
