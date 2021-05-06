@@ -431,7 +431,7 @@
 	</div>
 
 	<div class="req" id="dir_inline">
-	<p class="advisement">It must be possible to indicate base direction changes for embedded runs of inline bidirectional text for all <a>textual content</a>.</p>
+	<p class="advisement">It must be possible to indicate base direction changes for embedded runs of inline bidirectional text for all <a>localizable content</a>.</p>
 	</div>
 
 	<div class="req" id="dir_reasonable">
@@ -1735,7 +1735,7 @@
 	</div>
 
 	<div class="req" id="text_n11n_no_change">
-	<p class="advisement">Implementations MUST NOT alter the normalization form of <a>syntactic content</a> or <a>textual content</a> being exchanged, read, parsed, or processed except when required to do so as a side-effect of text transformation such as transcoding the content to a Unicode character encoding, case folding, or other user-initiated change, as consumers or the content itself might depend on the de-normalized representation.</p>
+	<p class="advisement">Implementations MUST NOT alter the normalization form of textual data being exchanged, read, parsed, or processed except when required to do so as a side-effect of text transformation such as transcoding the content to a Unicode character encoding, case folding, or other user-initiated change, as consumers or the content itself might depend on the de-normalized representation.</p>
 	<details class="links"><summary>explanations &amp; examples</summary>
 	<p><a href="https://www.w3.org/TR/charmod-norm/#normalizationChoice">Additional Considerations for Normalization</a>, in Character Model for the World Wide Web: String Matching.</p>
 	</details>
@@ -2743,10 +2743,9 @@
 	
 	<p class="definition"><dfn data-lt="user-supplied value|user-supplied values">User-Supplied Value</dfn> Unreserved <a>syntactic content</a> in a vocabulary that is assigned by users, as distinct from reserved keywords in a given format or protocol. [[CHARMOD-NORM]]</p>
 	
-	<p class="definition"><dfn>Textual Content</dfn> The language-bearing content in a document and <strong>not</strong> to any of the surrounding or embedded <a>syntactic content</a> that form part of the document structure. You can think of it as the actual "content" of the document or the "message" in a given protocol. Note that syntactic content can have textual content embedded in it, such as when an [[HTML]] <kbd>img</kbd> element has an <kbd>alt</kbd> attribute containing a description of the image. [[CHARMOD-NORM]]</p>
-	
+	<p class="definition"><dfn data-lt="localizable|localizable content|localizable contents">Localizable Content</dfn> Document contents intended as human-readable text and <b>not</b> to any of the surrounding or embedded syntactic content that form part of the document structure. Note that syntactic content can have localizable content embedded in it, such as when an [[HTML]] <code class="kw">img</code> element has an <code class="kw">alt</code> attribute containing a description of the image. [[CHARMOD-NORM]]</p>
 		
-	<p class="note">In this document, the term <a>natural language</a> is usually used to refer to the portions of a document or protocol intended for human consumption. The term <a>textual content</a> is used to refer to the natural language content of formal languages, protocol syntaxes and the like, as distinct from <a>syntactic content</a> or <a>user-supplied values</a>.</p>
+	<p class="note">In this document, the term <a>natural language</a> is usually used to refer to the portions of a document or protocol intended for human consumption. The term <a>localizable content</a> is used to refer to the natural language content of formal languages, protocol syntaxes and the like, as distinct from <a>syntactic content</a> or <a>user-supplied values</a>.</p>
 	
 </section>
 
@@ -2762,6 +2761,7 @@
 <li>Each advisement now carries its own set of links. This makes the links more relevant and more easily noticeable. It also makes it easier to list multiple links, and because the links indicate the target document title, readers do not have to follow the link to know whether they have already read the document pointed to.</li>
 <li>Links associated with an advisement are of two types: 'explanations &amp; examples' typically points to a location in another document from which this advisement was lifted, and surrounds it there with explanatory text; 'more' links provide further reading in other documents.</li>
 <li>Self-links for each advisement have been changed so that they match the standard style used for headings (§ to the side of the text). This also significantly reduces the complexity of authoring the markup.</li>
+<li>A <a href="#glossary">glossary</a> section was added along with significant content in the <a href="#locale">section on locales</a>.</li>
 <li>Generally, the markup in the document source has been greatly simplified, making it easier and quicker to maintain the document.</li>
   </ol>
     <p>See the <a href="https://github.com/w3c/bp-i18n-specdev/commits/gh-pages">github commit log</a> for more details.</p>
