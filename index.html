@@ -1541,6 +1541,7 @@
 	<li>[[[#text_n11n]]]</li>
 	<li>[[[#text_case]]]</li>
 	<li>[[[#char_truncation]]]</li>
+	<li>[[[#file_naming]]]</li>
 	<li>[[[#char_sort]]]</li>
 	</ul>
 
@@ -2002,7 +2003,72 @@
 	</div>
 </section>
 
+<section id="file_naming" class="subtopic">
+<h3>Specifying file and path names</h3>
 
+<p>Some specifications need to define how file names or file paths are constructed by various implementations. One challenge is building definitions that work between different file systems on different operating systems. This section contains general guidance when defining restrictions on file names or file paths. It is based on requirements developed in [[EPUB33]].</p>
+
+<!-- req template
+<div class="req" id="">
+	<p class="advisement"></p>
+	<details class="links"><summary></summary></details>
+	<p></p>
+</div>
+-->
+
+<div class="req" id="file_name_utf8">
+	<p class="advisement">Specify the UTF-8 [[Unicode]] encoding for the storage and processing of file names and file paths.</p>
+	<p></p>
+</div>
+
+<div class="req" id="file_name_length">
+	<p class="advisement">File names SHOULD be restricted to 255 bytes in length.</p>
+	<p></p>
+</div>
+
+<div class="req" id="path_name_length">
+	<p class="advisement">Path names SHOULD be restricted to 65535 bytes in length.</p>
+	<p></p>
+</div>
+
+<div class="req" id="file_name_char_restrictions">
+	<p class="advisement">File name and path name definitions MUST NOT use the following Unicode code points.</p>
+	<p>These characters are known to cause interoperability problems with various file systems. Specifications and implementations should use an abundance of caution in their file naming when interoperability of content is key. The list of restricted characters is intended to help avoid some known problem areas, but it does not ensure that all other Unicode characters are supported.</p>
+	<p><ul>
+		<li><span class="codepoint"><span>"</span> [<span class="uname">U+0022 QUOTATION MARK</span>]</span></li>
+		<li><span class="codepoint"><span>*</span> [<span class="uname">U+002A ASTERISK</span>]</span></li>
+		<li><span class="codepoint"><span>/</span> [<span class="uname">U+002F SOLIDUS</span>]</span></li>
+		<li><span class="codepoint"><span>:</span> [<span class="uname">U+003A COLON</span>]</span></li>
+		<li><span class="codepoint"><span>&lt;</span> [<span class="uname">U+003C LESS-THAN SIGN</span>]</span></li>
+		<li><span class="codepoint"><span>&gt;</span> [<span class="uname">U+003E GREATER-THAN SIGN</span>]</span></li>
+		<li><span class="codepoint"><span>\</span> [<span class="uname">U+005C REVERSE SOLIDUS</span>]</span></li>
+		<li><span class="codepoint"><span>|</span> [<span class="uname">U+007C VERTICAL LINE</span>]</span></li>
+		<li><span class="codepoint"><span>&#x7f;</span> [<span class="uname">U+007F DEL</span>]</span></li>
+		<li><span class="codepoint"><span>&#xE0001;</span> [<span class="uname">U+E0001 ...</span>]</span></li>
+		<li><span class="codepoint"><span>&#xE007f;</span> [<span class="uname">U+E007F CANCEL TAG</span>]</span></li>
+		<li>Codepoints in the following ranges:
+		   <ul>
+			   <li>C0 Controls [<span class="uname">U+0000</span>...<span class="uname">U+001F</span>]</li>
+			   <li>C1 Controls [<span class="uname">U+0080</span>...<span class="uname">U+009F</span>]</li>
+			   <li>Private Use [<span class="uname">U+E000</span>...<span class="uname">U+F8FF</span>]</li>
+			   <li>Specials [<span class="uname">U+FFF0</span>...<span class="uname">U+FFFF</span>]</li>
+			   <li>Supplementary Private Use [<span class="uname">U+F0000</span>...<span class="uname">U+FFFFF</span>]</li>
+			   <li>Supplementary Private Use [<span class="uname">U+100000</span>...<span class="uname">U+10FFFF</span>]</li>
+		   </ul>
+
+		<li><span class="codepoint"><span>.</span> [<span class="uname">U+002E FULL STOP</span>]</span> as the last character (Note that this includes the file names <code>.</code> and <code>..</code>, which have special meaning to many file systems)</li><!-- break out -->
+
+		<li>All Unicode Non Characters, specifically:
+		<ul>
+			<li>The 32 contiguous characters in the Basic Multilingual Plane (U+FDD0 … U+FDEF)</li>
+			<li>The last two code points of the Basic Multilingual Plane (U+FFFE and U+FFFF)</li>
+			<li>The last two code points at the end of the Supplementary Planes (U+1FFFE, U+1FFFF … U+EFFFE, U+EFFFF)</li>
+		</ul></li>
+
+	</ul></p>
+</div>
+
+</section>
 
 
 <section id="char_sort" class="subtopic">
