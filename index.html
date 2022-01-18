@@ -2004,17 +2004,9 @@
 </section>
 
 <section id="file_naming" class="subtopic">
-<h3>Specifying file and path names</h3>
+<h3>Specifying restrictions for file and path names</h3>
 
-<p>Some specifications need to define how file names or file paths are constructed by various implementations. One challenge is building definitions that work between different file systems on different operating systems. This section contains general guidance when defining restrictions on file names or file paths. It is based on requirements developed in [[EPUB33]].</p>
-
-<!-- req template
-<div class="req" id="">
-	<p class="advisement"></p>
-	<details class="links"><summary></summary></details>
-	<p></p>
-</div>
--->
+<p>Some specifications need to define how file names or file paths are constructed by various implementations. One challenge is building definitions that work consistently when used on the different file systems used by different operating systems. This section contains general guidance when defining restrictions on file names or file paths. It is based on requirements developed in [[EPUB33]], as well as implementation experience.</p>
 
 <div class="req" id="file_name_utf8">
 	<p class="advisement">Specify the UTF-8 [[Unicode]] encoding for the storage and processing of file names and file paths.</p>
@@ -2058,7 +2050,7 @@
 
 		<li><span class="codepoint"><span>.</span> [<span class="uname">U+002E FULL STOP</span>]</span> as the last character (Note that this includes the file names <code>.</code> and <code>..</code>, which have special meaning to many file systems)</li><!-- break out -->
 
-		<li>All Unicode Non Characters, specifically:
+		<li>All Unicode non-character code points, specifically:
 		<ul>
 			<li>The 32 contiguous characters in the Basic Multilingual Plane (U+FDD0 … U+FDEF)</li>
 			<li>The last two code points of the Basic Multilingual Plane (U+FFFE and U+FFFF)</li>
@@ -2069,7 +2061,6 @@
 </div>
 
 </section>
-
 
 <section id="char_sort" class="subtopic">
 <h3>Specifying sort and search functionality</h3>
