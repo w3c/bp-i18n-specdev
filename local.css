@@ -112,8 +112,14 @@ ins {
 	margin-top: 1em;
 	}
 .definition {
-	margin-left: 3em;
-	}
+    position: relative;
+    background-color: #efefef;
+    padding: 0.5em;
+    border: 0.5em;
+    border-left: 6pt solid green;
+    border-right: 6pt solid green;
+    margin: 1em auto;
+}
 a.termref:link {
 	color:#C60;
 	text-decoration:none;

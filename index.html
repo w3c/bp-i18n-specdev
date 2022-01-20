@@ -59,7 +59,7 @@
       <!--p>You may prefer to use <a href="https://www.w3.org/International/techniques/developing-specs?collapse">Internationalization Techniques: Developing specifications</a> most of the time, since it uses JavaScript to  help you more quickly see what's available and drill down to the information you need. (Where needed, it links to this or other documents.) There is also a <a href="https://www.w3.org/International/techniques/developing-specs">non-dynamic version</a> of the document available.</p-->
 
 
-
+	  <p class="note">In this document, the term <a>natural language</a> is usually used to refer to the portions of a document or protocol intended for human consumption. The term <a>localizable text</a> is used to refer to the natural language content of formal languages, protocol syntaxes and the like, as distinct from <a>syntactic content</a> or <a>user-supplied values</a>. See the [[I18N-GLOSSARY]] for definitions of these and other terms used by the Internationalization Working Group.</p>
 
 
 <section class="appendix" id="ghChecklist">
@@ -112,7 +112,7 @@
 
 
  	<div class="req" id="lang_basics_1">
-	<p class="advisement">It should be possible to associate a language with any piece of natural language text that will be read by a user.</p>
+	<p class="advisement">It should be possible to associate a language with any piece of <a>localizable text</a> or <a>natural language</a> content.</p>
 	<details class="links"><summary>more</summary>
 	<p><a href="https://www.w3.org/International/questions/qa-lang-why">Why use the language attribute?</a></p>
 	<p><a href="https://w3c.github.io/i18n-drafts/articles/lang-bidi-use-cases/index.en">Use cases for bidi and language metadata on the Web</a></p>
@@ -122,7 +122,7 @@
 
 
  	<div class="req" id="lang_basics_inline">
-	<p class="advisement">Where possible, there should  be a way to label natural language changes in inline text.</p>
+	<p class="advisement">Where possible, there should  be a way to label <a>natural language</a> changes in inline text.</p>
 	</div>
   
   <p>Text is rendered or processed differently according to the language it is in. For example, screen readers need to be prompted when a language changes, and spell checkers should be language-sensitive. When rendering text a knowledge of language is need in order to apply correct fonts, hyphenation, line-breaking, upper/lower case changes, and other features.</p>
@@ -427,11 +427,11 @@
 
 
 	<div class="req" id="dir_paragraphs">
-	<p class="advisement">It must be possible to indicate base direction for each individual paragraph-level item of natural language text that will be read by someone.</p>
+	<p class="advisement">It must be possible to indicate base direction for each individual paragraph-level item of <a>natural language</a> text that will be read by someone.</p>
 	</div>
 
 	<div class="req" id="dir_inline">
-	<p class="advisement">It must be possible to indicate base direction changes for embedded runs of inline bidirectional text for all natural language text that will be read by someone.</p>
+	<p class="advisement">It must be possible to indicate base direction changes for embedded runs of inline bidirectional text for all <a>localizable text</a>.</p>
 	</div>
 
 	<div class="req" id="dir_reasonable">
@@ -715,7 +715,7 @@
 
 
 	<div class="req" id="bidi_strings_metadata">
-	<p class="advisement">Provide metadata constructs that can be used to indicate the base direction of any natural language string.</p>
+	<p class="advisement">Provide metadata constructs that can be used to indicate the base direction of any <a>natural language</a> string.</p>
 	<details class="links"><summary>more</summary>
 	<p><a href="https://w3c.github.io/string-meta/#bp-and-reco">Best Practices, Recommendations, and Gaps</a>, in <cite>Strings on the Web: Language and Direction Metadata</cite></p>
 	</details>
@@ -1541,6 +1541,7 @@
 	<li>[[[#text_n11n]]]</li>
 	<li>[[[#text_case]]]</li>
 	<li>[[[#char_truncation]]]</li>
+	<li>[[[#file_naming]]]</li>
 	<li>[[[#char_sort]]]</li>
 	</ul>
 
@@ -1735,7 +1736,7 @@
 	</div>
 
 	<div class="req" id="text_n11n_no_change">
-	<p class="advisement">Implementations MUST NOT alter the normalization form of syntactic or natural language content being exchanged, read, parsed, or processed except when required to do so as a side-effect of text transformation such as transcoding the content to a Unicode character encoding, case folding, or other user-initiated change, as consumers or the content itself might depend on the de-normalized representation.</p>
+	<p class="advisement">Implementations MUST NOT alter the normalization form of textual data being exchanged, read, parsed, or processed except when required to do so as a side-effect of text transformation such as transcoding the content to a Unicode character encoding, case folding, or other user-initiated change, as consumers or the content itself might depend on the de-normalized representation.</p>
 	<details class="links"><summary>explanations &amp; examples</summary>
 	<p><a href="https://www.w3.org/TR/charmod-norm/#normalizationChoice">Additional Considerations for Normalization</a>, in Character Model for the World Wide Web: String Matching.</p>
 	</details>
@@ -1889,12 +1890,6 @@
 </section>
 
 
-
-
-
-
-
-
 <section id="char_truncation" class="subtopic">
    <h3>Truncating or limiting the length of strings</h3>
 
@@ -2008,12 +2003,64 @@
 	</div>
 </section>
 
+<section id="file_naming" class="subtopic">
+<h3>Working with file and path names</h3>
 
+<p>Some specifications need to define how file names or file paths are constructed by various implementations. One challenge is building definitions that work consistently when used on the different file systems used by different operating systems. This section contains general guidance when defining restrictions on file names or file paths. It is based on requirements developed in [[EPUB-33]], as well as implementation experience.</p>
 
+<div class="req" id="file_name_utf8">
+	<p class="advisement">Specify the UTF-8 [[Unicode]] encoding for the storage and processing of file names and file paths.</p>
+	<p></p>
+</div>
 
+<div class="req" id="file_name_length">
+	<p class="advisement">File names SHOULD be restricted to 255 bytes in length.</p>
+	<p>This restriction is related to limitations found in certain file systems, originally MS-DOS, but also certain Unix file systems&mdash;as well as packaging schemes such as PKZIP that depend on these file systems or subsumed their limitations&mdash;in which the limit for a specific "path element" (including directory names) is limited to 255 bytes.</p>
+</div>
 
+<div class="req" id="path_name_length">
+	<p class="advisement">Path names SHOULD be restricted to 65535 bytes in length.</p>
+	<p>This restriction is related to limitations found in file systems such as FAT32 or NTFS, which restrict the path length to 32760 (32K) code units in the UTF-16 character encoding. Each UTF-16 code unit takes 16 bits (or 2 bytes), making the limit 65,535 when measured in bytes. Note that a path name limited to 64K <em>bytes</em> in UTF-8 can exceed the path length limits on these file systems, since UTF-8 is a variable width encoding.</p>
+</div>
 
+<div class="req" id="file_name_char_restrictions">
+	<p class="advisement">File name and path name definitions MUST NOT use the following Unicode code points.</p>
+	<p>These characters are known to cause interoperability problems with various file systems. Specifications and implementations should use an abundance of caution in their file naming when interoperability of content is key. The list of restricted characters is intended to help avoid some known problem areas, but it does not ensure that all other Unicode characters are supported.</p>
+	<p><ul>
+		<li><span class="codepoint"><span>"</span> [<span class="uname">U+0022 QUOTATION MARK</span>]</span></li>
+		<li><span class="codepoint"><span>*</span> [<span class="uname">U+002A ASTERISK</span>]</span></li>
+		<li><span class="codepoint"><span>/</span> [<span class="uname">U+002F SOLIDUS</span>]</span></li>
+		<li><span class="codepoint"><span>:</span> [<span class="uname">U+003A COLON</span>]</span></li>
+		<li><span class="codepoint"><span>&lt;</span> [<span class="uname">U+003C LESS-THAN SIGN</span>]</span></li>
+		<li><span class="codepoint"><span>&gt;</span> [<span class="uname">U+003E GREATER-THAN SIGN</span>]</span></li>
+		<li><span class="codepoint"><span>\</span> [<span class="uname">U+005C REVERSE SOLIDUS</span>]</span></li>
+		<li><span class="codepoint"><span>|</span> [<span class="uname">U+007C VERTICAL LINE</span>]</span></li>
+		<li><span class="codepoint"><span>&#x7f;</span> [<span class="uname">U+007F DEL</span>]</span></li>
+		<li><span class="codepoint"><span>&#xE0001;</span> [<span class="uname">U+E0001 LANGUAGE TAG</span>]</span></li>
+		<li><span class="codepoint"><span>&#xE007f;</span> [<span class="uname">U+E007F CANCEL TAG</span>]</span></li>
+		<li>Codepoints in the following ranges:
+		   <ul>
+			   <li>C0 Controls [<span class="uname">U+0000</span>...<span class="uname">U+001F</span>]</li>
+			   <li>C1 Controls [<span class="uname">U+0080</span>...<span class="uname">U+009F</span>]</li>
+			   <li>Private Use [<span class="uname">U+E000</span>...<span class="uname">U+F8FF</span>]</li>
+			   <li>Specials [<span class="uname">U+FFF0</span>...<span class="uname">U+FFFF</span>]</li>
+			   <li>Supplementary Private Use [<span class="uname">U+F0000</span>...<span class="uname">U+FFFFF</span>]</li>
+			   <li>Supplementary Private Use [<span class="uname">U+100000</span>...<span class="uname">U+10FFFF</span>]</li>
+		   </ul>
 
+		<li><span class="codepoint"><span>.</span> [<span class="uname">U+002E FULL STOP</span>]</span> as the last character (Note that this includes the file names <code>.</code> and <code>..</code>, which have special meaning to many file systems)</li><!-- break out -->
+
+		<li>All Unicode non-character code points, specifically:
+		<ul>
+			<li>The 32 contiguous characters in the Basic Multilingual Plane (U+FDD0 … U+FDEF)</li>
+			<li>The last two code points of the Basic Multilingual Plane (U+FFFE and U+FFFF)</li>
+			<li>The last two code points at the end of the Supplementary Planes (U+1FFFE, U+1FFFF … U+EFFFE, U+EFFFF)</li>
+		</ul></li>
+
+	</ul></p>
+</div>
+
+</section>
 
 <section id="char_sort" class="subtopic">
 <h3>Specifying sort and search functionality</h3>
@@ -2158,7 +2205,11 @@
 <h3>Working with plain text</h3>
 
   	<div class="req" id="plain_avoid">
-	<p class="advisement">Avoid natural language text in elements that only allow for plain text and in attribute values.</p>
+	<p class="advisement">Avoid <a>natural language</a> text in elements or attribute values that only allow for plain text.</p>
+	</div>
+	
+	<div class="req" id="plain_attr_avoid">
+	<p class="advisement">Avoid defining attribute values whose content will be <a>natural language</a> text.</p>
 	</div>
 
   	<div class="req" id="plain_span">
@@ -2166,7 +2217,7 @@
 	</div>
 
 
-<p>Internationalization information may include a change of language, bidirectional text behaviour changes, translate flags, etc.</p>
+<p>Internationalization information may include language and base direction metadata, inline changes of language, bidirectional text behavioural changes, translate flags, etc.</p>
 </section>
 </section>
 
@@ -2670,6 +2721,33 @@
 
 <p><a href="https://www.w3.org/TR/ltli/#dfn-localization">Localization</a> [[LTLI]] enables users to employ software in the language and locale of their choice. Specifications for protocols and document formats need to consider how to provide the language and formatting that the end-user expects.</p>
 
+<p>Natural language data values need language and base direction in order to ensure proper presentation, even if localized messages are not provided. This includes any error messages or other internal messages that are human readable in an API or protocol. See also [[STRING-META]].</p>
+
+	<div class="req" id="l10n_api_message_metadata">
+	<p class="advisement">APIs and protocols SHOULD include language and base direction metadata for all <a>natural language</a> messages and data fields.</p>
+	</div>
+
+	<div class="req" id="l10n_api_message_language">
+	<p class="advisement">All <a>natural language</a> fields or messages, including error messages, defined by a given API or protocol SHOULD be localized into the preferred locale of the user or, if that language is not available, supplied with a suitable fallback or default.</p>
+	</div>
+
+	<div class="req" id="l10n_api_lang_nego">
+	<p class="advisement">Specifications for APIs or protocols SHOULD define how the user's locale is determined (this is sometimes called <a href="#lang_negotiation">language negotiation</a>).</p>
+	</div>
+	<div class="req" id="l10n_api_lang_defaulting">
+	<p class="advisement">Specifications MAY define a specific default language for messages or errors in an API or protocol.</p>
+	</div>
+
+<p class="note">Specifications do not need to require that messages be returned in all possible or all available locales. It is sufficient to make it possible to localize the end-user's customer experience. Implementations can choose which languages or locales to support.</p>
+
+<section id="errors" class="subtopic">
+<h3>Working with Error and Exception Messages</h3>
+
+<p>Protocols, APIs, and document formats sometimes provide a field to pass a human-readable error or exception message from a service to the caller in the form of a string. In general, and as <a href="#l10n_api_message_metadata">indicated above</a>, any natural language text conveying human-readable messages or human-readable content needs to be associated with language and direction metadata. Where this metadata is missing, the processing or display of the text might be compromised.</p>
+
+<p>Often the intention of the specification author in providing an error or exception message is to convey debugging information to a software developer. Specification authors sometimes assume that error or exception messages are not seen by end users; that software developers will prefer these messages to be unlocalized or appear in a specific language (usually English); or that there are other "practical reasons" why localization of error messages can turn out to be a barrier. For example, there are anecdotes about developers finding it easier to search the Web with the (usually obscure) text of an error because the message itself is insufficiently good at explaining the problem. Searching for this text might produce a result in the developer's preferred language that is more helpful.</p>
+
+<p>Error messages are messages and they are intended for humans, not machines. In many cases, the error message encompasses all of the additional information about what went wrong and, in some cases, the caller is obliged to show the message to the actual end user because there is no other way to convey to the caller about how to fix the problem ("Your credit card has expired"; "The value 10484977 is too large" [oops, forgot the decimal point]; etc.). Localization of these types of messages is actually a good thing and may even be obligatory in some applications.</p>
 
 	<div class="req" id="l10n_api_message_id">
 	<p class="advisement">APIs and protocols SHOULD provide language independent identifiers for errors.</p>
@@ -2677,25 +2755,15 @@
 
 <p>For example, HTTP result codes, such as the familiar <code>404</code>, help users communicate which error they received or look up a translation.</p>
 
-	<div class="req" id="l10n_api_error_message_metadata">
-	<p class="advisement">APIs and protocols SHOULD include language and base direction metadata for all natural language messages and data fields.</p>
-	</div>
+    <div class="req" id="l10n_api_error_message_optional">
+    <p class="advisement">Natural language error message fields, when provided, SHOULD be optional and SHOULD include language and direction metadata.</p>
+    </div>
 
-<p>Natural language data values need language and base direction in order to ensure proper presentation, even if localized messages are not provided. This includes any error messages or other internal messages that are human readable in an API or protocol. See also [[STRING-META]].</p>
+    <div class="req" id="l10n_api_error_message_language">
+    <p class="advisement">Natural language error message fields, when provided, SHOULD match the user interface language negotiated for the request when possible.</p>
+    </div>
 
-	<div class="req" id="l10n_api_error_message_language">
-	<p class="advisement">All natural language fields or messages, including error messages, defined by a given API or protocol SHOULD be localized into the preferred locale of the user or, if that language is not available, supplied with a suitable fallback or default.</p>
-	</div>
-
-	<div class="req" id="l10n_api_lang_nego">
-	<p class="advisement">Specifications for APIs or protocols SHOULD define how the user's locale is determined (this is sometimes called <a href="#lang_negotiation">language negotiation</a>).</p>
-	</div>
-
-	<div class="req" id="l10n_api_lang_defaulting">
-	<p class="advisement">Specifications MAY define a specific default language for messages or errors in an API or protocol.</p>
-	</div>
-
-<p class="note">Specifications do not need to require that messages be returned in all possible or all available locales. It is sufficient to make it possible to localize the end-user's customer experience. Implementations can choose which languages or locales to support.</p>
+</section>
 
 </section>
 </section>
@@ -2721,10 +2789,6 @@
 </section>
 
 
-
-
-
-
 <section class="appendix" id="app-c">
   <h2> Revision Log</h2>
   <p>The following summarises substantive changes since the previous publication, but the material is still subject to significant flux as it develops. This should not be a reason not to use the document. What it so far contains is useful, and any shortfalls can be reported or discussed.</p>
@@ -2735,6 +2799,7 @@
 <li>Each advisement now carries its own set of links. This makes the links more relevant and more easily noticeable. It also makes it easier to list multiple links, and because the links indicate the target document title, readers do not have to follow the link to know whether they have already read the document pointed to.</li>
 <li>Links associated with an advisement are of two types: 'explanations &amp; examples' typically points to a location in another document from which this advisement was lifted, and surrounds it there with explanatory text; 'more' links provide further reading in other documents.</li>
 <li>Self-links for each advisement have been changed so that they match the standard style used for headings (§ to the side of the text). This also significantly reduces the complexity of authoring the markup.</li>
+<li>Added content in the <a href="#locale">section on locales</a>, along with text about <a href="#file_naming">working with file and path names</a> and <a href="#errors">working with error messages</a>.</li>
 <li>Generally, the markup in the document source has been greatly simplified, making it easier and quicker to maintain the document.</li>
   </ol>
     <p>See the <a href="https://github.com/w3c/bp-i18n-specdev/commits/gh-pages">github commit log</a> for more details.</p>
