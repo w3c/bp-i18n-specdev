@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
   <head>
     <title>Internationalization Best Practices for Spec Developers</title>
     <meta charset="utf-8"/>
@@ -14,7 +14,7 @@
     <script class="remove">
       var respecConfig = {
           // specification status (e.g. WD, LCWD, NOTE, etc.). If in doubt use ED.
-          specStatus:           "DNOTE",
+          specStatus:           "ED",
           //publishDate:  		"2015-10-20",
           //previousPublishDate:  "2020-05-29",
           //previousMaturity:  	"WD",
@@ -151,7 +151,7 @@
 	<p class="advisement">A language declaration that indicates the <a href="https://w3c.github.io/bp-i18n-specdev/#sec_text_processing_lang">text processing language</a> for a range of text must associate  a single language  value with a specific range of text.</p>
 	</div>
   
-  <p>When specifying the <dfn class="lint-ignore">text-processing language</dfn> you are declaring the language in which <strong>a specific range of text is actually written</strong>, so that user agents or applications that manipulate the text, such as voice browsers, spell checkers,  style processors, hyphenators, etc., can apply the appropriate rules to the text in question. So we are, by necessity, talking about associating a <em>single</em> language with a <em>specific</em> range of text.</p>
+  <p>When specifying the <a>text-processing language</a> you are declaring the language in which <strong>a specific range of text is actually written</strong>, so that user agents or applications that manipulate the text, such as voice browsers, spell checkers,  style processors, hyphenators, etc., can apply the appropriate rules to the text in question. So we are, by necessity, talking about associating a <em>single</em> language with a <em>specific</em> range of text.</p>
     <p>It is normal to express a text-processing language as the default language, for processing the resource as a whole, but it may also be necessary to indicate where the language changes within the resource.</p>
 
    	<div class="req" id="lang_attribute_xml">
@@ -354,7 +354,7 @@
 <p>[[[#sec_lang_values]]].</p>
 </div>
 
-<p>The words <dfn class="lint-ignore">block</dfn> and/or <dfn class="lint-ignore">chunk</dfn> are used here to refer to a structural component within the resource as a whole that groups content together and separates it from adjacent content. Boundaries between one block and another are equivalent to paragraph or section boundaries in text, or discrete data items inside a file. </p>
+    <p>The words <dfn class="lint-ignore">block</dfn> and/or <dfn class="lint-ignore">chunk</dfn> are used here to refer to a structural component within the resource as a whole that groups content together and separates it from adjacent content. Boundaries between one block and another are equivalent to paragraph or section boundaries in text, or discrete data items inside a file. </p>
     <p>For example, this could refer to a block or paragraph in XML or HTML, an object declaration in JSON, a cue in WebVTT, a line in a CSV file, etc. Contrast this with <dfn class="lint-ignore">inline</dfn> content, which describes a range within a paragraph, sentence, etc.</p>
     <p>The interpretation of which structures defined in a spec are relevant to these requirements may require a little consideration, and will depend on the format of the data involved.</p>
  
@@ -484,7 +484,7 @@
   </aside>
 
   <p>In this section, the word <dfn class="lint-ignore">paragraph</dfn> indicates a run of text followed by a hard line-break in plain text, but may signify different things in other situations. In CSV it equates to 'cell', so a single line of comma-separated items is actually a set of comma-separated paragraphs.&nbsp; In HTML it equates to the lowest level of block element, which is often a <code class="kw" translate="no">p</code> element, but may be things such as <code class="kw" translate="no">div</code>, <code class="kw" translate="no">li</code>, etc., if they only contain text and/or inline elements. In JSON, it often equates to a quoted string value, but if a string value uses markup then paragraphs are associated with block elements, and if the string value is multiple lines of plain text then each line is a paragraph.</p>
-  <p>The term <dfn class="lint-ignore">metadata</dfn> is used here to mean information which could be an annotation or property associated with the data, or could be markup in scenarios that allow that, or could be a higher-level protocol, etc.</p>
+  <p>The term <a>metadata</a> is used here to mean information which could be an annotation or property associated with the data, or could be markup in scenarios that allow that, or could be a higher-level protocol, etc.</p>
 </section>
 
 
@@ -854,7 +854,7 @@
 
     <p>At their simplest, user-perceived characters are a single shape that can be tied one-to-one to the underlying computing representation. But a user-perceived character can be formed, in some scripts, from more than one character. And a given logical character can take many different shapes due to such influences as font selection, style, or the surrounding context (such as adjacent characters). In some cases, a single user-perceived character might be formed from a long sequence of logical characters. And some logical characters (so-called "combining marks") are always used in conjunction with another character.</p>
 
-    <p>When user-perceived characters are represented visibly (on screen or in print), they are represented by individual rendering units. This visual unit is called a <dfn class="lint-ignore">grapheme</dfn> (the word <dfn class="lint-ignore">glyph</dfn> is also used). Graphemes are the visual units found in fonts and rendering software.</p>
+    <p>When user-perceived characters are represented visibly (on screen or in print), they are represented by individual rendering units. This visual unit is called a <a>grapheme</a> (the word <a>glyph</a> is also used). Graphemes are the visual units found in fonts and rendering software.</p>
 
     <aside class=example>
 		<h5>Examples of user-perceived characters</h5>
@@ -868,13 +868,13 @@
 		<p class=bigtext lang=hi>&#x092F;&#x0942;&nbsp;&#x0928;&#x093F;&nbsp;&#x0915;&#x094B;&nbsp;&#x0921;</p>
     </aside>
 
-    <p>Graphemes are encoded into computer systems using "logical characters". A <dfn class="lint-ignore">character set</dfn> is a set of logical characters: a specific collection of characters that can be used together to encode text. The most important character set is the <dfn class="lint-ignore">Universal Character Set</dfn>, also known as [[Unicode]]. This character set includes all of the characters used to encode text, including historical or extinct writing systems as well as modern usage, private use, typesetting symbols, and other things, such as the emoji. Other character sets are defined subsets of Unicode. In Unicode, a 'character' is a single abstract logical unit of text. Each character in Unicode is assigned a unique integer number between <code>0x0000</code> and <code>0x10FFFF</code>, which is called its <dfn class="lint-ignore">code point</dfn>. The term code point therefore unambiguously refers to a single logical character and its integer representation.</p>
+    <p>Graphemes are encoded into computer systems using "logical characters". A <a>character set</a> is a set of logical characters: a specific collection of characters that can be used together to encode text. The most important character set is the <a>Universal Character Set</a>, also known as [[Unicode]]. This character set includes all of the characters used to encode text, including historical or extinct writing systems as well as modern usage, private use, typesetting symbols, and other things, such as the emoji. Other character sets are defined subsets of Unicode. In Unicode, a 'character' is a single abstract logical unit of text. Each character in Unicode is assigned a unique integer number between <code>0x0000</code> and <code>0x10FFFF</code>, which is called its <a>code point</a>. The term <a>code point</a> therefore unambiguously refers to a single logical character and its integer representation.</p>
 
 	<div class="req" id="char_term_def">
 	<p class="advisement">Specifications SHOULD explicitly define the term 'character' to mean a Unicode code point.</p>
 	</div>
 
-    <p>The relationship between code points and graphemes can be complex. In most cases, a code point sequence that forms a single grapheme should be treated as a single textual unit. For example, when cursoring across text, an entire grapheme should select together. It shouldn't be possible to cursor into the "middle" of a grapheme or delete only a part of user-perceived character. Because the relationship is not one-to-one between code points and graphemes and because the relationship can be somewhat complex, [[Unicode]] defines a specific type of grapheme: the <dfn class="lint-ignore">extended grapheme cluster</dfn> which most closely matches the mapping of the underlying logical character sequence to a user-perceived character. When referring to 'graphemes' in this document, we mean extended grapheme clusters (unless otherwise called out).</p>
+    <p>The relationship between code points and graphemes can be complex. In most cases, a code point sequence that forms a single grapheme should be treated as a single textual unit. For example, when cursoring across text, an entire grapheme should select together. It shouldn't be possible to cursor into the "middle" of a grapheme or delete only a part of user-perceived character. Because the relationship is not one-to-one between code points and graphemes and because the relationship can be somewhat complex, [[Unicode]] defines a specific type of grapheme: the <a>extended grapheme cluster</a> which most closely matches the mapping of the underlying logical character sequence to a user-perceived character. When referring to 'graphemes' in this document, we mean extended grapheme clusters (unless otherwise called out).</p>
 
     <aside class=example>
 		<h5>Hindi example showing mapping from graphemes to code points</h5>
@@ -907,9 +907,9 @@
 
     <p>Another example of the complex relationship between code points and graphemes are certain emoji. The emoji character for "family" has a code point in Unicode: <span class="codepoint"><span lang="en">&#x1F46A;</span> [<span class="uname">U+1F46A FAMILY</span>]</span>. It can also be formed by using using a sequence of code points: <span class="uname">U+1F468 U+200D U+1F469 U+200D U+1F466</span>. Altering or adding other emoji characters can alter the composition of the family. For example the sequence <span class="uname" translate="no">&#x1f468;&#x200d;&#x1f469;&#x200d;&#x1f467;&#x200d;&#x1f467; U+1F468 U+200D U+1F469 U+200D U+1F467 U+200D U+1F467</span> results in a composed emoji character for a "family: man, woman, girl, girl" on systems that support this kind of composition. Many common emoji can <em>only</em> be formed using sequences of code points, but should be treated as a single user-perceived character when displaying or processing the text. You wouldn't want to put a line-break in the middle of the family!</p>
 
-    <p>Unicode code points are just abstract integer values: they are not the values actually present in the memory of the computer or serialized on the wire. When processing text, computers use an array of fixed-size integer units. One such common unit is the <dfn class="lint-ignore">byte</dfn> (or <em>octet</em>, since bytes have 8 bits per unit). There are also 16-bit, 32-bit, or other size units. In many programming languages, the unit is called a <code>char</code>, which suggests that strings are made of "characters". We use the term <dfn class="lint-ignore">code unit</dfn> to refer unambiguously to the programming and serialized representation of characters. For example, in C, a <code>char</code> is generally an 8-bit byte: each <code>char</code> is a 8-bit code unit. In Java or Javascript, a <code>char</code> is a 16-bit value.</p>
+    <p>Unicode code points are just abstract integer values: they are not the values actually present in the memory of the computer or serialized on the wire. When processing text, computers use an array of fixed-size integer units. One such common unit is the <dfn class="lint-ignore">byte</dfn> (or <em>octet</em>, since bytes have 8 bits per unit). There are also 16-bit, 32-bit, or other size units. In many programming languages, the unit is called a <code>char</code>, which suggests that strings are made of "characters". We use the term <a>code unit</a> to refer unambiguously to the programming and serialized representation of characters. For example, in C, a <code>char</code> is generally an 8-bit byte: each <code>char</code> is a 8-bit code unit. In Java or Javascript, a <code>char</code> is a 16-bit value.</p>
 
-    <p>A set of rules for converting code points to or from code units is called a <dfn class="lint-ignore">character encoding form</dfn> (or just "character encoding" for short.</p>
+    <p>A set of rules for converting code points to or from code units is called a <a>character encoding form</a> (or just "character encoding" for short.</p>
 
     <aside class=example>
        <h2>UTF-8 Character Encoding Form</h2>
