@@ -59,7 +59,7 @@
       <!--p>You may prefer to use <a href="https://www.w3.org/International/techniques/developing-specs?collapse">Internationalization Techniques: Developing specifications</a> most of the time, since it uses JavaScript to  help you more quickly see what's available and drill down to the information you need. (Where needed, it links to this or other documents.) There is also a <a href="https://www.w3.org/International/techniques/developing-specs">non-dynamic version</a> of the document available.</p-->
 
 
-	  <p class="note">In this document, the term <a>natural language</a> is usually used to refer to the portions of a document or protocol intended for human consumption. The term <a>localizable text</a> is used to refer to the natural language content of formal languages, protocol syntaxes and the like, as distinct from <a>syntactic content</a> or <a>user-supplied values</a>. See the [[I18N-GLOSSARY]] for definitions of these and other terms used by the Internationalization Working Group.</p>
+	  <p class="note">In this document, the term <a data-cite="i18n-glossary#def_natural_language">natural language</a> is usually used to refer to the portions of a document or protocol intended for human consumption. The term <a data-cite="i18n-glossary#def_localizable_text">localizable text</a> is used to refer to the natural language content of formal languages, protocol syntaxes and the like, as distinct from <a data-cite="i18n-glossary#def_syntactic content">syntactic content</a> or <a data-cite="i18n-glossary#def_user_supplied_values">user-supplied values</a>. See the [[I18N-GLOSSARY]] for definitions of these and other terms used by the Internationalization Working Group.</p>
 
 
 <section class="appendix" id="ghChecklist">
@@ -112,7 +112,7 @@
 
 
  	<div class="req" id="lang_basics_1">
-	<p class="advisement">It should be possible to associate a language with any piece of <a>localizable text</a> or <a>natural language</a> content.</p>
+	<p class="advisement">It should be possible to associate a language with any piece of <a data-cite="i18n-glossary#def_localizable_text">localizable text</a> or <a data-cite="i18n-glossary#def_natural_language">natural language</a> content.</p>
 	<details class="links"><summary>more</summary>
 	<p><a href="https://www.w3.org/International/questions/qa-lang-why">Why use the language attribute?</a></p>
 	<p><a href="https://w3c.github.io/i18n-drafts/articles/lang-bidi-use-cases/index.en">Use cases for bidi and language metadata on the Web</a></p>
@@ -122,7 +122,7 @@
 
 
  	<div class="req" id="lang_basics_inline">
-	<p class="advisement">Where possible, there should  be a way to label <a>natural language</a> changes in inline text.</p>
+	<p class="advisement">Where possible, there should  be a way to label <a data-cite="i18n-glossary#def_natural_language">natural language</a> changes in inline text.</p>
 	</div>
   
   <p>Text is rendered or processed differently according to the language it is in. For example, screen readers need to be prompted when a language changes, and spell checkers should be language-sensitive. When rendering text a knowledge of language is need in order to apply correct fonts, hyphenation, line-breaking, upper/lower case changes, and other features.</p>
@@ -427,11 +427,11 @@
 
 
 	<div class="req" id="dir_paragraphs">
-	<p class="advisement">It must be possible to indicate base direction for each individual paragraph-level item of <a>natural language</a> text that will be read by someone.</p>
+	<p class="advisement">It must be possible to indicate base direction for each individual paragraph-level item of <a data-cite="i18n-glossary#def_natural_language">natural language</a> text that will be read by someone.</p>
 	</div>
 
 	<div class="req" id="dir_inline">
-	<p class="advisement">It must be possible to indicate base direction changes for embedded runs of inline bidirectional text for all <a>localizable text</a>.</p>
+	<p class="advisement">It must be possible to indicate base direction changes for embedded runs of inline bidirectional text for all <a data-cite="i18n-glossary#def_localizable_text">localizable text</a>.</p>
 	</div>
 
 	<div class="req" id="dir_reasonable">
@@ -715,7 +715,7 @@
 
 
 	<div class="req" id="bidi_strings_metadata">
-	<p class="advisement">Provide metadata constructs that can be used to indicate the base direction of any <a>natural language</a> string.</p>
+	<p class="advisement">Provide metadata constructs that can be used to indicate the base direction of any <a data-cite="i18n-glossary#def_natural_language">natural language</a> string.</p>
 	<details class="links"><summary>more</summary>
 	<p><a href="https://w3c.github.io/string-meta/#bp-and-reco">Best Practices, Recommendations, and Gaps</a>, in <cite>Strings on the Web: Language and Direction Metadata</cite></p>
 	</details>
@@ -2205,11 +2205,11 @@
 <h3>Working with plain text</h3>
 
   	<div class="req" id="plain_avoid">
-	<p class="advisement">Avoid <a>natural language</a> text in elements or attribute values that only allow for plain text.</p>
+	<p class="advisement">Avoid <a data-cite="i18n-glossary#def_natural_language">natural language</a> text in elements or attribute values that only allow for plain text.</p>
 	</div>
 	
 	<div class="req" id="plain_attr_avoid">
-	<p class="advisement">Avoid defining attribute values whose content will be <a>natural language</a> text.</p>
+	<p class="advisement">Avoid defining attribute values whose content will be <a data-cite="i18n-glossary#def_natural_language">natural language</a> text.</p>
 	</div>
 
   	<div class="req" id="plain_span">
@@ -2724,11 +2724,11 @@
 <p>Natural language data values need language and base direction in order to ensure proper presentation, even if localized messages are not provided. This includes any error messages or other internal messages that are human readable in an API or protocol. See also [[STRING-META]].</p>
 
 	<div class="req" id="l10n_api_message_metadata">
-	<p class="advisement">APIs and protocols SHOULD include language and base direction metadata for all <a>natural language</a> messages and data fields.</p>
+	<p class="advisement">APIs and protocols SHOULD include language and base direction metadata for all <a data-cite="i18n-glossary#def_natural_language">natural language</a> messages and data fields.</p>
 	</div>
 
 	<div class="req" id="l10n_api_message_language">
-	<p class="advisement">All <a>natural language</a> fields or messages, including error messages, defined by a given API or protocol SHOULD be localized into the preferred locale of the user or, if that language is not available, supplied with a suitable fallback or default.</p>
+	<p class="advisement">All <a data-cite="i18n-glossary#def_natural_language">natural language</a> fields or messages, including error messages, defined by a given API or protocol SHOULD be localized into the preferred locale of the user or, if that language is not available, supplied with a suitable fallback or default.</p>
 	</div>
 
 	<div class="req" id="l10n_api_lang_nego">
