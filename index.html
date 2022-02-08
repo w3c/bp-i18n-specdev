@@ -36,7 +36,9 @@
           group:        "i18n",
           github: 		"w3c/bp-i18n-specdev",
 		  maxTocLevel: 3,
+		  xref: ["i18n-glossary"],
       };
+      
     </script>
 	<link rel="stylesheet" href="local.css">
   </head>
@@ -148,7 +150,7 @@
   <h4>Text-processing language information</h4>
   
    	<div class="req" id="tp_lang_values">
-	<p class="advisement">A language declaration that indicates the <a href="https://w3c.github.io/bp-i18n-specdev/#sec_text_processing_lang">text processing language</a> for a range of text must associate  a single language  value with a specific range of text.</p>
+	<p class="advisement">A language declaration that indicates the [=text-processing language=] for a range of text must associate  a single language  value with a specific range of text.</p>
 	</div>
   
   <p>When specifying the <a>text-processing language</a> you are declaring the language in which <strong>a specific range of text is actually written</strong>, so that user agents or applications that manipulate the text, such as voice browsers, spell checkers,  style processors, hyphenators, etc., can apply the appropriate rules to the text in question. So we are, by necessity, talking about associating a <em>single</em> language with a <em>specific</em> range of text.</p>
