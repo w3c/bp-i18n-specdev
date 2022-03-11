@@ -2195,12 +2195,56 @@
 <h3>Defining identifiers</h3>
 
   	<div class="req" id="identifier_case">
-	<p class="advisement">Identifiers should be case-sensitive.</p>
+	<p class="advisement">Identifiers should be case-sensitive when non-ASCII characters are allowed and case <strong>insensitive</strong> when only ASCII characters are allowed.</p>
+	<details class="links"><summary>explanations &amp; examples</summary>
+	    <p><a href="https://www.w3.org/TR/charmod-norm/#specifying-content-restrictions">Specifying Content Restrictions</a> in [[CHARMOD-NORM]]</p>
+	</details>
 	</div>
+	
+	<div class="req" id="identifier_content_surrogates">
+	<p class="advisement">Specifications should not allow surrogate <a>code points</a> (<code>U+D800</code> to <code>U+DFFF</code>) or non-character code points in identifiers.</p>
+	<details class="links"><summary>explanations &amp; examples</summary>
+	    <p><a href="https://www.w3.org/TR/charmod-norm/#specifying-content-restrictions">Specifying Content Restrictions</a> in [[CHARMOD-NORM]]</p>
+	</details>
+	</div>
+	
+	<div class="req" id="identifier_content_controls">
+	<p class="advisement">Specifications should not allow the <kbd>C0</kbd> (<code>U+0000</code> to <code>U+001F</code>) and <kbd>C1</kbd> (<code>U+0080</code> to <code>U+009F</code>) control characters in identifiers.</p>
+	<details class="links"><summary>explanations &amp; examples</summary>
+	    <p><a href="https://www.w3.org/TR/charmod-norm/#specifying-content-restrictions">Specifying Content Restrictions</a> in [[CHARMOD-NORM]]</p>
+	</details>
+	</div>
+
+	<div class="req" id="identifier_content_internal_id">
+	<p class="advisement">Specifications that define <a>application internal identifiers</a> (which are never shown to users and are always used for matching or processing within an application or protocol) should limit the content to a printable subset of ASCII. ASCII case-insensitive matching is recommended.</p>
+	<details class="links"><summary>explanations &amp; examples</summary>
+	    <p><a href="https://www.w3.org/TR/charmod-norm/#specifying-content-restrictions">Specifying Content Restrictions</a> in [[CHARMOD-NORM]]</p>
+	</details>
+	</div>
+	
+	<div class="req" id="identifier_content_display">
+	<p class="advisement"><a>Application internal identifier</a> fields or values must be wrapped with a localizable display value when displayed to end-users.</p>
+	<details class="links"><summary>explanations &amp; examples</summary>
+	    <p><a href="https://www.w3.org/TR/charmod-norm/#specifying-content-restrictions">Specifying Content Restrictions</a> in [[CHARMOD-NORM]]</p>
+	</details>
+	</div>
+	
+	<div class="req" id="identifier_content_visible">
+	<p class="advisement">When identifiers are visible or potentially visible to users, specifications should allow the use of non-ASCII Unicode characters, in order to ensure that users in all languages can use the resulting document format or protocol with equal access. Case sensitivity (i.e. no case folding) is recommended.</p>
+	<details class="links"><summary>explanations &amp; examples</summary>
+	    <p><a href="https://www.w3.org/TR/charmod-norm/#specifying-content-restrictions">Specifying Content Restrictions</a> in [[CHARMOD-NORM]]</p>
+	</details>
+	</div>
+	
+	<div class="req" id="identifier_non_ascii_namespace">
+	<p class="advisement">If <a>application internal identifiers</a> are not restricted to ASCII, specifications should define the characters that are allowed to start and be part of a valid identifier.</p>
+	<details class="links"><summary>explanations &amp; examples</summary>
+	    <p><a href="https://unicode.org/reports/tr31/">Unicode Identifier and Pattern Syntax</a> [[UAX31]]</p>
+        <p><a href="http://es5.github.io/x7.html#x7.6">Example</a>: ECMAScript 5, section 7.6 <em>Identifier Names and Identifiers</em></p>
+	</details>
+	</div>			
+	
 </section>
-
-
-
 
 
 <section id="markup_plaintext" class="subtopic">
