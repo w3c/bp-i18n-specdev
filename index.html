@@ -2211,14 +2211,22 @@
 	    <p><a href="https://www.w3.org/TR/charmod-norm/#specifying-content-restrictions">Specifying Content Restrictions</a> in [[CHARMOD-NORM]]</p>
 	</details>
 	</div>
+		
+	<div class="req" id="identifier_non_ascii_namespace">
+	<p class="advisement">If <a>application internal identifiers</a> are not restricted to ASCII, specifications should define the characters that are allowed to start and be part of a valid identifier.</p>
+	<details class="links"><summary>explanations &amp; examples</summary>
+	    <p><a href="https://unicode.org/reports/tr31/">Unicode Identifier and Pattern Syntax</a> [[UAX31]]</p>
+        <p><a href="http://es5.github.io/x7.html#x7.6">Example</a>: ECMAScript 5, section 7.6 <em>Identifier Names and Identifiers</em></p>
+	</details>
+	</div>
 	
-	<p>One key issue here is the handling of combining marks and certain other troublesome characters when parsing the document format: special focus needs to be paid to the characters allowed to <em>start</em> an identifier to ensure that normal text processing doesn't interfere with matching the identifier later.</p>
+	<p>One key issue when defining an identifier namespace or set of identifiers in a new specification is the handling of combining marks and certain other characters (such as joiners or bidi controls) when parsing the document format: special focus needs to be paid to how the identifier can be "tokenized" (separated from the surrounding text). One means of doing this is to restrict the range of characters allowed to <em>start</em> an identifier to ensure that normal text processing doesn't interfere with matching the identifier later.</p>
 	
 	<p><a href="https://unicode.org/reports/tr31/"><cite>Unicode Identifier and Pattern Syntax</cite></a> [[UAX31]] provides one model, used notably in programming languages such as Java or <a href="http://es5.github.io/x7.html#x7.6">JavaScript</a>. HTML and CSS also provide <a href="https://html.spec.whatwg.org/multipage/custom-elements.html#valid-custom-element-name">character range definitions</a> for custom identifiers, such as this <a href="https://www.w3.org/TR/xml/#sec-notation">EBNF</a> [[XML]] production:</p>
 	
 	<pre>
 PCENChar ::=
-    "-" | "." | [0-9] | "_" | [a-z] | #xB7 | [#xC0-#xD6] | [#xD8-#xF6] | [#xF8-#x37D] | 
+    "-" | "." | [0-9] | "_" | [a-zA-Z] | #xB7 | [#xC0-#xD6] | [#xD8-#xF6] | [#xF8-#x37D] | 
     [#x37F-#x1FFF] | [#x200C-#x200D] | [#x203F-#x2040] | [#x2070-#x218F] | [#x2C00-#x2FEF] |
     [#x3001-#xD7FF] | [#xF900-#xFDCF] | [#xFDF0-#xFFFD] | [#x10000-#xEFFFF]
 	</pre>
@@ -2227,13 +2235,7 @@ PCENChar ::=
 		<p>HTML and CSS processing is defined such that Unicode character properties (such as whether a given character is a combining mark) are not considered when parsing identifiers and tokens. This allows identifiers to start with a combining character and still be processed reliably, but a plain text editor might not handle the value identically.</p>
 	</div>
 	
-	<div class="req" id="identifier_non_ascii_namespace">
-	<p class="advisement">If <a>application internal identifiers</a> are not restricted to ASCII, specifications should define the characters that are allowed to start and be part of a valid identifier.</p>
-	<details class="links"><summary>explanations &amp; examples</summary>
-	    <p><a href="https://unicode.org/reports/tr31/">Unicode Identifier and Pattern Syntax</a> [[UAX31]]</p>
-        <p><a href="http://es5.github.io/x7.html#x7.6">Example</a>: ECMAScript 5, section 7.6 <em>Identifier Names and Identifiers</em></p>
-	</details>
-	</div>
+	<p>Specifications should exercise care when defining identifiers with regards to the handling of whitespace. Note that there are Unicode horizontal whitespace characters other than the ASCII characters <code>U+0020 SPACE</code> and <code>U+0009 TAB</code>.</p>
 	
 	<div class="req" id="identifier_content_surrogates">
 	<p class="advisement">Specifications should not allow surrogate <a>code points</a> (<code>U+D800</code> to <code>U+DFFF</code>) or non-character code points in identifiers.</p>
