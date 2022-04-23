@@ -43,6 +43,29 @@ function createIssueText () {
 
 
 
+function showChecklists (section, listLocation) {
+    // called after the page is loaded; sets up section by section lists of contents
+    // click on the contents list to see the recommendations in checklist form
+    
+    var out = ''
+    var checks, h3s
+    
+    h3s = section.querySelectorAll('h3')
+    for (var h=0;h<h3s.length;h++) {
+        out += `<details><summary>${ h3s[h].innerHTML }</summary>`
+        checks = h3s[h].parentNode.querySelectorAll('.advisement')
+        out += `<ul class="checklistGroup">`
+        for (var c=0;c<checks.length; c++) out += `<li><input type="checkbox"> ${ checks[c].innerHTML } <a href="#${ checks[c].parentNode.id }" class="checklistMore">more</a></li>`
+        out += `</ul>`
+        out += `</details>`
+        }
+    
+    
+    document.getElementById(listLocation).innerHTML = out
+    }
+
+
+
 
 
 

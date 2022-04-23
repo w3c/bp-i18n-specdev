@@ -331,3 +331,37 @@ aside h4 {
 .links_subtitle { font-style: italic; margin-block-start: 1rem; margin-bottom: 0; }
 
 
+
+
+.checklistGroup li {
+    list-style-type: none;
+    padding-inline: 1rem;
+    padding-block: .3em;
+    min-height: 2rem;
+    color: brown;
+    background-color: antiquewhite;
+    border-radius: 5px;
+    font-size: 95%;
+    }
+.checklistMore {
+    font-size: 90%;
+    font-style: italic;
+    text-decoration: none;
+    margin-inline-start: 1rem;
+    }
+.checklistGroup li input {
+    accent-color: chocolate;
+    }
+.checklist summary {
+    font-weight: normal;
+    margin-block: 2rem;
+    }
+.checklist details > summary {
+    color: saddlebrown;
+    margin-inline-start: 2rem;
+    }
+.summaryC summary {
+    color: saddlebrown;
+    font-weight: normal;
+    cursor: pointer;
+    }

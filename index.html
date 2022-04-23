@@ -78,23 +78,28 @@
 
 
 
-
-
-
 <section id="resource" class="topic">
   <h2>Language</h2>
 
 
-<p>In this section:</p>
+<!--p>In this section:</p>
 	<ul class="summary">
 	<li>[[[#sec_lang_decl]]]</li>
 	<li>[[[#sec_lang_values]]]</li>
 	<li>[[[#sec_lang_mixed]]]</li>
 	<li>[[[#lang_block]]]</li>
 	<li>[[[#lang_inline]]]</li>
-	</ul>
+	</ul-->
+
+<p>In this section (click on titles to view a checklist):</p>
+<div id="language_checklist" class="summaryC"></div>
 
 
+
+<!--details class="checklist" style="cursor: pointer;">
+<summary onClick="showChecklist(this.parentNode.parentNode, 'lang_checklist')">Show recommendations as a checklist</summary>
+<div id="lang_checklist"></div>
+</details-->
 
 <section id="sec_lang_decl" class="subtopic">
 <h3>Language basics</h3>
@@ -405,19 +410,31 @@
 <section id="text_direction" class="topic">
 <h2>Text direction</h2>
 
-<p>In this section:</p>
+
+<p>In this section (click on titles to view a checklist):</p>
+<div id="direction_checklist" class="summaryC"></div>
+
+
+
+
+<!--p>In this section:</p>
 	<ul class="summary">
 	<li>[[[#sec_dir_basic]]]</li>
 	<li>[[[#sec_dir_background]]]</li>
 	<li>[[[#sec_bidi_markup]]]</li>
 	<li>[[[#sec_bidi_strings]]]</li>
 	<li>[[[#bidi_inline]]]</li>
-	</ul>
+	</ul-->
 
 
 
   <p>It is important to establish direction for text written or mixed with right-to-left scripts. Characters in these scripts are stored in memory in the order they are typed and pronounced – called the logical order. The Unicode Bidirectional Algorithm (UBA) provides a lot of support for automatically rendering a sequence of characters stored in  logical order so that they are visually ordered as expected. Unfortunately, the UBA alone is not sufficient to correctly render bidirectional text, and additional information has to be provided about the default directional context to apply for a given sequence of characters.</p>
 
+
+<!--details class="checklist" style="cursor: pointer;">
+<summary onClick="showChecklist(this.parentNode.parentNode, 'dir_checklist')">Show recommendations as a checklist</summary>
+<div id="dir_checklist"></div>
+</details-->
 
 
 
@@ -823,7 +840,7 @@
 <h2>Characters</h2>
 
 
-<p>In this section:</p>
+<!--p>In this section:</p>
 	<ul class="summary">
 	<li>[[[#char_def]]]</li>
 	<li>[[[#char_referencemodel]]]</li>
@@ -836,7 +853,16 @@
 	<li>[[[#char_string]]]</li>
 	<li>[[[#char_ref_Unicode_char]]]</li>
 	<li>[[[#char_unicoderef]]]</li>
-	</ul>
+	</ul-->
+
+<p>In this section (click on titles for checklist view):</p>
+<div id="character_checklist" class="summaryC"></div>
+
+
+<!--details class="checklist" style="cursor: pointer;">
+<summary onClick="showChecklist(this.parentNode.parentNode, 'char_checklist')">Show recommendations as a checklist</summary>
+<div id="char_checklist"></div>
+</details-->
 
 
 <aside class="links" id="links_lang_mixed">
@@ -1536,7 +1562,14 @@
 <section id="operations" class="topic">
 <h2>Text-processing</h2>
 
-<p>In this section:</p>
+
+<p>In this section (click on titles to view a checklist):</p>
+<div id="text_checklist" class="summaryC"></div>
+
+
+
+
+<!--p>In this section:</p>
 	<ul class="summary">
 	<li>[[[#char_indexing]]]</li>
 	<li>[[[#string_match]]]</li>
@@ -1545,7 +1578,7 @@
 	<li>[[[#char_truncation]]]</li>
 	<li>[[[#file_naming]]]</li>
 	<li>[[[#char_sort]]]</li>
-	</ul>
+	</ul-->
 
 
 <section id="char_indexing" class="subtopic">
@@ -2114,6 +2147,11 @@
 <section id="sec_resid_non_ascii" class="topic">
 <h2>Resource identifiers</h2>
 
+<p>In this section (click on titles to view a checklist):</p>
+<div id="resource_checklist" class="summaryC"></div>
+
+
+
 
 
 <section id="sec_resid_basic" class="subtopic">
@@ -2153,12 +2191,18 @@
 <h2>Markup &amp; syntax</h2>
 
 
-<p>In this section:</p>
+<p>In this section (click on titles to view a checklist):</p>
+<div id="markup_checklist" class="summaryC"></div>
+
+
+
+
+<!--p>In this section:</p>
 	<ul class="summary">
 	<li>[[[#markup_elements_attributes]]]</li>
 	<li>[[[#markup_identifiers]]]</li>
 	<li>[[[#markup_plaintext]]]</li>
-	</ul>
+	</ul-->
 
 
 
@@ -2302,7 +2346,14 @@ PCENChar ::=
 <h2>Typographic support</h2>
 
 
-<p>In this section:</p>
+
+<p>In this section (click on titles to view a checklist):</p>
+<div id="typography_checklist" class="summaryC"></div>
+
+
+
+
+<!--p>In this section:</p>
 	<ul class="summary">
 	<li>[[[#text_decoration]]]</li>
 	<li>[[[#vertical]]]</li>
@@ -2310,7 +2361,7 @@ PCENChar ::=
 	<li>[[[#box_posn]]]</li>
 	<li>[[[#ruby]]]</li>
 	<li>[[[#typ_misc]]]</li>
-	</ul>
+	</ul-->
 
 
 
@@ -2527,14 +2578,20 @@ PCENChar ::=
 <h2>Locales, date and time values, and locally affected formats</h2>
 
 
-<p>In this section:</p>
+<p>In this section (click on titles to view a checklist):</p>
+<div id="locale_checklist" class="summaryC"></div>
+
+
+
+
+<!--p>In this section:</p>
 	<ul class="summary">
 	<li>[[[#loc_neutral]]]</li>
 	<li>[[[#loc_time]]]</li>
 	<li>[[[#loc_names]]]</li>
 	<li>[[[#loc_forms]]]</li>
 	<li>[[[#loc_numbers]]]</li>
-	</ul>
+	</ul-->
 
 
 
@@ -2851,6 +2908,11 @@ PCENChar ::=
 <section id="navigation" class="topic">
 <h2>Navigation</h2>
 
+<p>In this section (click on titles to view a checklist):</p>
+<div id="navigation_checklist" class="summaryC"></div>
+
+
+
 
 
 <section id="lang_negotiation" class="subtopic">
@@ -2903,7 +2965,14 @@ for (let i=0; i<reqs.length; i++) {
 		reqs[i].prepend(a)
 		}
 	}
+
+// establish the lists at section start with checklist details
+sectiontocs = document.querySelectorAll('.summaryC')
+for (let i=0; i<sectiontocs.length; i++) {
+	showChecklists(sectiontocs[i].parentNode, sectiontocs[i].id)
+	}
 </script>
+
 
 
 </body>
