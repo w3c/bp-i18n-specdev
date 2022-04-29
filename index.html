@@ -2167,7 +2167,20 @@
 </ul>
 </aside>
 
-
+    <p>Applications often need to organize sets of information or content. Frequently this involves sorting the content so that users can find what they are looking for. Many data types, such as number or dates, are easily sorted by comparing the values. When it comes to textual information, however, the nature of character encodings brings some additional complexity.</p>
+    
+    <p>One key choice is whether the sorting of textual data will be shown to users or is intended to follow the needs of a specific language or culture.</p>
+    
+    <div class="req" id="char_sort_internal_only">
+	<p class="advisement">Specifications or implementations that require a program-internal fast deterministic sorting of text (which will never be human visible) SHOULD specify that strings are sorted into ascending code unit order.</p>
+	<details class="links"><summary>explanations &amp; examples</summary>
+	<!-- TODO: add links -->
+	</details>
+    </div>
+    
+    <p>This matches JavaScript's <code>Array.prototype.sort</code> on an <code>Array</code> of <code>String</code>. In JavaScript, this ordering compares the 16-bit code units in each string. The resulting list will not match any particular alphabet or lexicographical order, particularly for code points represented by a surrogate pair.</p>
+    
+    <p>Specifications or applications that need to deal with sorting natural language text face some additional complexity. Unicode defines a default collation (sorting) order as part of the <code>Unicode Collation Algorithm</code> [[UTS10]], which can then be tailored to meet the needs of specific languages, <a>locales</a>, and cultures.</p>
 
   	<div class="req" id="char_sort_units">
 	<p class="advisement">Software that sorts or searches text for users SHOULD do so on the basis of appropriate collation units and ordering rules for the relevant language and/or application.</p>
