@@ -1386,6 +1386,64 @@
 	<p><a href="https://www.w3.org/TR/charmod/#sec-Escaping">Character Escaping, C042</a>, in <cite>Character Model for the World Wide Web: Fundamentals</cite></p>
 	</details>
 	</div>
+	
+	<div class="example" id="char-escape-examples">
+		<p>Here are some examples of common escaping mechanisms found on the Web or in common programming languages. The example character here is &#x1f63d; <code class=uname translate=no>U+1F63D</code>.</p>
+		<table>
+			<thead>
+				<tr>
+					<th width="20%">Type</th>
+					<th>Application</th>
+					<th width="20%">Example</th>
+					<th>Description</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>Hex NCRs</td>
+					<td>HTML, XML</td>
+					<td><code>&amp;#x1F63D;</code></td>
+					<td>Variable width hexadecimal encoding of the Unicode code point</td>
+				</tr>
+				<tr>
+					<td>Decimal NCRs</td>
+					<td>HTML, XML</td>
+					<td><code>&amp;#128573;</code></td>
+					<td>Variable width decimal encoding of the Unicode code point</td>
+				</tr>
+				<tr>
+					<td>Java (UTF-16)</td>
+					<td>Java, JavaScript, C</td>
+					<td><code>\uD83D\uDE3D</code></td>
+					<td>Fixed-width; encodes UTF-16 code units; supplementary characters use a surrogate pair</td>
+				</tr>
+				<tr>
+					<td>JavaScript ES6</td>
+					<td>Java, JavaScript, Rust, Ruby</td>
+					<td><code>\u{1F63D}</code></td>
+					<td>Variable-width; hexadecimal encoding of Unicode code points</td>
+				</tr>
+				<tr>
+					<td>UTR#18</td>
+					<td>Perl</td>
+					<td><code>\x{1F63D}</code></td>
+					<td>Variable-width; uses <code>x</code> instead of the more common <code>u</code></td>
+				</tr>
+				<tr>
+					<td>C (UTF-32)</td>
+					<td>C</td>
+					<td><code>\U0001f63d</code></td>
+					<td>Fixed-width; encodes UTF-32 code units; most often used to encode supplementary characters together with  lowercase <code>u</code> escapes used for BMP characters, e.g. <kbd>\u00c0 \U001f63d \u12fe</kbd></td>
+				</tr>
+				<tr>
+					<td>URL Encode</td>
+					<td>URLs</td>
+					<td><code>%F0%9F%98%BD</code></td>
+					<td>Encodes UTF-8 bytes</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
 
  	<div class="req" id="char_esc_alternates">
 	<p class="advisement">The number of different ways to escape a character SHOULD be minimized (ideally to one).</p>
