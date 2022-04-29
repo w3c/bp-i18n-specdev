@@ -2679,6 +2679,18 @@ PCENChar ::=
    	<div class="req" id="loc_neutral_neutral">
 	<p class="advisement">When definining data formats, use locale-neutral serialization forms.</p>
 	</div>
+
+    <p>Data values that are machine-readable and not specific to any particular language or culture are more durable and less open to misinterpretation than values that use one of the many different cultural representations. Things like dates, currencies, and numbers might look similar but have different meanings in different <a>locales</a>. For example, a date represented as the string <kbd>4/7</kbd> can be read as the 7th of April or the 4th of July depending on the user's preference. Similarly, <kbd>€2,000</kbd> is either two thousand Euros or an over-precise representation of two Euros. By using a locale-neutral format, systems avoid the need to establish specific interchange rules that vary according to the language or location of the user. When the data is already in a locale-specific format, making the locale and language explicit by providing <a>locale</a> parameters (usually in the form of a <a>language tag</a>) allows users to determine how to work with the data or perhaps enable automated translation services.</p>
+
+    <p>Most common data serialization formats are locale-neutral. For example, [[XMLSchema-2]] types such as <code>xsd:integer</code> and <code>xsd:date</code> are intended for locale-neutral data interchange. Using locale-neutral representations allows the data values to be processed accurately without complex parsing or misinterpretation and also allows the data to be presented in the format most comfortable for the consumer of the data in any locale. For example, rather than storing "€2000,00" as a string, it is strongly preferred to exchange a data structure such as:</p>
+
+    <pre>…
+<span class="hljs-string">"price"</span> {
+    <span class="hljs-string">"value"</span>: <span class="hljs-number">2000.00</span>,
+    <span class="hljs-string">"currency"</span>: <span class="hljs-string">"EUR"</span>
+}
+…</pre>
+    
 </section>
 
 
@@ -3020,7 +3032,7 @@ PCENChar ::=
 <section class="appendix" id="ack">
 <h2>Acknowledgements</h2>
 <p>Thanks to Addison Phillips for help reviewing old reviews for recommendations.</p>
-<p>Other people who contributed through reviews or issues include Steve Atkin, Andrew Cunningham, Martin Dürst, Asmus Freytag, John Klensin, Tomer Mahlin, Chaals McCathieNevile, Florian Rivoal.</p>
+<p>Other people who contributed through reviews or issues include Steve Atkin, Andrew Cunningham, Martin Dürst, Asmus Freytag, John Klensin, Tomer Mahlin, Chaals McCathieNevile, Florian Rivoal. Some material about locale-neutral representation was adapted from [[DWBP]].</p>
 </section>
 
 
