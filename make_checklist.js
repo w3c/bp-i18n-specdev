@@ -4,7 +4,7 @@ function createIssueText () {
 	// find the h2 level sections
 	var h2s = document.querySelectorAll('.topic')
 	
-	var out = ''
+	var out = '# Internationalisation review checklist\nCheck marks indicate relevant issues. Add comments to describe conformance.\n\nThis checklist was created <a href="https://www.w3.org/TR/international-specs/#ghChecklist">here</a>.\n\n'
 	
 	// process each h2 level section
 	for (var i=0;i<h2s.length;i++) {
@@ -14,21 +14,27 @@ function createIssueText () {
 		console.log(h2)
 		out += '## '+h2+'\n'
 
-		// get the h3 level sections
-		var h3s = h2s[i].querySelectorAll('.subtopic')		
+		// get the mustard from the checklist
+        var checklist = h2s[i].querySelector('.summaryC')
+		var h3s = checklist.querySelectorAll('details')	
+        
 		for (var j=0;j<h3s.length;j++) {
-			var h3 = h3s[j].querySelector('h3').textContent
+			var h3 = h3s[j].querySelector('summary').textContent
 			re = /[0-9]+\.[0-9]+ /
 			h3 = h3.replace(re, '')
 			console.log(h3)
 			out += '### '+h3+'\n'
+            
 			// get the guidelines
-			var guidelines = h3s[j].querySelectorAll('.advisement')
+			var guidelines = h3s[j].querySelectorAll('li')
 			for (var k=0;k<guidelines.length;k++) {
+                var checked = ''
+                var checkbox = guidelines[k].querySelector('input')
+                if (checkbox.checked) checked = 'x'
 				var temp = guidelines[k].innerHTML
-				temp = temp.replace(/<a class="self"[^<]+<\/a>/,'')
-				out += '1. [ ] '+temp+'\n'
-				//out += '1. [ ] '+guidelines[k].innerHTML+'\n'
+				temp = temp.replace(/<input type="checkbox"> /,'')
+				if (checked) out += `1. [x] ${ temp }<br>    _Comments_go_here_\n`
+				else out += `1. [ ] ${ temp }<br>    _Comments_go_here_\n`
 				}
 			
 			out += '\n'
@@ -38,6 +44,8 @@ function createIssueText () {
 	
 	return out
 	}
+
+
 
 
 
@@ -55,7 +63,7 @@ function showChecklists (section, listLocation) {
         out += `<details><summary>${ h3s[h].innerHTML }</summary>`
         checks = h3s[h].parentNode.querySelectorAll('.advisement')
         out += `<ul class="checklistGroup">`
-        for (var c=0;c<checks.length; c++) out += `<li><input type="checkbox"> ${ checks[c].innerHTML } <a href="#${ checks[c].parentNode.id }" class="checklistMore">more</a></li>`
+        for (var c=0;c<checks.length; c++) out += `<li><input type="checkbox"> ${ checks[c].innerHTML } <a href="https://www.w3.org/TR/international-specs/#${ checks[c].parentNode.id }" class="checklistMore" target="_blank">more</a></li>`
         out += `</ul>`
         out += `</details>`
         }
