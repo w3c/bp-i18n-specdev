@@ -1,10 +1,8 @@
 # Internationalization Best Practices for Spec Developers
 
 ### Documents
+- [Draft Note in /TR](https://www.w3.org/TR/international-specs/)
 - [Editor's copy](https://w3c.github.io/bp-i18n-specdev/)
-- [WD](https://www.w3.org/TR/international-specs/)
-- [Checklist-style view](https://www.w3.org/International/techniques/developing-specs?collapse)
-- [Same, fully expanded](https://www.w3.org/International/techniques/developing-specs)
 
 ### Feedback
 Please use the [GitHub issue list](https://github.com/w3c/bp-i18n-specdev/issues) to send feedback about this document.
