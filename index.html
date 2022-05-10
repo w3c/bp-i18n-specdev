@@ -1415,26 +1415,26 @@
 					<td>Decimal encoding of the Unicode code point</td>
 				</tr>
 				<tr>
-					<td>JavaScript (ECMAScript 6 and later), Ruby, Rust, [[UTS18]]</td>
-					<td>Delimited <code>\u</code></td>
+					<td>JavaScript, Ruby, Rust, [[UTS18]]</td>
+					<td><code>\u</code> delimited</td>
 					<td><code>\u{1F63D}</code></td>
 					<td>Hexadecimal encoding of the Unicode code point</td>
 				</tr>
 				<tr>
 					<td>Perl</td>
-					<td>Delimited <code>\x</code></td>
+					<td><code>\x</code> delimited</td>
 					<td><code>\x{1F63D}</code></td>
 					<td>Hexadecimal encoding of the Unicode code point; uses <code>x</code> instead of the more common <code>u</code></td>
 				</tr>
 				<tr>
 					<td>Java, JavaScript, JSON, C, C++, Python</td>
-    				<td>Java</td>
+    				<td><code>\u</code> UTF-16 code units</td>
 					<td><code>\uD83D\uDE3D</code></td>
 					<td>Fixed-width hexadecimal encoding of UTF-16 code units; <a>supplementary characters</a> are encoded as a surrogate pair</td>
 				</tr>
 				<tr>
 					<td>C, C++, Python</td>
-					<td>32-bit <code>\U</code></td>
+					<td><code>\U</code> UTF-32 code units</td>
 					<td><code>\U0001f63d</code></td>
 					<td>Fixed-width hexadecimal encoding of UTF-32 code units; most often used together with <code>\u</code> escapes (which are more efficient for the more-common <a>BMP</a> characters).<br>For example, <code>\u00c0 \U0001f63d \u12fe</code></td>
 				</tr>
