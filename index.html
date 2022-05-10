@@ -1396,57 +1396,67 @@
 		<table>
 			<thead>
 				<tr>
-					<th width="20%">Type</th>
-					<th>Application</th>
-					<th width="20%">Example</th>
+					<th width="15%">Example</th>
+					<th>Type</th>
+					<th style="padding:10px">Width</th>
+					<th width="20%">Application</th>
 					<th>Description</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr>
-					<td>Hex <abbr title="numeric character references">NCRs</abbr></td>
-					<td>HTML, XML</td>
 					<td><code>&amp;#x1F63D;</code></td>
-					<td>Variable-width; hexadecimal encoding of the Unicode code point</td>
-				</tr>
-				<tr>
-					<td>Decimal <abbr title="numeric character references">NCRs</abbr></td>
+					<td>Hex <abbr title="numeric character references">NCRs</abbr></td>
+					<td>Variable</td>
 					<td>HTML, XML</td>
+					<td>Hexadecimal encoding of the Unicode code point</td>
+				</tr>
+				<tr>
 					<td><code>&amp;#128573;</code></td>
-					<td>Variable-width; decimal encoding of the Unicode code point</td>
+					<td>Decimal <abbr title="numeric character references">NCRs</abbr></td>
+					<td>Variable</td>
+					<td>HTML, XML</td>
+					<td>Decimal encoding of the Unicode code point</td>
 				</tr>
 				<tr>
-					<td>Java (UTF-16)</td>
-					<td>Java, JavaScript, C</td>
-					<td><code>\uD83D\uDE3D</code></td>
-					<td>Fixed-width; encodes UTF-16 code units; <a>supplementary characters</a> are encoded as a surrogate pair</td>
-				</tr>
-				<tr>
-					<td>JavaScript ES6</td>
-					<td>Java, JavaScript, Rust, Ruby</td>
 					<td><code>\u{1F63D}</code></td>
-					<td>Variable-width; hexadecimal encoding of Unicode code points</td>
+					<td>Delimited <code>\u</code></td>
+					<td>Variable</td>
+					<td>JavaScript (ECMAScript 6 and later), Ruby, Rust, [[UTS18]]</td>
+					<td>Hexadecimal encoding of the Unicode code point</td>
 				</tr>
 				<tr>
-					<td>UTR#18</td>
-					<td>Perl</td>
 					<td><code>\x{1F63D}</code></td>
-					<td>Variable-width; hexadecimal encoding of Unicode code points; uses <code>x</code> instead of the more common <code>u</code></td>
+					<td>Delimited <code>\x</code></td>
+					<td>Variable</td>
+					<td>[[UTS18]], Perl</td>
+					<td>Hexadecimal encoding of the Unicode code point; uses <code>x</code> instead of the more common <code>u</code></td>
 				</tr>
 				<tr>
-					<td>C (UTF-32)</td>
-					<td>C</td>
+					<td><code>\uD83D\uDE3D</code></td>
+					<td>Java</td>
+					<td>Fixed</td>
+					<td>Java, JavaScript, JSON, C, C++, Python</td>
+					<td>Hexadecimal encoding of UTF-16 code units; <a>supplementary characters</a> are encoded as a surrogate pair</td>
+				</tr>
+				<tr>
 					<td><code>\U0001f63d</code></td>
-					<td>Fixed-width; hexadecimal encoding of UTF-32 code units; most often used together with <code>\u</code> ("Java") escapes (which are more efficient for the more-common <a>BMP</a> characters).<br>For example, <code>\u00c0 \U001f63d \u12fe</code></td>
+					<td>32-bit <code>\U</code></td>
+					<td>Fixed</td>
+					<td>C, C++, Python</td>
+					<td>Hexadecimal encoding of UTF-32 code units; most often used together with <code>\u</code> escapes (which are more efficient for the more-common <a>BMP</a> characters).<br>For example, <code>\u00c0 \U001f63d \u12fe</code></td>
 				</tr>
 				<tr>
-					<td>URL Encode</td>
-					<td>URLs</td>
 					<td><code>%F0%9F%98%BD</code></td>
-					<td>Variable-width; encodes UTF-8 bytes</td>
+					<td>URL Encode</td>
+					<td>Variable</td>
+					<td>URLs</td>
+					<td>Hexadecimal encoding of UTF-8 bytes; each byte requires three characters; each code point requires from 1 to 4 bytes</td>
 				</tr>
 			</tbody>
 		</table>
+		
+
 		<p>When choosing an escaping mechanism, note that hexadecimal is generally preferred to decimal encodings, due to the common use of hexadecimal in the Unicode Standard and its references.</p>
 	</div>
 
