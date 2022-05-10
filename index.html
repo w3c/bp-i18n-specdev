@@ -1396,61 +1396,52 @@
 		<table>
 			<thead>
 				<tr>
-					<th width="15%">Example</th>
+					<th width="20%">Found In</th>
 					<th>Type</th>
-					<th style="padding:10px">Width</th>
-					<th width="20%">Application</th>
+					<th width="15%">Example</th>
 					<th>Description</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr>
-					<td><code>&amp;#x1F63D;</code></td>
+					<td rowspan=2>HTML, XML</td>
 					<td>Hex <abbr title="numeric character references">NCRs</abbr></td>
-					<td>Variable</td>
-					<td>HTML, XML</td>
+					<td><code>&amp;#x1F63D;</code></td>
 					<td>Hexadecimal encoding of the Unicode code point</td>
 				</tr>
 				<tr>
-					<td><code>&amp;#128573;</code></td>
 					<td>Decimal <abbr title="numeric character references">NCRs</abbr></td>
-					<td>Variable</td>
-					<td>HTML, XML</td>
+					<td><code>&amp;#128573;</code></td>
 					<td>Decimal encoding of the Unicode code point</td>
 				</tr>
 				<tr>
-					<td><code>\u{1F63D}</code></td>
-					<td>Delimited <code>\u</code></td>
-					<td>Variable</td>
 					<td>JavaScript (ECMAScript 6 and later), Ruby, Rust, [[UTS18]]</td>
+					<td>Delimited <code>\u</code></td>
+					<td><code>\u{1F63D}</code></td>
 					<td>Hexadecimal encoding of the Unicode code point</td>
 				</tr>
 				<tr>
-					<td><code>\x{1F63D}</code></td>
+					<td>Perl</td>
 					<td>Delimited <code>\x</code></td>
-					<td>Variable</td>
-					<td>[[UTS18]], Perl</td>
+					<td><code>\x{1F63D}</code></td>
 					<td>Hexadecimal encoding of the Unicode code point; uses <code>x</code> instead of the more common <code>u</code></td>
 				</tr>
 				<tr>
-					<td><code>\uD83D\uDE3D</code></td>
-					<td>Java</td>
-					<td>Fixed</td>
 					<td>Java, JavaScript, JSON, C, C++, Python</td>
-					<td>Hexadecimal encoding of UTF-16 code units; <a>supplementary characters</a> are encoded as a surrogate pair</td>
+    				<td>Java</td>
+					<td><code>\uD83D\uDE3D</code></td>
+					<td>Fixed-width hexadecimal encoding of UTF-16 code units; <a>supplementary characters</a> are encoded as a surrogate pair</td>
 				</tr>
 				<tr>
-					<td><code>\U0001f63d</code></td>
-					<td>32-bit <code>\U</code></td>
-					<td>Fixed</td>
 					<td>C, C++, Python</td>
-					<td>Hexadecimal encoding of UTF-32 code units; most often used together with <code>\u</code> escapes (which are more efficient for the more-common <a>BMP</a> characters).<br>For example, <code>\u00c0 \U0001f63d \u12fe</code></td>
+					<td>32-bit <code>\U</code></td>
+					<td><code>\U0001f63d</code></td>
+					<td>Fixed-width hexadecimal encoding of UTF-32 code units; most often used together with <code>\u</code> escapes (which are more efficient for the more-common <a>BMP</a> characters).<br>For example, <code>\u00c0 \U0001f63d \u12fe</code></td>
 				</tr>
 				<tr>
-					<td><code>%F0%9F%98%BD</code></td>
-					<td>URL Encode</td>
-					<td>Variable</td>
 					<td>URLs</td>
+					<td>URL Encode</td>
+					<td><code>%F0%9F%98%BD</code></td>
 					<td>Hexadecimal encoding of UTF-8 bytes; each byte requires three characters; each code point requires from 1 to 4 bytes</td>
 				</tr>
 			</tbody>
