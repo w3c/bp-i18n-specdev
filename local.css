@@ -365,3 +365,9 @@ aside h4 {
     font-weight: normal;
     cursor: pointer;
     }
+
+
+.dumpBox {
+    width: 100%;
+    height: 400px;
+    }

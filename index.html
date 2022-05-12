@@ -53,55 +53,49 @@
 
   <section id="intro">
     <h2>Introduction</h2>
-      <p>Developers of specifications need advice  to ensure that what they produce will work for communities around the globe.</p>
-      <p>The Internationalization (i18n) WG tries to assist working groups  by reviewing specifications and engaging in discussion. Often, however, such interventions come later in the process than would be ideal, or mean that the i18n WG has to repeat the same information for each working group it interacts with.</p>
-      <p>It would be better if specification developers could access a checklist of best practices, which points  to explanations, examples and rationales where developers need it. Developers would then be able to build this knowledge into their work from the earliest stages, and could thereby reduce  rework needed when the i18n WG reviews their specification.</p>
-      <p>This document contains the beginnings of a checklist, and points to locations where you can find explanations, examples and rationales for recommendations&nbsp;made.&nbsp; If there is no such other place, that extra information will be added to this document. It may also be used to develop ideas and organize them.</p>
-      <p>The guidelines in this document are not intended to be hard and fast requirements. This document will achieve a significant part of its purpose if, where you don't understand the guidelines or disagree with them, you contact the Internationalization WG to discuss what should be done.</p>
-      <!--p>You may prefer to use <a href="https://www.w3.org/International/techniques/developing-specs?collapse">Internationalization Techniques: Developing specifications</a> most of the time, since it uses JavaScript to  help you more quickly see what's available and drill down to the information you need. (Where needed, it links to this or other documents.) There is also a <a href="https://www.w3.org/International/techniques/developing-specs">non-dynamic version</a> of the document available.</p-->
+    <p>Developers of specifications need advice  to ensure that what they produce will work for communities around the globe.</p>  
+    <p>The Internationalization (i18n) WG tries to assist working groups  by reviewing specifications and engaging in discussion. Often, however, such interventions come later in the process than would be ideal, or mean that the i18n WG has to repeat the same information for each working group it interacts with.</p>
+    <p>It would be better if specification developers could access a checklist of best practices, which points  to explanations, examples and rationales where developers need it. Developers would then be able to build this knowledge into their work from the earliest stages, and could thereby reduce  rework needed when the i18n WG reviews their specification.</p>
+    <p>This document contains the beginnings of a checklist, and points to locations where you can find explanations, examples and rationales for recommendations&nbsp;made.&nbsp; If there is no such other place, that extra information will be added to this document. It may also be used to develop ideas and organize them.</p>
+    <p>The guidelines in this document are not intended to be hard and fast requirements. This document will achieve a significant part of its purpose if, where you don't understand the guidelines or disagree with them, you contact the Internationalization WG to discuss what should be done.</p>
+    <p class="note">In this document, the term <a>natural language</a> is usually used to refer to the portions of a document or protocol intended for human consumption. The term <a>localizable text</a> is used to refer to the natural language content of formal languages, protocol syntaxes and the like, as distinct from <a>syntactic content</a> or <a>user-supplied values</a>. See the [[I18N-GLOSSARY]] for definitions of these and other terms used by the Internationalization Working Group.</p>
 
 
-	  <p class="note">In this document, the term <a>natural language</a> is usually used to refer to the portions of a document or protocol intended for human consumption. The term <a>localizable text</a> is used to refer to the natural language content of formal languages, protocol syntaxes and the like, as distinct from <a>syntactic content</a> or <a>user-supplied values</a>. See the [[I18N-GLOSSARY]] for definitions of these and other terms used by the Internationalization Working Group.</p>
+
 
 
 <section class="appendix" id="ghChecklist">
 <h3>Create a github checklist</h3>
 
-<p>To do a self-review, you can create a  checklist from this page, and paste it into a wiki page in your GitHub repository. Checkboxes alongside an  item can be used to indicate whether or not the recommendation is applicable to your spec. You can add  notes/questions to each item by editing the wiki. This will alert the Internationalization Working Group to your review.</p>
-<p>To create the text, simply click on the button just below, then paste the output it generates into a new wiki in your repository. We recommend that you then create a GitHub issue that points to the wiki page, and add the i18n-tracker label to it.</p>
-<p>We suggest that, before creating this source dump, you open the checklists just after each level 2 heading in this document and add a check mark alongside the items that are relevant to your spec. These will then be marked in your wiki.</p>
+<p>A checklist feature is provided with this page to help you review your spec for internationalization. The results of the review should be posted to a GitHub issue.</p>
 
-<p><button onClick="document.getElementById('ghIssue').value = createIssueText(); document.getElementById('ghIssue').select();">Create github issue checklist</button></p>
+<p>Follow these steps for each section that is relevant to your spec:</p>
 
-<textarea id="ghIssue" style="width: 100%; height: 400px;"></textarea>
+<ol>
+<li>Open the checklist by clicking on &quot;Show the self-review checklist&quot;.</li>
+
+<li>For each requirement that is relevant to your spec, click on the first checkbox.</li>
+
+<li>For each requirement that your spec fulfills, click on the second checkbox. (Tip: To save time, clicking on the second checkbox will automatically turn on the first checkbox, too.)</li>
+
+<li>When finished, click on the button &quot;Create markdown for GitHub&quot;. This will produce markdown for just the requirements that you indicated were relevant to your spec.</li>
+
+<li>Copy the markdown code to a comment in a GitHub issue where you are capturing the results of your self-review work. If you have already done a review using the short review checklist you should copy the results produced here to other comment fields in that issue. This keeps all the review information together. Note that you'll need to repeat this copy-paste for each of the sections that contain requirements relevant to your spec.</li>
+
+<li>Add clarification notes for the results by editing the markdown in the GitHub issue.</li>
+<li>Ensure that your GitHub issue has the i18n-tracker label set, so that the Internationalization WG is aware of your review results.</li>
+</ol>
 </section>
 </section>
 
 
 
-<section id="resource" class="topic">
-  <h2>Language</h2>
+<section id="language" class="topic">
+<h2>Language</h2>
 
-
-<!--p>In this section:</p>
-	<ul class="summary">
-	<li>[[[#sec_lang_decl]]]</li>
-	<li>[[[#sec_lang_values]]]</li>
-	<li>[[[#sec_lang_mixed]]]</li>
-	<li>[[[#lang_block]]]</li>
-	<li>[[[#lang_inline]]]</li>
-	</ul-->
-
-<p>Expand the following to reveal just the guidelines. Add a check mark to items that are relevant to you. <a href="#ghChecklist">Create a checklist</a> that can be transferred to a GitHub wiki.</p> 
 
 <div id="language_checklist" class="summaryC"></div>
 
-
-
-<!--details class="checklist" style="cursor: pointer;">
-<summary onClick="showChecklist(this.parentNode.parentNode, 'lang_checklist')">Show recommendations as a checklist</summary>
-<div id="lang_checklist"></div>
-</details-->
 
 <section id="sec_lang_decl" class="subtopic">
 <h3>Language basics</h3>
@@ -111,7 +105,6 @@
 <p class="links_title">Useful background and overviews for this section</p>
 <ul>
 <li class="w3"><p class="link"><a href="https://www.w3.org/International/questions/qa-lang-why">Why use the language attribute?</a>.</p></li>
-<!--li class="w3"><p class="link"><a href="https://w3c.github.io/i18n-discuss/notes/annotation-language-use-cases">Use cases for language information in web annotations</a>. Illustrates the difference between text-processing and metadata types of language declaration.</p></li-->
 <li class="w3"><p class="link"><a href="https://www.w3.org/International/questions/qa-http-and-lang">Types of language declaration</a>. How 'metadata' and 'text-processing' types of language information differ.</p></li>
 <li class="w3"><p class="link"><a href="https://www.w3.org/International/articles/lang-bidi-use-cases">Use cases for bidi and language metadata on the Web</a>.</p></li>
 </ul>
@@ -413,8 +406,7 @@
 <h2>Text direction</h2>
 
 
-<p>Expand the following to reveal just the guidelines. Add a check mark to items that are relevant to you. <a href="#ghChecklist">Create a checklist</a> that can be transferred to a GitHub wiki.</p>
-<div id="direction_checklist" class="summaryC"></div>
+<div id="text_direction_checklist" class="summaryC"></div>
 
 
 
@@ -857,8 +849,7 @@
 	<li>[[[#char_unicoderef]]]</li>
 	</ul-->
 
-<p>Expand the following to reveal just the guidelines. Add a check mark to items that are relevant to you. <a href="#ghChecklist">Create a checklist</a> that can be transferred to a GitHub wiki.</p>
-<div id="character_checklist" class="summaryC"></div>
+<div id="characters_checklist" class="summaryC"></div>
 
 
 <!--details class="checklist" style="cursor: pointer;">
@@ -1160,8 +1151,8 @@
 	<p><a href="https://www.w3.org/TR/charmod/#sec-RefProcModel">Reference Processing Model C078</a>, in <cite>Character Model for the World Wide Web: Fundamentals</cite>.</p>
 	</details>
 	</div>
-	
-	<p>A "surrogate code point" refers here to the use of character values in the range <code>U+D800</code> through <code>U+DFFF</code> inclusive. These code points are reserved to allow the UTF-16 character encoding to address <a>supplementary characters</a>. Surrogates are always used in pairs and only appear when the UTF-16 encoding is being used. A single surrogate code point is referred to as an "unpaired surrogate" and should never be used.</p>
+    
+    <p>A "surrogate code point" refers here to the use of character values in the range <code>U+D800</code> through <code>U+DFFF</code> inclusive. These code points are reserved to allow the UTF-16 character encoding to address <a>supplementary characters</a>. Surrogates are always used in pairs and only appear when the UTF-16 encoding is being used. A single surrogate code point is referred to as an "unpaired surrogate" and should never be used.</p>
 
 	<div class="req" id="char_compatibility">
 	<p class="advisement">Specifications SHOULD exclude compatibility characters in the syntactic elements (markup, delimiters, identifiers) of the formats they define.</p>
@@ -1390,9 +1381,10 @@
 	<p><a href="https://www.w3.org/TR/charmod/#sec-Escaping">Character Escaping, C042</a>, in <cite>Character Model for the World Wide Web: Fundamentals</cite></p>
 	</details>
 	</div>
+
 	
 	<div class="example" id="char-escape-examples">
-		<p>Here are some examples of common escaping mechanisms found on the Web or in common programming languages. The example character here is &#x1f63d; <code class=uname translate=no>U+1F63D</code>.</p>
+		<p>Here are some examples of common escaping mechanisms found on the Web or in common programming languages. The example character here is &#x1f63d; <code class="uname" translate="no">U+1F63D</code>.</p>
 		<table>
 			<thead>
 				<tr>
@@ -1404,7 +1396,7 @@
 			</thead>
 			<tbody>
 				<tr>
-					<td rowspan=2>HTML, XML</td>
+					<td rowspan="2">HTML, XML</td>
 					<td>Hex <abbr title="numeric character references">NCRs</abbr></td>
 					<td><code>&amp;#x1F63D;</code></td>
 					<td>Hexadecimal encoding of the Unicode code point</td>
@@ -1450,7 +1442,6 @@
 
 		<p>When choosing an escaping mechanism, note that hexadecimal is generally preferred to decimal encodings, due to the common use of hexadecimal in the Unicode Standard and its references.</p>
 	</div>
-
  	<div class="req" id="char_esc_alternates">
 	<p class="advisement">The number of different ways to escape a character SHOULD be minimized (ideally to one).</p>
 	<details class="links"><summary>explanations &amp; examples</summary>
@@ -1627,8 +1618,7 @@
 <h2>Text-processing</h2>
 
 
-<p>Expand the following to reveal just the guidelines. Add a check mark to items that are relevant to you. <a href="#ghChecklist">Create a checklist</a> that can be transferred to a GitHub wiki.</p>
-<div id="text_checklist" class="summaryC"></div>
+<div id="operations_checklist" class="summaryC"></div>
 
 
 
@@ -2015,9 +2005,10 @@
 
     <p>Otherwise most limits are expressed in terms of code points in Unicode or code units (such as bytes) in a specific character encoding. Code points provides the best user experience, since all Unicode code points are treated identically: if text is truncated after 40 code points, all languages and scripts get the same number of code points to work with. By contrast, when the size limit is expressed in code units such as bytes in UTF-8, users who write in a language that mostly uses ASCII letters get many more characters (code points) for a given size limit than user's whose language is mostly made up of characters that take 2-, 3-, or 4-bytes per code point.</p>
 
-    <aside class=example>
-		<h2>Text truncation in UTF-8</h2>
-		<p>Below you can see the effect of truncating a given string of text encoded in UTF-8 on a 40-byte boundary. There are several things to notice here.</p>
+    <aside class="example">
+		<h3>Text truncation in UTF-8</h3>
+
+        <p>Below you can see the effect of truncating a given string of text encoded in UTF-8 on a 40-byte boundary. There are several things to notice here.</p>
 		<p>First, the number of characters in the truncated string decreases as the number of bytes required per character goes up. So the Cyrillic string has half the number of characters as the ASCII string. The Chinese string has about 1/3 the number. And the emoji string has 1/4.</p>
 		<p>Second, in two of the three examples, the text is truncated on a byte boundary in the middle of a character. The resulting "dangling byte" is rendered as U+FFFD and the byte sequence itself is not valid UTF-8. This can interfere with the validity of a given text file. Unlike many legacy character encodings, UTF-8 is highly patterned, so the the longest broken character sequence that can result from mid-character truncation is one character. By contrast, in many legacy encodings, a file or document containing a mid-character truncated string can be wholly changed or rendered unintelligible after that point.</p>
 		<table class=truncExample>
@@ -2171,20 +2162,23 @@
 </ul>
 </aside>
 
+
     <p>Applications often need to organize sets of information or content. Frequently this involves sorting the content so that users can find what they are looking for. Many data types, such as numbers or dates, are easily sorted by comparing the values. When it comes to textual information, however, the nature of character encodings brings some additional complexity.</p>
     
     <p>One key choice is whether the sorting of textual data will be shown to users and thus follow the sorting rules of a specific language or culture or whether the sorting is strictly internal.</p>
     
     <div class="req" id="char_sort_internal_only">
 	<p class="advisement">Specifications or implementations that require a program-internal, fast, and deterministic sorting of text (which will never be human visible) SHOULD specify that strings are sorted into ascending code unit order.</p>
-	<details class="links"><summary>explanations &amp; examples</summary>
-	<!-- TODO: add links -->
-	</details>
+	<!--details class="links"><summary>explanations &amp; examples</summary>
+	TODO: add links
+	</details -->
     </div>
     
     <p>This matches JavaScript's <code>Array.prototype.sort</code> on an <code>Array</code> of <code>String</code>. In JavaScript, this ordering compares the 16-bit code units in each string. The resulting list will not match any particular alphabet or lexicographical order, particularly for code points represented by a surrogate pair.</p>
     
     <p>Specifications or applications that need to deal with sorting natural language text face some additional complexity. Unicode defines a default collation (sorting) order as part of the <code>Unicode Collation Algorithm</code> [[UTS10]], which can then be tailored to meet the needs of specific languages, <a>locales</a>, and cultures.</p>
+
+
 
   	<div class="req" id="char_sort_units">
 	<p class="advisement">Software that sorts or searches text for users SHOULD do so on the basis of appropriate collation units and ordering rules for the relevant language and/or application.</p>
@@ -2224,8 +2218,7 @@
 <section id="sec_resid_non_ascii" class="topic">
 <h2>Resource identifiers</h2>
 
-<p>Expand the following to reveal just the guidelines. Add a check mark to items that are relevant to you. <a href="#ghChecklist">Create a checklist</a> that can be transferred to a GitHub wiki.</p>
-<div id="resource_checklist" class="summaryC"></div>
+<div id="sec_resid_non_ascii_checklist" class="summaryC"></div>
 
 
 
@@ -2268,7 +2261,6 @@
 <h2>Markup &amp; syntax</h2>
 
 
-<p>Expand the following to reveal just the guidelines. Add a check mark to items that are relevant to you. <a href="#ghChecklist">Create a checklist</a> that can be transferred to a GitHub wiki.</p>
 <div id="markup_checklist" class="summaryC"></div>
 
 
@@ -2424,7 +2416,6 @@ PCENChar ::=
 
 
 
-<p>Expand the following to reveal just the guidelines. Add a check mark to items that are relevant to you. <a href="#ghChecklist">Create a checklist</a> that can be transferred to a GitHub wiki.</p>
 <div id="typography_checklist" class="summaryC"></div>
 
 
@@ -2655,7 +2646,6 @@ PCENChar ::=
 <h2>Locales, date and time values, and locally affected formats</h2>
 
 
-<p>Expand the following to reveal just the guidelines. Add a check mark to items that are relevant to you. <a href="#ghChecklist">Create a checklist</a> that can be transferred to a GitHub wiki.</p>
 <div id="locale_checklist" class="summaryC"></div>
 
 
@@ -2674,13 +2664,14 @@ PCENChar ::=
 
 
 <section id="loc_neutral" class="subtopic">
-<h2>Working with locale-affected values</h2>
+<h3>Working with locale-affected values</h3>
 
 <p>Software systems that support languages and cultural preferences are said to be <q>internationalized</q>. An internationalized system uses APIs to provide language or culturally specific processing, based on user preferences. These user preferences are usually referred to as a <q>locale</q>. For more information on general internationalization terminology, see <cite>Language Tags and Locale Identifiers</cite> [[LTLI]]</p>
 
    	<div class="req" id="loc_neutral_neutral">
 	<p class="advisement">When definining data formats, use locale-neutral serialization forms.</p>
 	</div>
+
 
     <p>Data values that are machine-readable and not specific to any particular language or culture are more durable and less open to misinterpretation than values that use one of the many different cultural representations. Things like dates, currencies, and numbers might look similar but have different meanings in different <a>locales</a>. For example, a date represented as the string <kbd>4/7</kbd> can be read as the 7th of April or the 4th of July depending on the user's preference. Similarly, <kbd>€2,000</kbd> is either two thousand Euros or an over-precise representation of two Euros. By using a locale-neutral format, systems avoid the need to establish specific interchange rules that vary according to the language or location of the user. When the data is already in a locale-specific format, making the locale and language explicit by providing <a>locale</a> parameters (usually in the form of a <a>language tag</a>) allows users to determine how to work with the data or perhaps enable automated translation services.</p>
 
@@ -2692,7 +2683,6 @@ PCENChar ::=
     <span class="hljs-string">"currency"</span>: <span class="hljs-string">"EUR"</span>
 }
 …</pre>
-    
 </section>
 
 
@@ -2984,7 +2974,6 @@ PCENChar ::=
     </div>
 
 </section>
-
 </section>
 </section>
 
@@ -2997,7 +2986,6 @@ PCENChar ::=
 <section id="navigation" class="topic">
 <h2>Navigation</h2>
 
-<p>Expand the following to reveal just the guidelines. Add a check mark to items that are relevant to you. <a href="#ghChecklist">Create a checklist</a> that can be transferred to a GitHub wiki.</p>
 <div id="navigation_checklist" class="summaryC"></div>
 
 
