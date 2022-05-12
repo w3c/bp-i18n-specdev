@@ -238,7 +238,7 @@
 	</details>
 	</div>
 
-    <p>BCP 47 defines a method to combine subtags in order to create a much more powerful notation for language tags than that provided by the old ISO lists, but it is also backwards compatible with the ISO lists.</p>
+    <p>BCP 47 is the <a>language tag</a> system used by Internet and Web standards (and many other places). It defines a method of using <em>subtags</em> from an IANA registry to form a string which describes the language of content. The subtags in the registry are primarily based on (and maintain strict compatibility with) ISO and UN standards for identifying languages, scripts, regions, and countries. BCP47 also forms the basis for <a>Unicode locales</a>.</p>
     <p>For an overview of the key features of BCP 47, see <a href="https://www.w3.org/International/articles/language-tags/">Language tags in HTML and XML</a>.</p>
  
 
@@ -1155,11 +1155,13 @@
 	</div>
 
 	<div class="req" id="char_surrogate">
-	<p class="advisement">Specifications MUST NOT allow the use of surrogate code points.</p>
+	<p class="advisement">Specifications MUST NOT allow the use of unpaired surrogate code points.</p>
 	<details class="links"><summary>explanations &amp; examples</summary>
 	<p><a href="https://www.w3.org/TR/charmod/#sec-RefProcModel">Reference Processing Model C078</a>, in <cite>Character Model for the World Wide Web: Fundamentals</cite>.</p>
 	</details>
 	</div>
+	
+	<p>A "surrogate code point" refers here to the use of character values in the range <code>U+D800</code> through <code>U+DFFF</code> inclusive. These code points are reserved to allow the UTF-16 character encoding to address <a>supplementary characters</a>. Surrogates are always used in pairs and only appear when the UTF-16 encoding is being used. A single surrogate code point is referred to as an "unpaired surrogate" and should never be used.</p>
 
 	<div class="req" id="char_compatibility">
 	<p class="advisement">Specifications SHOULD exclude compatibility characters in the syntactic elements (markup, delimiters, identifiers) of the formats they define.</p>
@@ -1387,6 +1389,66 @@
 	<details class="links"><summary>explanations &amp; examples</summary>
 	<p><a href="https://www.w3.org/TR/charmod/#sec-Escaping">Character Escaping, C042</a>, in <cite>Character Model for the World Wide Web: Fundamentals</cite></p>
 	</details>
+	</div>
+	
+	<div class="example" id="char-escape-examples">
+		<p>Here are some examples of common escaping mechanisms found on the Web or in common programming languages. The example character here is &#x1f63d; <code class=uname translate=no>U+1F63D</code>.</p>
+		<table>
+			<thead>
+				<tr>
+					<th width="20%">Found In</th>
+					<th>Type</th>
+					<th width="15%">Example</th>
+					<th>Description</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td rowspan=2>HTML, XML</td>
+					<td>Hex <abbr title="numeric character references">NCRs</abbr></td>
+					<td><code>&amp;#x1F63D;</code></td>
+					<td>Hexadecimal encoding of the Unicode code point</td>
+				</tr>
+				<tr>
+					<td>Decimal <abbr title="numeric character references">NCRs</abbr></td>
+					<td><code>&amp;#128573;</code></td>
+					<td>Decimal encoding of the Unicode code point</td>
+				</tr>
+				<tr>
+					<td>JavaScript, Ruby, Rust, [[UTS18]]</td>
+					<td><code>\u</code> delimited</td>
+					<td><code>\u{1F63D}</code></td>
+					<td>Hexadecimal encoding of the Unicode code point</td>
+				</tr>
+				<tr>
+					<td>Perl</td>
+					<td><code>\x</code> delimited</td>
+					<td><code>\x{1F63D}</code></td>
+					<td>Hexadecimal encoding of the Unicode code point; uses <code>x</code> instead of the more common <code>u</code></td>
+				</tr>
+				<tr>
+					<td>Java, JavaScript, JSON, C, C++, Python</td>
+    				<td><code>\u</code> UTF-16 code units</td>
+					<td><code>\uD83D\uDE3D</code></td>
+					<td>Fixed-width hexadecimal encoding of UTF-16 code units; <a>supplementary characters</a> are encoded as a surrogate pair</td>
+				</tr>
+				<tr>
+					<td>C, C++, Python</td>
+					<td><code>\U</code> UTF-32 code units</td>
+					<td><code>\U0001f63d</code></td>
+					<td>Fixed-width hexadecimal encoding of UTF-32 code units; most often used together with <code>\u</code> escapes (which are more efficient for the more-common <a>BMP</a> characters).<br>For example, <code>\u00c0 \U0001f63d \u12fe</code></td>
+				</tr>
+				<tr>
+					<td>URLs</td>
+					<td>URL Encode</td>
+					<td><code>%F0%9F%98%BD</code></td>
+					<td>Hexadecimal encoding of UTF-8 bytes; each byte requires three characters; each code point requires from 1 to 4 bytes</td>
+				</tr>
+			</tbody>
+		</table>
+		
+
+		<p>When choosing an escaping mechanism, note that hexadecimal is generally preferred to decimal encodings, due to the common use of hexadecimal in the Unicode Standard and its references.</p>
 	</div>
 
  	<div class="req" id="char_esc_alternates">
@@ -2109,7 +2171,20 @@
 </ul>
 </aside>
 
-
+    <p>Applications often need to organize sets of information or content. Frequently this involves sorting the content so that users can find what they are looking for. Many data types, such as numbers or dates, are easily sorted by comparing the values. When it comes to textual information, however, the nature of character encodings brings some additional complexity.</p>
+    
+    <p>One key choice is whether the sorting of textual data will be shown to users and thus follow the sorting rules of a specific language or culture or whether the sorting is strictly internal.</p>
+    
+    <div class="req" id="char_sort_internal_only">
+	<p class="advisement">Specifications or implementations that require a program-internal, fast, and deterministic sorting of text (which will never be human visible) SHOULD specify that strings are sorted into ascending code unit order.</p>
+	<details class="links"><summary>explanations &amp; examples</summary>
+	<!-- TODO: add links -->
+	</details>
+    </div>
+    
+    <p>This matches JavaScript's <code>Array.prototype.sort</code> on an <code>Array</code> of <code>String</code>. In JavaScript, this ordering compares the 16-bit code units in each string. The resulting list will not match any particular alphabet or lexicographical order, particularly for code points represented by a surrogate pair.</p>
+    
+    <p>Specifications or applications that need to deal with sorting natural language text face some additional complexity. Unicode defines a default collation (sorting) order as part of the <code>Unicode Collation Algorithm</code> [[UTS10]], which can then be tailored to meet the needs of specific languages, <a>locales</a>, and cultures.</p>
 
   	<div class="req" id="char_sort_units">
 	<p class="advisement">Software that sorts or searches text for users SHOULD do so on the basis of appropriate collation units and ordering rules for the relevant language and/or application.</p>
@@ -2606,6 +2681,18 @@ PCENChar ::=
    	<div class="req" id="loc_neutral_neutral">
 	<p class="advisement">When definining data formats, use locale-neutral serialization forms.</p>
 	</div>
+
+    <p>Data values that are machine-readable and not specific to any particular language or culture are more durable and less open to misinterpretation than values that use one of the many different cultural representations. Things like dates, currencies, and numbers might look similar but have different meanings in different <a>locales</a>. For example, a date represented as the string <kbd>4/7</kbd> can be read as the 7th of April or the 4th of July depending on the user's preference. Similarly, <kbd>€2,000</kbd> is either two thousand Euros or an over-precise representation of two Euros. By using a locale-neutral format, systems avoid the need to establish specific interchange rules that vary according to the language or location of the user. When the data is already in a locale-specific format, making the locale and language explicit by providing <a>locale</a> parameters (usually in the form of a <a>language tag</a>) allows users to determine how to work with the data or perhaps enable automated translation services.</p>
+
+    <p>Most common data serialization formats are locale-neutral. For example, [[XMLSchema-2]] types such as <code>xsd:integer</code> and <code>xsd:date</code> are intended for locale-neutral data interchange. Using locale-neutral representations allows the data values to be processed accurately without complex parsing or misinterpretation and also allows the data to be presented in the format most comfortable for the consumer of the data in any locale. For example, rather than storing "€2000,00" as a string, it is strongly preferred to exchange a data structure such as:</p>
+
+    <pre>…
+<span class="hljs-string">"price"</span> {
+    <span class="hljs-string">"value"</span>: <span class="hljs-number">2000.00</span>,
+    <span class="hljs-string">"currency"</span>: <span class="hljs-string">"EUR"</span>
+}
+…</pre>
+    
 </section>
 
 
@@ -2947,7 +3034,7 @@ PCENChar ::=
 <section class="appendix" id="ack">
 <h2>Acknowledgements</h2>
 <p>Thanks to Addison Phillips for help reviewing old reviews for recommendations.</p>
-<p>Other people who contributed through reviews or issues include Steve Atkin, Andrew Cunningham, Martin Dürst, Asmus Freytag, John Klensin, Tomer Mahlin, Chaals McCathieNevile, Florian Rivoal.</p>
+<p>Other people who contributed through reviews or issues include Steve Atkin, Andrew Cunningham, Martin Dürst, Asmus Freytag, John Klensin, Tomer Mahlin, Chaals McCathieNevile, Florian Rivoal. Some material about locale-neutral representation was adapted from [[DWBP]].</p>
 </section>
 
 
