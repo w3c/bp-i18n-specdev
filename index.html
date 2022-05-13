@@ -972,9 +972,22 @@
     </aside>
 
 
+
+
+
+
 <section id="char_def" class="subtopic">
 <h3>Choosing a definition of 'character'</h3>
 
+
+<p>The term character is used differently in a variety of contexts and often leads to confusion when used outside of these contexts. In the context of the digital representations of text, a character can be defined as a small logical unit of text. Text is then defined as sequences of characters. While such an informal definition is sufficient to create or capture a common understanding in many cases, it is also sufficiently open to create misunderstandings as soon as details start to matter. In order to write effective specifications, protocol implementations, and software for end users, it is very important to understand that these misunderstandings can occur.</p>
+
+<p>This section examines some of these contexts, meanings and confusions.</p>
+
+
+<div class="xref"><span class="seealso">See also</span>
+<p>[[[#char_string]]].</p>
+</div>
 
 <aside class="links" id="links_char_def">
 <p class="links_title">Useful background and overviews for this section</p>
@@ -983,53 +996,103 @@
 </ul>
 </aside>
 
-<div class="xref"><span class="seealso">See also</span>
-<p>[[[#char_string]]].</p>
-</div>
-
-
 
 	<div class="req" id="char_specific">
 	<p class="advisement">Specifications SHOULD use specific terms, when available, instead of the general term 'character'.</p>
-	<details class="links"><summary>explanations &amp; examples</summary>
+	<details class="links"><summary>source</summary>
 	<p><a href="https://www.w3.org/TR/charmod/#sec-PerceptionsOutro">Perceptions of Characters, Summary C067</a>, in <cite>Character Model for the World Wide Web 1.0: Fundamentals</cite>.</p>
 	</details>
 	</div>
 
-	<div class="req" id="char_define">
+
+<p>Specific terms could include [=code point=], [=grapheme cluster=], <a href="https://www.w3.org/TR/css-text-3/#typographic-character-unit">typographic character unit</a>, [=code unit=], and [=glyph=].</p>
+
+
+<div class="req" id="char_define">
 	<p class="advisement">When specifications use the term 'character' the specifications MUST define which meaning they intend, and  SHOULD explicitly define the term 'character' to mean a Unicode code point.</p>
-	<details class="links"><summary>explanations &amp; examples</summary>
+	<details class="links"><summary>source</summary>
 	<p><a href="https://www.w3.org/TR/charmod/#sec-PerceptionsOutro">Perceptions of Characters, Summary C010</a>, in <cite>Character Model for the World Wide Web 1.0: Fundamentals</cite></p>
 	</details>
-	</div>
+  </div>
+
+<p>The developers of specifications, and the developers of software based on those specifications, are likely to be more familiar with usages of the term 'character' they have experienced and less familiar with the wide variety of usages in an international context. Furthermore, within a computing context, characters are often confused with related concepts, resulting in incomplete or inappropriate specifications and software.</p>
 
 	<div class="req" id="char_physical_storage">
 	<p class="advisement">Specifications, software and content MUST NOT require or depend on a one-to-one relationship between characters and units of physical storage.</p>
-	<details class="links"><summary>explanations &amp; examples</summary>
+	<details class="links"><summary>source</summary>
 	<p><a href="https://www.w3.org/TR/charmod/#sec-Storage">Units of storage C009</a>, in <cite>Character Model for the World Wide Web 1.0: Fundamentals</cite></p>
 	</details>
 	</div>
 
-	<div class="req" id="char_sounds">
+<p>Computer storage and communication rely on units of physical storage and information interchange, such as bits and bytes (8-bit units, also called octets). A frequent error in specifications and implementations is the equating of characters with units of physical storage. The mapping between characters and such units of storage is actually quite complex.</p>
+
+
+<div class="req" id="char_sounds">
 	<p class="advisement">Specifications, software and content MUST NOT require or depend on a one-to-one correspondence between characters and the sounds of a language.</p>
-	<details class="links"><summary>explanations &amp; examples</summary>
+	<details class="links"><summary>source</summary>
 	<p><a href="https://www.w3.org/TR/charmod/#sec-WritingSystem">Units of aural rendering C001</a>, in <cite>Character Model for the World Wide Web 1.0: Fundamentals</cite></p>
 	</details>
-	</div>
+  </div>
+
+<p>In some scripts, characters have a close relationship to phonemes (a <span class="new-term">phoneme</span> is a minimally distinct sound in the context of a particular spoken language), while in others they are closely related to meanings. Even when characters (loosely) correspond to phonemes, this relationship may not be simple, and there is rarely a one-to-one correspondence between character and phoneme.</p>
+
+<div class="example">
+<p>The following are examples of mismatches between the term character and units of sound:</p>
+
+<ul>
+<li>In the English sentence, "<span class="quote">They were too close to the door to close it.</span>" the same character '<span class="qchar">s</span>' is used to represent both /s/ and /z/ phonemes.</li>
+
+<li>In the English language the phoneme /k/ of "<span class="quote">cool</span>" is like the phoneme /k/ of "<span class="quote">keel</span>".</li>
+
+<li>In many scripts a single character may represent a sequence of
+phonemes, such as the syllabic characters of Japanese hiragana.</li>
+
+<li>In many writing systems a sequence of characters may represent a single phoneme, for example '<span class="qchar">th</span>' and '<span class="qchar">ng</span>' in "<span class="quote">thing</span>".</li>
+</ul>
+</div>
 
 	<div class="req" id="char_display">
 	<p class="advisement">Specifications, software and content MUST NOT require or depend on a one-to-one mapping between characters and units of displayed text.</p>
-	<details class="links"><summary>explanations &amp; examples</summary>
+	<details class="links"><summary>source</summary>
 	<p><a href="https://www.w3.org/TR/charmod/#sec-VisualRenderingUnits">Units of visual rendering C002</a>, in <cite>Character Model for the World Wide Web 1.0: Fundamentals</cite>.</p>
 	</details>
-	</div>
+	<details class="links"><summary>explanations &amp; examples</summary>
+	<p><a href="https://www.w3.org/TR/charmod/#sec-CharExamples">Examples of Characters, Keystrokes and Glyphs</a>, in <cite>Character Model for the World Wide Web 1.0: Fundamentals</cite>.</p>
+	</details>
+</div>
+
+<p>Visual rendering introduces the notion of a <a href="https://www.w3.org/TR/i18n-glossary/#def_glyph">glyph</a>. Glyphs are defined by [[ISO/IEC 9541-1]] as <q>a recognizable abstract graphic symbol which is independent of a specific design</q>. There is <em>not</em> a one-to-one correspondence between characters and glyphs:</p>
+<ul>
+<li>A single character can be represented by multiple glyphs
+(each glyph is then part of the representation of that character). These glyphs
+may be physically separated from one another. </li>
+
+<li>A single glyph may represent a sequence of characters (this
+is the case with ligatures, among others).</li><li>A character may be rendered with very different glyphs depending on the context.</li>
+
+<li>A single glyph may represent different characters (e.g.
+capital Latin A, capital Greek A and capital Cyrillic A).</li>
+</ul>
+
+<p>A set of glyphs makes up a <span class="new-term">font</span>. Glyphs can be
+construed as the basic units of organization of the visual rendering of text,
+just as characters are the basic unit of organization of encoded text.</p>
+
+<p>See <a href="https://www.w3.org/TR/charmod/#sec-CharExamples">Examples of Characters, Keystrokes and Glyphs</a> for examples of the complexities of character to glyph mapping.</p>
+
 
 <div class="req" id="char_keystroke">
 	<p class="advisement">Specifications and software MUST NOT require nor depend on a single keystroke resulting in a single character, nor that a single character be input with a single keystroke (even with modifiers), nor that keyboards are the same all over the world.</p>
-	<details class="links"><summary>explanations &amp; examples</summary>
+	<details class="links"><summary>source</summary>
 	<p><a href="https://www.w3.org/TR/charmod/#sec-InputUnits">Units of input C005</a>, in <cite>Character Model for the World Wide Web 1.0: Fundamentals</cite>.</p>
 	</details>
-	</div>
+	<details class="links"><summary>explanations &amp; examples</summary>
+	<p><a href="https://www.w3.org/TR/charmod/#sec-CharExamples">Examples of Characters, Keystrokes and Glyphs</a>, in <cite>Character Model for the World Wide Web 1.0: Fundamentals</cite>.</p>
+	</details>
+  </div>
+
+<p>In keyboard input, it is not always the case that keystrokes and input characters correspond one-to-one. A limited number of keys can fit on a keyboard. Some keyboards will generate multiple characters from a single keypress. In other cases ('<span class="qterm">dead keys</span>') a key will generate no characters, but affect the results of subsequent keypresses. Many writing systems have far too many characters to fit on a keyboard and must rely on more complex <span class="new-term">input methods</span>, which transform keystroke sequences into character sequences. Other languages may make it necessary to input some characters with special modifier keys.</p>
+<p>See <a href="https://www.w3.org/TR/charmod/#sec-CharExamples">Examples of Characters, Keystrokes and Glyphs</a> for examples of non-trivial input.</p>
 </section>
 
 
@@ -1312,7 +1375,7 @@
 	<details class="links"><summary>explanations &amp; examples</summary>
 	<p><a href="https://www.w3.org/TR/charmod/#sec-EncodingIdent">Character encoding identification, C027</a>, in <cite>Character Model for the World Wide Web: Fundamentals</cite></p>
 	</details>
-	</div>
+</div>
   </section>
 
 
@@ -1535,7 +1598,7 @@
 	<details class="links"><summary>explanations &amp; examples</summary>
 	<p><a href="https://www.w3.org/TR/charmod/#sec-Strings">String concepts, C011</a>, in <cite>Character Model for the World Wide Web: Fundamentals</cite>.</p>
 	</details>
-	</div>
+</div>
 
  	<div class="req" id="char_string_char">
 	<p class="advisement">The 'character string' definition SHOULD be used by most specifications.</p>
@@ -1605,7 +1668,7 @@
 	<p><a href="https://www.w3.org/TR/charmod/#sec-RefUnicode">Referencing the Unicode Standard and ISO/IEC 10646, C065</a>, in <cite>Character Model for the World Wide Web: Fundamentals</cite>.</p>
 	</details>
 	</div>
-    </section>
+  </section>
   </section>
 
 
