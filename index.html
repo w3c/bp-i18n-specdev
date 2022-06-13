@@ -613,7 +613,7 @@
 <h3>Handling direction in markup</h3>
 
 
-<p>This section is about defining approaches to bidi handling that work with resources that organises content using markup.  Some of the recommendations are different from those for handling strings on the Web (see [[[#sec_bidi_strings]]]).</p>
+<p>This section is about defining approaches to bidi handling that work with resources that organizes content using markup.  Some of the recommendations are different from those for handling strings on the Web (see [[[#sec_bidi_strings]]]).</p>
 
 
 <aside class="links" id="links_bidi_markup">
@@ -2817,8 +2817,7 @@ PCENChar ::=
 <h3>Working with personal names</h3>
 
 
-<p>People who create web forms, databases, or ontologies are often unaware how different people’s names can be in other countries. They build their forms or databases in a way that assumes too much on the part of foreign users. This section provides guidelines for working with personal names from around the world.</p>
-
+<p>Developers who create applications that use personal names (in web forms, databases, ontologies, and so forth) are often unaware of how different  names can be  in other countries. They build their forms or databases in a way that assumes too much on the part of foreign users. This section provides guidelines for working with personal names from around the world.</p>
 <aside class="links" id="links_loc_names">
 <p class="links_title">Useful background and overviews for this section</p>
 <ul>
@@ -2840,7 +2839,7 @@ PCENChar ::=
 	</details>
 	</div>
 
-<p>Names around the world differ greatly in composition and the order of components (see <a href="https://www.w3.org/International/questions/qa-personal-names">Personal names around the world</a>). This can create difficulties when you try to split a person's name into smaller parts for storage in a database and then retrieve them. Difficulties include understanding which part of a person's name belongs in which database field (especially when there are more or fewer parts than fields in the database), and dealing with ordering of name parts when retrieving someone's name from the database for actual use.</p>
+<p>Names around the world differ greatly in composition and the order of components (see <a href="https://www.w3.org/International/questions/qa-personal-names">Personal names around the world</a>). This can create difficulties if, for example, you try to split a person's name into smaller parts for storage in a database and then later attempt to retrieve them, especially if some reconstruction is needed. Difficulties include understanding which part of a person's name belongs in which database field (especially when there are more or fewer parts than fields in the database), and dealing with the ordering of name parts when retrieving someone's name from the database for actual use.</p>
 <p>If designing a form or database that will accept names from people with a variety of backgrounds, you should ask yourself whether you really need to have separate fields for things like given name and family name. This will depend on what you need to do with the data, but obviously it will be simpler, where it is possible, to just use the full name as the user provides it.</p>
 
 
@@ -2854,7 +2853,8 @@ PCENChar ::=
 	</details>
 	</div>
 
-<p>Bear in mind that names in some cultures can be quite a lot longer than your own. Make  fields long enough to enter long names. Also do not assume that a name will have more than one letter. In particular, avoid counting length in bytes (see [[#char_string]]) – do not assume that a four-character Japanese name in UTF-8 will fit in four bytes; you are likely to actually need 12.</p>
+<p>Bear in mind that names in some cultures can be quite a lot longer than your own. Make  fields long enough to enter long names. Also do not assume that a name will have more than one letter. </p>
+<p>In particular, avoid counting length in bytes (see [[[#char_string]]]) – do not assume that a four-character Japanese name in UTF-8 will fit in four bytes; you are likely to actually need 12.</p>
 </section>
 
 
@@ -2870,7 +2870,7 @@ PCENChar ::=
 
 
 <div class="req" id="loc_names_first_last">
-	<p class="advisement">Try to avoid using the labels 'first name' and 'last name' in non-localized contexts. Consider an alternative such as 'given name(s)' and 'family name(s)'.</p>
+	<p class="advisement">Try to avoid using the labels 'first name' and 'last name'. Consider an alternative such as 'given name(s)' and 'family name(s)'.</p>
 	<details class="links"><summary>source</summary>
 	<p><a href="https://www.w3.org/International/questions/qa-personal-names#splitting">Strategies for splitting up names</a>, in <cite>Personal Names Around the World</cite>.</p>
 	</details>
@@ -2879,17 +2879,17 @@ PCENChar ::=
 	</details>
 	</div>
 
-<p>Use of the terms 'first' and 'last' can be confusing for people who normally write their family name followed by given names. However, bear in mind also that in some cultures this is still problematic (for example Icelanders, who don't actually have family names). However, short of very localized customization, this is probably the best we can do for a generic solution.</p>
-
+<p>Use of the terms 'first' and 'last' can be confusing for people who normally write their family name followed by given names.  Although it may seem acceptable to use 'first' and 'last' for forms aimed at users in the United States, the forms may eventually be used by people with different cultural backgrounds, both within and potentially outside of the USA.</p>
+<p> Bear in mind, also, that in some cultures this is still problematic, such as for Icelanders, who don't actually have family names, but have a given name and a patronymic (see <a href="https://www.w3.org/International/questions/qa-personal-names.en.html#patronymic">Given name and patronymic</a>). However, short of highly localized customization, this is probably the best we can do for a generic solution.</p>
 <div class="req" id="loc_names_extra_fields">
-	<p class="advisement">Consider whether it would make sense to have one or more extra fields, in addition to the full name field, where users can provide part(s) of their name that you need to use for a specific purpose.</p>
+<p class="advisement">Consider whether it would make sense to have one or more extra fields, in addition to the full name field, where users can provide part(s) of their name that you need to use for a specific purpose.</p>
 	<details class="links"><summary>source</summary>
 	<p><a href="https://www.w3.org/International/questions/qa-personal-names#splitting">Strategies for splitting up names</a>, in <cite>Personal Names Around the World</cite>.</p>
 	</details>
 	<details class="links"><summary>examples</summary>
 	<p><a href="https://www.w3.org/International/questions/qa-personal-names#examples">Examples of differences</a> in <cite>Personal Names Around the World</cite>.</p>
 	</details>
-	</div>
+</div>
 
 	<div class="req" id="loc_names_how_contact">
 	<p class="advisement">Allow for users to be asked separately how they would like to be addressed when someone contacts them.</p>
@@ -2904,7 +2904,7 @@ PCENChar ::=
 <p>For example, in some cases you may want to identify parts of a name so that you can sort a list of names alphabetically, or address them when contacting them, etc.</p>
    
 <p>This extra field would also be useful for finding the appropriate name from a long list of name components, and for handling nicknames (which, for example, are commonly used to refer to people in Thailand).</p>
-<p>Sometimes you may opt for separate fields because you want to be able to use part of the name to address the person directly, or refer to them. For example, when Google+ refers to "David's contacts". Or perhaps it's because you want to send them emails with their name at the top. Note that not only may you have problems due to name syntax here, but you also have to account for varying expectations around the world with regards to formality (not everyone is happy for a stranger to call them by their given name). It may be better to ask separately, when setting up a profile for example, how that person would like you to address them.</p>
+<p>Sometimes you may opt for separate fields because you want to be able to use part of the name to address the person directly, or refer to them. For example, when a social media app refers to "David's contacts". Or perhaps it's because you want to send them emails with their name at the top. Note that not only may you have problems due to name syntax here, but you also have to account for varying expectations around the world with regards to formality (not everyone is happy for a stranger to call them by their given name). It may be better to ask separately, when setting up a profile for example, how that person would like you to address them.</p>
 
 <div class="req" id="loc_names_relevant_info">
 <p class="advisement">If parts of a person's name are captured separately, ensure that the separate items can capture all relevant information.</p>
@@ -2914,9 +2914,9 @@ PCENChar ::=
 	<details class="links"><summary>examples</summary>
 	<p><a href="https://www.w3.org/International/questions/qa-personal-names#examples">Examples of differences</a> in <cite>Personal Names Around the World</cite>.</p>
 	</details>
-	</div>
+</div>
 
-<p>For example, don't assume that the order they will provide names in will be given followed by family.</p>
+<p>For example, don't assume that the order they  provide names in will be 'given name' followed by 'family name', or that it will be possible in a name that is composed of multiple words to even identify which part fits into which of those categories and which parts relate to something completely different, such as a father's name, a village name, a clan name, etc.</p>
 
 <div class="req" id="loc_names_algorithms">
 	<p class="advisement">Be careful about assumptions built into algorithms that pull out the parts of a name automatically.</p>
@@ -2952,7 +2952,7 @@ PCENChar ::=
 	</details>
 	</div>
 
-<p> In cultures such as parts of Southern India, Malaysia and Indonesia, a large number of people have names that consist of a given name only, with no patronym. If you require family names, you may create significant problems in these cultures, as users enter garbage data like &quot;.&quot; or &quot;Mr.&quot; in the family name field just to escape the form.</p>
+<p> In cultures such as parts of Southern India, Malaysia, and Indonesia, a large number of people have names that consist of a given name only, with no patronym. If you require family names, you may create significant problems in these cultures, as users enter garbage data like &quot;.&quot; or &quot;Mr.&quot; in the family name field just to escape the form.</p>
 </section>
 
 
@@ -2973,17 +2973,16 @@ PCENChar ::=
 	</details>
 	</div>
 
-<p>This ensures that names are correctly handled for people such as Dina Asher-Smith and Christopher O'Connell.  Note that the apostrophe may appear as <span class="codepoint" translate="no"><bdi lang="en">&#x0027;</bdi> [<span class="uname">U+0027 APOSTROPHE</span>]</span> or as <span class="codepoint" translate="no"><bdi lang="en">&#x02BC;</bdi> [<span class="uname">U+02BC MODIFIER LETTER APOSTROPHE</span>]</span>, or perhaps even <span class="codepoint" translate="no"><bdi lang="en">&#x2019;</bdi> [<span class="uname">U+2019 RIGHT SINGLE QUOTATION MARK</span>]</span>.  A hyphen may be represented using <span class="codepoint" translate="no"><bdi lang="en">&#x002D;</bdi> [<span class="uname">U+002D HYPHEN-MINUS</span>]</span> or <span class="codepoint" translate="no"><bdi lang="en">&#x2010;</bdi> [<span class="uname">U+2010 HYPHEN</span>]</span>.</p>
-
-	<div class="req" id="loc_names_uppercase">
-	<p class="advisement">Don't require names to be entered all in upper case.</p>
-	<details class="links"><summary>source</summary>
-	<p><a href="https://www.w3.org/International/questions/qa-personal-names#otherthings">Other things</a>, in <cite>Personal Names Around the World</cite>.</p>
-	</details>
-	<details class="links"><summary>examples</summary>
-	<p><a href="https://www.w3.org/International/questions/qa-personal-names#examples">Examples of differences</a> in <cite>Personal Names Around the World</cite>.</p>
-	</details>
-	</div>
+<p>This ensures that names are correctly handled for people such as Dina Asher-Smith and Christopher O'Connell.  Note that the apostrophe may appear as <span class="codepoint" translate="no"><bdi lang="en">&#x0027;</bdi> [<span class="uname">U+0027 APOSTROPHE</span>]</span> or as <span class="codepoint" translate="no"><bdi lang="en">&#x02BC;</bdi> [<span class="uname">U+02BC MODIFIER LETTER APOSTROPHE</span>]</span>, or perhaps even <span class="codepoint" translate="no"><bdi lang="en">&#x2019;</bdi> [<span class="uname">U+2019 RIGHT SINGLE QUOTATION MARK</span>]</span>.  A hyphen may be represented using <span class="codepoint" translate="no"><bdi lang="en">&#x002D;</bdi> [<span class="uname">U+002D HYPHEN-MINUS</span>]</span> or <span class="codepoint" translate="no"><bdi lang="en">&#x2010;</bdi> [<span class="uname">U+2010 HYPHEN</span>]</span> or, in Japan, <span class="codepoint" translate="no"><span lang="ja">&#x30A0;</span> [<span class="uname">U+30A0 KATAKANA-HIRAGANA DOUBLE HYPHEN</span>]</span>.</p>
+<div class="req" id="loc_names_uppercase">
+<p class="advisement">Don't require names to be entered all in upper case.</p>
+<details class="links"><summary>source</summary>
+<p><a href="https://www.w3.org/International/questions/qa-personal-names#otherthings">Other things</a>, in <cite>Personal Names Around the World</cite>.</p>
+</details>
+<details class="links"><summary>examples</summary>
+<p><a href="https://www.w3.org/International/questions/qa-personal-names#examples">Examples of differences</a> in <cite>Personal Names Around the World</cite>.</p>
+</details>
+</div>
 
 	<div class="req" id="loc_names_case_normalization">
 	<p class="advisement">Don't normalize the casing in names.</p>
@@ -2995,7 +2994,7 @@ PCENChar ::=
 	</details>
 	</div>
 
-<p>Some names (such as 'McNamara') contain capital letters that are not the first letter; others (such as 'van der Waals') include words that are not capitalized. Forms should preserve the case the user enters and not coerce such names to always and only use capital letters at the start of each word.</p>
+<p>Some names (such as 'McNamara') contain capital letters that are not the first letter; others (such as 'van der Waals') include words that are not capitalized. Forms should preserve the case the user enters and not coerce such names to always or only use capital letters at the start of each word.</p>
 
 	<div class="req" id="loc_names_spaces">
 	<p class="advisement">Allow the user to enter a name with spaces.</p>
@@ -3007,7 +3006,7 @@ PCENChar ::=
 	</details>
 	</div>
 
-<p>Allows correct capture of a family name such as that of Gabriel García Márquez, or a given name such as José María Olazábal.</p>
+<p>Allows correct capture of a family name such as that of Gabriel García Márquez (family name, García Márquez), or a given name such as José María Olazábal (family name, Olazábal).</p>
 </section>
 
 
@@ -3029,7 +3028,7 @@ PCENChar ::=
 	</details>
 	</div>
 
-<p>It would be wrong to assume that members of the same family share the same family name. There is a growing trend in the West for wives to keep their own name after marriage, but there are other cultures, such as China, where this is the normal approach. In some countries the wife may or may not take the husband's name.</p>
+<p>It would be wrong to assume that members of the same family share the same family name. There is a growing trend in the West for individuals to keep their own name after marriage, but there are other cultures, such as China, where this is the normal approach. In some countries the wife may or may not take the husband's name.</p>
 
 <p>When dealing with Hispanic names it may be that only the children in the family have the same family names, but they may be different from each of the parents.  Manuel Pérez Quiñones derived his apellidos (Pérez Quiñones) because his father's apellidos were Pérez Rodríguez and his mother's apellidos were Quiñones Alamo. In time, he courted a girl with the apellidos Padilla Falto. When they married, her apellidos became Padilla de Pérez. Their children were called Pérez Padilla, and so on.</p>
 
@@ -3062,7 +3061,7 @@ PCENChar ::=
 
 <li>Or will they be called by name on a welcome page or in correspondence?  If you will correspond using their name on pages written in their language, it would seem sensible to have the name in the native script.</li>
 
-<li>Is it important for people in the organization that handles queries to be able to recognise and use the person’s name?  If so, you may need a Latin transcription.</li>
+<li>Is it important for people in the organization that handles queries to be able to recognize and use the person’s name?  If so, you may need a Latin transcription.</li>
 
 <li>Will their name be displayed or searchable (for example Flickr optionally shows people’s names as well as their user name on their profile page)?  Or will you want to send them correspondence in their own language, but track them in your back-office in a language such as English? If so, it may be necessary to store the name in both Latin and native scripts, in which case you probably need to ask the user to submit their name in both native script and Latin-only form, using separate fields.</li>
 </ul>
