@@ -29,7 +29,7 @@
           // only "name" is required
           editors:  [
               { name: "Richard Ishida", company: "W3C", w3cid: 3439 },
-              { name: "Addison Phillips", company: "Amazon", w3cid: 33573 }
+              { name: "Addison Phillips", w3cid: 33573 }
           ],
 
 
@@ -3085,6 +3085,10 @@ PCENChar ::=
 	</div>
 
 <p>It isn't hard to find examples of people who have been blocked from using a service because their name doesn't conform to expectations of the developers. If you are planning to enforce real name usage, you need to allow a mechanism for people to validate their actual names if their name is rare, or has an unexpected structure.</p>
+</section>
+
+<section id="personal_name_examples">
+	<h4>Using personal names in examples</h4>
 
 	<div class="req" id="loc_names_global_audience">
 	<p class="advisement">In standards and standards related documents containing examples that include names of persons, use a variety of names to reflect a global audience. Avoid a bias of names specific to certain regions.</p>
@@ -3093,6 +3097,46 @@ PCENChar ::=
 <p>This helps ensure that we represent the worldwide community of users with our technologies, and makes the specification appear more relevant to the global user.</p>
 
 <p>Try to choose names that represent people from each major region around the world, rather than just a handful of European names. Also, try to have a balance between male and female names.</p>
+
+<aside class="note">
+	<p>Many specifications provide examples, such as user stories or use cases, that use people's names as a means of enhancing the narrative. Some groups even have practices, such as security specifications using the names "Alice" and "Bob", to provide a certain level of consistency. Inclusiveness should be an important goal when building systems and services, hence the suggestion to use globally diverse names in forming examples.</p>
+</aside>
+
+<p>No list of names can be completely agnostic in dealing with cultural and gender-related issues. To assist specification writers in creating more inclusive examples, this document provides a list of names drawn from across many cultures. The names are paired with generally-feminine names followed by generally-masculine names. Note well that many names are gender indeterminate. When choosing items from this list (or selecting your own names to use in examples) try to avoid selecting only those from specific regions or cultures. Choosing names with non-ASCII characters may help remind implementers of the need for Unicode support.</p>
+
+<aside class="note">
+	<p>The list of names provided here are rendered in the Latin script because most specifications are written in English. When names are taken from non-Latin-script languages or cultures, sometimes the non-Latin representation is also provided as a reminder that names are in no way limited to the Latin script.</p>
+</aside>
+
+<p><strong>Name examples: </strong>
+Amélie, Alexandre, <!-- French -->
+Beata, Börje,      <!-- Swedish -->
+Chanda, Charun,    <!-- Hindi -->
+Dara, Damilola,    <!-- Yoruba -->
+Eva (Е́ва), Ermak (Ермак), <!-- Russian -->
+Fatima (فَاطِمَة), Fahem,      <!-- Arabic -->
+Genet, Gebre,      <!-- Ethiopian -->
+Hatsue, Hiroki,    <!-- Japanese -->
+Işık, Işıtan,      <!-- Turkish -->
+Júlía, Jökull,     <!-- Icelandic -->
+Khaliun, Khuyag,   <!-- Mongolian -->
+Livia, Lucas,      <!-- Brazil -->
+Müge, Mahmut,      <!-- Turkish -->
+Ngatemi, Nugroho,  <!-- Javanese (Indonesia) -->
+Onya, Omari,       <!-- Tanzania (Swahili) -->
+Potira, Piatã,     <!-- Tupi, Guarani -->
+Qiàn (倩), Qiáng (强),         <!-- Chinese -->
+Rattiya (รัตติยา), Ritthichai (ฤทธิชัย),  <!-- Thai -->
+Sofia, Santiago,   <!-- Chile -->
+Tuqiik, Tinmiak,   <!-- Yupik, Inupiat -->
+Uri (אוּרִי), Uriel (אוּרִיאֵל),  <!-- Hebrew -->
+Voula (Βούλα), Vassilios (Βασίλειος),  <!-- Greek -->
+Wafaa (وفاء), Wissam (وسام),  <!-- Arabic -->
+Xiaoxia (晓霞), Xīn (鑫),      <!-- Chinese -->
+Yevdokia (Евдокия), Yevgeny (Евгений),   <!-- Russian -->
+Zafirah, Zain      <!-- Arabic -->
+</p>
+
 </section>
 </section>
 
