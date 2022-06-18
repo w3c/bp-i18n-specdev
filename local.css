@@ -144,6 +144,12 @@ a.termref:active {
 	border-bottom: 1px dotted #FC0; 
 	}
 
+.uname {
+	text-transform: uppercase;
+	font-size: 85%;
+	letter-spacing:0.03em;
+	}
+	
       .note {
       	margin-left: 2em;
       	margin-right: 3em;
