@@ -3093,47 +3093,114 @@ PCENChar ::=
 	<div class="req" id="loc_names_global_audience">
 	<p class="advisement">In standards and standards related documents containing examples that include names of persons, use a variety of names to reflect a global audience. Avoid a bias of names specific to certain regions.</p>
 	</div>
+	
+<p>Many specifications provide examples, such as user stories or use cases, that use personal names as a means of enhancing the narrative. Some groups even have practices, such as security specifications using the names "Alice" and "Bob", to provide a certain level of consistency. Inclusiveness should be an important goal when building systems and services, hence the suggestion to use globally diverse names in forming examples. This helps ensure that we represent the worldwide community of users with our technologies, and makes the specification appear more relevant to the global user.</p>
 
-<p>This helps ensure that we represent the worldwide community of users with our technologies, and makes the specification appear more relevant to the global user.</p>
+<p>Try to choose names that represent people from different regions around the world, rather than just a handful of names with European origins. Note that choosing names that include non-ASCII characters can help remind implementers that Unicode support and other internationalization concerns apply to their users.</p>
 
-<p>Try to choose names that represent people from each major region around the world, rather than just a handful of European names. Also, try to have a balance between male and female names.</p>
-
-<aside class="note">
-	<p>Many specifications provide examples, such as user stories or use cases, that use people's names as a means of enhancing the narrative. Some groups even have practices, such as security specifications using the names "Alice" and "Bob", to provide a certain level of consistency. Inclusiveness should be an important goal when building systems and services, hence the suggestion to use globally diverse names in forming examples.</p>
-</aside>
-
-<p>No list of names can be completely agnostic in dealing with cultural and gender-related issues. To assist specification writers in creating more inclusive examples, this document provides a list of names drawn from across many cultures. The names are paired with generally-feminine names followed by generally-masculine names. Note well that many names are gender indeterminate. When choosing items from this list (or selecting your own names to use in examples) try to avoid selecting only those from specific regions or cultures. Choosing names with non-ASCII characters may help remind implementers of the need for Unicode support.</p>
+<p>No collection of names can be completely agnostic in dealing with cultural and gender-related issues. To assist specification writers in creating more inclusive examples, this document provides a collection of names drawn from across many cultures. These names are organized into regions described by the UN M.49 standard. Notice that even within these regions there are quite diverse influences and practices for the handling of personal names. The names are also divided by their cultural gender association to assist specification authors in writing examples, although many names are not specific to any particular gender.</p>
 
 <aside class="note">
-	<p>The list of names provided here is rendered in the Latin script because most specifications are written in English. When names are taken from non-Latin-script languages or cultures, sometimes the non-Latin representation is also provided as a reminder that names are in no way limited to the Latin script.</p>
+	<p>The collection of names provided here is rendered in the Latin script because most specifications are written in English. When names are taken from non-Latin-script languages or cultures, the non-Latin representation is also provided as a reminder that names are in no way limited to the Latin script or for cases where you want to include a non-Latin script example. Wherever possible the names in this collection are taken from [[CLDR]]'s exemplary set of names.</p>
 </aside>
+
+<table>
+	<thead>
+		<tr>
+		   <th>M.49</th>
+		   <th>Region</th>
+		   <th style="width:40%">Female Examples</th>
+		   <th style="width:40%">Male Examples</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>009</td>
+			<td>Oceania</td>
+			<td></td>
+			<td></td>
+		</tr>
+		
+        <tr><td>202</td>
+            <td>Sub-Saharan Africa</td>
+            <td></td>
+            <td></td>
+        </tr>
+
+        <tr><td>030</td>
+            <td>Eastern Asia</td>
+            <td></td>
+            <td></td>
+        </tr>
+
+        <tr><td>034</td>
+            <td>Southern Asia</td>
+            <td></td>
+            <td></td>
+        </tr>
+
+        <tr><td>035</td>
+            <td>South-Eastern Asia</td>
+            <td></td>
+            <td></td>
+        </tr>
+
+        <tr><td>143</td>
+            <td>Central Asia</td>
+            <td></td>
+            <td></td>
+        </tr>
+
+        <tr><td>145</td>
+            <td>Western Asia (includes North Africa)</td>
+            <td>Fatima (فَاطِمَة), Işık, Miriam (מרים), Müge, Wafaa (وفاء)</td>
+            <td>Faheem (فهيم), Muhammad (محمد), Mahmut, Işıtan, Uriel (אוּרִיאֵל), Wissam (وسام)</td>
+        </tr>
+
+        <tr><td>150</td>
+            <td>Europe (includes North America)</td>
+            <td>Alice, Amélie, Beata, Eva (Е́ва), Voula (Βούλα), Yevdokia (Евдокия)</td>
+            <td>Alexandre, Bob, Börje, Ermak (Ермак), Jean-François, Slobodan (Слободан), Vassilios (Βασίλειος), Yevgeny (Евгений)</td>
+        </tr>
+
+        <tr><td>419</td>
+            <td>Latin America and the Caribbean</td>
+            <td>Livia, Martina, Sofia</td>
+            <td>Lucas, João, Santiago</td>
+        </tr>
+	</tbody>
+</table>
+
+
+
+
 
 <p><strong>Name examples: </strong>
-Amélie, Alexandre, <!-- French -->
-Beata, Börje,      <!-- Swedish -->
+, , <!-- French -->
+, ,      <!-- Swedish -->
 Chanda, Charun,    <!-- Hindi -->
 Dara, Damilola,    <!-- Yoruba -->
-Eva (Е́ва), Ermak (Ермак), <!-- Russian -->
-Fatima (فَاطِمَة), Fahem,      <!-- Arabic -->
+, , <!-- Russian -->
+, ,      <!-- Arabic -->
 Genet, Gebre,      <!-- Ethiopian -->
 Hatsue, Hiroki,    <!-- Japanese -->
-Işık, Işıtan,      <!-- Turkish -->
+, ,      <!-- Turkish -->
 Júlía, Jökull,     <!-- Icelandic -->
 Khaliun, Khuyag,   <!-- Mongolian -->
-Livia, Lucas,      <!-- Brazil -->
-Müge, Mahmut,      <!-- Turkish -->
+, ,      <!-- Brazil -->
+, ,      <!-- Turkish -->
 Ngatemi, Nugroho,  <!-- Javanese (Indonesia) -->
 Onya, Omari,       <!-- Tanzania (Swahili) -->
 Potira, Piatã,     <!-- Tupi, Guarani -->
 Qiàn (倩), Qiáng (强),         <!-- Chinese -->
 Rattiya (รัตติยา), Ritthichai (ฤทธิชัย),  <!-- Thai -->
-Sofia, Santiago,   <!-- Chile -->
+, ,   <!-- Chile -->
 Tuqiik, Tinmiak,   <!-- Yupik, Inupiat -->
-Uri (אוּרִי), Uriel (אוּרִיאֵל),  <!-- Hebrew -->
-Voula (Βούλα), Vassilios (Βασίλειος),  <!-- Greek -->
-Wafaa (وفاء), Wissam (وسام),  <!-- Arabic -->
+Uri (אוּרִי), ,  <!-- Hebrew -->
+, ,  <!-- Greek -->
+, ,  <!-- Arabic -->
 Xiaoxia (晓霞), Xīn (鑫),      <!-- Chinese -->
-Yevdokia (Евдокия), Yevgeny (Евгений),   <!-- Russian -->
+, ,   <!-- Russian -->
 Zafirah, Zain      <!-- Arabic -->
 </p>
 
