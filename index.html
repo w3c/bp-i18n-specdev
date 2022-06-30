@@ -3098,10 +3098,11 @@ PCENChar ::=
 
 <p>Try to choose names that represent people from different regions around the world, rather than just a handful of names with European origins. Note that choosing names that include non-ASCII characters can help remind implementers that Unicode support and other internationalization concerns apply to their users.</p>
 
-<p>No collection of names can be completely agnostic in dealing with cultural and gender-related issues. To assist specification writers in creating more inclusive examples, this document provides a collection of names drawn from across many cultures. These names are organized into regions described by the UN M.49 standard. Notice that even within these regions there are quite diverse influences and practices for the handling of personal names. The names are also divided by their cultural gender association to assist specification authors in writing examples, although many names are not specific to any particular gender.</p>
+<p>No collection of names can be completely agnostic in dealing with cultural and gender-related issues. To assist specification writers in creating more inclusive examples, this document provides a collection of names drawn from across many cultures. These names are organized approximately into regions described by the UN M.49 standard. Notice that even within these regions there are quite diverse influences and practices for the handling of personal names. The names are also divided by their cultural gender association to assist specification authors in writing examples, although many names are not specific to any particular gender.</p>
 
 <aside class="note">
-	<p>The collection of names provided here is rendered in the Latin script because most specifications are written in English. When names are taken from non-Latin-script languages or cultures, the non-Latin representation is also provided as a reminder that names are in no way limited to the Latin script or for cases where you want to include a non-Latin script example. Wherever possible the names in this collection are taken from [[CLDR]]'s exemplary set of names.</p>
+	<p>The purpose of this collection of names is to assist specification authors who are generally writing for an English-speaking audience. The collection consists primarily of given names and, where necessary, is transliterated into the Latin script. The names are also rendered informally (<em>"Alice"</em> rather than <em>"Ms. Jones"</em>), even though this is not how names would be used in many of these cultures. When translating specifications, adjustments should be made which are appropriate for the target audience.</p>
+	<p>When names are taken from non-Latin-script languages or cultures, the non-Latin representation is also provided as a reminder that names are in no way limited to the Latin script or for cases where you want to include a non-Latin script example. Wherever possible the names in this collection are taken from [[CLDR]]'s exemplary set of names.</p>
 </aside>
 
 <table>
@@ -3129,8 +3130,12 @@ PCENChar ::=
 
         <tr><td>030</td>
             <td>Eastern Asia</td>
-            <td>Mei-mei (<span lang="zh-Hans">韩梅梅</span>)</td>
-            <td>Lei (<span lang="zh-Hans">李雷</span>)</td>
+            <td>Mei-mei (<span lang="zh-Hans">韩梅梅</span>), 
+                Hatsue (<span lang="ja">は杖</span>),
+                Tanaka-san (<span lang="ja">田中さん</span>)</td>
+            <td>Lei (<span lang="zh-Hans">李雷</span>), 
+                Hiroki (<span lang="ja">ひろき</span>), 
+                Tanaka-san (<span lang="ja">田中さん</span>)</td>
         </tr>
 
         <tr><td>034</td>
@@ -3141,8 +3146,10 @@ PCENChar ::=
 
         <tr><td>035</td>
             <td>South-Eastern Asia</td>
-            <td><span lang="vi">Nguyễn Thị Anh</span>, Rattiya (<span lang="th">รัตติยา</span>)</td>
-            <td><span lang="vi">Nguyễn Văn Hoa</span>, Ritthichai (<span lang="th">ฤทธิชัย</span>)</td>
+            <td><span lang="vi">Nguyễn Thị Anh</span>, 
+                Rattiya (<span lang="th">รัตติยา</span>)</td>
+            <td><span lang="vi">Nguyễn Văn Hoa</span>, 
+                Ritthichai (<span lang="th">ฤทธิชัย</span>)</td>
         </tr>
 
         <tr><td>143</td>
@@ -3153,20 +3160,44 @@ PCENChar ::=
 
         <tr><td>145</td>
             <td>Western Asia (includes North Africa)</td>
-            <td>Fatima (فَاطِمَة), Işık, Miriam (מרים), Müge, Wafaa (وفاء)</td>
-            <td>Faheem (فهيم), Muhammad (محمد), Mahmut, Işıtan, Uriel (אוּרִיאֵל), Wissam (وسام)</td>
+            <td>Fatima (فَاطِمَة), 
+                Işık, 
+                Miriam (מרים), 
+                Müge, Wafaa (وفاء)</td>
+            <td>Faheem (فهيم), 
+                Muhammad (محمد), 
+                Mahmut, 
+                Işıtan, 
+                Uriel (אוּרִיאֵל), 
+                Wissam (وسام)</td>
         </tr>
 
         <tr><td>150</td>
             <td>Europe (includes North America)</td>
-            <td>Alice, Amélie, Beata, Eva (Е́ва), Voula (Βούλα), Yevdokia (Евдокия)</td>
-            <td>Alexandre, Bob, Börje, Ermak (Ермак), Jean-François, Slobodan (Слободан), Vassilios (Βασίλειος), Yevgeny (Евгений)</td>
+            <td>Alice, 
+                Amélie, 
+                Beata, 
+                Eva (Е́ва), 
+                Voula (Βούλα), 
+                Yevdokia (Евдокия)</td>
+            <td>Alexandre, 
+                Bob, 
+                Börje, 
+                Ermak (Ермак), 
+                Jean-François, 
+                Slobodan (Слободан), 
+                Vassilios (Βασίλειος), 
+                Yevgeny (Евгений)</td>
         </tr>
 
         <tr><td>419</td>
             <td>Latin America and the Caribbean</td>
-            <td>Livia, Martina, Sofia</td>
-            <td>Lucas, João, Santiago</td>
+            <td>Livia, 
+                Martina, 
+                Sofia</td>
+            <td>Lucas, 
+                João, 
+                Santiago</td>
         </tr>
 	</tbody>
 </table>
@@ -3175,7 +3206,7 @@ PCENChar ::=
 
 <p>For example, Chinese people almost never use their given name without also including their family name. When writing examples in Chinese, one might see something like <span lang="zh-Hans">路人甲</span> (it means Person A, using the Han "Heavenly Stem" ordinals, cf. <a href="https://www.w3.org/TR/predefined-counter-styles/#cjk-heavenly-stem">Ready-made Counter Styles</a>) rather than a "exemplar name". When examples are used, they include both the family and given name. Bear in mind that in Chinese the family name comes first, before the given name.</p>
 
-<p>In Japanese, there are complex choices related to levels of formality. A person <em>might</em> be addressed by their given name in very informal situations (<code>Hiroki</code>), but usually will be addressed with a family name that includes (unless one is being rude) a title or suffix, such as <code>-san</code> or <code>-sama</code> (e.g. <code>Tanaka san</code>). Other suffixes or titles are also used, such as <em>senpai</em> or <em>sensei</em> (for senior or very esteemed individuals) or <em>shi</em> (when one is unfamiliar with the person). Thus an example in English that could say <em>Suppose Hiroki wants to set up a...</em> would probably be more culturally appropriate if it read <em>Suppose Tanaka-san wants to set up a...</em></p>
+<p>In Japanese, there are complex choices related to levels of formality. A person <em>might</em> be addressed by their given name in very informal situations (<em>Hiroshi</em>), but usually will be addressed with a family name that includes (unless one is being rude) a title or suffix, such as <code>-san</code> or <code>-sama</code> (e.g. <em>Tanaka-san</em>). Other suffixes or titles are also used, such as <em>senpai</em> or <em>sensei</em> (for senior or very esteemed individuals) or <em>shi</em> (when one is unfamiliar with the person). Thus an example in English that could say <em>Suppose Hiroki wants to set up a...</em> would probably be more culturally appropriate if it read <em>Suppose Tanaka-san wants to set up a...</em></p>
 
 
 
