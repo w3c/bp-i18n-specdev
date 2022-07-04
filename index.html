@@ -1608,7 +1608,31 @@ just as characters are the basic unit of organization of encoded text.</p>
 	</div>
 </section>
 
+<section id="char_whitespace" class="subtopic">
+	<h3>Whitespace characters</h3>
+	
+	<div class="xref"><span class="seealso">See also</span>
+	<p>[[[#markup_identifiers]]].</p>
+	</div>
 
+	<p>
+		Whitespace characters are characters that represent horizontal or vertical space in typography. Different whitespace characters may have different lengths.
+	</p>
+	
+		<div class="req" id="char_define_whitespace">
+			<p class="advisement">Specifications that mention whitespace characters SHOULD explicitly state which characters are whitespace characters, by referring to the Unicode <a href="https://www.unicode.org/reports/tr44/#White_Space">White_Space</a> property or <code>General_Category=Z</code>, or specifying the specific code points.</p>
+		<details class="links"><summary>explanations &amp; examples</summary>
+		<ul>
+		    <li><a href="https://infra.spec.whatwg.org/#ascii-whitespace">ASCII whitespace</a>, in <cite>Infra Living Standard</cite></li>
+		    <li><a href="https://www.w3.org/TR/css-text/#white-space">Document white space characters</a>, in <cite>CSS Text</cite></li>
+		    <li><a href="https://tc39.es/ecma262/#sec-white-space">White Space</a>, in <cite>ECMAScript Language Specification</cite></li>
+		    <li><a href="https://www.w3.org/TR/WGSL/#blankspace-and-line-breaks">Blankspace and line breaks</a>, in <cite>WebGPU Shading Language</cite></li>
+		    <li><a href="https://www.w3.org/TR/webdriver/#dfn-whitespace">Whitespace</a>, in <cite>WebDriver</cite></li>
+		    <li><a href="https://www.w3.org/TR/xml/#NT-S">S (white space)</a>, in <cite>Extensible Markup Language (XML) 1.0</cite></li>
+	    </ul>
+		</details>
+		</div>
+  </section>
 
 
 
