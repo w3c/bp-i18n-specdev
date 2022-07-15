@@ -377,3 +377,12 @@ aside h4 {
     width: 100%;
     height: 400px;
     }
+
+.reviewComments {
+	font-size: 90%;
+	padding: 1em;
+	background-color: #EFEFF9;
+	border-radius: 5px;
+	margin-block: 0;
+	font-style: italic;
+	}
