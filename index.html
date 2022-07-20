@@ -41,7 +41,28 @@
       
     </script>
 	<link rel="stylesheet" href="local.css">
+  
+  <script>// check for changed fragment ids and route to the new id
+  var fragid = location.hash
+  if (fragid !== '') {
+    switch (fragid) {
+        case '#sec_lang_decl': location.hash = '#lang_misc'; break;
+        case '#sec_lang_values': location.hash = '#lang_values'; break;
+        case '#sec_lang_declaration': location.hash = '#lang_declaration'; break;
+        case '#sec_dir_basic': location.hash = '#dir_misc'; break;
+        case '#sec_bidi_values': location.hash = '#bidi_values'; break;
+        case '#sec_bidi_markup': location.hash = '#bidi_markup'; break;
+        case '#sec_bidi_strings': location.hash = '#bidi_strings'; break;
+        case '#char_ref_Unicode_char': location.hash = '#char_ref'; break;
+        case '#sec_resid_basic': location.hash = '#resid_misc'; break;
+        case '#text_decoration': location.hash = '#typ_text_decoration'; break;
+        case '#cursive': location.hash = '#typ_cursive'; break;
+        case '#box_posn': location.hash = '#typ_box_posn'; break;
+        }
+    }
+  </script>
   </head>
+  
   <body>
   <div id="abstract">
       <p>This document provides a checklist of internationalization-related considerations when developing a specification. Most checklist items point to detailed supporting information in other documents. Where such information does not yet exist, it can be given a temporary home in this document.  <strong>The  information in this document will change regularly as new content is added and existing content is modified in the light of experience and discussion.</strong></p>
@@ -97,7 +118,7 @@
 <div id="language_checklist" class="summaryC"></div>
 
 
-<section id="sec_lang_decl" class="subtopic">
+<section id="lang_misc" class="subtopic">
 <h3>Language basics</h3>
 
 
@@ -203,7 +224,7 @@
 
 
 
-<section id="sec_lang_values" class="subtopic">
+<section id="lang_values" class="subtopic">
 <h3>Defining language values</h3>
 
 <p class="reviewComments"><a href="https://github.com/w3c/i18n-activity/labels/t%3Alang_values" target="_blank">See related review comments.</a></p>
@@ -296,7 +317,7 @@
 
 
 
-<section id="sec_lang_declaration" class="subtopic">
+<section id="lang_declaration" class="subtopic">
 <h3>Declaring  language</h3>
 
 <p class="reviewComments"><a href="https://github.com/w3c/i18n-activity/labels/t%3Alang_declaration" target="_blank">See related review comments.</a></p>
@@ -319,7 +340,7 @@
 
 
 <div class="xref"><span class="seealso">See also</span>
-<p>[[[#sec_lang_values]]].</p>
+<p>[[[#lang_values]]].</p>
 </div>
 
 
@@ -360,7 +381,7 @@
 <h4>Establishing the language of a content block</h4>
 
 <div class="xref"><span class="seealso">See also</span>
-<p>[[[#sec_lang_values]]].</p>
+<p>[[[#lang_values]]].</p>
 </div>
 
     <p>The words <dfn class="lint-ignore">block</dfn> and/or <dfn class="lint-ignore">chunk</dfn> are used here to refer to a structural component within the resource as a whole that groups content together and separates it from adjacent content. Boundaries between one block and another are equivalent to paragraph or section boundaries in text, or discrete data items inside a file. </p>
@@ -375,7 +396,7 @@
 	<p class="advisement">By default, blocks of content should inherit any text-processing language set for the resource as a whole.</p>
 	</div>
 
-  <p>See [[[#sec_lang_decl]]] for guidance related to the default text-processing language information.</p>
+  <p>See [[[#lang_misc]]] for guidance related to the default text-processing language information.</p>
 
 
 
@@ -396,7 +417,7 @@
 <p>In this section we refer to information that needs to be provided for a range of characters in the middle of a paragraph or string.</p>
 
 <div class="xref"><span class="seealso">See also</span>
-<p>[[[#sec_lang_values]]].</p>
+<p>[[[#lang_values]]].</p>
 </div>
 
 
@@ -443,7 +464,7 @@
 
 
 
- <section id="sec_dir_basic" class="subtopic">
+ <section id="dir_misc" class="subtopic">
   <h3>Basic requirements</h3>
  <p>The basic requirements are as follows.</p>
 
@@ -606,7 +627,7 @@
 
 
 
-<section id="sec_bidi_values" class="subtopic">
+<section id="bidi_values" class="subtopic">
 <h3>Base direction values</h3>
 
 <p class="reviewComments"><a href="https://github.com/w3c/i18n-activity/labels/t%3Abidi_values" target="_blank">See related review comments.</a></p>
@@ -622,11 +643,11 @@
 
 
 
-<section id="sec_bidi_markup" class="subtopic">
+<section id="bidi_markup" class="subtopic">
 <h3>Handling direction in markup</h3>
 
 
-<p>This section is about defining approaches to bidi handling that work with resources that organizes content using markup.  Some of the recommendations are different from those for handling strings on the Web (see [[[#sec_bidi_strings]]]).</p>
+<p>This section is about defining approaches to bidi handling that work with resources that organizes content using markup.  Some of the recommendations are different from those for handling strings on the Web (see [[[#bidi_strings]]]).</p>
 
 
 <p class="reviewComments"><a href="https://github.com/w3c/i18n-activity/labels/t%3Abidi_markup" target="_blank">See related review comments.</a></p>
@@ -721,7 +742,7 @@
 
 
 
-<section id="sec_bidi_strings" class="subtopic">
+<section id="bidi_strings" class="subtopic">
 <h3>Handling base direction for strings</h3>
 
 <p class="note">The information in this section is pulled from <a href="https://w3c.github.io/string-meta/">Requirements for Language and Direction Metadata in Data Formats</a>. That document is still being written, so these guidelines are likely to change at any time.</p>
@@ -1637,7 +1658,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 
 
 
-<section id="char_ref_Unicode_char" class="subtopic">
+<section id="char_ref" class="subtopic">
 <h3>Referring to Unicode characters</h3>
 
 <p class="reviewComments"><a href="https://github.com/w3c/i18n-activity/labels/t%3Achar_ref" target="_blank">See related review comments.</a></p>
@@ -2327,10 +2348,10 @@ just as characters are the basic unit of organization of encoded text.</p>
 
 
 
-<section id="sec_resid_basic" class="subtopic">
+<section id="resid_misc" class="subtopic">
 <h3>Basics</h3>
 
-<p class="reviewComments"><a href="https://github.com/w3c/i18n-activity/labels/t%3Aresid_basic" target="_blank">See related review comments.</a></p>
+<p class="reviewComments"><a href="https://github.com/w3c/i18n-activity/labels/t%3Aresid_misc" target="_blank">See related review comments.</a></p>
 
 <aside class="links" id="links_sec_resid_basic">
 <p class="links_title">Useful background and overviews for this section</p>
@@ -2383,6 +2404,8 @@ just as characters are the basic unit of organization of encoded text.</p>
 
 <section id="markup_elements_attributes" class="subtopic">
 <h3>Defining elements and attributes</h3>
+
+<p class="reviewComments"><a href="https://github.com/w3c/i18n-activity/labels/t%3Amarkup_elements_attributes" target="_blank">See related review comments.</a></p>
 
   	<div class="req" id="markup_attributes">
 	<p class="advisement">Do not define attribute values that will contain user readable content. Use elements for such content.</p>
@@ -2542,10 +2565,10 @@ PCENChar ::=
 
 
 
-<section id="text_decoration" class="subtopic">
+<section id="typ_text_decoration" class="subtopic">
 <h3>Text decoration</h3>
 
-<p class="reviewComments"><a href="https://github.com/w3c/i18n-activity/labels/t%3Atext_decoration" target="_blank">See related review comments.</a></p>
+<p class="reviewComments"><a href="https://github.com/w3c/i18n-activity/labels/t%3Atyp_text_decoration" target="_blank">See related review comments.</a></p>
 
 <aside class="links" id="links_text_decoration">
 <p class="links_title">Useful background and overviews for this section</p>
@@ -2571,8 +2594,10 @@ PCENChar ::=
 
 
 
-<section id="vertical" class="subtopic">
+<section id="typ_vertical" class="subtopic">
 <h3>Vertical text</h3>
+
+<p class="reviewComments"><a href="https://github.com/w3c/i18n-activity/labels/t%3Atyp_vertical" target="_blank">See related review comments.</a></p>
 
 <aside class="links" id="links_vertical">
 <p class="links_title">Useful background and overviews for this section</p>
@@ -2620,7 +2645,7 @@ PCENChar ::=
 
 
 
-<section id="cursive" class="subtopic">
+<section id="typ_cursive" class="subtopic">
 <h3>Cursive text</h3>
 
 <aside class="links" id="links_cursive">
@@ -2646,7 +2671,7 @@ PCENChar ::=
 
 
 
-<section id="box_posn" class="subtopic">
+<section id="typ_box_posn" class="subtopic">
 <h3>Setting box positioning coordinates when text direction varies</h3>
 
   	<div class="req" id="vertical_box_posn">
@@ -3188,7 +3213,7 @@ PCENChar ::=
 
 
 
-<section id="localization" class="subtopic">
+<section id="loc_localization" class="subtopic">
 <h3>Localization</h3>
 
 
