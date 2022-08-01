@@ -1629,6 +1629,332 @@ just as characters are the basic unit of organization of encoded text.</p>
 		    <li><a href="https://www.w3.org/TR/webdriver/#dfn-whitespace">Whitespace</a>, in <cite>WebDriver</cite></li>
 		    <li><a href="https://www.w3.org/TR/xml/#NT-S">S (white space)</a>, in <cite>Extensible Markup Language (XML) 1.0</cite></li>
 	    </ul>
+		<table class="whitespace">
+			<thead>
+				<tr>
+					<th>&nbsp;</th>
+					<th>white_space property</th>
+					<th>pattern_<br>
+						white_space property</th>
+					<th>Zs, Zl, Zp category</th>
+					<th>ASCII whitespace (HTML)</th>
+					<th>CSS whitespace</th>
+					<th>ECMAScript</th>
+					<th>XML</th>
+					<th>WGSL</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><strong>U+0009 (horizontal tab)</strong></td>
+					<td>✓</td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+					<td>✓</td>
+					<td>✓</td>
+					<td>✓</td>
+					<td>✓</td>
+					<td>✓</td>
+				</tr>
+				<tr>
+					<td><strong>U+000A (line feed)</strong></td>
+					<td>✓</td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+					<td>✓</td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+					<td>✓</td>
+					<td>✓</td>
+				</tr>
+				<tr>
+					<td><strong>U+000B (vertical tab)</strong></td>
+					<td>✓</td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+					<td>✓</td>
+				</tr>
+				<tr>
+					<td><strong>U+000C (form feed)</strong></td>
+					<td>✓</td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+					<td>✓</td>
+				</tr>
+				<tr>
+					<td><strong>U+000D (carriage return)</strong></td>
+					<td>✓</td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>✓</td>
+					<td>✓</td>
+				</tr>
+				<tr>
+					<td><strong>U+0020 SPACE</strong></td>
+					<td>✓</td>
+					<td>✓</td>
+					<td>✓</td>
+					<td>✓</td>
+					<td>✓</td>
+					<td>✓</td>
+					<td>✓</td>
+					<td>✓</td>
+				</tr>
+				<tr>
+					<td><strong>U+0085 (next line)</strong></td>
+					<td>✓</td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>✓</td>
+				</tr>
+				<tr>
+					<td><strong>U+00A0 NO-BREAK SPACE</strong></td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td><strong>U+1680 OGHAM SPACE MARK</strong></td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td><strong>U+2000 EN QUAD</strong></td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td><strong>U+2001 EM QUAD</strong></td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td><strong>U+2002 EN SPACE</strong></td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td><strong>U+2003 EM SPACE</strong></td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td><strong>U+2004 THREE-PER-EM SPACE</strong></td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td><strong>U+2005 FOUR-PER-EM SPACE</strong></td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td><strong>U+2006 SIX-PER-EM SPACE</strong></td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td><strong>U+2007 FIGURE SPACE</strong></td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td><strong>U+2008 PUNCTUATION SPACE</strong></td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td><strong>U+2009 THIN SPACE</strong></td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td><strong>U+200A HAIR SPACE</strong></td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td><strong>U+200E LEFT-TO-RIGHT MARK</strong></td>
+					<td>&nbsp;</td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>✓</td>
+				</tr>
+				<tr>
+					<td><strong>U+200F RIGHT-TO-LEFT MARK</strong></td>
+					<td>&nbsp;</td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>✓</td>
+				</tr>
+				<tr>
+					<td><strong>U+2028 LINE SEPARATOR</strong></td>
+					<td>✓</td>
+					<td>✓</td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>✓</td>
+				</tr>
+				<tr>
+					<td><strong>U+2029 PARAGRAPH SEPARATOR</strong></td>
+					<td>✓</td>
+					<td>✓</td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>✓</td>
+				</tr>
+				<tr>
+					<td><strong>U+202F NARROW NO-BREAK SPACE</strong></td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td><strong>U+205F MEDIUM MATHEMATICAL SPACE</strong></td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td><strong>U+3000 IDEOGRAPHIC SPACE</strong></td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td><strong>U+FEFF ZERO WIDTH NO-BREAK SPACE</strong></td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+				</tr>
+			</tbody>
+		</table>
 		</details>
 		</div>
 
