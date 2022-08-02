@@ -275,13 +275,19 @@ aside h4 {
 	}
 
 table.whitespace {
-	width: 300px;
+	/* width: 300px; */
+	width: 100%;
     border-spacing: 0;
+	margin: 1em 0;
 	}
 table.whitespace th,
 table.whitespace td {
 	border: thin solid rgba(0,0,0,.12);
 	padding: 6px;
+	}
+table.whitespace caption {
+		padding: 10px;
+		caption-side: bottom;
 	}
 
 
