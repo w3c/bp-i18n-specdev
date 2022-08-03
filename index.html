@@ -1618,6 +1618,8 @@ just as characters are the basic unit of organization of encoded text.</p>
 	</div>
 
 	<p>Whitespace characters are characters that represent horizontal or vertical space in typography. Whitespace characters can have different visual effects: some whitespace characters have no visible effect, while others represent larger, smaller, or variable amounts of space on the page.</p>
+
+	<p>Some specifications that define formal languages (examples include <a href="https://html.spec.whatwg.org/multipage/syntax.html#syntax">HTML</a> or <a href="https://www.w3.org/TR/css-syntax/#whitespace">CSS</a>) will choose to specify ASCII whitespace as part of their grammar. Specifications that deal more generally with text will choose to follow Unicode's definition instead.</p>
 	
 		<div class="req" id="char_define_whitespace">
 			<p class="advisement">Specifications that use the term "whitespace" SHOULD explicitly define what the term means in their context. For most specifications, this should refer to the Unicode <a href="https://www.unicode.org/reports/tr44/#White_Space">White_Space</a> property or to <code>General_Category=Z</code> [[UAX44]]. Otherwise the specific code points should be listed.</p>
@@ -1634,16 +1636,19 @@ just as characters are the basic unit of organization of encoded text.</p>
 		</details>
 		</div>
 
+		<p>
+			The following table is the definition of whitespace characters in various specifications.
+		</p>
+
 		<table class="whitespace">
 			<caption>Links to the latest definitions of the information in the table can be found by expanding the "explanations & examples".</caption>
 			<thead>
 				<tr>
 					<th>&nbsp;</th>
-					<th>white_space property</th>
-					<th>pattern_<br>
-						white_space property</th>
-					<th>Zs, Zl, Zp category</th>
-					<th>ASCII whitespace (HTML)</th>
+					<th>`white_space` property</th>
+					<th>`pattern_white_space` property</th>
+					<th>`Zs`, `Zl`, `Zp` category</th>
+					<th><a href="https://infra.spec.whatwg.org/#ascii-whitespace">ASCII whitespace</a> (HTML)</th>
 					<th>CSS whitespace</th>
 					<th>ECMAScript</th>
 					<th>XML</th>
@@ -1652,7 +1657,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 			</thead>
 			<tbody>
 				<tr>
-					<td><strong>U+0009 (horizontal tab)</strong></td>
+					<td><span class="uname" translate="no">U+0009 (horizontal tab)</span></td>
 					<td>✓</td>
 					<td>✓</td>
 					<td>&nbsp;</td>
@@ -1663,7 +1668,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>✓</td>
 				</tr>
 				<tr>
-					<td><strong>U+000A (line feed)</strong></td>
+					<td><span class="uname" translate="no">U+000A (line feed)</span></td>
 					<td>✓</td>
 					<td>✓</td>
 					<td>&nbsp;</td>
@@ -1674,7 +1679,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>✓</td>
 				</tr>
 				<tr>
-					<td><strong>U+000B (vertical tab)</strong></td>
+					<td><span class="uname" translate="no">U+000B (vertical tab)</span></td>
 					<td>✓</td>
 					<td>✓</td>
 					<td>&nbsp;</td>
@@ -1685,7 +1690,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>✓</td>
 				</tr>
 				<tr>
-					<td><strong>U+000C (form feed)</strong></td>
+					<td><span class="uname" translate="no">U+000C (form feed)</span></td>
 					<td>✓</td>
 					<td>✓</td>
 					<td>&nbsp;</td>
@@ -1696,7 +1701,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>✓</td>
 				</tr>
 				<tr>
-					<td><strong>U+000D (carriage return)</strong></td>
+					<td><span class="uname" translate="no">U+000D (carriage return)</span></td>
 					<td>✓</td>
 					<td>✓</td>
 					<td>&nbsp;</td>
@@ -1707,7 +1712,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>✓</td>
 				</tr>
 				<tr>
-					<td><strong>U+0020 SPACE</strong></td>
+					<td><span class="uname" translate="no">U+0020 SPACE</span></td>
 					<td>✓</td>
 					<td>✓</td>
 					<td>✓</td>
@@ -1718,7 +1723,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>✓</td>
 				</tr>
 				<tr>
-					<td><strong>U+0085 (next line)</strong></td>
+					<td><span class="uname" translate="no">U+0085 (next line)</span></td>
 					<td>✓</td>
 					<td>✓</td>
 					<td>&nbsp;</td>
@@ -1729,7 +1734,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>✓</td>
 				</tr>
 				<tr>
-					<td><strong>U+00A0 NO-BREAK SPACE</strong></td>
+					<td><span class="uname" translate="no">U+00A0 NO-BREAK SPACE</span></td>
 					<td>✓</td>
 					<td>&nbsp;</td>
 					<td>✓</td>
@@ -1740,7 +1745,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td><strong>U+1680 OGHAM SPACE MARK</strong></td>
+					<td><span class="uname" translate="no">U+1680 OGHAM SPACE MARK</span></td>
 					<td>✓</td>
 					<td>&nbsp;</td>
 					<td>✓</td>
@@ -1751,7 +1756,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td><strong>U+2000 EN QUAD</strong></td>
+					<td><span class="uname" translate="no">U+2000 EN QUAD</span></td>
 					<td>✓</td>
 					<td>&nbsp;</td>
 					<td>✓</td>
@@ -1762,7 +1767,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td><strong>U+2001 EM QUAD</strong></td>
+					<td><span class="uname" translate="no">U+2001 EM QUAD</span></td>
 					<td>✓</td>
 					<td>&nbsp;</td>
 					<td>✓</td>
@@ -1773,7 +1778,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td><strong>U+2002 EN SPACE</strong></td>
+					<td><span class="uname" translate="no">U+2002 EN SPACE</span></td>
 					<td>✓</td>
 					<td>&nbsp;</td>
 					<td>✓</td>
@@ -1784,7 +1789,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td><strong>U+2003 EM SPACE</strong></td>
+					<td><span class="uname" translate="no">U+2003 EM SPACE</span></td>
 					<td>✓</td>
 					<td>&nbsp;</td>
 					<td>✓</td>
@@ -1795,7 +1800,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td><strong>U+2004 THREE-PER-EM SPACE</strong></td>
+					<td><span class="uname" translate="no">U+2004 THREE-PER-EM SPACE</span></td>
 					<td>✓</td>
 					<td>&nbsp;</td>
 					<td>✓</td>
@@ -1806,7 +1811,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td><strong>U+2005 FOUR-PER-EM SPACE</strong></td>
+					<td><span class="uname" translate="no">U+2005 FOUR-PER-EM SPACE</span></td>
 					<td>✓</td>
 					<td>&nbsp;</td>
 					<td>✓</td>
@@ -1817,7 +1822,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td><strong>U+2006 SIX-PER-EM SPACE</strong></td>
+					<td><span class="uname" translate="no">U+2006 SIX-PER-EM SPACE</span></td>
 					<td>✓</td>
 					<td>&nbsp;</td>
 					<td>✓</td>
@@ -1828,7 +1833,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td><strong>U+2007 FIGURE SPACE</strong></td>
+					<td><span class="uname" translate="no">U+2007 FIGURE SPACE</span></td>
 					<td>✓</td>
 					<td>&nbsp;</td>
 					<td>✓</td>
@@ -1839,7 +1844,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td><strong>U+2008 PUNCTUATION SPACE</strong></td>
+					<td><span class="uname" translate="no">U+2008 PUNCTUATION SPACE</span></td>
 					<td>✓</td>
 					<td>&nbsp;</td>
 					<td>✓</td>
@@ -1850,7 +1855,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td><strong>U+2009 THIN SPACE</strong></td>
+					<td><span class="uname" translate="no">U+2009 THIN SPACE</span></td>
 					<td>✓</td>
 					<td>&nbsp;</td>
 					<td>✓</td>
@@ -1861,7 +1866,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td><strong>U+200A HAIR SPACE</strong></td>
+					<td><span class="uname" translate="no">U+200A HAIR SPACE</span></td>
 					<td>✓</td>
 					<td>&nbsp;</td>
 					<td>✓</td>
@@ -1872,7 +1877,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td><strong>U+200E LEFT-TO-RIGHT MARK</strong></td>
+					<td><span class="uname" translate="no">U+200E LEFT-TO-RIGHT MARK</span></td>
 					<td>&nbsp;</td>
 					<td>✓</td>
 					<td>&nbsp;</td>
@@ -1883,7 +1888,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>✓</td>
 				</tr>
 				<tr>
-					<td><strong>U+200F RIGHT-TO-LEFT MARK</strong></td>
+					<td><span class="uname" translate="no">U+200F RIGHT-TO-LEFT MARK</span></td>
 					<td>&nbsp;</td>
 					<td>✓</td>
 					<td>&nbsp;</td>
@@ -1894,7 +1899,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>✓</td>
 				</tr>
 				<tr>
-					<td><strong>U+2028 LINE SEPARATOR</strong></td>
+					<td><span class="uname" translate="no">U+2028 LINE SEPARATOR</span></td>
 					<td>✓</td>
 					<td>✓</td>
 					<td>✓</td>
@@ -1905,7 +1910,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>✓</td>
 				</tr>
 				<tr>
-					<td><strong>U+2029 PARAGRAPH SEPARATOR</strong></td>
+					<td><span class="uname" translate="no">U+2029 PARAGRAPH SEPARATOR</span></td>
 					<td>✓</td>
 					<td>✓</td>
 					<td>✓</td>
@@ -1916,7 +1921,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>✓</td>
 				</tr>
 				<tr>
-					<td><strong>U+202F NARROW NO-BREAK SPACE</strong></td>
+					<td><span class="uname" translate="no">U+202F NARROW NO-BREAK SPACE</span></td>
 					<td>✓</td>
 					<td>&nbsp;</td>
 					<td>✓</td>
@@ -1927,7 +1932,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td><strong>U+205F MEDIUM MATHEMATICAL SPACE</strong></td>
+					<td><span class="uname" translate="no">U+205F MEDIUM MATHEMATICAL SPACE</span></td>
 					<td>✓</td>
 					<td>&nbsp;</td>
 					<td>✓</td>
@@ -1938,7 +1943,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td><strong>U+3000 IDEOGRAPHIC SPACE</strong></td>
+					<td><span class="uname" translate="no">U+3000 IDEOGRAPHIC SPACE</span></td>
 					<td>✓</td>
 					<td>&nbsp;</td>
 					<td>✓</td>
@@ -1949,7 +1954,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td><strong>U+FEFF ZERO WIDTH NO-BREAK SPACE</strong></td>
+					<td><span class="uname" translate="no">U+FEFF ZERO WIDTH NO-BREAK SPACE</span></td>
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
@@ -1961,8 +1966,6 @@ just as characters are the basic unit of organization of encoded text.</p>
 				</tr>
 			</tbody>
 		</table>
-
-		<p>Some specifications that define formal languages (examples include <a href="https://html.spec.whatwg.org/multipage/syntax.html#syntax">HTML</a> or <a href="https://www.w3.org/TR/css-syntax/#whitespace">CSS</a>) will choose to specify ASCII whitespace as part of their grammar. Specifications that deal more generally with text will choose to follow Unicode's definition instead.</p>
   </section>
 
 

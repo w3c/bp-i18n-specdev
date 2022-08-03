@@ -280,8 +280,12 @@ table.whitespace {
     border-spacing: 0;
 	margin: 1em 0;
 	}
-table.whitespace thead th {
+table.whitespace th {
 	writing-mode: sideways-lr;
+	}
+table.whitespace td {
+	text-align: center;
+	vertical-align: middle;
 	}
 table.whitespace th,
 table.whitespace td {
