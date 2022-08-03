@@ -280,6 +280,9 @@ table.whitespace {
     border-spacing: 0;
 	margin: 1em 0;
 	}
+table.whitespace thead th {
+	writing-mode: sideways-lr;
+	}
 table.whitespace th,
 table.whitespace td {
 	border: thin solid rgba(0,0,0,.12);
