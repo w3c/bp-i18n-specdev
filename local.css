@@ -282,6 +282,7 @@ table.whitespace {
 	}
 table.whitespace th {
 	writing-mode: sideways-lr;
+	vertical-align: bottom;
 	}
 table.whitespace td {
 	text-align: center;
