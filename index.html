@@ -1619,22 +1619,37 @@ just as characters are the basic unit of organization of encoded text.</p>
 
 	<p>Whitespace characters are characters that represent horizontal or vertical space in typography. Whitespace characters can have different visual effects: some whitespace characters have no visible effect, while others represent larger, smaller, or variable amounts of space on the page.</p>
 
-		<div class="req" id="char_define_whitespace">
-			<p class="advisement">Specifications that use the term "whitespace" SHOULD explicitly define what the term means in their context. For most specifications, this should refer to the Unicode <a href="https://www.unicode.org/reports/tr44/#White_Space">White_Space</a> property. Otherwise the specific code points should be listed.</p>
-		<details class="links"><summary>explanations &amp; examples</summary>
-		<ul>
-		    <li><a href="https://infra.spec.whatwg.org/#ascii-whitespace">ASCII whitespace</a>, in <cite>Infra Living Standard</cite></li>
-		    <li><a href="https://www.w3.org/TR/css-syntax/#whitespace">Whitespace</a>, in <cite>CSS Syntax</cite></li>
-		    <li><a href="https://www.w3.org/TR/css-text/#white-space">Document white space characters</a>, in <cite>CSS Text</cite></li>
-		    <li><a href="https://tc39.es/ecma262/#sec-white-space">White Space</a>, in <cite>ECMAScript Language Specification</cite></li>
-		    <li><a href="https://www.w3.org/TR/WGSL/#blankspace-and-line-breaks">Blankspace and line breaks</a>, in <cite>WebGPU Shading Language</cite></li>
-		    <li><a href="https://www.w3.org/TR/webdriver/#dfn-whitespace">Whitespace</a>, in <cite>WebDriver</cite></li>
-		    <li><a href="https://www.w3.org/TR/xml/#NT-S">S (white space)</a>, in <cite>Extensible Markup Language (XML) 1.0</cite></li>
-	    </ul>
+	<div class="req" id="char_define_whitespace">
+		<p class="advisement">Specifications that use the term "whitespace" SHOULD explicitly define what the term means.</p>
+		<details class="links">
+			<summary>explanations &amp; examples</summary>
+			<ul>
+				<li><a href="https://infra.spec.whatwg.org/#ascii-whitespace">ASCII whitespace</a>, in <cite>Infra Living Standard</cite></li>
+				<li><a href="https://www.w3.org/TR/css-syntax/#whitespace">Whitespace</a>, in <cite>CSS Syntax</cite></li>
+				<li><a href="https://www.w3.org/TR/css-text/#white-space">Document white space characters</a>, in <cite>CSS Text</cite></li>
+				<li><a href="https://tc39.es/ecma262/#sec-white-space">White Space</a>, in <cite>ECMAScript Language Specification</cite></li>
+				<li><a href="https://www.w3.org/TR/WGSL/#blankspace-and-line-breaks">Blankspace and line breaks</a>, in <cite>WebGPU Shading Language</cite></li>
+				<li><a href="https://www.w3.org/TR/webdriver/#dfn-whitespace">Whitespace</a>, in <cite>WebDriver</cite></li>
+				<li><a href="https://www.w3.org/TR/xml/#NT-S">S (white space)</a>, in <cite>Extensible Markup Language (XML) 1.0</cite></li>
+			</ul>
 		</details>
+	</div>
+
+		<div class="req" id="char_ascii_whitespace">
+			<p class="advisement">Specifications that define whitespace for use in <a href="https://www.w3.org/TR/charmod-norm/#def_vocabulary">vocabularies</a> that are restricted to ASCII or to formats that are whitespace delimited (examples include HTML or CSS) SHOULD specify <a href="https://infra.spec.whatwg.org/#ascii-whitespace">ASCII whitespace</a> as part of their grammar.</p>
 		</div>
 
-		<p>Some specifications that define formal languages (examples include <a href="https://html.spec.whatwg.org/multipage/syntax.html#syntax">HTML</a> or <a href="https://www.w3.org/TR/css-syntax/#whitespace">CSS</a>) will choose to specify ASCII whitespace as part of their grammar. Specifications that deal more generally with text will choose to follow Unicode's definition instead.</p>
+		<div class="req" id="char_unicode_white_space">
+			<p class="advisement">Other Specifications SHOULD define whitespace to mean characters with the Unicode <a href="https://www.unicode.org/reports/tr44/#White_Space">White_Space</a> property.</p>
+		</div>
+
+		<div class="req" id="char_whitespace_code_points">
+			<p class="advisement">If a specification defines "whitespace" differently from ASCII or Unicode whitespace, the specific code points MUST be listed.</p>
+		</div>
+
+		<p>
+			Some specifications, such as <a href="https://tc39.es/ecma262/#sec-white-space">ECMAScript</a>, have provided their own definition of whitespace which differ from the above for specific reasons.
+		</p>
 
 		<p>
 			The following table is the definition of whitespace characters in various specifications.
