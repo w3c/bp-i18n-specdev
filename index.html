@@ -1635,25 +1635,25 @@ just as characters are the basic unit of organization of encoded text.</p>
 		</details>
 	</div>
 
-		<div class="req" id="char_ascii_whitespace">
-			<p class="advisement">Specifications that define whitespace for use in <a href="https://www.w3.org/TR/charmod-norm/#def_vocabulary">vocabularies</a> that are restricted to ASCII or to formats that are whitespace delimited (examples include HTML or CSS) SHOULD specify <a href="https://infra.spec.whatwg.org/#ascii-whitespace">ASCII whitespace</a> as part of their grammar.</p>
-		</div>
+	<div class="req" id="char_unicode_white_space">
+		<p class="advisement">Most specifications SHOULD define whitespace to mean characters with the Unicode <a href="https://www.unicode.org/reports/tr44/#White_Space">White_Space</a> property.</p>
+	</div>
 
-		<div class="req" id="char_unicode_white_space">
-			<p class="advisement">Other Specifications SHOULD define whitespace to mean characters with the Unicode <a href="https://www.unicode.org/reports/tr44/#White_Space">White_Space</a> property.</p>
-		</div>
+	<div class="req" id="char_ascii_whitespace">
+		<p class="advisement">Specifications that define whitespace for use in <a href="https://www.w3.org/TR/charmod-norm/#def_vocabulary">vocabularies</a> that are restricted to ASCII or to formats that are whitespace delimited (examples include HTML or CSS) SHOULD specify <a href="https://infra.spec.whatwg.org/#ascii-whitespace">ASCII whitespace</a> as part of their grammar.</p>
+	</div>
 
-		<div class="req" id="char_whitespace_code_points">
-			<p class="advisement">If a specification defines "whitespace" differently from ASCII or Unicode whitespace, the specific code points MUST be listed.</p>
-		</div>
+	<div class="req" id="char_whitespace_code_points">
+		<p class="advisement">If a specification defines "whitespace" differently from ASCII or Unicode whitespace, the specific code points MUST be listed.</p>
+	</div>
 
-		<p>
-			Some specifications, such as <a href="https://tc39.es/ecma262/#sec-white-space">ECMAScript</a>, have provided their own definition of whitespace which differ from the above for specific reasons.
-		</p>
+	<p>
+		Some specifications, such as <a href="https://tc39.es/ecma262/#sec-white-space">ECMAScript</a>, have provided their own definition of whitespace which differ from the above to meet their own specific requirements.
+	</p>
 
-		<p>
-			The following table is the definition of whitespace characters in various specifications.
-		</p>
+	<p>
+		The following table is the definition of whitespace characters in various specifications.
+	</p>
 
 		<table class="whitespace">
 			<caption>Links to the latest definitions of the information in the table can be found by expanding the "explanations & examples".</caption>
@@ -1923,9 +1923,8 @@ just as characters are the basic unit of organization of encoded text.</p>
 				</tr>
 			</tbody>
 		</table>
-		<p>
-			Some specifications use the same definition as one of the columns above and are not listed in the table. For example, <a href="https://www.w3.org/TR/webdriver/#dfn-whitespace">WebDriver</a> uses the `white_space` property and <a href="https://www.w3.org/TR/WGSL/#blankspace-and-line-breaks">WebGPU Shading Language</a> uses the `pattern_white_space` property.
-		</p>
+
+		<p>Some specifications use the same definition as one of the columns above and are not listed in the table. For example, <a href="https://www.w3.org/TR/webdriver/#dfn-whitespace">WebDriver</a> uses the `white_space` property and <a href="https://www.w3.org/TR/WGSL/#blankspace-and-line-breaks">WebGPU Shading Language</a> uses the `pattern_white_space` property.</p>
   </section>
 
 
