@@ -61,9 +61,45 @@
         }
     }
   </script>
+  
+  <script>
+	  function sortTable(colNum) {
+          var table, rows, i, x, y, shouldSwitch;
+          table = document.getElementById("exampleNamesTable");
+          var switching = true;
+          var collator = new Intl.Collator('en-US');
+  
+          /* Loop until done */
+          while (switching) {
+			  switching = false;
+              rows = table.rows;
+              /* Loop over all rows excepting the header */
+              for (i = 1; i < (rows.length - 1); i++) {
+                  // Start by saying there should be no switching
+                  shouldSwitch = false;
+                  // Get the elements to compare
+                  x = rows[i].getElementsByTagName("TD")[colNum];
+                  y = rows[i + 1].getElementsByTagName("TD")[colNum];
+
+                  // Check if the two rows should switch place
+                  if (collator.compare(x.textContent, y.textContent) > 0) {
+
+                     // If so, mark as a switch and break the loop
+                     shouldSwitch = true;
+                     break;
+                  }
+               }
+               if (shouldSwitch) {
+                  // do the switch
+                  rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                  switching = true;
+               }
+           } // while
+       } // sortTable
+  </script>
   </head>
   
-  <body>
+  <body onload="sortTable(0);">
   <div id="abstract">
       <p>This document provides a checklist of internationalization-related considerations when developing a specification. Most checklist items point to detailed supporting information in other documents. Where such information does not yet exist, it can be given a temporary home in this document.  <strong>The  information in this document will change regularly as new content is added and existing content is modified in the light of experience and discussion.</strong></p>
   </div>
@@ -3263,10 +3299,12 @@ We could stand to cull the Japanese list. The notes need work.
 
 -->
 
-<table>
+<p><em>This table can be sorted by clicking on the header row.</em></p>
+
+<table id="exampleNamesTable">
 	<thead>
 		<tr>
-			<th>Name</th><th>Native</th><th>Gender</th><th>Region</th><th>Notes</th><th>Language</th>
+			<th onclick="sortTable(0)">Name</th><th onclick="sortTable(1)">Native</th><th onclick="sortTable(2)">Gender</th><th onclick="sortTable(3)">Notes</th><th onclick="sortTable(4)">Language</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -3274,645 +3312,494 @@ We could stand to cull the Japanese list. The notes need work.
     <td>Akamu</td>
     <td></td>
     <td>m</td>
-    <td>Oceania</td>
-    <td>Polynesia; Hawaiian name</td>
+    <td>Oceania; Polynesia; Hawaiian name</td>
     <td>haw
 <tr>
     <td>Alinta</td>
     <td></td>
     <td>f</td>
-    <td>Oceania</td>
-    <td>Australian indigenous name</td>
+    <td>Oceania; Australian indigenous name</td>
     <td>nys
 <tr>
     <td>Amélie</td>
     <td></td>
     <td>f</td>
-    <td>Europe</td>
-    <td>France</td>
+    <td>Europe; France</td>
     <td>fr
 <tr>
     <td>An</td>
-    <td lang=ja><ruby><rb>杏</rb><rt>あん</rt></ruby></td>
+    <td lang=ja>杏</td>
     <td>f</td>
-    <td>East Asian</td>
-    <td>Japan</td>
+    <td>East Asian; Japan</td>
     <td>ja
 <tr>
     <td>Aoi</td>
-    <td>葵; 蒼; 碧</td>
+    <td lang="ja">葵; 蒼; 碧</td>
     <td>f, m</td>
-    <td>East Asian</td>
-    <td>Japan</td>
+    <td>East Asian; Japan</td>
     <td>ja
 <tr>
     <td>Aroha</td>
     <td></td>
     <td>f</td>
-    <td>Oceania</td>
-    <td>Maori</td>
+    <td>Oceania; Maori</td>
     <td>mi
 <tr>
     <td>Asahi</td>
-    <td>朝陽</td>
+    <td jang="ja">朝陽</td>
     <td>m</td>
-    <td>East Asian</td>
-    <td>Japan</td>
+    <td>East Asian; Japan</td>
     <td>ja
 <tr>
     <td>Atlahua</td>
     <td></td>
     <td>m</td>
-    <td>Latin America</td>
-    <td>Nahuatl name</td>
+    <td>Latin America; Nahuatl name</td>
     <td>nah
+<tr>
+
+    <td>Åsa</td>
+    <td></td>
+    <td>f</td>
+    <td>Europe; Sweden</td>
+    <td>sv
 <tr>
     <td>Beata</td>
     <td></td>
     <td>f</td>
     <td>Europe</td>
-    <td></td>
     <td>it, de, pl, sv, etc.
 <tr>
     <td>Chanda</td>
     <td lang="hi">चंदा</td>
     <td>f</td>
-    <td>South Asia</td>
-    <td>originally from Sanskrit</td>
+    <td>South Asia; originally from Sanskrit</td>
     <td>sa
 <tr>
     <td>Chirapathi</td>
     <td lang="ta">சிரபதி</td>
     <td>f</td>
-    <td>South Asia</td>
-    <td>Tamil</td>
+    <td>South Asia; Tamil</td>
     <td>ta
 <tr>
     <td>Citlali</td>
     <td></td>
     <td>f</td>
-    <td>Latin America</td>
-    <td>Nahuatl name</td>
+    <td>Latin America; Nahuatl</td>
     <td>nah
 <tr>
     <td>Coen</td>
     <td></td>
     <td>m</td>
-    <td>Europe, Oceania</td>
-    <td>Dutch (alternately spelled Koen), Australian indigenous, or Hebrew name</td>
+    <td>Europe, Oceania; Dutch, Australian indigenous, or Hebrew name</td>
     <td>nl, he, nys
 <tr>
     <td>Daisho</td>
     <td lang="ja">大翔</td>
     <td>m</td>
-    <td>East Asian</td>
-    <td>Japan</td>
-    <td>ja
-<tr>
-    <td>Dan</td>
-    <td>暖</td>
-    <td>m</td>
-    <td>East Asian</td>
-    <td>Japan</td>
+    <td>East Asian; Japan</td>
     <td>ja
 <tr>
     <td>Dara</td>
     <td></td>
     <td>f</td>
-    <td>West Asia</td>
-    <td></td>
-    <td>
-<tr>
-    <td>Elisapeta</td>
-    <td></td>
-    <td>f</td>
-    <td>Oceania</td>
-    <td>Samoa (but obviously of European origin)</td>
-    <td>sm
+    <td>West Asia; Turkish</td>
+    <td>tr
 <tr>
     <td>Eva</td>
     <td>Е́ва</td>
     <td>f</td>
-    <td>Europe</td>
-    <td>Russia</td>
+    <td>Europe; Russia</td>
     <td>ru
 <tr>
     <td>Faheem</td>
-    <td dir=rtl>فهيم</td>
+    <td lang="ar" dir=rtl>فهيم</td>
     <td>m</td>
-    <td>West Asia</td>
-    <td>Arabic</td>
-    <td>
-<tr>
-    <td>Fatima</td>
-    <td dir=rtl>فَاطِمَة</td>
-    <td>f</td>
-    <td>West Asia</td>
-    <td></td>
+    <td>West Asia; Arabic</td>
     <td>ar
+<tr>
+    <td>Fátima</td>
+    <td lang="ar" dir=rtl>فَاطِمَة</td>
+    <td>f</td>
+    <td>West Asia; also Europe</td>
+    <td>ar, es
 <tr>
     <td>Genet</td>
     <td lang="am">ገነት</td>
     <td>f</td>
-    <td>Africa</td>
-    <td>Ethiopia</td>
+    <td>Africa; Ethiopia</td>
     <td>am
 <tr>
     <td>Haruto</td>
     <td lang="ja">陽翔</td>
     <td>m</td>
-    <td>East Asian</td>
-    <td>Japan</td>
+    <td>East Asian; Japan</td>
     <td>ja
 <tr>
     <td>Haukea</td>
     <td></td>
     <td>f</td>
-    <td>Oceania</td>
-    <td>Polynesia; Hawaiian name</td>
+    <td>Oceania; Polynesia; Hawaiian name</td>
     <td>haw
 <tr>
     <td>Himari</td>
-    <td>陽葵</td>
+    <td lang="ja">陽葵</td>
     <td>f</td>
-    <td>East Asian</td>
-    <td>Japan</td>
+    <td>East Asian; Japan</td>
     <td>ja
 <tr>
     <td>Hina</td>
-    <td>陽菜</td>
+    <td lang="ja">陽菜</td>
     <td>f</td>
-    <td>East Asian</td>
-    <td>Japan</td>
+    <td>East Asian; Japan</td>
     <td>ja
 <tr>
     <td>Hīnano</td>
     <td></td>
     <td>m</td>
-    <td>Oceania</td>
-    <td>Polynesia</td>
-    <td>
+    <td>Oceania; Polynesia; Tahitian</td>
+    <td>ty
 <tr>
     <td>Iakopo</td>
     <td></td>
     <td>m</td>
     <td>Oceania</td>
-    <td></td>
-    <td>
+    <td>sm
 <tr>
     <td>Ilango</td>
     <td lang="ta">இளங்கோ</td>
     <td>m</td>
-    <td>South Asia</td>
-    <td>Tamil</td>
+    <td>South Asia; Tamil</td>
     <td>ta
 <tr>
     <td>Irepani</td>
     <td></td>
     <td>m</td>
-    <td>Latin America</td>
-    <td>Purepecha language</td>
+    <td>Latin America; Purepecha language</td>
     <td>tsz
 <tr>
     <td>Işık</td>
     <td></td>
     <td>f</td>
-    <td></td>
     <td>Turkey</td>
     <td>tr
 <tr>
     <td>Işıtan</td>
     <td></td>
     <td>m</td>
-    <td></td>
     <td>Turkish</td>
     <td>tr
 <tr>
     <td>Itsuki</td>
-    <td>樹</td>
+    <td lang="ja">樹</td>
     <td>m</td>
-    <td>East Asian</td>
-    <td>Japan</td>
+    <td>East Asian; Japan</td>
     <td>ja
 <tr>
-    <td>Jarra</td>
-    <td></td>
+    <td>Jarra, Jarrah, Cerrah</td>
+    <td lang="ar" dir="rtl">جراح</td>
     <td>m</td>
-    <td>Oceania</td>
-    <td></td>
-    <td>
+    <td>Arabic</td>
+    <td>ar, tr
 <tr>
     <td>Jean-François</td>
     <td></td>
     <td>m</td>
-    <td>Europe</td>
-    <td>France</td>
+    <td>Europe; French</td>
     <td>fr
 <tr>
     <td>João</td>
     <td></td>
     <td>m</td>
-    <td>Latin America</td>
-    <td></td>
+    <td>Latin America; Brazil</td>
     <td>pt-BR
 <tr>
     <td>Júlía</td>
     <td></td>
     <td>f</td>
-    <td></td>
-    <td></td>
-    <td>
+    <td>Icelandic</td>
+    <td>is
 <tr>
     <td>Kai</td>
     <td></td>
     <td>f, m</td>
-    <td>Oceania</td>
-    <td></td>
+    <td>Many cultures and languages</td>
     <td>
 <tr>
     <td>Khaliun</td>
     <td></td>
-    <td>f</td>
-    <td></td>
-    <td></td>
-    <td>
-<tr>
-    <td>Kirra</td>
-    <td></td>
-    <td>f</td>
-    <td>Oceania</td>
-    <td></td>
-    <td>
+    <td>f, m</td>
+    <td>Mongolian</td>
+    <td>mn
 <tr>
     <td>Kylie</td>
     <td></td>
     <td>f</td>
-    <td>Oceania</td>
-    <td>Australian indigenous name</td>
+    <td>Oceania; Australian indigenous name</td>
     <td>
 <tr>
     <td>Lani</td>
     <td></td>
     <td>f</td>
-    <td>Oceania</td>
-    <td></td>
-    <td>
+    <td>Oceania; Philippines</td>
+    <td>fil
 <tr>
     <td>Lei</td>
-    <td>李雷</td>
+    <td lang="zh-Hans">李雷</td>
     <td>f</td>
-    <td>East Asian</td>
-    <td>China</td>
+    <td>East Asian; China</td>
     <td>zh-Hans
 <tr>
     <td>Livia</td>
     <td></td>
     <td>f</td>
-    <td></td>
-    <td></td>
-    <td>
-<tr>
-    <td>Livia</td>
-    <td></td>
-    <td>f</td>
-    <td>Latin America</td>
-    <td></td>
-    <td>
+    <td>Europe, Latin America</td>
+    <td>es
 <tr>
     <td>Lowanna</td>
     <td></td>
     <td>f</td>
-    <td>Oceania</td>
-    <td></td>
-    <td>
+    <td>Oceania; Australian indigenous</td>
+    <td>aus
 <tr>
     <td>Lucas</td>
     <td></td>
     <td>m</td>
     <td>Latin America</td>
-    <td></td>
     <td>es
 <tr>
     <td>Maevarau</td>
     <td></td>
     <td>m</td>
-    <td>Oceania</td>
-    <td>Polynesia</td>
-    <td>
+    <td>Oceania; Samoa</td>
+    <td>sm
 <tr>
     <td>Mahmut</td>
     <td></td>
     <td>m</td>
-    <td>West Asia</td>
-    <td>Turkish</td>
+    <td>West Asia; Turkish</td>
     <td>tr
 <tr>
     <td>Martina</td>
     <td></td>
     <td>f</td>
     <td>Latin America</td>
-    <td></td>
-    <td>
+    <td>es
 <tr>
     <td>Mei</td>
     <td>芽依</td>
     <td>f</td>
-    <td>East Asian</td>
-    <td>Japan</td>
-    <td>
+    <td>East Asian; Japan</td>
+    <td>ja
 <tr>
     <td>Minato</td>
-    <td>湊</td>
+    <td lang="ja">湊</td>
     <td>m</td>
-    <td>East Asian</td>
-    <td>Japan</td>
+    <td>East Asian; Japan</td>
     <td>ja
 <tr>
     <td>Mio</td>
-    <td>澪</td>
+    <td lang="ja">澪</td>
     <td>f</td>
-    <td>East Asian</td>
-    <td>Japan</td>
-    <td>
+    <td>East Asian; Japan</td>
+    <td>ja
 <tr>
     <td>Miriam</td>
     <td dir=rtl>מרים</td>
     <td>f</td>
-    <td>West Asia</td>
-    <td>Hebrew</td>
-    <td>
+    <td>West Asia; Hebrew</td>
+    <td>he
 <tr>
     <td>Müge</td>
     <td></td>
     <td>f</td>
-    <td></td>
-    <td></td>
+    <td>Turkish</td>
     <td>tr
 <tr>
     <td>Muhammad</td>
-    <td dir=rtl>محمد</td>
+    <td lang="ar" dir=rtl>محمد</td>
     <td>m</td>
-    <td>West Asia</td>
-    <td>Arabic</td>
-    <td>
+    <td>West Asia; Arabic; Many variants and languages.</td>
+    <td>ar
 <tr>
     <td>Ngatemi</td>
     <td></td>
     <td>f</td>
-    <td></td>
-    <td></td>
-    <td>
+    <td>Indonesia</td>
+    <td>id, ms
 <tr>
-    <td>Nguyễn Thị Anh</td>
+    <td>Thị Anh</td>
     <td></td>
     <td>f</td>
     <td>South-East Asia</td>
-    <td>Vietnam; the name Nguyễn is a family name; the given name in Anh</td>
     <td>vi-VN
 <tr>
-    <td>Nguyễn Văn Hoa</td>
+    <td>Văn Hoa</td>
     <td></td>
     <td>m</td>
-    <td>South-East Asia</td>
-    <td>Vietnam; the name Nguyễn is a family name; the given name in Hoa</td>
+    <td>South-East Asia; Vietnam</td>
     <td>vi-VN
-<tr>
-    <td>Nullah</td>
-    <td></td>
-    <td>m</td>
-    <td>Oceania</td>
-    <td></td>
-    <td>
 <tr>
     <td>Onosaʻi</td>
     <td></td>
     <td>f</td>
-    <td>Oceania</td>
-    <td></td>
-    <td>
-<tr>
-    <td>Onya</td>
-    <td></td>
-    <td>f</td>
-    <td></td>
-    <td></td>
-    <td>
+    <td>Oceania; Samoa</td>
+    <td>sm
 <tr>
     <td>Potira</td>
     <td></td>
     <td>f</td>
-    <td></td>
-    <td></td>
-    <td>
+    <td>Latin America; Brazil; indigenous name</td>
+    <td>gn
 <tr>
     <td>Qiàn</td>
-    <td>倩</td>
+    <td lang="zh-Hans">倩</td>
     <td>f</td>
-    <td>East Asian</td>
-    <td>China</td>
-    <td>
+    <td>East Asian; China</td>
+    <td>zh-Hans
 <tr>
     <td>Rattiya</td>
-    <td>รัตติยา</td>
+    <td lang="th">รัตติยา</td>
     <td>f</td>
-    <td>South-East Asia</td>
-    <td>Thailand</td>
-    <td>
+    <td>South-East Asia; Thailand</td>
+    <td>th
 <tr>
     <td>Ren</td>
-    <td>蓮</td>
+    <td lang="ja">蓮</td>
     <td>m</td>
-    <td>East Asian</td>
-    <td>Japan</td>
-    <td>ja
-<tr>
-    <td>Riko</td>
-    <td>莉</td>
-    <td>f</td>
-    <td>East Asian</td>
-    <td>Japan</td>
+    <td>East Asian; Japan</td>
     <td>ja
 <tr>
     <td>Rin</td>
-    <td>凛</td>
+    <td lang="ja">凛</td>
     <td>f</td>
-    <td>East Asian</td>
-    <td>Japan</td>
-    <td>ja
-<tr>
-    <td>Ritsu</td>
-    <td>律</td>
-    <td>m</td>
-    <td>East Asian</td>
-    <td>Japan</td>
+    <td>East Asian; Japan</td>
     <td>ja
 <tr>
     <td>Ritthichai</td>
-    <td>ฤทธิชัย</td>
+    <td lang="th">ฤทธิชัย</td>
     <td>m</td>
-    <td>South-East Asia</td>
-    <td>Thailand</td>
+    <td>South-East Asia; Thailand</td>
     <td>th
 <tr>
     <td>Santiago</td>
     <td></td>
     <td>m</td>
     <td>Latin America</td>
-    <td></td>
     <td>es
 <tr>
     <td>Senthil</td>
-    <td>செந்தில்</td>
+    <td lang="ta">செந்தில்</td>
     <td>m</td>
-    <td>South Asia</td>
-    <td>Tamil</td>
-    <td>
+    <td>South Asia; Tamil</td>
+    <td>ta
 <tr>
     <td>Sione</td>
     <td></td>
     <td>m</td>
-    <td>Oceania</td>
-    <td></td>
-    <td>
+    <td>Oceania; Tonga</td>
+    <td>to
 <tr>
     <td>Slobodan</td>
-    <td>Слободан</td>
+    <td lang="sr-Cyrl">Слободан</td>
     <td>m</td>
-    <td>Europe</td>
-    <td></td>
+    <td>Europe; Serbian</td>
     <td>sr
 <tr>
     <td>Sofia</td>
     <td></td>
     <td>f</td>
-    <td>Latin America</td>
-    <td></td>
+    <td>Europe; Latin America</td>
     <td>es
 <tr>
     <td>Tahnee</td>
     <td></td>
     <td>f</td>
     <td>Oceania</td>
-    <td></td>
-    <td>
+    <td>en
 <tr>
     <td>Tamizhachi</td>
-    <td>தமிழச்சி</td>
+    <td lang="ta">தமிழச்சி</td>
     <td>f</td>
-    <td>South Asia</td>
-    <td>Tamil</td>
-    <td>
+    <td>South Asia; Tamil</td>
+    <td>ta
 <tr>
     <td>Temuera</td>
     <td></td>
     <td>m</td>
-    <td>Oceania</td>
-    <td>Polynesia</td>
-    <td>
+    <td>Oceania; Polynesia</td>
+    <td>sm
 <tr>
-    <td>Tsumugi</td>
-    <td>紬</td>
-    <td>f</td>
-    <td>East Asian</td>
-    <td>Japan</td>
-    <td>
-<tr>
-    <td>Tuqiik</td>
+    <td>Tuulikki</td>
     <td></td>
     <td>f</td>
-    <td></td>
-    <td></td>
-    <td>
-<tr>
-    <td>Uri</td>
-    <td>אוּרִי</td>
-    <td>f</td>
-    <td>West Asia</td>
-    <td>Hebrew</td>
-    <td>he
+    <td>Europe; Finland</td>
+    <td>fi
 <tr>
     <td>Uriel</td>
-    <td>אוּרִיאֵל</td>
+    <td lang="he" dir="rtl">אוּרִיאֵל</td>
     <td>m</td>
-    <td>West Asia</td>
-    <td>Hebrew</td>
+    <td>West Asia; Hebrew</td>
     <td>he
 <tr>
     <td>Vasa</td>
     <td></td>
     <td>m</td>
-    <td>Oceania</td>
-    <td></td>
-    <td>
+    <td>Oceania (Samoa); also a diminutive form of Vasilije in Serbian</td>
+    <td>sm
 <tr>
     <td>Vassilios</td>
-    <td>Βασίλειος</td>
+    <td lang="el">Βασίλειος</td>
     <td>m</td>
-    <td>Europe</td>
-    <td>Greek</td>
+    <td>Europe; Greek</td>
     <td>el
 <tr>
     <td>Voula</td>
-    <td>Βούλα</td>
+    <td lang="el">Βούλα</td>
     <td>f</td>
-    <td>Europe</td>
-    <td>Greek</td>
-    <td>
+    <td>Europe; Greek</td>
+    <td>el
 <tr>
     <td>Wafaa</td>
-    <td dir=rtl>وفاء</td>
+    <td lang="ar" dir=rtl>وفاء</td>
     <td>f</td>
-    <td>West Asia</td>
-    <td>Arabic</td>
+    <td>West Asia; Arabic</td>
     <td>ar
 <tr>
     <td>Wissam</td>
-    <td>وسام</td>
+    <td lang="ar" dir=rtl>وسام</td>
     <td>m</td>
-    <td>West Asia</td>
-    <td>Arabic</td>
+    <td>West Asia; Arabic</td>
     <td>ar
 <tr>
     <td>Xiaoxia</td>
-    <td>晓霞</td>
+    <td lang="zh-Hans">晓霞</td>
     <td>f</td>
-    <td>East Asian</td>
-    <td>China</td>
+    <td>East Asian; China</td>
     <td>zh-Hans
 <tr>
     <td>Xóchitl</td>
     <td></td>
     <td>f</td>
-    <td>Latin America</td>
-    <td></td>
+    <td>Latin America; Nahuatl</td>
     <td>nah
 <tr>
     <td>Yevdokia</td>
-    <td>Евдокия</td>
+    <td lang="ru">Евдокия</td>
     <td>f</td>
-    <td>Europe</td>
-    <td>Russia</td>
-    <td>
-<tr>
-    <td>Yevgeny</td>
-    <td>Евгений</td>
-    <td>m</td>
-    <td>Europe</td>
-    <td>Russia</td>
+    <td>Europe; Russia</td>
     <td>ru
 <tr>
-    <td>Yuina</td>
-    <td>結菜</td>
-    <td>f</td>
-    <td>East Asian</td>
-    <td>Japan</td>
-    <td>
+    <td>Yevgeny</td>
+    <td lang="ru">Евгений</td>
+    <td>m</td>
+    <td>Europe; Russia</td>
+    <td>ru
 <tr>
     <td>Zafirah</td>
-    <td dir="rtl">زفره</td>
+    <td lang="ar" dir="rtl">زفره</td>
     <td>f</td>
-    <td>West Asia</td>
-    <td>Arabic</td>
+    <td>West Asia; Arabic</td>
     <td>ar
 </tbody>
 </table>
