@@ -127,7 +127,7 @@
 <ul>
 <li class="w3"><p class="link"><a href="https://www.w3.org/International/questions/qa-lang-why">Why use the language attribute?</a>.</p></li>
 <li class="w3"><p class="link"><a href="https://www.w3.org/International/questions/qa-http-and-lang">Types of language declaration</a>. How 'metadata' and 'text-processing' types of language information differ.</p></li>
-<li class="w3"><p class="link"><a href="https://www.w3.org/International/articles/lang-bidi-use-cases">Use cases for bidi and language metadata on the Web</a>.</p></li>
+<li class="w3"><p class="link"><a href="https://www.w3.org/International/articles/lang-bidi-use-cases/">Use cases for bidi and language metadata on the Web</a>.</p></li>
 </ul>
 </aside>
 
@@ -138,7 +138,7 @@
 	<p class="advisement">It should be possible to associate a language with any piece of <a>localizable text</a> or <a>natural language</a> content.</p>
 	<details class="links"><summary>more</summary>
 	<p><a href="https://www.w3.org/International/questions/qa-lang-why">Why use the language attribute?</a></p>
-	<p><a href="https://www.w3.org/International/articles/lang-bidi-use-cases">Use cases for bidi and language metadata on the Web</a></p>
+	<p><a href="https://www.w3.org/International/articles/lang-bidi-use-cases/">Use cases for bidi and language metadata on the Web</a></p>
 	</details>
 	</div>
 
@@ -334,7 +334,7 @@
 <li class="w3"><p class="link"><a href="https://www.w3.org/International/questions/qa-lang-why">Why use the language attribute?</a>.</p></li>
 <!--li class="w3"><p class="link"><a href="https://w3c.github.io/i18n-discuss/notes/annotation-language-use-cases">Use cases for language information in web annotations</a>. Illustrates the difference between text-processing and metadata types of language declaration.</p></li-->
 <li class="w3"><p class="link"><a href="https://www.w3.org/International/questions/qa-http-and-lang">Types of language declaration</a>. How 'metadata' and 'text-processing' types of language information differ.</p></li>
-<li class="w3"><p class="link"><a href="https://www.w3.org/International/articles/lang-bidi-use-cases">Use cases for bidi and language metadata on the Web</a>.</p></li>
+<li class="w3"><p class="link"><a href="https://www.w3.org/International/articles/lang-bidi-use-cases/">Use cases for bidi and language metadata on the Web</a>.</p></li>
 </ul>
 </aside>
 
@@ -592,8 +592,8 @@
 <p>&quot;The title was '!NOITASILANOITANRETNI'.&quot;</p>
 <p>where the span within the single quotes is in Hebrew/Arabic/Divehi, etc., and needs to have a RTL base direction, instead of the LTR base direction of the surrounding paragraph, in order to place the exclamation mark correctly. </p>
 <p>If markup is available to the content author, it is likely to be easier and safer to use markup to indicate such inline ranges (see below). In HTML you would usually use an inline element with a <code class="kw" translate="no">dir</code> attribute to establish the base direction for such runs of text.  If you can't mark up the text, such as in HTML's <code class="kw" translate="no">title</code> element, or any environment that handles only plain text content, you have to resort to Unicode's paired control characters to establish the base direction for such an internal range.</p>
-<p>Furthermore, inline ranges where the base direction is changed should be isolated from surrounding text, so that the UBA doesn't produce incorrect results due to interference across boundaries. <a href="http://www.w3.org/International/articles/inline-bidi-markup/#uc5">See an&nbsp;example</a> of how this can produce incorrect ordering of things such&nbsp;as text followed by numbers in HTML, or <a href="http://www.w3.org/International/articles/inline-bidi-markup/#usecase3">another example</a> of how it can affect lists.</p>
-<p>This means that if a content author is using Unicode control codes they should use RLI/LRI...PDI rather than RLE/LRE...PDF.&nbsp; These isolating codes are fairly new, and applications may not yet support them.</p>
+<p>Furthermore, inline ranges where the base direction is changed should be isolated from surrounding text, so that the UBA doesn't produce incorrect results due to interference across boundaries. <a href="https://www.w3.org/International/articles/inline-bidi-markup/bidi_examples#uc5">See an example</a> of how this can produce incorrect ordering of things such as text followed by numbers in HTML, or <a href="https://www.w3.org/International/articles/inline-bidi-markup/bidi_examples#usecase3">another example</a> of how it can affect lists.</p>
+<p>This means that if a content author is using Unicode control codes they should use RLI/LRI...PDI rather than RLE/LRE...PDF.  These isolating codes are fairly new, and applications may not yet support them.</p>
 </section>
 
 
@@ -777,7 +777,7 @@
 <ul>
 <li class="w3"><p class="link"><a href="https://w3c.github.io/string-meta/">Strings on the Web: Language and Direction Metadata</a>.</p>
 	<ul>
-	<li class="w3"><p class="link"><a href="https://w3c.github.io/string-meta/#bp-and-reco">Best Practices, Recommendations, and Gaps</a>.</p></li>
+	<li class="w3"><p class="link"><a href="https://w3c.github.io/string-meta/#bp_and-reco">Best Practices, Recommendations, and Gaps</a>.</p></li>
 	<li class="w3"><p class="link"><a href="https://w3c.github.io/string-meta/#use_cases">Requirements and Use Cases</a>.</p></li>
 	<li class="w3"><p class="link"><a href="https://w3c.github.io/string-meta/#bidi-approaches">Approaches Considered for Identifying the Base Direction</a>.</p></li>
 	</ul>
