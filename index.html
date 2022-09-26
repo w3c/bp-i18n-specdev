@@ -2378,9 +2378,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 
 <div id="sec_resid_non_ascii_checklist" class="summaryC"></div>
 
-
-
-
+<p>A <dfn id="dfn_resid">resource identifier</dfn> is a compact string of characters for identifying an abstract or physical <a>resource</a>. On the Web, this mostly means various types of Universal Resource Identifiers (or <em>URIs</em>). For wire formats, [[RFC3986]] defines the structure and serialization. <em>Internationalizationed Resource Identifiers</em> (or <em>IRIs</em>) [[RFC3987]] describe how non-ASCII Unicode characters can be used in resource identifiers. The WhatWG [[URL]] specification describes how browsers handle IRIs and their mapping to URIs. See also: <a href="#markup_identifiers"></a>.</p>
 
 <section id="resid_misc" class="subtopic">
 <h3>Basics</h3>
@@ -2390,25 +2388,31 @@ just as characters are the basic unit of organization of encoded text.</p>
 <aside class="links" id="links_sec_resid_basic">
 <p class="links_title">Useful background and overviews for this section</p>
 <ul>
-<li class="w3"><p class="link"><a href="http://www.w3.org/International/iri-edit/draft-duerst-iri-08.txt">Internationalized Resource Identifiers (IRIs)</a></p></li>
+<li class="w3"><p class="link"><a href="https://url.spec.whatwg.org/">WhatWG URL Specification</a> [[URL]]</p></li>
+<li class="w3"><p class="link"><a href="https://www.rfc-editor.org/rfc/rfc3987">Internationalized Resource Identifiers (IRIs)</a> [[RFC3987]]</p></li>
 </ul>
 </aside>
 
-
-
 <div class="req" id="resid_use_iris">
-	<p class="advisement">Resource identifiers must permit the use of characters outside those of plain ASCII.</p>
+	<p class="advisement">Specifications that define <a>resource identifiers</a> MUST permit the use of non-ASCII characters.</p>
 	<details class="links"><summary>more</summary>
 	<p><a href="https://github.com/w3c/web-annotation/issues/241">Model is defined in terms of IRIs; Protocol with URI</a>. GitHub issue discussion.</p>
 	</details>
 	</div>
+	
+	<p>Document formats or protocols need to support resource identifiers that contain non-ASCII characters because in many cases the names or identifiers for a given resource are generated from user input. Users generally are not restricted and should not be restricted in their ability to use their own language for these values.</p>
+	
+	<p>A specification can impose limitations on which characters are permitted, but these should be focused on characters that conflict with the syntax. If additional restrictions are contemplated, review [[UAX31]] and [[CHARMOD-NORM]] for additional guidance.</p>
 
   	<div class="req" id="resid_iri_conversion">
 	<p class="advisement">Specifications MUST define when the conversion from IRI references to URI references (or subsets thereof) takes place, in accordance with Internationalized Resource Identifiers (IRIs).</p>
 	</div>
 
-<p>Many current specifications already contain provisions in accordance with Internationalized Resource Identifiers (IRIs). For XML 1.0, see Section 4.2.2, External Entities. XML Schema Part 2: Datatypes provides the anyURI datatype (see Section 3.2.17). The XML Linking Language (XLink)  provides the href attribute (see Section 5.4, Locator Attribute).</p>
-<p>Document formats should allow IRIs to be used; handlers for protocols that do not currently support IRIs can convert the IRI to a URI when the IRI is dereferenced.</p>
+    <!-- obsolete?
+    <p>Many current specifications already contain provisions in accordance with Internationalized Resource Identifiers (IRIs). For XML 1.0, see Section 4.2.2, External Entities. XML Schema Part 2: Datatypes provides the anyURI datatype (see Section 3.2.17). The XML Linking Language (XLink)  provides the href attribute (see Section 5.4, Locator Attribute).</p>-->
+
+    <!-- obsolete?
+    <p>Document formats should allow IRIs to be used; handlers for protocols that do not currently support IRIs can convert the IRI to a URI when the IRI is dereferenced.</p>-->
   </section>
   </section>
 
