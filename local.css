@@ -274,7 +274,29 @@ aside h4 {
 	margin-inline-start: 1em;
 	}
 
-
+table.whitespace {
+	/* width: 300px; */
+	width: 100%;
+    border-spacing: 0;
+	margin: 1em 0;
+	}
+table.whitespace th {
+	writing-mode: sideways-lr;
+	vertical-align: bottom;
+	}
+table.whitespace td {
+	text-align: center;
+	vertical-align: middle;
+	}
+table.whitespace th,
+table.whitespace td {
+	border: thin solid rgba(0,0,0,.12);
+	padding: 6px;
+	}
+table.whitespace caption {
+		padding: 10px;
+		caption-side: bottom;
+	}
 
 
 .advisement + .links { margin-top: -1em; }

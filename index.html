@@ -163,7 +163,7 @@
 <ul>
 <li class="w3"><p class="link"><a href="https://www.w3.org/International/questions/qa-lang-why">Why use the language attribute?</a>.</p></li>
 <li class="w3"><p class="link"><a href="https://www.w3.org/International/questions/qa-http-and-lang">Types of language declaration</a>. How 'metadata' and 'text-processing' types of language information differ.</p></li>
-<li class="w3"><p class="link"><a href="https://www.w3.org/International/articles/lang-bidi-use-cases">Use cases for bidi and language metadata on the Web</a>.</p></li>
+<li class="w3"><p class="link"><a href="https://www.w3.org/International/articles/lang-bidi-use-cases/">Use cases for bidi and language metadata on the Web</a>.</p></li>
 </ul>
 </aside>
 
@@ -174,7 +174,7 @@
 	<p class="advisement">It should be possible to associate a language with any piece of <a>localizable text</a> or <a>natural language</a> content.</p>
 	<details class="links"><summary>more</summary>
 	<p><a href="https://www.w3.org/International/questions/qa-lang-why">Why use the language attribute?</a></p>
-	<p><a href="https://www.w3.org/International/articles/lang-bidi-use-cases">Use cases for bidi and language metadata on the Web</a></p>
+	<p><a href="https://www.w3.org/International/articles/lang-bidi-use-cases/">Use cases for bidi and language metadata on the Web</a></p>
 	</details>
 	</div>
 
@@ -370,7 +370,7 @@
 <li class="w3"><p class="link"><a href="https://www.w3.org/International/questions/qa-lang-why">Why use the language attribute?</a>.</p></li>
 <!--li class="w3"><p class="link"><a href="https://w3c.github.io/i18n-discuss/notes/annotation-language-use-cases">Use cases for language information in web annotations</a>. Illustrates the difference between text-processing and metadata types of language declaration.</p></li-->
 <li class="w3"><p class="link"><a href="https://www.w3.org/International/questions/qa-http-and-lang">Types of language declaration</a>. How 'metadata' and 'text-processing' types of language information differ.</p></li>
-<li class="w3"><p class="link"><a href="https://www.w3.org/International/articles/lang-bidi-use-cases">Use cases for bidi and language metadata on the Web</a>.</p></li>
+<li class="w3"><p class="link"><a href="https://www.w3.org/International/articles/lang-bidi-use-cases/">Use cases for bidi and language metadata on the Web</a>.</p></li>
 </ul>
 </aside>
 
@@ -628,8 +628,8 @@
 <p>&quot;The title was '!NOITASILANOITANRETNI'.&quot;</p>
 <p>where the span within the single quotes is in Hebrew/Arabic/Divehi, etc., and needs to have a RTL base direction, instead of the LTR base direction of the surrounding paragraph, in order to place the exclamation mark correctly. </p>
 <p>If markup is available to the content author, it is likely to be easier and safer to use markup to indicate such inline ranges (see below). In HTML you would usually use an inline element with a <code class="kw" translate="no">dir</code> attribute to establish the base direction for such runs of text.  If you can't mark up the text, such as in HTML's <code class="kw" translate="no">title</code> element, or any environment that handles only plain text content, you have to resort to Unicode's paired control characters to establish the base direction for such an internal range.</p>
-<p>Furthermore, inline ranges where the base direction is changed should be isolated from surrounding text, so that the UBA doesn't produce incorrect results due to interference across boundaries. <a href="http://www.w3.org/International/articles/inline-bidi-markup/#uc5">See an&nbsp;example</a> of how this can produce incorrect ordering of things such&nbsp;as text followed by numbers in HTML, or <a href="http://www.w3.org/International/articles/inline-bidi-markup/#usecase3">another example</a> of how it can affect lists.</p>
-<p>This means that if a content author is using Unicode control codes they should use RLI/LRI...PDI rather than RLE/LRE...PDF.&nbsp; These isolating codes are fairly new, and applications may not yet support them.</p>
+<p>Furthermore, inline ranges where the base direction is changed should be isolated from surrounding text, so that the UBA doesn't produce incorrect results due to interference across boundaries. <a href="https://www.w3.org/International/articles/inline-bidi-markup/bidi_examples#uc5">See an example</a> of how this can produce incorrect ordering of things such as text followed by numbers in HTML, or <a href="https://www.w3.org/International/articles/inline-bidi-markup/bidi_examples#usecase3">another example</a> of how it can affect lists.</p>
+<p>This means that if a content author is using Unicode control codes they should use RLI/LRI...PDI rather than RLE/LRE...PDF.  These isolating codes are fairly new, and applications may not yet support them.</p>
 </section>
 
 
@@ -691,7 +691,7 @@
 
 <p class="reviewComments"><a href="https://github.com/w3c/i18n-activity/labels/t%3Abidi_values" target="_blank">See related review comments.</a></p>
 
-	<div class="req" id="bidi_values">
+	<div class="req" id="bidi_values_req">
 	<p class="advisement">Values for the default base direction should include left-to-right, right-to-left, and auto.</p>
 	</div>
 
@@ -706,7 +706,7 @@
 <h3>Handling direction in markup</h3>
 
 
-<p>This section is about defining approaches to bidi handling that work with resources that organizes content using markup.  Some of the recommendations are different from those for handling strings on the Web (see [[[#bidi_strings]]]).</p>
+<p>This section is about defining approaches to bidi handling that work with resources that organize content using markup.  Some of the recommendations are different from those for handling strings on the Web (see [[[#bidi_strings]]]).</p>
 
 
 <p class="reviewComments"><a href="https://github.com/w3c/i18n-activity/labels/t%3Abidi_markup" target="_blank">See related review comments.</a></p>
@@ -813,7 +813,7 @@
 <ul>
 <li class="w3"><p class="link"><a href="https://w3c.github.io/string-meta/">Strings on the Web: Language and Direction Metadata</a>.</p>
 	<ul>
-	<li class="w3"><p class="link"><a href="https://w3c.github.io/string-meta/#bp-and-reco">Best Practices, Recommendations, and Gaps</a>.</p></li>
+	<li class="w3"><p class="link"><a href="https://w3c.github.io/string-meta/#bp_and-reco">Best Practices, Recommendations, and Gaps</a>.</p></li>
 	<li class="w3"><p class="link"><a href="https://w3c.github.io/string-meta/#use_cases">Requirements and Use Cases</a>.</p></li>
 	<li class="w3"><p class="link"><a href="https://w3c.github.io/string-meta/#bidi-approaches">Approaches Considered for Identifying the Base Direction</a>.</p></li>
 	</ul>
@@ -827,42 +827,42 @@
 	<div class="req" id="bidi_strings_metadata">
 	<p class="advisement">Provide metadata constructs that can be used to indicate the base direction of any <a>natural language</a> string.</p>
 	<details class="links"><summary>more</summary>
-	<p><a href="https://w3c.github.io/string-meta/#bp-and-reco">Best Practices, Recommendations, and Gaps</a>, in <cite>Strings on the Web: Language and Direction Metadata</cite></p>
+	<p><a href="https://w3c.github.io/string-meta/#bp_and-reco">Best Practices, Recommendations, and Gaps</a>, in <cite>Strings on the Web: Language and Direction Metadata</cite></p>
 	</details>
 	</div>
 
 	<div class="req" id="bidi_strings_heuristics">
 	<p class="advisement">Specify that consumers of strings should use  heuristics, preferably based on the Unicode Standard first-strong algorithm, to detect the base direction of a string except where metadata is provided.</p>
 	<details class="links"><summary>more</summary>
-	<p><a href="https://w3c.github.io/string-meta/#bp-and-reco">Best Practices, Recommendations, and Gaps</a>, in <cite>Strings on the Web: Language and Direction Metadata</cite></p>
+	<p><a href="https://w3c.github.io/string-meta/#bp_and-reco">Best Practices, Recommendations, and Gaps</a>, in <cite>Strings on the Web: Language and Direction Metadata</cite></p>
 	</details>
 	</div>
 
 	<div class="req" id="bidi_strings_default">
 	<p class="advisement">Where possible, define a field to  indicate the default direction for all strings in a given resource or document.</p>
 	<details class="links"><summary>more</summary>
-	<p><a href="https://w3c.github.io/string-meta/#bp-and-reco">Best Practices, Recommendations, and Gaps</a>, in <cite>Strings on the Web: Language and Direction Metadata</cite></p>
+	<p><a href="https://w3c.github.io/string-meta/#bp_and-reco">Best Practices, Recommendations, and Gaps</a>, in <cite>Strings on the Web: Language and Direction Metadata</cite></p>
 	</details>
 	</div>
 
 	<div class="req" id="bidi_strings_metadata_and_default">
 	<p class="advisement">Do NOT assume that a creating a document-level default without the ability to change direction for any string is sufficient.</p>
 	<details class="links"><summary>more</summary>
-	<p><a href="https://w3c.github.io/string-meta/#bp-and-reco">Best Practices, Recommendations, and Gaps</a>, in <cite>Strings on the Web: Language and Direction Metadata</cite></p>
+	<p><a href="https://w3c.github.io/string-meta/#bp_and-reco">Best Practices, Recommendations, and Gaps</a>, in <cite>Strings on the Web: Language and Direction Metadata</cite></p>
 	</details>
 	</div>
 
 	<div class="req" id="bidi_strings_script_tag">
 	<p class="advisement">If metadata is not available due to legacy implementations and cannot otherwise be provided, specifications MAY allow a base direction to be interpolated from available language metadata.</p>
 	<details class="links"><summary>more</summary>
-	<p><a href="https://w3c.github.io/string-meta/#bp-and-reco">Best Practices, Recommendations, and Gaps</a>, in <cite>Strings on the Web: Language and Direction Metadata</cite></p>
+	<p><a href="https://w3c.github.io/string-meta/#bp_and-reco">Best Practices, Recommendations, and Gaps</a>, in <cite>Strings on the Web: Language and Direction Metadata</cite></p>
 	</details>
 	</div>
 
 	<div class="req" id="bidi_strings_paired_controls">
 	<p class="advisement">Specifications MUST NOT require the production or use of paired bidi controls.</p>
 	<details class="links"><summary>more</summary>
-	<p><a href="https://w3c.github.io/string-meta/#bp-and-reco">Best Practices, Recommendations, and Gaps</a>, in <cite>Strings on the Web: Language and Direction Metadata</cite></p>
+	<p><a href="https://w3c.github.io/string-meta/#bp_and-reco">Best Practices, Recommendations, and Gaps</a>, in <cite>Strings on the Web: Language and Direction Metadata</cite></p>
 	</details>
 	</div>
 
@@ -1723,7 +1723,324 @@ just as characters are the basic unit of organization of encoded text.</p>
 	</div>
 </section>
 
+<section id="char_whitespace" class="subtopic">
+	<h3>Whitespace characters</h3>
 
+	<p class="reviewComments"><a href="https://github.com/w3c/i18n-activity/labels/t%3Achar_whitespace" target="_blank">See related review comments.</a></p>
+	
+	<div class="xref"><span class="seealso">See also</span>
+	<p>[[[#markup_identifiers]]].</p>
+	</div>
+
+	<p>Whitespace characters are characters that represent horizontal or vertical space in typography. Whitespace characters can have different visual effects: some whitespace characters have no visible effect, while others represent larger, smaller, or variable amounts of space on the page.</p>
+
+	<div class="req" id="char_define_whitespace">
+		<p class="advisement">Specifications that use the term "whitespace" SHOULD explicitly define what the term means.</p>
+		<details class="links">
+			<summary>explanations &amp; examples</summary>
+			<ul>
+				<li><a href="https://infra.spec.whatwg.org/#ascii-whitespace">ASCII whitespace</a>, in <cite>Infra Living Standard</cite></li>
+				<li><a href="https://www.w3.org/TR/css-syntax/#whitespace">Whitespace</a>, in <cite>CSS Syntax</cite></li>
+				<li><a href="https://www.w3.org/TR/css-text/#white-space">Document white space characters</a>, in <cite>CSS Text</cite></li>
+				<li><a href="https://tc39.es/ecma262/#sec-white-space">White Space</a>, in <cite>ECMAScript Language Specification</cite></li>
+				<li><a href="https://www.w3.org/TR/WGSL/#blankspace-and-line-breaks">Blankspace and line breaks</a>, in <cite>WebGPU Shading Language</cite></li>
+				<li><a href="https://www.w3.org/TR/webdriver/#dfn-whitespace">Whitespace</a>, in <cite>WebDriver</cite></li>
+				<li><a href="https://www.w3.org/TR/xml/#NT-S">S (white space)</a>, in <cite>Extensible Markup Language (XML) 1.0</cite></li>
+			</ul>
+		</details>
+	</div>
+
+	<div class="req" id="char_unicode_white_space">
+		<p class="advisement">Most specifications SHOULD define whitespace to mean characters with the Unicode <a href="https://www.unicode.org/reports/tr44/#White_Space">White_Space</a> property.</p>
+	</div>
+
+	<div class="req" id="char_ascii_whitespace">
+		<p class="advisement">Specifications that define whitespace for use in <a href="https://www.w3.org/TR/charmod-norm/#def_vocabulary">vocabularies</a> that are restricted to ASCII or to formats that are whitespace delimited (examples include HTML or CSS) SHOULD specify <a href="https://infra.spec.whatwg.org/#ascii-whitespace">ASCII whitespace</a> as part of their grammar.</p>
+	</div>
+
+	<div class="req" id="char_whitespace_code_points">
+		<p class="advisement">If a specification defines "whitespace" differently from ASCII or Unicode whitespace, the specific code points MUST be listed.</p>
+	</div>
+
+	<p>
+		Some specifications, such as <a href="https://tc39.es/ecma262/#sec-white-space">ECMAScript</a>, have provided their own definition of whitespace which differ from the above to meet their own specific requirements.
+	</p>
+
+	<p>
+		The following table is the definition of whitespace characters in various specifications.
+	</p>
+
+		<table class="whitespace">
+			<caption>Links to the latest definitions of the information in the table can be found by expanding the "explanations & examples".</caption>
+			<thead>
+				<tr>
+					<th>&nbsp;</th>
+					<th><code class="kw" translate="no">white_space</code> property</th>
+					<th><code class="kw" translate="no">pattern_white_space</code> property</th>
+					<th><a href="https://infra.spec.whatwg.org/#ascii-whitespace">ASCII whitespace</a> (HTML)</th>
+					<th>CSS whitespace</th>
+					<th>ECMAScript</th>
+					<th>XML</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><span class="uname" translate="no">U+0009 (horizontal tab)</span></td>
+					<td>✓</td>
+					<td>✓</td>
+					<td>✓</td>
+					<td>✓</td>
+					<td>✓</td>
+					<td>✓</td>
+				</tr>
+				<tr>
+					<td><span class="uname" translate="no">U+000A (line feed)</span></td>
+					<td>✓</td>
+					<td>✓</td>
+					<td>✓</td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+					<td>✓</td>
+				</tr>
+				<tr>
+					<td><span class="uname" translate="no">U+000B (vertical tab)</span></td>
+					<td>✓</td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td><span class="uname" translate="no">U+000C (form feed)</span></td>
+					<td>✓</td>
+					<td>✓</td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td><span class="uname" translate="no">U+000D (carriage return)</span></td>
+					<td>✓</td>
+					<td>✓</td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>✓</td>
+				</tr>
+				<tr>
+					<td><span class="uname" translate="no">U+0020 SPACE</span></td>
+					<td>✓</td>
+					<td>✓</td>
+					<td>✓</td>
+					<td>✓</td>
+					<td>✓</td>
+					<td>✓</td>
+				</tr>
+				<tr>
+					<td><span class="uname" translate="no">U+0085 (next line)</span></td>
+					<td>✓</td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td><span class="uname" translate="no">U+00A0 NO-BREAK SPACE</span></td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td><span class="uname" translate="no">U+1680 OGHAM SPACE MARK</span></td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td><span class="uname" translate="no">U+2000 EN QUAD</span></td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td><span class="uname" translate="no">U+2001 EM QUAD</span></td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td><span class="uname" translate="no">U+2002 EN SPACE</span></td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td><span class="uname" translate="no">U+2003 EM SPACE</span></td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td><span class="uname" translate="no">U+2004 THREE-PER-EM SPACE</span></td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td><span class="uname" translate="no">U+2005 FOUR-PER-EM SPACE</span></td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td><span class="uname" translate="no">U+2006 SIX-PER-EM SPACE</span></td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td><span class="uname" translate="no">U+2007 FIGURE SPACE</span></td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td><span class="uname" translate="no">U+2008 PUNCTUATION SPACE</span></td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td><span class="uname" translate="no">U+2009 THIN SPACE</span></td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td><span class="uname" translate="no">U+200A HAIR SPACE</span></td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td><span class="uname" translate="no">U+200E LEFT-TO-RIGHT MARK</span></td>
+					<td>&nbsp;</td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td><span class="uname" translate="no">U+200F RIGHT-TO-LEFT MARK</span></td>
+					<td>&nbsp;</td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td><span class="uname" translate="no">U+2028 LINE SEPARATOR</span></td>
+					<td>✓</td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td><span class="uname" translate="no">U+2029 PARAGRAPH SEPARATOR</span></td>
+					<td>✓</td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td><span class="uname" translate="no">U+202F NARROW NO-BREAK SPACE</span></td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td><span class="uname" translate="no">U+205F MEDIUM MATHEMATICAL SPACE</span></td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td><span class="uname" translate="no">U+3000 IDEOGRAPHIC SPACE</span></td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td><span class="uname" translate="no">U+FEFF ZERO WIDTH NO-BREAK SPACE</span></td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>✓</td>
+					<td>&nbsp;</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<p>Some specifications use the same definition as one of the columns above and are not listed in the table. For example, <a href="https://www.w3.org/TR/webdriver/#dfn-whitespace">WebDriver</a> uses the <code class="kw" translate="no">white_space</code> property and <a href="https://www.w3.org/TR/WGSL/#blankspace-and-line-breaks">WebGPU Shading Language</a> uses the <code class="kw" translate="no">pattern_white_space</code> property.</p>
+  </section>
 
 
 
