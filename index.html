@@ -63,7 +63,7 @@
   </script>
   
   <script>
-	  function sortTable(colNum) {
+	  function sortTable(colNum, reversed) {
           var table, rows, i, x, y, shouldSwitch;
           table = document.getElementById("exampleNamesTable");
           var switching = true;
@@ -80,10 +80,15 @@
                   // Get the elements to compare
                   x = rows[i].getElementsByTagName("TD")[colNum];
                   y = rows[i + 1].getElementsByTagName("TD")[colNum];
+                  
+                  if (reversed) {
+					  var z = x;
+					  x = y;
+					  y = z;
+				  }
 
                   // Check if the two rows should switch place
                   if (collator.compare(x.textContent, y.textContent) > 0) {
-
                      // If so, mark as a switch and break the loop
                      shouldSwitch = true;
                      break;
@@ -99,7 +104,7 @@
   </script>
   </head>
   
-  <body onload="sortTable(0);">
+  <body onload="sortTable(0, false);">
   <div id="abstract">
       <p>This document provides a checklist of internationalization-related considerations when developing a specification. Most checklist items point to detailed supporting information in other documents. Where such information does not yet exist, it can be given a temporary home in this document.  <strong>The  information in this document will change regularly as new content is added and existing content is modified in the light of experience and discussion.</strong></p>
   </div>
@@ -3616,12 +3621,16 @@ We could stand to cull the Japanese list. The notes need work.
 
 -->
 
-<p><em>This table can be sorted by clicking on the header row.</em></p>
+<p><em>This table can be sorted by clicking on the &#x25b3; or &#x25bd; arrows in the header row.</em></p>
 
 <table id="exampleNamesTable">
 	<thead>
 		<tr>
-			<th onclick="sortTable(0)">Name</th><th onclick="sortTable(1)">Native</th><th onclick="sortTable(2)">Gender</th><th onclick="sortTable(3)">Notes</th><th onclick="sortTable(4)">Language</th>
+			<th>Name <span onclick="sortTable(0, false)">&#x25b3;</span><span onclick="sortTable(0, true)">&#x25bd;</span></th>
+			<th>Native <span onclick="sortTable(1, false)">&#x25b3;</span><span onclick="sortTable(1, true)">&#x25bd;</span></th>
+			<th>Gender <span onclick="sortTable(2, false)">&#x25b3;</span><span onclick="sortTable(2, true)">&#x25bd;</span></th>
+			<th>Region and Notes <span onclick="sortTable(3, false)">&#x25b3;</span><span onclick="sortTable(3, true)">&#x25bd;</span></th>
+			<th>Language <span onclick="sortTable(4, false)">&#x25b3;</span><span onclick="sortTable(4, true)">&#x25bd;</span></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -3684,7 +3693,7 @@ We could stand to cull the Japanese list. The notes need work.
     <td>Beata</td>
     <td></td>
     <td>f</td>
-    <td>Europe</td>
+    <td>Europe; Multiple countries</td>
     <td>it, de, pl, sv, etc.
 <tr>
     <td>Chanda</td>
@@ -3708,7 +3717,7 @@ We could stand to cull the Japanese list. The notes need work.
     <td>Coen</td>
     <td></td>
     <td>m</td>
-    <td>Europe, Oceania; Dutch, Australian indigenous, or Hebrew name</td>
+    <td>Europe; Netherlands; also Oceania (Australian indigenous) or Hebrew name</td>
     <td>nl, he, nys
 <tr>
     <td>Daisho</td>
@@ -3720,7 +3729,7 @@ We could stand to cull the Japanese list. The notes need work.
     <td>Dara</td>
     <td></td>
     <td>f</td>
-    <td>West Asia; Turkey</td>
+    <td>West Asia; Europe; Türkiye</td>
     <td>tr
 <tr>
     <td>Eva</td>
@@ -3738,8 +3747,8 @@ We could stand to cull the Japanese list. The notes need work.
     <td>Fátima</td>
     <td lang="ar" dir=rtl>فَاطِمَة</td>
     <td>f</td>
-    <td>West Asia; also Europe</td>
-    <td>ar, es
+    <td>West Asia; Arabic; also used in several European cultures in the Latin script</td>
+    <td>ar
 <tr>
     <td>Genet</td>
     <td lang="am">ገነት</td>
@@ -3780,7 +3789,7 @@ We could stand to cull the Japanese list. The notes need work.
     <td>Iakopo</td>
     <td></td>
     <td>m</td>
-    <td>Oceania</td>
+    <td>Oceania; Samoa</td>
     <td>sm
 <tr>
     <td>Ilango</td>
@@ -3798,13 +3807,13 @@ We could stand to cull the Japanese list. The notes need work.
     <td>Işık</td>
     <td></td>
     <td>f</td>
-    <td>Turkey</td>
+    <td>West Asia; Europe; Türkiye</td>
     <td>tr
 <tr>
     <td>Işıtan</td>
     <td></td>
     <td>m</td>
-    <td>Turkey</td>
+    <td>West Asia; Europe; Türkiye</td>
     <td>tr
 <tr>
     <td>Itsuki</td>
@@ -3816,7 +3825,7 @@ We could stand to cull the Japanese list. The notes need work.
     <td>Jarra, Jarrah, Cerrah</td>
     <td lang="ar" dir="rtl">جراح</td>
     <td>m</td>
-    <td>Arabic</td>
+    <td>West Asia; Arabic</td>
     <td>ar, tr
 <tr>
     <td>Jean-François</td>
@@ -3834,26 +3843,26 @@ We could stand to cull the Japanese list. The notes need work.
     <td>Júlía</td>
     <td></td>
     <td>f</td>
-    <td>Icelandic</td>
+    <td>Europe; Iceland</td>
     <td>is
 <tr>
     <td>Kai</td>
     <td></td>
     <td>f, m</td>
-    <td>Many cultures and languages</td>
-    <td>
+    <td>Oceania; Australia; <em>appears in many languages and is a good general example</em></td>
+    <td>aus, sm
 <tr>
     <td>Khaliun</td>
     <td></td>
     <td>f, m</td>
-    <td>Mongolian</td>
+    <td>East Asia; Mongolia</td>
     <td>mn
 <tr>
     <td>Kylie</td>
     <td></td>
     <td>f</td>
     <td>Oceania; Australian indigenous name</td>
-    <td>
+    <td>aus
 <tr>
     <td>Lani</td>
     <td></td>
@@ -3894,7 +3903,7 @@ We could stand to cull the Japanese list. The notes need work.
     <td>Mahmut</td>
     <td></td>
     <td>m</td>
-    <td>West Asia; Turkey</td>
+    <td>West Asia; Europe; Türkiye</td>
     <td>tr
 <tr>
     <td>Martina</td>
@@ -3906,8 +3915,8 @@ We could stand to cull the Japanese list. The notes need work.
     <td>Mei</td>
     <td>芽依</td>
     <td>f</td>
-    <td>East Asian; Japan</td>
-    <td>ja
+    <td>East Asian; China; Japan</td><!-- china before japan because the two lists sort next to each other -->
+    <td>ja, zh
 <tr>
     <td>Minato</td>
     <td lang="ja">湊</td>
@@ -3930,7 +3939,7 @@ We could stand to cull the Japanese list. The notes need work.
     <td>Müge</td>
     <td></td>
     <td>f</td>
-    <td>Turkey</td>
+    <td>West Asia; Europe; Türkiye</td>
     <td>tr
 <tr>
     <td>Muhammad</td>
@@ -3942,7 +3951,7 @@ We could stand to cull the Japanese list. The notes need work.
     <td>Ngatemi</td>
     <td></td>
     <td>f</td>
-    <td>Indonesia</td>
+    <td>Oceania; Indonesia</td>
     <td>id, ms
 <tr>
     <td>Thị Anh</td>
@@ -4032,8 +4041,8 @@ We could stand to cull the Japanese list. The notes need work.
     <td>Tahnee</td>
     <td></td>
     <td>f</td>
-    <td>Oceania</td>
-    <td>en
+    <td>Oceania; Australian indigenous</td>
+    <td>aus
 <tr>
     <td>Tamizhachi</td>
     <td lang="ta">தமிழச்சி</td>
@@ -4062,8 +4071,8 @@ We could stand to cull the Japanese list. The notes need work.
     <td>Vasa</td>
     <td></td>
     <td>m</td>
-    <td>Oceania (Samoa); also a diminutive form of Vasilije in Serbian</td>
-    <td>sm
+    <td>Oceania; Samoa; Europe; diminutive form of Vasilije/<span lang="sr-Cyrl">Василије</span></td>
+    <td>sm, hr, sr
 <tr>
     <td>Vassilios</td>
     <td lang="el">Βασίλειος</td>
