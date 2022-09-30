@@ -29,7 +29,7 @@
           // only "name" is required
           editors:  [
               { name: "Richard Ishida", company: "W3C", w3cid: 3439 },
-              { name: "Addison Phillips", company: "Amazon", w3cid: 33573 }
+              { name: "Addison Phillips", w3cid: 33573 }
           ],
 
 
@@ -61,9 +61,50 @@
         }
     }
   </script>
+  
+  <script>
+	  function sortTable(colNum, reversed) {
+          var table, rows, i, x, y, shouldSwitch;
+          table = document.getElementById("exampleNamesTable");
+          var switching = true;
+          var collator = new Intl.Collator('en-US');
+  
+          /* Loop until done */
+          while (switching) {
+			  switching = false;
+              rows = table.rows;
+              /* Loop over all rows excepting the header */
+              for (i = 1; i < (rows.length - 1); i++) {
+                  // Start by saying there should be no switching
+                  shouldSwitch = false;
+                  // Get the elements to compare
+                  x = rows[i].getElementsByTagName("TD")[colNum];
+                  y = rows[i + 1].getElementsByTagName("TD")[colNum];
+                  
+                  if (reversed) {
+					  var z = x;
+					  x = y;
+					  y = z;
+				  }
+
+                  // Check if the two rows should switch place
+                  if (collator.compare(x.textContent, y.textContent) > 0) {
+                     // If so, mark as a switch and break the loop
+                     shouldSwitch = true;
+                     break;
+                  }
+               }
+               if (shouldSwitch) {
+                  // do the switch
+                  rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                  switching = true;
+               }
+           } // while
+       } // sortTable
+  </script>
   </head>
   
-  <body>
+  <body onload="sortTable(0, false);">
   <div id="abstract">
       <p>This document provides a checklist of internationalization-related considerations when developing a specification. Most checklist items point to detailed supporting information in other documents. Where such information does not yet exist, it can be given a temporary home in this document.  <strong>The  information in this document will change regularly as new content is added and existing content is modified in the light of experience and discussion.</strong></p>
   </div>
@@ -3552,14 +3593,579 @@ PCENChar ::=
 	</div>
 
 <p>It isn't hard to find examples of people who have been blocked from using a service because their name doesn't conform to expectations of the developers. If you are planning to enforce real name usage, you need to allow a mechanism for people to validate their actual names if their name is rare, or has an unexpected structure.</p>
+</section>
+
+<section id="personal_name_examples">
+	<h4>Using personal names in examples</h4>
 
 	<div class="req" id="loc_names_global_audience">
 	<p class="advisement">In standards and standards related documents containing examples that include names of persons, use a variety of names to reflect a global audience. Avoid a bias of names specific to certain regions.</p>
 	</div>
+	
+<p>Many specifications provide examples, such as user stories or use cases, that use personal names as a means of enhancing the narrative. Some groups even have practices, such as security specifications using the names "Alice" and "Bob", to provide a certain level of consistency. Inclusiveness should be an important goal when building systems and services, hence the suggestion to use globally diverse names in forming examples. This helps ensure that we represent the worldwide community of users with our technologies, and makes the specification appear more relevant to the global user.</p>
 
-<p>This helps ensure that we represent the worldwide community of users with our technologies, and makes the specification appear more relevant to the global user.</p>
+<p>Try to choose names that represent people from different regions around the world, rather than just a handful of names with European origins. Note that choosing names that include non-ASCII characters can help remind implementers that Unicode support and other internationalization concerns apply to their users.</p>
 
-<p>Try to choose names that represent people from each major region around the world, rather than just a handful of European names. Also, try to have a balance between male and female names.</p>
+<p>No collection of names can be completely agnostic in dealing with cultural and gender-related issues. To assist specification writers in creating more inclusive examples, this document provides a collection of names drawn from across many cultures. These names are organized approximately into regions described by the UN M.49 standard. Notice that even within these regions there are quite diverse influences and practices for the handling of personal names. The names are also divided by their cultural gender association to assist specification authors in writing examples, although many names are not specific to any particular gender.</p>
+
+<aside class="note">
+	<p>The purpose of this collection of names is to assist specification authors who are generally writing for an English-speaking audience. The collection consists primarily of given names and, where necessary, is transliterated into the Latin script. The names are also rendered informally (<em>"Alice"</em> rather than <em>"Ms. Jones"</em>), even though this is not how names would be used in many of these cultures. When translating specifications, adjustments should be made which are appropriate for the target audience.</p>
+	<p>When names are taken from non-Latin-script languages or cultures, the non-Latin representation is also provided as a reminder that names are in no way limited to the Latin script or for cases where you want to include a non-Latin script example. Wherever possible the names in this collection are taken from [[CLDR]]'s exemplary set of names.</p>
+</aside>
+
+<!-- 
+What's missing? 
+
+Sub-saharan Africa; more Chinese names; more Indic names; central Asian names
+We could stand to cull the Japanese list. The notes need work.
+
+-->
+
+<p><em>This table can be sorted by clicking on the &#x25b3; or &#x25bd; arrows in the header row.</em></p>
+
+<table id="exampleNamesTable">
+	<thead>
+		<tr>
+			<th>Name <span onclick="sortTable(0, false)">&#x25b3;</span><span onclick="sortTable(0, true)">&#x25bd;</span></th>
+			<th>Native <span onclick="sortTable(1, false)">&#x25b3;</span><span onclick="sortTable(1, true)">&#x25bd;</span></th>
+			<th>Gender <span onclick="sortTable(2, false)">&#x25b3;</span><span onclick="sortTable(2, true)">&#x25bd;</span></th>
+			<th>Region and Notes <span onclick="sortTable(3, false)">&#x25b3;</span><span onclick="sortTable(3, true)">&#x25bd;</span></th>
+			<th>Language <span onclick="sortTable(4, false)">&#x25b3;</span><span onclick="sortTable(4, true)">&#x25bd;</span></th>
+		</tr>
+	</thead>
+	<tbody>
+<tr>
+    <td>Akamu</td>
+    <td></td>
+    <td>m</td>
+    <td>Oceania; Polynesia; Hawaiian name</td>
+    <td>haw
+<tr>
+    <td>Alinta</td>
+    <td></td>
+    <td>f</td>
+    <td>Oceania; Australian indigenous name</td>
+    <td>nys
+<tr>
+    <td>Amélie</td>
+    <td></td>
+    <td>f</td>
+    <td>Europe; France</td>
+    <td>fr
+<tr>
+    <td>An</td>
+    <td lang=ja>杏</td>
+    <td>f</td>
+    <td>East Asia; Japan</td>
+    <td>ja
+<tr>
+    <td>Aoi</td>
+    <td lang="ja">葵; 蒼; 碧</td>
+    <td>f, m</td>
+    <td>East Asia; Japan</td>
+    <td>ja
+<tr>
+    <td>Aroha</td>
+    <td></td>
+    <td>f</td>
+    <td>Oceania; Maori</td>
+    <td>mi
+<tr>
+    <td>Asahi</td>
+    <td jang="ja">朝陽</td>
+    <td>m</td>
+    <td>East Asia; Japan</td>
+    <td>ja
+<tr>
+    <td>Atlahua</td>
+    <td></td>
+    <td>m</td>
+    <td>Latin America; Nahuatl name</td>
+    <td>nah
+<tr>
+
+    <td>Åsa</td>
+    <td></td>
+    <td>f</td>
+    <td>Europe; Sweden</td>
+    <td>sv
+<tr>
+    <td>Beata</td>
+    <td></td>
+    <td>f</td>
+    <td>Europe; Multiple countries</td>
+    <td>it, de, pl, sv, etc.
+<tr>
+    <td>Chanda</td>
+    <td lang="hi">चंदा</td>
+    <td>f</td>
+    <td>South Asia; originally from Sanskrit</td>
+    <td>sa
+<tr>
+    <td>Chirapathi</td>
+    <td lang="ta">சிரபதி</td>
+    <td>f</td>
+    <td>South Asia; Tamil</td>
+    <td>ta
+<tr>
+    <td>Citlali</td>
+    <td></td>
+    <td>f</td>
+    <td>Latin America; Nahuatl</td>
+    <td>nah
+<tr>
+    <td>Coen</td>
+    <td></td>
+    <td>m</td>
+    <td>Europe; Netherlands; also Oceania (Australian indigenous) or Hebrew name</td>
+    <td>nl, he, nys
+<tr>
+    <td>Daisho</td>
+    <td lang="ja">大翔</td>
+    <td>m</td>
+    <td>East Asia; Japan</td>
+    <td>ja
+<tr>
+    <td>Dara</td>
+    <td></td>
+    <td>f</td>
+    <td>West Asia; Europe; Türkiye</td>
+    <td>tr
+<tr>
+    <td>Eva</td>
+    <td>Е́ва</td>
+    <td>f</td>
+    <td>Europe; Russia</td>
+    <td>ru
+<tr>
+    <td>Faheem</td>
+    <td lang="ar" dir=rtl>فهيم</td>
+    <td>m</td>
+    <td>West Asia; Arabic</td>
+    <td>ar
+<tr>
+    <td>Fátima</td>
+    <td lang="ar" dir=rtl>فَاطِمَة</td>
+    <td>f</td>
+    <td>West Asia; Arabic; also used in several European cultures in the Latin script</td>
+    <td>ar
+<tr>
+    <td>Genet</td>
+    <td lang="am">ገነት</td>
+    <td>f</td>
+    <td>Africa; Ethiopia</td>
+    <td>am
+<tr>
+    <td>Haruto</td>
+    <td lang="ja">陽翔</td>
+    <td>m</td>
+    <td>East Asia; Japan</td>
+    <td>ja
+<tr>
+    <td>Haukea</td>
+    <td></td>
+    <td>f</td>
+    <td>Oceania; Polynesia; Hawaiian name</td>
+    <td>haw
+<tr>
+    <td>Himari</td>
+    <td lang="ja">陽葵</td>
+    <td>f</td>
+    <td>East Asia; Japan</td>
+    <td>ja
+<tr>
+    <td>Hina</td>
+    <td lang="ja">陽菜</td>
+    <td>f</td>
+    <td>East Asia; Japan</td>
+    <td>ja
+<tr>
+    <td>Hīnano</td>
+    <td></td>
+    <td>m</td>
+    <td>Oceania; Polynesia; Tahitian</td>
+    <td>ty
+<tr>
+	<td>Hua</td>
+	<td>李华</td>
+	<td>m</td>
+	<td>East Asia; China</td>
+	<td>zh-Hans
+<tr>
+    <td>Iakopo</td>
+    <td></td>
+    <td>m</td>
+    <td>Oceania; Samoa</td>
+    <td>sm
+<tr>
+    <td>Ilango</td>
+    <td lang="ta">இளங்கோ</td>
+    <td>m</td>
+    <td>South Asia; Tamil</td>
+    <td>ta
+<tr>
+    <td>Irepani</td>
+    <td></td>
+    <td>m</td>
+    <td>Latin America; Purepecha language</td>
+    <td>tsz
+<tr>
+    <td>Işık</td>
+    <td></td>
+    <td>f</td>
+    <td>West Asia; Europe; Türkiye</td>
+    <td>tr
+<tr>
+    <td>Işıtan</td>
+    <td></td>
+    <td>m</td>
+    <td>West Asia; Europe; Türkiye</td>
+    <td>tr
+<tr>
+    <td>Itsuki</td>
+    <td lang="ja">樹</td>
+    <td>m</td>
+    <td>East Asia; Japan</td>
+    <td>ja
+<tr>
+    <td>Jarra, Jarrah, Cerrah</td>
+    <td lang="ar" dir="rtl">جراح</td>
+    <td>m</td>
+    <td>West Asia; Arabic</td>
+    <td>ar, tr
+<tr>
+    <td>Jean-François</td>
+    <td></td>
+    <td>m</td>
+    <td>Europe; French</td>
+    <td>fr
+<tr>
+    <td>João</td>
+    <td></td>
+    <td>m</td>
+    <td>Latin America; Brazil</td>
+    <td>pt-BR
+<tr>
+    <td>Júlía</td>
+    <td></td>
+    <td>f</td>
+    <td>Europe; Iceland</td>
+    <td>is
+<tr>
+    <td>Kai</td>
+    <td></td>
+    <td>f, m</td>
+    <td>Oceania; Australia; <em>appears in many languages and is a good general example</em></td>
+    <td>aus, sm
+<tr>
+    <td>Khaliun</td>
+    <td></td>
+    <td>f, m</td>
+    <td>East Asia; Mongolia</td>
+    <td>mn
+<tr>
+    <td>Kylie</td>
+    <td></td>
+    <td>f</td>
+    <td>Oceania; Australian indigenous name</td>
+    <td>aus
+<tr>
+    <td>Lani</td>
+    <td></td>
+    <td>f</td>
+    <td>Oceania; Philippines</td>
+    <td>fil
+<tr>
+    <td>Lei</td>
+    <td lang="zh-Hans">李雷</td>
+    <td>m</td>
+    <td>East Asia; China</td>
+    <td>zh-Hans
+<tr>
+    <td>Livia</td>
+    <td></td>
+    <td>f</td>
+    <td>Europe, Latin America</td>
+    <td>es
+<tr>
+    <td>Lowanna</td>
+    <td></td>
+    <td>f</td>
+    <td>Oceania; Australian indigenous</td>
+    <td>aus
+<tr>
+    <td>Lucas</td>
+    <td></td>
+    <td>m</td>
+    <td>Latin America</td>
+    <td>es
+<tr>
+    <td>Maevarau</td>
+    <td></td>
+    <td>m</td>
+    <td>Oceania; Samoa</td>
+    <td>sm
+<tr>
+    <td>Mahmut</td>
+    <td></td>
+    <td>m</td>
+    <td>West Asia; Europe; Türkiye</td>
+    <td>tr
+<tr>
+    <td>Martina</td>
+    <td></td>
+    <td>f</td>
+    <td>Latin America</td>
+    <td>es
+<tr>
+    <td>Mei</td>
+    <td><span lang="ja">芽依</span> (<code>ja</code>); <span lang="zh-Hans">梅</span> (<code>zh</code>)</td>
+    <td>f</td>
+    <td>East Asia; China; Japan</td><!-- china before japan because the two lists sort next to each other -->
+    <td>ja, zh
+<tr>
+    <td>Minato</td>
+    <td lang="ja">湊</td>
+    <td>m</td>
+    <td>East Asia; Japan</td>
+    <td>ja
+<tr>
+    <td>Mio</td>
+    <td lang="ja">澪</td>
+    <td>f</td>
+    <td>East Asia; Japan</td>
+    <td>ja
+<tr>
+    <td>Miriam</td>
+    <td dir=rtl>מרים</td>
+    <td>f</td>
+    <td>West Asia; Hebrew</td>
+    <td>he
+<tr>
+    <td>Müge</td>
+    <td></td>
+    <td>f</td>
+    <td>West Asia; Europe; Türkiye</td>
+    <td>tr
+<tr>
+    <td>Muhammad</td>
+    <td lang="ar" dir=rtl>محمد</td>
+    <td>m</td>
+    <td>West Asia; Arabic; Many variants and languages.</td>
+    <td>ar
+<tr>
+    <td>Ngatemi</td>
+    <td></td>
+    <td>f</td>
+    <td>Oceania; Indonesia</td>
+    <td>id, ms
+<tr>
+    <td>Thị Anh</td>
+    <td></td>
+    <td>f</td>
+    <td>South-East Asia; Vietnam</td>
+    <td>vi-VN
+<tr>
+    <td>Văn Hoa</td>
+    <td></td>
+    <td>m</td>
+    <td>South-East Asia; Vietnam</td>
+    <td>vi-VN
+<tr>
+    <td>Onosaʻi</td>
+    <td></td>
+    <td>f</td>
+    <td>Oceania; Samoa</td>
+    <td>sm
+<tr>
+    <td>Potira</td>
+    <td></td>
+    <td>f</td>
+    <td>Latin America; Brazil; indigenous name</td>
+    <td>gn
+<tr>
+    <td>Qiàn</td>
+    <td lang="zh-Hans">倩</td>
+    <td>f</td>
+    <td>East Asia; China</td>
+    <td>zh-Hans
+<tr>
+    <td>Rattiya</td>
+    <td lang="th">รัตติยา</td>
+    <td>f</td>
+    <td>South-East Asia; Thailand</td>
+    <td>th
+<tr>
+    <td>Ren</td>
+    <td lang="ja">蓮</td>
+    <td>m</td>
+    <td>East Asia; Japan</td>
+    <td>ja
+<tr>
+    <td>Rin</td>
+    <td lang="ja">凛</td>
+    <td>f</td>
+    <td>East Asia; Japan</td>
+    <td>ja
+<tr>
+    <td>Ritthichai</td>
+    <td lang="th">ฤทธิชัย</td>
+    <td>m</td>
+    <td>South-East Asia; Thailand</td>
+    <td>th
+<tr>
+    <td>Santiago</td>
+    <td></td>
+    <td>m</td>
+    <td>Latin America</td>
+    <td>es
+<tr>
+    <td>Senthil</td>
+    <td lang="ta">செந்தில்</td>
+    <td>m</td>
+    <td>South Asia; Tamil</td>
+    <td>ta
+<tr>
+    <td>Sione</td>
+    <td></td>
+    <td>m</td>
+    <td>Oceania; Tonga</td>
+    <td>to
+<tr>
+    <td>Slobodan</td>
+    <td lang="sr-Cyrl">Слободан</td>
+    <td>m</td>
+    <td>Europe; Serbian</td>
+    <td>sr
+<tr>
+    <td>Sofia</td>
+    <td></td>
+    <td>f</td>
+    <td>Europe; Latin America</td>
+    <td>es
+<tr>
+    <td>Tahnee</td>
+    <td></td>
+    <td>f</td>
+    <td>Oceania; Australian indigenous</td>
+    <td>aus
+<tr>
+    <td>Tamizhachi</td>
+    <td lang="ta">தமிழச்சி</td>
+    <td>f</td>
+    <td>South Asia; Tamil</td>
+    <td>ta
+<tr>
+    <td>Temuera</td>
+    <td></td>
+    <td>m</td>
+    <td>Oceania; Polynesia</td>
+    <td>sm
+<tr>
+    <td>Tuulikki</td>
+    <td></td>
+    <td>f</td>
+    <td>Europe; Finland</td>
+    <td>fi
+<tr>
+    <td>Uriel</td>
+    <td lang="he" dir="rtl">אוּרִיאֵל</td>
+    <td>m</td>
+    <td>West Asia; Hebrew</td>
+    <td>he
+<tr>
+    <td>Vasa</td>
+    <td></td>
+    <td>m</td>
+    <td>Oceania; Samoa; Europe; diminutive form of Vasilije/<span lang="sr-Cyrl">Василије</span></td>
+    <td>sm, hr, sr
+<tr>
+    <td>Vassilios</td>
+    <td lang="el">Βασίλειος</td>
+    <td>m</td>
+    <td>Europe; Greek</td>
+    <td>el
+<tr>
+    <td>Voula</td>
+    <td lang="el">Βούλα</td>
+    <td>f</td>
+    <td>Europe; Greek</td>
+    <td>el
+<tr>
+    <td>Wafaa</td>
+    <td lang="ar" dir=rtl>وفاء</td>
+    <td>f</td>
+    <td>West Asia; Arabic</td>
+    <td>ar
+<tr>
+    <td>Wissam</td>
+    <td lang="ar" dir=rtl>وسام</td>
+    <td>m</td>
+    <td>West Asia; Arabic</td>
+    <td>ar
+<tr>
+    <td>Xiaoxia</td>
+    <td lang="zh-Hans">晓霞</td>
+    <td>f</td>
+    <td>East Asia; China</td>
+    <td>zh-Hans
+<tr>
+    <td>Xóchitl</td>
+    <td></td>
+    <td>f</td>
+    <td>Latin America; Nahuatl</td>
+    <td>nah
+<tr>
+    <td>Yevdokia</td>
+    <td lang="ru">Евдокия</td>
+    <td>f</td>
+    <td>Europe; Russia</td>
+    <td>ru
+<tr>
+    <td>Yevgeny</td>
+    <td lang="ru">Евгений</td>
+    <td>m</td>
+    <td>Europe; Russia</td>
+    <td>ru
+<tr>
+    <td>Zafirah</td>
+    <td lang="ar" dir="rtl">زفره</td>
+    <td>f</td>
+    <td>West Asia; Arabic</td>
+    <td>ar
+</tbody>
+</table>
+
+<hr>
+
+<p>Inserting personal names from other cultures into English-language examples is also affected by the very different ways that names are used culturally around the world. For example, some cultures expect the use of a patronym/matronym in addition to the given name; or some cultures prefer more formal names (e.g. "<em>Herr Dürer</em>" vs. the informal "<em>Albrecht</em>").</p>
+
+<p>Chinese people almost never use their given name without also including their family name. When writing examples in Chinese, one might see something like <span lang="zh-Hans">路人甲</span> (it means Person A, using the Han "Heavenly Stem" ordinals, cf. <a href="https://www.w3.org/TR/predefined-counter-styles/#cjk-heavenly-stem">Ready-made Counter Styles</a>) rather than a "exemplar name". When examples are used, they include both the family and given name. Bear in mind that in Chinese the family name comes first, before the given name.</p>
+
+<p>In Japanese, there are complex choices related to levels of formality. A person <em>might</em> be addressed by their given name in very informal situations (<em>Hiroshi</em>), but usually will be addressed with a family name that includes (unless one is being rude) a title or suffix, such as <code>-san</code> or <code>-sama</code> (e.g. <em>Tanaka-san</em>). Other suffixes or titles are also used, such as <em>senpai</em> or <em>sensei</em> (for senior or very esteemed individuals) or <em>shi</em> (when one is unfamiliar with the person). Thus an example in English that could say <em>Suppose Hiroki wants to set up a...</em> would probably be more culturally appropriate if it read <em>Suppose Tanaka-san wants to set up a...</em></p>
+
+
+
+
+
+<p style="display:none">Old examples being removed: 
+Chanda, Charun,    <!-- Hindi -->
+Dara, Damilola,    <!-- Yoruba -->
+Genet, Gebre,      <!-- Ethiopian -->
+Hatsue, Hiroki,    <!-- Japanese -->
+Júlía, Jökull,     <!-- Icelandic -->
+Khaliun, Khuyag,   <!-- Mongolian -->
+Ngatemi, Nugroho,  <!-- Javanese (Indonesia) -->
+Onya, Omari,       <!-- Tanzania (Swahili) -->
+Potira, Piatã,     <!-- Tupi, Guarani -->
+Qiàn (倩), Qiáng (强),         <!-- Chinese -->
+, ,  <!-- Thai -->
+Tuqiik, Tinmiak,   <!-- Yupik, Inupiat -->
+Uri (אוּרִי), ,  <!-- Hebrew -->
+Xiaoxia (晓霞), Xīn (鑫),      <!-- Chinese -->
+Zafirah, Zain      <!-- Arabic -->
+</p>
+
 </section>
 </section>
 
