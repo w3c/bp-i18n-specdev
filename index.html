@@ -2754,12 +2754,12 @@ just as characters are the basic unit of organization of encoded text.</p>
 </ul>
 </aside>
 
-    <p>The situation with regards to specifying support of non-ASCII characters in <a>resource identifiers</a> is complicated because there are at least three specifications ( URI [[RFC3986]], IRI [[RFC3987]], and [[URL]]) that define resource identifiers and their serialization. The WhatWG [[URL]] specification is an attempt to address this complexity this by documenting the actual practice of browsers and other user-agents. The stated goal of the URL specification is to obsolete both RFCs.</p>
+    <p>The situation with regards to specifying support of non-ASCII characters in <a>resource identifiers</a> is complicated because there are at least three specifications ( URI [[RFC3986]], IRI [[RFC3987]], and [[URL]]) that define resource identifiers and their serialization. The WhatWG [[URL]] specification is an attempt to address this complexity by documenting the actual practice of browsers and other user-agents. The stated goal of the URL specification is to obsolete both RFCs.</p>
     
     <p>In general, document formats on the Web use resource identifiers that encode non-ASCII characters as plain text, that is, as "IRIs". Protocols such as&mdash;but not limited to&mdash;HTTP [[RFC9110]]) use resource identifiers that encode non-ASCII characters as a sequence of bytes using <a>percent encoding</a>, that is, as "URIs". Because [[RFC3986]] does not specify any particular <a>character encoding</a> for encoding characters to bytes, the <a>percent encoding</a> escapes are prone to misinterpretation. To help combat this, many modern protocols and specifications expect resource identifiers to use the UTF-8 character encoding, exactly as specified by IRI, when encoding characters into the subset of ASCII supported in wire formats and protocols.</p>
     
-    <div class="example">
-		<p>Here's an example of an IRI and its URI-encoded equivalent, where the <strong>path</strong> of the identifier is the Japanese word <span lang="ja" translate="no">文字化け</span> ("<a>mojibake</a>").</p>
+    <aside class="example" title="Comparison of IRI to URI">
+		<p>Here's an example of an IRI and its URI-encoded equivalent, where the <strong>path</strong> of the identifier is the Japanese word <span lang="ja" translate="no">文字化け</span> ("<a>mojibake</a>"). This word consists of a sequence of four Unicode code points: <code>U+6587 U+5B57 U+5316 U+3051</code>. In UTF-8, each of these code points requires three-bytes to encode, so the byte sequences in hex are: <code translate="no">0xE6.96.87 0xE5.AD.97 0xE5.8C.96 0xE3.81.91</code></p>
 		<table>
 			<thead>
 				<tr>
@@ -2778,7 +2778,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 				</tr>
 			</tbody>
 		</table>
-    </div>
+    </aside>
 
     <div class="req" id="resid_use_iris">
 	    <p class="advisement">Specifications that define <a>resource identifiers</a> MUST permit the use of non-ASCII characters.</p>
