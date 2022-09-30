@@ -2752,10 +2752,12 @@ just as characters are the basic unit of organization of encoded text.</p>
 </ul>
 </aside>
 
+<p><dfn id="dfn_percent-encoding" data-lt="percent-encoding|percent encoding|%HH encoding|percent encoded">Percent-encoding</dfn> is the escaping mechanism defined by URI [[RFC3986]] for the encoding of arbitrary byte values not otherwise permitted into a URI. For example, if a user wishes to include the character <span class="codepoint" translate="no"><bdi lang="und">&#x2F;</bdi> [<span class="uname">U+002F SOLIDUS</span>]</span> into a URI, the byte <code>0x2F</code> is encoded as the character sequence <code>%2F</code>. If the user wishes to include the character <span class="codepoint" translate="no"><bdi lang="en">&#x00E9;</bdi> [<span class="uname">U+00E9 LATIN SMALL LETTER E WITH ACUTE</span>]</span> into a URI, the UTF-8 byte sequence for this character (<code>0xC3 0xA9</code>) could be encoded as the sequence <code>%C3%A9</code>.</p>
+
 <aside class="note">
     <p>The situation with regards to support of non-ASCII characters in <a>resource identifiers</a> has been complicated for a number of years due to lack of progress on a number of corner cases in the development of IRI specification. The [[URL]] specification attempts to address this by documenting the actual practice of browsers and other user-agents (the stated goal of the URL specification is to obsolete both RFCs).</p>
     
-    <p>In general, document formats on the Web use IRIs, that is resource identifiers that encode non-ASCII plain text characters as characters. Protocols such as&mdash;but not limited to&mdash;HTTP [[RFC9110]]) use URIs, that is resource identifiers that encode non-ASCII characters as a sequence of bytes using <code>%HH</code> escapes. Because URI does not specify any particularl <a>character encoding</a>, the <code>%HH</code> escapes are prone to misinterpretation. To help combat this, many modern protocols and specifications expect URLs to use the UTF-8 character encoding, exactly as specified by IRI.</p>
+    <p>In general, document formats on the Web use IRIs, that is resource identifiers that encode non-ASCII plain text characters as characters. Protocols such as&mdash;but not limited to&mdash;HTTP [[RFC9110]]) use URIs, that is resource identifiers that encode non-ASCII characters as a sequence of bytes using <a>percent encoding</a>. Because URI does not specify any particular <a>character encoding</a>, the <a>percent encoding</a> escapes are prone to misinterpretation. To help combat this, many modern protocols and specifications expect URLs to use the UTF-8 character encoding, exactly as specified by IRI.</p>
     
     <div class="example">
 		<p>Here's an example of an IRI and its URI-encoded equivalent, where the <strong>path</strong> of the identifier is the Japanese word <span lang="ja" translate="no">文字化け</span> ("<a>mojibake</a>").</p>
@@ -2795,10 +2797,10 @@ just as characters are the basic unit of organization of encoded text.</p>
 		<p class="advisement">Specifications on the Web that define a document format, data structure, or API SHOULD reference [[URL]] when specifying <a>resource identifiers</a>. For cases unsupported by the [[URL]] specification, IRI [[RFC3987]] MAY be specified instead.</p>
 	</div>
 	<div class="req" id="resid_what_to_spec_protocol">
-		<p class="advisement">Specifications that define protocols MAY reference URI [[RFC3986]] when specifying <a>resource identifiers</a> for use in wire formats but SHOULD include the additional requirement that UTF-8 MUST be used for the interpretation of <code>%HH</code> encoded values into characters.</p>
+		<p class="advisement">Specifications that define protocols MAY reference URI [[RFC3986]] when specifying <a>resource identifiers</a> for use in wire formats but SHOULD include the additional requirement that UTF-8 MUST be used for the interpretation of <a>percent encoded</a> values into characters.</p>
     </div>
 
-    <p>According to the definition in [[RFC3986]], URI references are restricted to a subset of ASCII and non-ASCII characters cannot be used directly. An escaping mechanism is provided to encode arbitrary byte values, using the <kbd>%HH</kbd> convention. However, the <kbd>%HH</kbd> convention by itself is of limited use because many different <a>legacy character encodings</a> might be used to interpret a given sequence of bytes into characters (or to encode a given sequence of characters into bytes). Internationalized Resource Identifiers (<em>IRIs</em>) [[RFC3987]] solves problems with encoding and interpreting non-ASCII characters in resource identifiers with a uniform approached based on the UTF-8 encoding of [[Unicode]].</p>
+    <p>According to the definition in [[RFC3986]], URI references are restricted to a subset of ASCII and non-ASCII characters cannot be used directly. The <a>percent encoding</a> is provided to escape arbitrary byte values. However, <a>percent encoding</a> by itself is of limited value because many different <a>legacy character encodings</a> might be used to interpret a given sequence of bytes into characters (or to encode a given sequence of characters into bytes). Internationalized Resource Identifiers (<em>IRIs</em>) [[RFC3987]] solves problems with encoding and interpreting non-ASCII characters in resource identifiers with a uniform approached based on the UTF-8 encoding of [[Unicode]].</p>
 
 
 	<div class="req" id="resid_char_limits">
@@ -2808,7 +2810,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 	<p>While generally not recommended, if additional restrictions are contemplated, review [[UAX31]] and [[CHARMOD-NORM]] for additional guidance.</p>
 
 	<div class="req" id="resid_new_schemes">
-		<p class="advisement">Specifications that define new syntax for URIs or contained within URIs MUST specify that characters outside the ASCII repertoire are encoded using UTF-8 and <code>%HH</code>-escaping.</p>
+		<p class="advisement">Specifications that define new syntax for URIs or contained within URIs MUST specify that characters outside the ASCII repertoire are <a>percent encoded</a> using the UTF-8 <a>character encoding</a>.</p>
 	</div>
 
   </section>
