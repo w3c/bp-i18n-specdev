@@ -2732,27 +2732,25 @@ just as characters are the basic unit of organization of encoded text.</p>
 
 
 <section id="sec_resid_non_ascii" class="topic">
-<h2>Resource identifiers</h2>
+
+<h2 id="resid_misc">Resource identifiers</h2><!-- originally this section has a subsection "basics" with this id -->
 
 <div id="sec_resid_non_ascii_checklist" class="summaryC"></div>
-
-<p>A <dfn id="dfn_resid">resource identifier</dfn> is a compact string of characters for identifying an abstract or physical <a>resource</a>. On the Web, this mostly means various types of Universal Resource Identifiers (or <em>URIs</em>). For wire formats, [[RFC3986]] defines the structure and serialization. <em>Internationalizationed Resource Identifiers</em> (or <em>IRIs</em>) [[RFC3987]] describe how non-ASCII Unicode characters can be used in resource identifiers. The WhatWG [[URL]] specification describes how browsers handle IRIs and their mapping to URIs. See also: <a href="#markup_identifiers"></a>.</p>
-
-<p><dfn id="dfn_percent-encoding" data-lt="percent-encoding|percent encoding|%HH encoding|percent encoded">Percent-encoding</dfn> is the escaping mechanism defined by URI [[RFC3986]] for the encoding of arbitrary byte values not otherwise permitted into a URI. For example, if a user wishes to include the character <span class="codepoint" translate="no"><bdi lang="und">&#x2F;</bdi> [<span class="uname">U+002F SOLIDUS</span>]</span> into a URI, the byte <code>0x2F</code> is encoded as the character sequence <code>%2F</code>. If the user wishes to include the character <span class="codepoint" translate="no"><bdi lang="en">&#x00E9;</bdi> [<span class="uname">U+00E9 LATIN SMALL LETTER E WITH ACUTE</span>]</span> into a URI, the UTF-8 byte sequence for this character (<code>0xC3 0xA9</code>) could be encoded as the sequence <code>%C3%A9</code>.</p>
-
-<section id="resid_misc" class="subtopic">
-<h3>Basics</h3>
 
 <p class="reviewComments"><a href="https://github.com/w3c/i18n-activity/labels/t%3Aresid_misc" target="_blank">See related review comments.</a></p>
 
 <aside class="links" id="links_sec_resid_basic">
-<p class="links_title">Useful background and overviews for this section</p>
-<ul>
-<li class="w3"><p class="link"><a href="https://www.rfc-editor.org/rfc/rfc3986">Uniform Resource Identifiers (URIs)</a> [[RFC3986]]</p></li>
-<li class="w3"><p class="link"><a href="https://url.spec.whatwg.org/">WhatWG URL Specification</a> [[URL]]</p></li>
-<li class="w3"><p class="link"><a href="https://www.rfc-editor.org/rfc/rfc3987">Internationalized Resource Identifiers (IRIs)</a> [[RFC3987]]</p></li>
-</ul>
+    <p class="links_title">Useful background and overviews for this section</p>
+    <ul>
+        <li class="w3"><p class="link"><a href="https://www.rfc-editor.org/rfc/rfc3986">Uniform Resource Identifiers (URIs)</a> [[RFC3986]]</p></li>
+        <li class="w3"><p class="link"><a href="https://url.spec.whatwg.org/">WhatWG URL Specification</a> [[URL]]</p></li>
+        <li class="w3"><p class="link"><a href="https://www.rfc-editor.org/rfc/rfc3987">Internationalized Resource Identifiers (IRIs)</a> [[RFC3987]]</p></li>
+    </ul>
 </aside>
+
+<p>A <dfn id="dfn_resid">resource identifier</dfn> is a compact string of characters for identifying an abstract or physical <a>resource</a>. On the Web, this mostly means various types of Universal Resource Identifiers (or <em>URIs</em>). For wire formats, [[RFC3986]] defines the structure and serialization. <em>Internationalizationed Resource Identifiers</em> (or <em>IRIs</em>) [[RFC3987]] describe how non-ASCII Unicode characters can be used in resource identifiers. The WhatWG [[URL]] specification describes how browsers handle IRIs and their mapping to URIs. See also: <a href="#markup_identifiers"></a>.</p>
+
+<p><dfn id="dfn_percent-encoding" data-lt="percent-encoding|percent encoding|%HH encoding|percent encoded">Percent-encoding</dfn> is the escaping mechanism defined by URI [[RFC3986]] for the encoding of arbitrary byte values not otherwise permitted into a URI. For example, if a user wishes to include the character <span class="codepoint" translate="no"><bdi lang="und">&#x2F;</bdi> [<span class="uname">U+002F SOLIDUS</span>]</span> into a URI, the byte <code>0x2F</code> is encoded as the character sequence <code>%2F</code>. If the user wishes to include the character <span class="codepoint" translate="no"><bdi lang="en">&#x00E9;</bdi> [<span class="uname">U+00E9 LATIN SMALL LETTER E WITH ACUTE</span>]</span> into a URI, the UTF-8 byte sequence for this character (<code>0xC3 0xA9</code>) could be encoded as the sequence <code>%C3%A9</code>.</p>
 
     <p>The situation with regards to specifying support of non-ASCII characters in <a>resource identifiers</a> is complicated because there are at least three specifications (URI [[RFC3986]], IRI [[RFC3987]], and [[URL]]) that define resource identifiers and their serialization. The WhatWG [[URL]] specification is an attempt to address this complexity by documenting the actual practice of browsers and other user agents. The stated goal of the URL specification is to obsolete both RFCs.</p>
     
@@ -2793,7 +2791,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 		<p class="advisement">Specifications on the Web that define a document format, data structure, or API SHOULD reference [[URL]] when specifying <a>resource identifiers</a>. For cases unsupported by the [[URL]] specification, IRI [[RFC3987]] MAY be specified instead.</p>
 	</div>
 	<div class="req" id="resid_what_to_spec_protocol">
-		<p class="advisement">Specifications that define protocols MAY reference URI [[RFC3986]] when specifying <a>resource identifiers</a> for use in wire formats but SHOULD include the additional requirement that UTF-8 MUST be used for the interpretation of <a>percent encoded</a> values into characters.</p>
+		<p class="advisement">Specifications that define protocols MAY reference URI [[RFC3986]] when specifying <a>resource identifiers</a> for use in wire formats but MUST include the additional requirement that UTF-8 MUST be used for the interpretation of <a>percent encoded</a> values into characters.</p>
     </div>
 
     <p>According to the definition in [[RFC3986]], URI references are restricted to a subset of ASCII and non-ASCII characters cannot be used directly. The <a>percent encoding</a> is provided to escape arbitrary byte values. However, <a>percent encoding</a> by itself is of limited value because many different <a>legacy character encodings</a> might be used to interpret a given sequence of bytes into characters (or to encode a given sequence of characters into bytes). Internationalized Resource Identifiers (<em>IRIs</em>) [[RFC3987]] solves problems with encoding and interpreting non-ASCII characters in resource identifiers with a uniform approached based on the UTF-8 encoding of [[Unicode]].</p>
@@ -2809,7 +2807,6 @@ just as characters are the basic unit of organization of encoded text.</p>
 		<p class="advisement">Specifications that define new syntax for URIs or contained within URIs MUST specify that characters outside the ASCII repertoire are <a>percent encoded</a> using the UTF-8 <a>character encoding</a>.</p>
 	</div>
 
-  </section>
   </section>
 
 
