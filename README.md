@@ -18,8 +18,8 @@ All contributors should read and agree with [CONTRIBUTING.md](https://github.com
 
 Editors should be familiar with and use the following:
 
-- [Github guidelines for working with i18n documents](http://w3c.github.io/i18n-activity/guidelines/github)
-- [Editorial guidelines for working with i18n documents](http://w3c.github.io/i18n-activity/guidelines/editing)
+- [Github guidelines for working with i18n documents](https://w3c.github.io/i18n-activity/guidelines/github)
+- [Editorial guidelines for working with i18n documents](https://w3c.github.io/i18n-activity/guidelines/editing)
 
 ### Links
-- [Working Group Home Page](http://w3c.github.io/i18n-activity/i18n-wg/)
+- [Working Group Home Page](https://w3c.github.io/i18n-activity/i18n-wg/)

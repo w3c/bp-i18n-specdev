@@ -1,6 +1,6 @@
 ##Contributions
 
-Contributions to this repository are intended to become part of the Internationalization Working Group documents governed by the [Software and Document License](http://www.w3.org/Consortium/Legal/copyright-software). By committing here, you agree to that licensing of your contributions.
+Contributions to this repository are intended to become part of the Internationalization Working Group documents governed by the [Software and Document License](https://www.w3.org/Consortium/Legal/copyright-software). By committing here, you agree to that licensing of your contributions.
 
 If you are not the sole contributor to a contribution (pull request), please identify all contributors in the pull request comment.
 
