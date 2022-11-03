@@ -1713,6 +1713,24 @@ just as characters are the basic unit of organization of encoded text.</p>
 <p>[[[#char_def]]].</p>
 </div>
 
+<p>Specifications need to be clear about the encoding and processing of textual data. The recommendations in this section are mutually consistent with those in [[DESIGN-PRINCIPLES]]. In general, specifications should only support well-formed Unicode code point strings and should avoid the use of (or access to) the underlying code units or the use of different character encodings.</p>
+
+<div class="req" id="char_string_char">
+	<p class="advisement">Specifications SHOULD define strings as a sequence of <a>Unicode code points</a>.</p>
+	<details class="links"><summary>explanations &amp; examples</summary>
+	   <p><a href="https://www.w3.org/TR/charmod/#sec-Strings">String concepts, C012</a>, in <cite>Character Model for the World Wide Web: Fundamentals</cite>.</p>
+	</details>
+</div>
+
+<div class="req" id="char_string_domstring">
+	<p class="advisement">When designing a web platform feature which operates on strings, use <a href="https://webidl.spec.whatwg.org/#idl-DOMString">DOMString</a> unless you have a specific reason not to.</p>
+</div>
+
+<aside class="note">
+	<p>The type <code>DOMString</code> is actually a UTF-16 <a>code unit</a> string. This type allows unpaired <a>surrogate</a> code units to appear in a string, which can result in errors or replacement with the Unicode replacment character (<span class="codepoint" translate="no"><bdi lang="und">&#xFFFD;</bdi> [<span class="uname">U+FFFD REPLACEMENT CHARACTER</span>]</span>)</p>
+</aside>
+
+
 <div class="req" id="char_string_byte">
 	<p class="advisement">Specifications SHOULD NOT define a string as a 'byte string'.</p>
 	<details class="links"><summary>explanations &amp; examples</summary>
@@ -1720,12 +1738,6 @@ just as characters are the basic unit of organization of encoded text.</p>
 	</details>
 </div>
 
- 	<div class="req" id="char_string_char">
-	<p class="advisement">The 'character string' definition SHOULD be used by most specifications.</p>
-	<details class="links"><summary>explanations &amp; examples</summary>
-	<p><a href="https://www.w3.org/TR/charmod/#sec-Strings">String concepts, C012</a>, in <cite>Character Model for the World Wide Web: Fundamentals</cite>.</p>
-	</details>
-	</div>
 </section>
 
 <section id="char_whitespace" class="subtopic">
@@ -2747,10 +2759,6 @@ just as characters are the basic unit of organization of encoded text.</p>
         <li class="w3"><p class="link"><a href="https://www.rfc-editor.org/rfc/rfc3987">Internationalized Resource Identifiers (IRIs)</a> [[RFC3987]]</p></li>
     </ul>
 </aside>
-
-<p>A <dfn id="dfn_resid">resource identifier</dfn> is a compact string of characters for identifying an abstract or physical <a>resource</a>. On the Web, this mostly means various types of Universal Resource Identifiers (or <em>URIs</em>). For wire formats, [[RFC3986]] defines the structure and serialization. <em>Internationalizationed Resource Identifiers</em> (or <em>IRIs</em>) [[RFC3987]] describe how non-ASCII Unicode characters can be used in resource identifiers. The WhatWG [[URL]] specification describes how browsers handle IRIs and their mapping to URIs. See also: <a href="#markup_identifiers"></a>.</p>
-
-<p><dfn id="dfn_percent-encoding" data-lt="percent-encoding|percent encoding|%HH encoding|percent encoded">Percent-encoding</dfn> is the escaping mechanism defined by URI [[RFC3986]] for the encoding of arbitrary byte values not otherwise permitted into a URI. For example, if a user wishes to include the character <span class="codepoint" translate="no"><bdi lang="und">&#x2F;</bdi> [<span class="uname">U+002F SOLIDUS</span>]</span> into a URI, the byte <code>0x2F</code> is encoded as the character sequence <code>%2F</code>. If the user wishes to include the character <span class="codepoint" translate="no"><bdi lang="en">&#x00E9;</bdi> [<span class="uname">U+00E9 LATIN SMALL LETTER E WITH ACUTE</span>]</span> into a URI, the UTF-8 byte sequence for this character (<code>0xC3 0xA9</code>) could be encoded as the sequence <code>%C3%A9</code>.</p>
 
     <p>The situation with regards to specifying support of non-ASCII characters in <a>resource identifiers</a> is complicated because there are at least three specifications (URI [[RFC3986]], IRI [[RFC3987]], and [[URL]]) that define resource identifiers and their serialization. The WhatWG [[URL]] specification is an attempt to address this complexity by documenting the actual practice of browsers and other user agents. The stated goal of the URL specification is to obsolete both RFCs.</p>
     
