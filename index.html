@@ -1715,6 +1715,10 @@ just as characters are the basic unit of organization of encoded text.</p>
 
 <p>Specifications need to be clear about the encoding and processing of textual data. The recommendations in this section are mutually consistent with those in [[DESIGN-PRINCIPLES]]. In general, specifications should only support well-formed Unicode code point strings and should avoid the use of (or access to) the underlying code units or the use of different character encodings.</p>
 
+<aside class="note">
+	<p>Specifications should avoid adding or defining support for <a>legacy character encodings</a> unless there is a specific reason to do so. See also <a href="#char_choosing"></a>.</p>
+</aside>
+
 <div class="req" id="char_string_char">
 	<p class="advisement">Specifications SHOULD define strings as a sequence of <a>Unicode code points</a>.</p>
 	<details class="links"><summary>explanations &amp; examples</summary>
@@ -1726,15 +1730,23 @@ just as characters are the basic unit of organization of encoded text.</p>
 	<p class="advisement">When designing a web platform feature which operates on strings, use <a href="https://webidl.spec.whatwg.org/#idl-DOMString">DOMString</a> unless you have a specific reason not to.</p>
 </div>
 
-<aside class="note">
-	<p>The type <code>DOMString</code> is actually a UTF-16 <a>code unit</a> string. This type allows unpaired <a>surrogate</a> code units to appear in a string, which can result in errors or replacement with the Unicode replacment character (<span class="codepoint" translate="no"><bdi lang="und">&#xFFFD;</bdi> [<span class="uname">U+FFFD REPLACEMENT CHARACTER</span>]</span>)</p>
-</aside>
+<p>The type <code>DOMString</code> is actually a UTF-16 <a>code unit</a> string. This type allows unpaired <a>surrogate</a> code units to appear in a string, which can result in errors or replacement with the Unicode replacment character (<span class="codepoint" translate="no"><bdi lang="und">&#xFFFD;</bdi> [<span class="uname">U+FFFD REPLACEMENT CHARACTER</span>]</span>). This type is appropriate when specifications do not need to do internal processing of the string value. The alternative type is <code translate="no"><a href="https://webidl.spec.whatwg.org/#idl-USVString">USVString</a></code>, which is a sequence of Unicode code points.</p>
+
+<p>The reason <code translate="no">DOMString</code> is preferred to <code translate="no">USVString</code> is that both [[DOM]] and the string types in JavaScript (and its derivatives, such as JSON) are defined in terms of UTF-16 code unit strings. Specifying <code translate="no">USVString</code> can result in inadvertently requiring an implementation to check for unpaired surrogates in cases where there is no benefit to doing so.</p>
+
+<div class="req" id="char_string_usvstring">
+	<p class="advisement">When designing a web platform feature or API that operates on the internal values of strings, including indexing, iterating, transformation, or searching, the use of <a href="">USVString</a> is RECOMMENDED.</p>
+	<details class="links"><summary>explantations &amp; examples</summary>
+	<p><a href="https://infra.spec.whatwg.org/#scalar-value-string">Scalar value string</a> definition in [[INFRA]]</p>
+	</details>
+</div>
 
 
 <div class="req" id="char_string_byte">
 	<p class="advisement">Specifications SHOULD NOT define a string as a 'byte string'.</p>
 	<details class="links"><summary>explanations &amp; examples</summary>
 	<p><a href="https://www.w3.org/TR/charmod/#sec-Strings">String concepts, C011</a>, in <cite>Character Model for the World Wide Web: Fundamentals</cite>.</p>
+	<p><a href="https://www.w3.org/TR/string-meta/#protocol-strings">Strings that are part of a legacy protocol or format</a>, in <cite>Strings on the Web: Language and Direction Metadata</cite> [[STRING-META]]</p>
 	</details>
 </div>
 
