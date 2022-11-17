@@ -1715,19 +1715,16 @@ just as characters are the basic unit of organization of encoded text.</p>
 
 <p>Specifications need to be clear about the encoding and processing of textual data. The recommendations in this section are mutually consistent with those in [[DESIGN-PRINCIPLES]]. In general, specifications should only support well-formed Unicode code point strings and should avoid the use of (or access to) the underlying code units or the use of different character encodings.</p>
 
-<aside class="note">
+<aside class="note" id="char_string_char">
 	<p>Specifications should avoid adding or defining support for <a>legacy character encodings</a> unless there is a specific reason to do so. See also <a href="#char_choosing"></a>.</p>
 </aside>
 
-<div class="req" id="char_string_char">
-	<p class="advisement">Specifications SHOULD define strings as a sequence of <a>Unicode code points</a>.</p>
-	<details class="links"><summary>explanations &amp; examples</summary>
-	   <p><a href="https://www.w3.org/TR/charmod/#sec-Strings">String concepts, C012</a>, in <cite>Character Model for the World Wide Web: Fundamentals</cite>.</p>
-	</details>
-</div>
-
 <div class="req" id="char_string_domstring">
 	<p class="advisement">When designing a web platform feature which operates on strings, use <a href="https://webidl.spec.whatwg.org/#idl-DOMString">DOMString</a> unless you have a specific reason not to.</p>
+	<details class="links"><summary>explanations &amp; examples</summary>
+	   <p><a href="https://www.w3.org/TR/charmod/#sec-Strings">String concepts, C012</a>, in <cite>Character Model for the World Wide Web: Fundamentals</cite>.</p>
+	   <p><a href="https://www.w3.org/TR/design-principles/#idl-string-types">IDL String Types</a> in <cite>Web Platform Design Principles</cite> [[DESIGN-PRINCIPLES]]</p>
+	</details>
 </div>
 
 <p>The type <code>DOMString</code> is actually a UTF-16 <a>code unit</a> string. This type allows unpaired <a>surrogate</a> code units to appear in a string, which can result in errors or replacement with the Unicode replacment character (<span class="codepoint" translate="no"><bdi lang="und">&#xFFFD;</bdi> [<span class="uname">U+FFFD REPLACEMENT CHARACTER</span>]</span>). This type is appropriate when specifications do not need to do internal processing of the string value. The alternative type is <code translate="no"><a href="https://webidl.spec.whatwg.org/#idl-USVString">USVString</a></code>, which is a sequence of Unicode code points.</p>
@@ -1737,18 +1734,26 @@ just as characters are the basic unit of organization of encoded text.</p>
 <div class="req" id="char_string_usvstring">
 	<p class="advisement">When designing a web platform feature or API that operates on the internal values of strings, including indexing, iterating, transformation, or searching, the use of <a href="">USVString</a> is RECOMMENDED.</p>
 	<details class="links"><summary>explantations &amp; examples</summary>
-	<p><a href="https://infra.spec.whatwg.org/#scalar-value-string">Scalar value string</a> definition in [[INFRA]]</p>
+	   <p><a href="https://infra.spec.whatwg.org/#scalar-value-string">Scalar value string</a> definition in [[INFRA]]</p>
+	   <p><a href="https://www.w3.org/TR/design-principles/#idl-string-types">IDL String Types</a> in <cite>Web Platform Design Principles</cite> [[DESIGN-PRINCIPLES]]</p>
 	</details>
 </div>
+
+<p>The type <code translate="no">USVString</code> defines strings as a sequence of Unicode <a>code points</a>. For strings whose most common algorithms operate on or process individual <a>code points</a>, or for operations which can’t handle surrogates in input, <code translate="no">USVString</code> should be used. For example, if your specification is defining a process that parses a string or transforms specific characters, it is both easier to specify and more reliable to refer to code points (<em>"scalar values"</em>) than to deal with the UTF-16 <a>code units</a>.</p>
+
+<p>In a <code translate="no">USVString</code>, isolated <a>surrogate</a> code points are invalid and implementations are required to replace any found in a string with the Unicode replacment character (<span class="codepoint" translate="no"><bdi lang="und">&#xFFFD;</bdi>[<span class="uname">U+FFFD REPLACEMENT CHARACTER</span>]</span>).</p>
 
 
 <div class="req" id="char_string_byte">
-	<p class="advisement">Specifications SHOULD NOT define a string as a 'byte string'.</p>
+	<p class="advisement">Specifications SHOULD NOT define a string as a <code translate="no">ByteString</code> or as a sequence of bytes ('byte string'). For binary data or sequences of bytes, use <code translate="no">Uint8Array</code> instead.</p>
 	<details class="links"><summary>explanations &amp; examples</summary>
-	<p><a href="https://www.w3.org/TR/charmod/#sec-Strings">String concepts, C011</a>, in <cite>Character Model for the World Wide Web: Fundamentals</cite>.</p>
-	<p><a href="https://www.w3.org/TR/string-meta/#protocol-strings">Strings that are part of a legacy protocol or format</a>, in <cite>Strings on the Web: Language and Direction Metadata</cite> [[STRING-META]]</p>
+	   <p><a href="https://www.w3.org/TR/charmod/#sec-Strings">String concepts, C011</a>, in <cite>Character Model for the World Wide Web: Fundamentals</cite>.</p>
+	   <p><a href="https://www.w3.org/TR/string-meta/#protocol-strings">Strings that are part of a legacy protocol or format</a>, in <cite>Strings on the Web: Language and Direction Metadata</cite> [[STRING-META]]</p>
+	   <p><a href="https://www.w3.org/TR/design-principles/#idl-string-types">IDL String Types</a> in <cite>Web Platform Design Principles</cite> [[DESIGN-PRINCIPLES]]</p>
 	</details>
 </div>
+
+<p>The type <code translate="no">ByteString</code> defines strings as sequences of bytes (octets). Interpretation of byte strings thus requires the specification of a <a>character encoding form</a>. UTF-8 is the preferred encoding for wire and document formats [[ENCODING]], but there is generally no reason to specify strings in terms of the underlying byte values. See <a href="#char_choosing"></a> for additional best practices.</p>
 
 </section>
 
