@@ -1741,7 +1741,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 
 <p>The type <code translate="no">USVString</code> defines strings as a sequence of Unicode <a>code points</a>. For strings whose most common algorithms operate on or process individual <a>code points</a>, or for operations which can’t handle surrogates in input, <code translate="no">USVString</code> should be used. For example, if your specification is defining a process that parses a string or transforms specific characters, it is both easier to specify and more reliable to refer to code points (<em>"scalar values"</em>) than to deal with the UTF-16 <a>code units</a>.</p>
 
-<p>In a <code translate="no">USVString</code>, isolated <a>surrogate</a> code points are invalid and implementations are required to replace any found in a string with the Unicode replacment character (<span class="codepoint" translate="no"><bdi lang="und">&#xFFFD;</bdi>[<span class="uname">U+FFFD REPLACEMENT CHARACTER</span>]</span>).</p>
+<p>In a <code translate="no">USVString</code>, isolated <a>surrogate</a> code points are invalid and implementations are required to replace any found in a string with the Unicode replacment character (<span class="codepoint" translate="no"><bdi lang="und">&#xFFFD;</bdi> [<span class="uname">U+FFFD REPLACEMENT CHARACTER</span>]</span>).</p>
 
 
 <div class="req" id="char_string_byte">
