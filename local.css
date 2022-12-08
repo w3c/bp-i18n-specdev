@@ -409,21 +409,21 @@ table.whitespace caption {
 	font-style: italic;
 	}
 	
-#exampleNamesTable {
+.exampleNamesTable {
   border-collapse: collapse;
   width: 100%;
 }
 
-#exampleNamesTable td, #exampleNamesTable th {
+.exampleNamesTable td, #exampleNamesTable th {
   border: 1px solid #ddd;
   padding: 8px;
 }
 
-#exampleNamesTable tr:nth-child(even){background-color: #f2f2f2;}
+.exampleNamesTable tr:nth-child(even){background-color: #f2f2f2;}
 
-#exampleNamesTable tr:hover {background-color: #ddd;}
+.exampleNamesTable tr:hover {background-color: #ddd;}
 
-#exampleNamesTable th {
+.exampleNamesTable th {
   cursor: pointer;
   padding-top: 12px;
   padding-bottom: 12px;
