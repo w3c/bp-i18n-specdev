@@ -2056,14 +2056,74 @@ just as characters are the basic unit of organization of encoded text.</p>
 <p class="reviewComments"><a href="https://github.com/w3c/i18n-activity/labels/t%3Achar_ref" target="_blank">See related review comments.</a></p>
 
  	<div class="req" id="char_ref_Uchar">
-	<p class="advisement">Use U+XXXX syntax to represent Unicode code points in the specification.</p>
+	<p class="advisement">Use <code translate="no">U+XXXX</code> syntax to represent Unicode code points in the specification.</p>
 	</div>
 
-<p>The U+XXXX format is well understood when referring to Unicode code points in a specification. These are space separated when appearing in a sequence. No additional decoration is needed. Note that a code point may contain four, five, or six hexadecimal digits. When fewer than four digits are needed, the code point number is zero filled. E.g. U+0020.</p>
+<p>The <code translate="no">U+XXXX</code> format is well understood when referring to Unicode code points in a specification. These are space separated when appearing in a sequence. No additional decoration is needed. Note that a code point may contain four, five, or six hexadecimal digits. When fewer than four digits are needed, the code point number is zero filled.</p>
+
+<aside class="example" title="Code point examples">
+	<table>
+		<thead>
+			<tr>
+				<th>Character</th>
+				<th>Name</th>
+				<th>U+XXXX syntax</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td style="text-align:center">&#xa0;</td>
+				<td class="uname">SPACE</td>
+				<td>U+0020</td>
+			</tr>
+			<tr>
+				<td style="text-align:center">&#xe9;</td>
+				<td class="uname">LATIN SMALL LETTER E WITH ACUTE</td>
+				<td>U+00E9</td>
+			</tr>
+			<tr>
+				<td style="text-align:center">&#xa8a;</td>
+				<td class="uname">GUJURATI LETTER UU</td>
+				<td>U+0A8A</td>
+			</tr>
+			<tr>
+				<td style="text-align:center">&#xfffd;</td>
+				<td class="uname">REPLACEMENT CHARACTER</td>
+				<td>U+FFFD</td>
+			</tr>
+			<tr>
+				<td style="text-align:center">&#x1f62e;</td>
+				<td class="uname">FACE WITH OPEN MOUTH</td>
+				<td>U+1F62E</td>
+			</tr>
+		</tbody>
+	</table>
+</aside>
+
+<div class="req" id="char_ref_unicode_names">
+	<p class="advisement">Use the Unicode character name to describe specific code points. Use of the <a href="">character naming template</a> is RECOMMENDED.</p>
+</div>
+
+<p>Unicode assigns unique, immutable names to each assigned Unicode code point. Using these names in your specification when referring to specific characters (along with the code point in <code class="uname" translate="no">U+XXXX</code> notation) will help make your specification unambiguous.</p>
+
+<p>There are cases where doing this is overly pedantic and detracts from usability, but be cautious about being so informal as to impair meaning.</p>
+
+<p>Internationalization specifications use (and we recommend the use of) this template for character references:</p>
+
+<pre>
+&lt;span class="codepoint" translate="no">&lt;bdi lang="XX">&#xXXXX;&lt;/bdi> 
+[&lt;span class="uname">U+XXXX Unicode_character_name&lt;/span>]&lt;/span>
+</pre>
+
+<p>For example:</p>
+
+<pre>
+&lt;span class="codepoint" translate="no">&lt;bdi lang="en">&#x00E9;&lt;/bdi> 
+[&lt;span class="uname">U+00E9 LATIN SMALL LETTER E WITH ACUTE&lt;/span>]&lt;/span>
+</pre>
+
+will produce: <span class="codepoint" translate="no"><bdi lang="en">é</bdi> [<span class="uname">U+00E9 LATIN SMALL LETTER E WITH ACUTE</span>]</span>.
 </section>
-
-
-
 
 
 
