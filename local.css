@@ -414,7 +414,7 @@ table.whitespace caption {
   width: 100%;
 }
 
-.exampleNamesTable td, #exampleNamesTable th {
+.exampleNamesTable td, .exampleNamesTable th {
   border: 1px solid #ddd;
   padding: 8px;
 }
