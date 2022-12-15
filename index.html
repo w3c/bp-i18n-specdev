@@ -63,9 +63,10 @@
   </script>
   
   <script>
-	  function sortTable(colNum, reversed) {
+	  function sortTable(tableName, colNum, reversed) {
           var table, rows, i, x, y, shouldSwitch;
-          table = document.getElementById("exampleNamesTable");
+          table = document.getElementById(tableName);
+          if ( ! table) return;
           var switching = true;
           var collator = new Intl.Collator('en-US');
   
@@ -104,7 +105,7 @@
   </script>
   </head>
   
-  <body onload="sortTable(0, false);">
+  <body onload="sortTable('exampleNamesTable', 0, false);">
   <div id="abstract">
       <p>This document provides a checklist of internationalization-related considerations when developing a specification. Most checklist items point to detailed supporting information in other documents. Where such information does not yet exist, it can be given a temporary home in this document.  <strong>The  information in this document will change regularly as new content is added and existing content is modified in the light of experience and discussion.</strong></p>
   </div>
@@ -1713,19 +1714,48 @@ just as characters are the basic unit of organization of encoded text.</p>
 <p>[[[#char_def]]].</p>
 </div>
 
-<div class="req" id="char_string_byte">
-	<p class="advisement">Specifications SHOULD NOT define a string as a 'byte string'.</p>
+<p>Specifications need to be clear about the encoding and processing of textual data. The recommendations in this section are mutually consistent with those in [[DESIGN-PRINCIPLES]]. In general, specifications should only support well-formed Unicode code point strings and should avoid the use of (or access to) the underlying code units or the use of different character encodings.</p>
+
+<aside class="note" id="char_string_char">
+	<p>Specifications should avoid adding or defining support for <a>legacy character encodings</a> unless there is a specific reason to do so. See also <a href="#char_choosing"></a>.</p>
+</aside>
+
+<div class="req" id="char_string_domstring">
+	<p class="advisement">When designing a web platform feature which operates on strings, use <a href="https://webidl.spec.whatwg.org/#idl-DOMString">DOMString</a> unless you have a specific reason not to.</p>
 	<details class="links"><summary>explanations &amp; examples</summary>
-	<p><a href="https://www.w3.org/TR/charmod/#sec-Strings">String concepts, C011</a>, in <cite>Character Model for the World Wide Web: Fundamentals</cite>.</p>
+	   <p><a href="https://www.w3.org/TR/charmod/#sec-Strings">String concepts, C012</a>, in <cite>Character Model for the World Wide Web: Fundamentals</cite>.</p>
+	   <p><a href="https://www.w3.org/TR/design-principles/#idl-string-types">IDL String Types</a> in <cite>Web Platform Design Principles</cite> [[DESIGN-PRINCIPLES]]</p>
 	</details>
 </div>
 
- 	<div class="req" id="char_string_char">
-	<p class="advisement">The 'character string' definition SHOULD be used by most specifications.</p>
-	<details class="links"><summary>explanations &amp; examples</summary>
-	<p><a href="https://www.w3.org/TR/charmod/#sec-Strings">String concepts, C012</a>, in <cite>Character Model for the World Wide Web: Fundamentals</cite>.</p>
+<p>The type <code>DOMString</code> is actually a UTF-16 <a>code unit</a> string. This type allows unpaired <a>surrogate</a> code units to appear in a string, which can result in errors or replacement with the Unicode replacment character (<span class="codepoint" translate="no"><bdi lang="und">&#xFFFD;</bdi> [<span class="uname">U+FFFD REPLACEMENT CHARACTER</span>]</span>). This type is appropriate when specifications do not need to do internal processing of the string value. The alternative type is <code translate="no"><a href="https://webidl.spec.whatwg.org/#idl-USVString">USVString</a></code>, which is a sequence of Unicode code points.</p>
+
+<p>The reason <code translate="no">DOMString</code> is preferred to <code translate="no">USVString</code> is that both [[DOM]] and the string types in JavaScript (and its derivatives, such as JSON) are defined in terms of UTF-16 code unit strings. Specifying <code translate="no">USVString</code> can result in inadvertently requiring an implementation to check for unpaired surrogates in cases where there is no benefit to doing so.</p>
+
+<div class="req" id="char_string_usvstring">
+	<p class="advisement">When designing a web platform feature or API that operates on the internal values of strings, including indexing, iterating, transformation, or searching, the use of <a href="">USVString</a> is RECOMMENDED.</p>
+	<details class="links"><summary>explantations &amp; examples</summary>
+	   <p><a href="https://infra.spec.whatwg.org/#scalar-value-string">Scalar value string</a> definition in [[INFRA]]</p>
+	   <p><a href="https://www.w3.org/TR/design-principles/#idl-string-types">IDL String Types</a> in <cite>Web Platform Design Principles</cite> [[DESIGN-PRINCIPLES]]</p>
 	</details>
-	</div>
+</div>
+
+<p>The type <code translate="no">USVString</code> defines strings as a sequence of Unicode <a>code points</a>. For strings whose most common algorithms operate on or process individual <a>code points</a>, or for operations which can’t handle surrogates in input, <code translate="no">USVString</code> should be used. For example, if your specification is defining a process that parses a string or transforms specific characters, it is both easier to specify and more reliable to refer to code points (<em>"scalar values"</em>) than to deal with the UTF-16 <a>code units</a>.</p>
+
+<p>In a <code translate="no">USVString</code>, isolated <a>surrogate</a> code points are invalid and implementations are required to replace any found in a string with the Unicode replacment character (<span class="codepoint" translate="no"><bdi lang="und">&#xFFFD;</bdi> [<span class="uname">U+FFFD REPLACEMENT CHARACTER</span>]</span>).</p>
+
+
+<div class="req" id="char_string_byte">
+	<p class="advisement">Specifications SHOULD NOT define a string as a <code translate="no">ByteString</code> or as a sequence of bytes ('byte string'). For binary data or sequences of bytes, use <code translate="no">Uint8Array</code> instead.</p>
+	<details class="links"><summary>explanations &amp; examples</summary>
+	   <p><a href="https://www.w3.org/TR/charmod/#sec-Strings">String concepts, C011</a>, in <cite>Character Model for the World Wide Web: Fundamentals</cite>.</p>
+	   <p><a href="https://www.w3.org/TR/string-meta/#protocol-strings">Strings that are part of a legacy protocol or format</a>, in <cite>Strings on the Web: Language and Direction Metadata</cite> [[STRING-META]]</p>
+	   <p><a href="https://www.w3.org/TR/design-principles/#idl-string-types">IDL String Types</a> in <cite>Web Platform Design Principles</cite> [[DESIGN-PRINCIPLES]]</p>
+	</details>
+</div>
+
+<p>The type <code translate="no">ByteString</code> defines strings as sequences of bytes (octets). Interpretation of byte strings thus requires the specification of a <a>character encoding form</a>. UTF-8 is the preferred encoding for wire and document formats [[ENCODING]], but there is generally no reason to specify strings in terms of the underlying byte values. See <a href="#char_choosing"></a> for additional best practices.</p>
+
 </section>
 
 <section id="char_whitespace" class="subtopic">
@@ -2715,8 +2745,6 @@ just as characters are the basic unit of organization of encoded text.</p>
 		<li><span class="codepoint"><span>\</span> [<span class="uname">U+005C REVERSE SOLIDUS</span>]</span></li>
 		<li><span class="codepoint"><span>|</span> [<span class="uname">U+007C VERTICAL LINE</span>]</span></li>
 		<li><span class="codepoint"><span class="uname">U+007F DEL</span></span></li>
-		<li><span class="codepoint"><span class="uname">U+E0001 LANGUAGE TAG</span></span></li>
-		<li><span class="codepoint"><span class="uname">U+E007F CANCEL TAG</span></span></li>
 		<li>Codepoints in the following ranges:
 		   <ul>
 			   <li>C0 Controls [<span class="uname">U+0000</span>...<span class="uname">U+001F</span>]</li>
@@ -2735,6 +2763,8 @@ just as characters are the basic unit of organization of encoded text.</p>
 			<li>The last two code points of the Basic Multilingual Plane (U+FFFE and U+FFFF)</li>
 			<li>The last two code points at the end of the Supplementary Planes (U+1FFFE, U+1FFFF … U+EFFFE, U+EFFFF)</li>
 		</ul></li>
+
+		<li>All Unicode <a href="https://www.unicode.org/Public/UCD/latest/ucd/PropList.txt">deprecated characters</a> (search for "Deprecated" in the file).</li>
 
 	</ul>
 </div>
@@ -2822,10 +2852,6 @@ just as characters are the basic unit of organization of encoded text.</p>
         <li class="w3"><p class="link"><a href="https://www.rfc-editor.org/rfc/rfc3987">Internationalized Resource Identifiers (IRIs)</a> [[RFC3987]]</p></li>
     </ul>
 </aside>
-
-<p>A <dfn id="dfn_resid">resource identifier</dfn> is a compact string of characters for identifying an abstract or physical <a>resource</a>. On the Web, this mostly means various types of Universal Resource Identifiers (or <em>URIs</em>). For wire formats, [[RFC3986]] defines the structure and serialization. <em>Internationalizationed Resource Identifiers</em> (or <em>IRIs</em>) [[RFC3987]] describe how non-ASCII Unicode characters can be used in resource identifiers. The WhatWG [[URL]] specification describes how browsers handle IRIs and their mapping to URIs. See also: <a href="#markup_identifiers"></a>.</p>
-
-<p><dfn id="dfn_percent-encoding" data-lt="percent-encoding|percent encoding|%HH encoding|percent encoded">Percent-encoding</dfn> is the escaping mechanism defined by URI [[RFC3986]] for the encoding of arbitrary byte values not otherwise permitted into a URI. For example, if a user wishes to include the character <span class="codepoint" translate="no"><bdi lang="und">&#x2F;</bdi> [<span class="uname">U+002F SOLIDUS</span>]</span> into a URI, the byte <code>0x2F</code> is encoded as the character sequence <code>%2F</code>. If the user wishes to include the character <span class="codepoint" translate="no"><bdi lang="en">&#x00E9;</bdi> [<span class="uname">U+00E9 LATIN SMALL LETTER E WITH ACUTE</span>]</span> into a URI, the UTF-8 byte sequence for this character (<code>0xC3 0xA9</code>) could be encoded as the sequence <code>%C3%A9</code>.</p>
 
     <p>The situation with regards to specifying support of non-ASCII characters in <a>resource identifiers</a> is complicated because there are at least three specifications (URI [[RFC3986]], IRI [[RFC3987]], and [[URL]]) that define resource identifiers and their serialization. The WhatWG [[URL]] specification is an attempt to address this complexity by documenting the actual practice of browsers and other user agents. The stated goal of the URL specification is to obsolete both RFCs.</p>
     
@@ -3720,31 +3746,32 @@ PCENChar ::=
 
 <p>Try to choose names that represent people from different regions around the world, rather than just a handful of names with European origins. Note that choosing names that include non-ASCII characters can help remind implementers that Unicode support and other internationalization concerns apply to their users.</p>
 
-<p>No collection of names can be completely agnostic in dealing with cultural and gender-related issues. To assist specification writers in creating more inclusive examples, this document provides a collection of names drawn from across many cultures. These names are organized approximately into regions described by the UN M.49 standard. Notice that even within these regions there are quite diverse influences and practices for the handling of personal names. The names are also divided by their cultural gender association to assist specification authors in writing examples, although many names are not specific to any particular gender.</p>
+<p>No collection of names can be completely agnostic in dealing with cultural and gender-related issues. To assist specification writers in creating more inclusive examples, this document provides a collection of names drawn from across many cultures. These names are organized approximately into regions, usually indicating country or language. Notice that even within these regions there are quite diverse influences and practices for the handling of personal names. The names are also divided by their cultural gender association to assist specification authors in writing examples, although many names are not specific to any particular gender.</p>
 
-<aside class="note">
+<p>Inserting personal names from other cultures into English-language examples is also affected by the very different ways that names are used culturally around the world. For example, some cultures expect the use of a patronym/matronym in addition to the given name; or some cultures prefer more formal names (e.g. "<em>Herr Dürer</em>" vs. the informal "<em>Albrecht</em>").</p>
+
+<p>Chinese people almost never use their given name without also including their family name. When writing examples in Chinese, one might see something like <span lang="zh-Hans">路人甲</span> (it means Person A, using the Han "Heavenly Stem" ordinals, cf. <a href="https://www.w3.org/TR/predefined-counter-styles/#cjk-heavenly-stem">Ready-made Counter Styles</a>) rather than a "exemplar name". When examples are used, they include both the family and given name. Bear in mind that in Chinese the family name comes first, before the given name.</p>
+
+<p>In Japanese, there are complex choices related to levels of formality. A person <em>might</em> be addressed by their given name in very informal situations (<em>Hiroshi</em>), but usually will be addressed with a family name that includes (unless one is being rude) a title or suffix, such as <code>-san</code> or <code>-sama</code> (e.g. <em>Tanaka-san</em>). Other suffixes or titles are also used, such as <em>senpai</em> or <em>sensei</em> (for senior or very esteemed individuals) or <em>shi</em> (when one is unfamiliar with the person). Thus an example in English that could say <em>Suppose Hiroki wants to set up a...</em> would probably be more culturally appropriate if it read <em>Suppose Tanaka-san wants to set up a...</em></p>
+
+<h5>Example names</h5>
+	
+<p>The following table was compiled by the Internationalization Working Group. Contributions and suggestions for additions or corrections are welcome.</p>
+
 	<p>The purpose of this collection of names is to assist specification authors who are generally writing for an English-speaking audience. The collection consists primarily of given names and, where necessary, is transliterated into the Latin script. The names are also rendered informally (<em>"Alice"</em> rather than <em>"Ms. Jones"</em>), even though this is not how names would be used in many of these cultures. When translating specifications, adjustments should be made which are appropriate for the target audience.</p>
-	<p>When names are taken from non-Latin-script languages or cultures, the non-Latin representation is also provided as a reminder that names are in no way limited to the Latin script or for cases where you want to include a non-Latin script example. Wherever possible the names in this collection are taken from [[CLDR]]'s exemplary set of names.</p>
-</aside>
-
-<!-- 
-What's missing? 
-
-Sub-saharan Africa; more Chinese names; more Indic names; central Asian names
-We could stand to cull the Japanese list. The notes need work.
-
--->
+	
+	<p>When names are taken from non-Latin-script languages or cultures, the non-Latin representation is also provided as a reminder that names are in no way limited to the Latin script or for cases where you want to include a non-Latin script example.</p>
 
 <p><em>This table can be sorted by clicking on the &#x25b3; or &#x25bd; arrows in the header row.</em></p>
 
-<table id="exampleNamesTable">
+<table id="exampleNamesTable" class="exampleNamesTable">
 	<thead>
 		<tr>
-			<th>Name <span onclick="sortTable(0, false)">&#x25b3;</span><span onclick="sortTable(0, true)">&#x25bd;</span></th>
-			<th>Native <span onclick="sortTable(1, false)">&#x25b3;</span><span onclick="sortTable(1, true)">&#x25bd;</span></th>
-			<th>Gender <span onclick="sortTable(2, false)">&#x25b3;</span><span onclick="sortTable(2, true)">&#x25bd;</span></th>
-			<th>Region and Notes <span onclick="sortTable(3, false)">&#x25b3;</span><span onclick="sortTable(3, true)">&#x25bd;</span></th>
-			<th>Language <span onclick="sortTable(4, false)">&#x25b3;</span><span onclick="sortTable(4, true)">&#x25bd;</span></th>
+			<th>Name <span onclick="sortTable('exampleNamesTable', 0, false)">&#x25b3;</span><span onclick="sortTable('exampleNamesTable', 0, true)">&#x25bd;</span></th>
+			<th>Native <span onclick="sortTable('exampleNamesTable', 1, false)">&#x25b3;</span><span onclick="sortTable('exampleNamesTable', 1, true)">&#x25bd;</span></th>
+			<th>Gender <span onclick="sortTable('exampleNamesTable', 2, false)">&#x25b3;</span><span onclick="sortTable('exampleNamesTable', 2, true)">&#x25bd;</span></th>
+			<th>Region and Notes <span onclick="sortTable('exampleNamesTable', 3, false)">&#x25b3;</span><span onclick="sortTable('exampleNamesTable', 3, true)">&#x25bd;</span></th>
+			<th>Language <span onclick="sortTable('exampleNamesTable', 4, false)">&#x25b3;</span><span onclick="sortTable('exampleNamesTable', 4, true)">&#x25bd;</span></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -4246,39 +4273,596 @@ We could stand to cull the Japanese list. The notes need work.
     <td lang="ar" dir="rtl">زفره</td>
     <td>f</td>
     <td>West Asia; Arabic</td>
-    <td>ar
+    <td>ar</td>
+</tr>
+</tbody>
+</table>
+
+<aside class="note">
+    <p>Another potential source for example names is Unicode's <cite>Common Locale Data Repository</cite> [[CLDR]] project, which maintains data about the presentation of personal names in different [= locales =] and cultures. That set of names can be accessed on CLDR's <a href="https://unicode-org.github.io/cldr-staging/charts/latest/by_type/miscellaneous.person_name_formats.html#SampleName_Fields_for_Item:_givenOnly">charts page</a>. Note that those names were collected with a focus on providing examples of the <em>formatting</em> of personal names, rather than as examples of typical names found in these cultures. For example, many of the names are variations on the name "Sinbad", even though "Sinbad" is not a commonly used name in many of these cultures. Other names are taken from sources, such as folk tales, that would be familiar in a given culture but not representative of actual persons.</p>
+</aside>
+
+<!-- start CLDR data -->
+<!--  commented out as a WG decision in teleconference of 2022-12-15
+      also removed this from the body onload: sortTable('cldrExampleNamesTable', 0, false);
+<h5>CLDR sample names</h5>
+
+<p>The following list of names is taken from Unicode's <cite>Common Locale Data Repository</cite> [[CLDR]] project, which maintains data about the presentation of personal names in different [= locales =] and cultures. In addition to the table below, this set of names can be accessed on CLDR's <a href="https://unicode-org.github.io/cldr-staging/charts/latest/by_type/miscellaneous.person_name_formats.html#SampleName_Fields_for_Item:_givenOnly">charts page</a>. Note that these names were collected with a focus on providing examples of the <em>formatting</em> of personal names, rather than as examples of typical names found in these cultures. For example, many of the names are variations on the name "Sinbad", even though "Sinbad" is not a commonly used name in many of these cultures. Other names are taken from sources, such as folk tales, that would be familiar in a given culture but not representative of actual persons.</p>
+
+<p><em>This table can be sorted by clicking on the &#x25b3; or &#x25bd; arrows in the header row.</em></p>
+<table id="cldrExampleNamesTable" class="exampleNamesTable">
+	<thead>
+		<tr>
+			<th>Name <span onclick="sortTable('cldrExampleNamesTable', 0, false)">&#x25b3;</span><span onclick="sortTable('cldrExampleNamesTable', 0, true)">&#x25bd;</span></th>
+			<th>Native <span onclick="sortTable('cldrExampleNamesTable', 1, false)">&#x25b3;</span><span onclick="sortTable('cldrExampleNamesTable', 1, true)">&#x25bd;</span></th>
+			<th>Gender <span onclick="sortTable('cldrExampleNamesTable', 2, false)">&#x25b3;</span><span onclick="sortTable('cldrExampleNamesTable', 2, true)">&#x25bd;</span></th>
+			<th>Region and Notes <span onclick="sortTable('cldrExampleNamesTable', 3, false)">&#x25b3;</span><span onclick="sortTable('cldrExampleNamesTable', 3, true)">&#x25bd;</span></th>
+			<th>Language <span onclick="sortTable('cldrExampleNamesTable', 4, false)">&#x25b3;</span><span onclick="sortTable('cldrExampleNamesTable', 4, true)">&#x25bd;</span></th>
+		</tr>
+	</thead>
+	<tbody>
+ <tr>
+  <td>Anh</td>
+  <td></td>
+  <td>f</td>
+  <td>Southeast Asia; Vietnamese</td>
+  <td>vi</td>
+ </tr>
+ <tr>
+  <td>Bjørn</td>
+  <td></td>
+  <td>m</td>
+  <td>Europe; Danish</td>
+  <td>da</td>
+ </tr>
+ <tr>
+  <td>Blerim</td>
+  <td></td>
+  <td></td>
+  <td>Europe; Albanian</td>
+  <td>sq</td>
+ </tr>
+ <tr>
+  <td>Calum</td>
+  <td></td>
+  <td>m</td>
+  <td>Europe; Gaelic</td>
+  <td>gd</td>
+ </tr>
+ <tr>
+  <td>Diego</td>
+  <td></td>
+  <td>m</td>
+  <td>Latin American Spanish</td>
+  <td>es-419</td>
+ </tr>
+ <tr>
+  <td>F&#259;t-Frumos</td>
+  <td></td>
+  <td>m</td>
+  <td>Europe; Romania</td>
+  <td>ro</td>
+ </tr>
+ <tr>
+  <td>Frantziscu</td>
+  <td></td>
+  <td>m</td>
+  <td>Europe; Sardinian</td>
+  <td>sc</td>
+ </tr>
+ <tr>
+  <td>Gurban</td>
+  <td></td>
+  <td>m</td>
+  <td>Central Asia; Tajik, Azerbaijani</td>
+  <td>tk</td>
+ </tr>
+ <tr>
+  <td>Harald</td>
+  <td></td>
+  <td>m</td>
+  <td>Europe; Norwegian</td>
+  <td>no</td>
+ </tr>
+ <tr>
+  <td>Hassan</td>
+  <td></td>
+  <td>m</td>
+  <td>Africa; Swahili</td>
+  <td>sw</td>
+ </tr>
+ <tr>
+  <td>Ivan</td>
+  <td></td>
+  <td>m</td>
+  <td>Europe; Serbian (Latin)</td>
+  <td>sr-Latn</td>
+ </tr>
+ <tr>
+  <td>J&#257;nis</td>
+  <td></td>
+  <td>f, m</td>
+  <td>Europe; Latvian</td>
+  <td>lv</td>
+ </tr>
+ <tr>
+  <td>Jaume</td>
+  <td></td>
+  <td>m</td>
+  <td>Europe; Catalan</td>
+  <td>ca</td>
+ </tr>
+ <tr>
+  <td>Ji&#345;í</td>
+  <td></td>
+  <td>m</td>
+  <td>Europe; Czech</td>
+  <td>cs</td>
+ </tr>
+ <tr>
+  <td>Jozef</td>
+  <td></td>
+  <td>m</td>
+  <td>Europe; Slovak</td>
+  <td>sk</td>
+ </tr>
+ <tr>
+  <td>Jurij</td>
+  <td></td>
+  <td>m</td>
+  <td>Europe; Upper Sorbian</td>
+  <td>hsb</td>
+ </tr>
+ <tr>
+  <td>Juro</td>
+  <td></td>
+  <td>m</td>
+  <td>Europe; Lower Sorbian</td>
+  <td>dsb</td>
+ </tr>
+ <tr>
+  <td>Lena</td>
+  <td></td>
+  <td>f</td>
+  <td>Europe; German</td>
+  <td>de</td>
+ </tr>
+ <tr>
+  <td>Liam</td>
+  <td></td>
+  <td>m</td>
+  <td>Europe; Dutch (Flemish)</td>
+  <td>nl-BE</td>
+ </tr>
+ <tr>
+  <td>Lola</td>
+  <td></td>
+  <td>f</td>
+  <td>Europe; Spanish</td>
+  <td>es</td>
+ </tr>
+ <tr>
+  <td>Louhi</td>
+  <td></td>
+  <td>f</td>
+  <td>Europe; Finnish</td>
+  <td>fi</td>
+ </tr>
+ <tr>
+  <td>Marcel</td>
+  <td></td>
+  <td>m</td>
+  <td>Europe; French</td>
+  <td>fr</td>
+ </tr>
+ <tr>
+  <td>Mari</td>
+  <td></td>
+  <td>f</td>
+  <td>Europe; Estonian</td>
+  <td>et</td>
+ </tr>
+ <tr>
+  <td>Maria</td>
+  <td></td>
+  <td>f</td>
+  <td>Europe; Portuguese</td>
+  <td>pt</td>
+ </tr>
+ <tr>
+  <td>Mario</td>
+  <td></td>
+  <td>m</td>
+  <td>Italian, Quechua</td>
+  <td>it, qu</td>
+ </tr>
+ <tr>
+  <td>Piet</td>
+  <td></td>
+  <td>m</td>
+  <td>Africa; Afrikaans</td>
+  <td>af</td>
+ </tr>
+ <tr>
+  <td>Rokas</td>
+  <td></td>
+  <td>m</td>
+  <td>Europe, Latvia</td>
+  <td>lt</td>
+ </tr>
+ <tr>
+  <td>Sendoa</td>
+  <td></td>
+  <td>m</td>
+  <td>Europe; Basque</td>
+  <td>eu</td>
+ </tr>
+ <tr>
+  <td>sibadì</td>
+  <td></td>
+  <td>m</td>
+  <td>Africa; Yoruba</td>
+  <td>yo, yo-BJ</td>
+ </tr>
+ <tr>
+  <td>Sigurður</td>
+  <td></td>
+  <td>m</td>
+  <td>Europe; Icelandic</td>
+  <td>is</td>
+ </tr>
+ <tr>
+  <td>sinbad</td>
+  <td></td>
+  <td>m</td>
+  <td>Africa; Igbo</td>
+  <td>ig</td>
+ </tr>
+ <tr>
+  <td>Sinbad</td>
+  <td></td>
+  <td>m</td>
+  <td>Europe, Central Asia</td>
+  <td>az, bs, cy, en, fil, ga, ha, ha-NE, id, jv, nl, pcm, pl, so, tr, zu</td>
+ </tr>
+ <tr>
+  <td>Sinbod</td>
+  <td></td>
+  <td>m</td>
+  <td>Central Asia; Uzbek</td>
+  <td>uz</td>
+ </tr>
+ <tr>
+  <td>Slavko</td>
+  <td></td>
+  <td>m</td>
+  <td>Europe; Hungarian</td>
+  <td>hr</td>
+ </tr>
+ <tr>
+  <td>Stefan</td>
+  <td></td>
+  <td>m</td>
+  <td>Europe; Swedish</td>
+  <td>sv</td>
+ </tr>
+ <tr>
+  <td>Sulaiman</td>
+  <td></td>
+  <td>m</td>
+  <td>Southeast Asia; Malay</td>
+  <td>ms</td>
+ </tr>
+ <tr>
+  <td>Svarun</td>
+  <td></td>
+  <td></td>
+  <td>Europe; Slovenian</td>
+  <td>sl</td>
+ </tr>
+ <tr>
+  <td>T&#275;vita</td>
+  <td></td>
+  <td></td>
+  <td>Oceania; Tongan</td>
+  <td>to</td>
+ </tr>
+ <tr>
+  <td>Uxía</td>
+  <td></td>
+  <td>f</td>
+  <td>Europe; Galician</td>
+  <td>gl</td>
+ </tr>
+ <tr>
+  <td>Vuk</td>
+  <td></td>
+  <td>m</td>
+  <td>Europe; Hungarian</td>
+  <td>hu</td>
+ </tr>
+ <tr>
+  <td>Yann</td>
+  <td></td>
+  <td>m</td>
+  <td>Europe; Breton</td>
+  <td>br</td>
+ </tr>
+ <tr>
+  <td>Dimitris</td>
+  <td>&#916;&#951;&#956;&#942;&#964;&#961;&#951;&#962;</td>
+  <td></td>
+  <td>Europe; Greek</td>
+  <td>el</td>
+ </tr>
+ <tr>
+  <td>Vasíl&#697;</td>
+  <td>&#1042;&#1072;&#1089;&#1110;&#1083;&#1100;</td>
+  <td>m</td>
+  <td>Europe; Belarussian</td>
+  <td>be</td>
+ </tr>
+ <tr>
+  <td>Ivan</td>
+  <td>&#1048;&#1074;&#1072;&#1085;</td>
+  <td>m</td>
+  <td>Europe, Bulgaria; Serbian</td>
+  <td>bg, sr</td>
+ </tr>
+ <tr>
+  <td>Krste</td>
+  <td>&#1050;&#1088;&#1089;&#1090;&#1077;</td>
+  <td>m</td>
+  <td>Europe; Macedonian</td>
+  <td>mk</td>
+ </tr>
+ <tr>
+  <td>N&#1201;rlan</td>
+  <td>&#1053;&#1201;&#1088;&#1083;&#1072;&#1085;</td>
+  <td></td>
+  <td>Central Asia, Kazakhstan</td>
+  <td>kk</td>
+ </tr>
+ <tr>
+  <td>Sergey</td>
+  <td>&#1057;&#1077;&#1088;&#1075;&#1077;&#1081;</td>
+  <td>m</td>
+  <td>Europe; Russian</td>
+  <td>ru</td>
+ </tr>
+ <tr>
+  <td>Sinbad</td>
+  <td>&#1057;&#1080;&#1085;&#1073;&#1072;&#1076;</td>
+  <td>m</td>
+  <td>East Asia; Mongolian</td>
+  <td>mn</td>
+ </tr>
+ <tr>
+  <td>Syjmyk, Symyk</td>
+  <td>&#1057;&#1099;&#1081;&#1084;&#1099;&#1082;</td>
+  <td>m</td>
+  <td>Central Asia; Kyrgyz</td>
+  <td>ky</td>
+ </tr>
+ <tr>
+  <td>Yuriy, Ûríj</td>
+  <td>&#1070;&#1088;&#1110;&#1081;</td>
+  <td>m</td>
+  <td>Europe; Ukrainian</td>
+  <td>uk</td>
+ </tr>
+ <tr>
+  <td>Arthur</td>
+  <td>&#1329;&#1408;&#1385;&#1400;&#1410;&#1408;</td>
+  <td>m</td>
+  <td>Europe; Armenian</td>
+  <td>hy</td>
+ </tr>
+ <tr>
+  <td>Yonatan (Jonathan)</td>
+  <td dir=rtl>&#1497;&#1493;&#1504;&#1514;&#1503;</td>
+  <td>m</td>
+  <td>West Asia; Hebrew</td>
+  <td>he</td>
+ </tr>
+ <tr>
+  <td>Ahmed</td>
+  <td dir=rtl>&#1575;&#1581;&#1605;&#1583;</td>
+  <td>m</td>
+  <td>South Asia; Urdu</td>
+  <td>ur</td>
+ </tr>
+ <tr>
+  <td>Sindbad</td>
+  <td dir=rtl>&#1587;&#1606;&#1576;&#1575;&#1583;</td>
+  <td>m</td>
+  <td>South Asia; Pashto, Sindhi</td>
+  <td>ps, sd</td>
+ </tr>
+ <tr>
+  <td>Sinbad</td>
+  <td dir=rtl>&#1587;&#1606;&#1583;&#1576;&#1575;&#1583;</td>
+  <td>m</td>
+  <td>West Asia; Persian</td>
+  <td>fa</td>
+ </tr>
+ <tr>
+  <td>Munir</td>
+  <td dir=rtl>&#1605;&#1606;&#1610;&#1585;</td>
+  <td>m</td>
+  <td>West Asia; Arabic</td>
+  <td>ar</td>
+ </tr>
+ <tr>
+  <td>Sinbad</td>
+  <td>&#4658;&#4757;&#4707;&#4853;</td>
+  <td>m</td>
+  <td>Africa; Ethiopia</td>
+  <td>am</td>
+ </tr>
+ <tr>
+  <td>Raj</td>
+  <td><span title=r&#257;ja>&#2352;&#2366;&#2332;</span></td>
+  <td>m</td>
+  <td>South Asia; Konkani</td>
+  <td>kok</td>
+ </tr>
+ <tr>
+  <td>Lalita</td>
+  <td>&#2354;&#2354;&#2367;&#2340;</td>
+  <td>f</td>
+  <td>South Asia, Hindi</td>
+  <td>hi</td>
+ </tr>
+ <tr>
+  <td>Sindab&#257;da</td>
+  <td>&#2360;&#2367;&#2306;&#2342;&#2348;&#2366;&#2342;</td>
+  <td>m</td>
+  <td>South Asia, Marathi</td>
+  <td>mr</td>
+ </tr>
+ <tr>
+  <td>Sundara</td>
+  <td>&#2360;&#2369;&#2344;&#2381;&#2342;&#2352;</td>
+  <td>f</td>
+  <td>South Asia, Nepali</td>
+  <td>ne</td>
+ </tr>
+ <tr>
+  <td>Sinbad</td>
+  <td>&#2458;&#2495;&#2472;&#2509;&#2470;&#2476;&#2494;&#2470;</td>
+  <td>m</td>
+  <td>South Asia, Assamese</td>
+  <td>as</td>
+ </tr>
+ <tr>
+  <td>Sinbad</td>
+  <td>&#2488;&#2495;&#2472;&#2476;&#2494;&#2470;</td>
+  <td>m</td>
+  <td>South Asia, Bengali</td>
+  <td>bn</td>
+ </tr>
+ <tr>
+  <td>Sinbad</td>
+  <td>&#2616;&#2623;&#2600;&#2613;&#2622;&#2598;</td>
+  <td>m</td>
+  <td>South Asia, Punjabi</td>
+  <td>pa</td>
+ </tr>
+ <tr>
+  <td>Sinbad</td>
+  <td>&#2744;&#2751;&#2728;&#2732;&#2750;&#2726;</td>
+  <td>m</td>
+  <td>South Asia, Gujarati</td>
+  <td>gu</td>
+ </tr>
+ <tr>
+  <td>Sinbad</td>
+  <td>&#2872;&#2879;&#2856;&#2860;&#2878;&#2854;&#2893;</td>
+  <td>m</td>
+  <td>South Asia; Odia</td>
+  <td>or</td>
+ </tr>
+ <tr>
+  <td>Rajendran</td>
+  <td>&#2992;&#3006;&#2972;&#3015;&#2984;&#3021;&#2980;&#3007;&#2992;&#2985;&#3021;</td>
+  <td>m</td>
+  <td>South Asia, Tamil</td>
+  <td>ta</td>
+ </tr>
+ <tr>
+  <td>Rajasekhar</td>
+  <td>&#3120;&#3134;&#3100;&#3126;&#3143;&#3094;&#3120;&#3149;</td>
+  <td>m</td>
+  <td>South Asia; Telegu</td>
+  <td>te</td>
+ </tr>
+ <tr>
+  <td>Sinbad</td>
+  <td>&#3256;&#3263;&#3240;&#3277;&#8204;&#3244;&#3262;&#3238;&#3277;</td>
+  <td>m</td>
+  <td>South Asia, Kannada</td>
+  <td>kn</td>
+ </tr>
+ <tr>
+  <td>Sinbad</td>
+  <td>&#3384;&#3391;&#3451;&#3372;&#3390;&#3361;&#3405;</td>
+  <td>m</td>
+  <td>South Asia; Malayalam</td>
+  <td>ml</td>
+ </tr>
+ <tr>
+  <td>Sinbad</td>
+  <td>&#3523;&#3538;&#3505;&#3530;&#3510;&#3537;&#3497;&#3530;</td>
+  <td>m</td>
+  <td>South Asia; Sinhala</td>
+  <td>si</td>
+ </tr>
+ <tr>
+  <td>Thana (?)</td>
+  <td>&#3608;&#3609;&#3634;</td>
+  <td></td>
+  <td>Southeast Asia; Thai</td>
+  <td>th</td>
+ </tr>
+ <tr>
+  <td>Sinbad</td>
+  <td>&#3722;&#3764;&#3737;&#3777;&#3738;&#3732;</td>
+  <td>m</td>
+  <td>South Asia; Lao</td>
+  <td>lo</td>
+ </tr>
+ <tr>
+  <td>Sokha</td>
+  <td>&#6047;&#6075;&#6017;&#6070;</td>
+  <td></td>
+  <td>South Asia; Khmer</td>
+  <td>km</td>
+ </tr>
+ <tr>
+  <td>Yumi</td>
+  <td>&#50976;&#48120;</td>
+  <td></td>
+  <td>East Asia; Korean</td>
+  <td>ko</td>
+ </tr>
+ <-- Dai Bun
+ <tr>
+  <td>dà wén</td>
+  <td>&#22823;&#25991;</td>
+  <td></td>
+  <td>East Asia</td>
+  <td>yue-Hans</td>
+ </tr>
+ <-- Unihan?
+ <tr>
+  <td>y&#468; hàn</td>
+  <td>&#23431;&#28698;</td>
+  <td></td>
+  <td>East Asia</td>
+  <td>zh</td>
+ </tr>
+
+ <tr>
+  <td>Shintaro</td>
+  <td>&#24910;&#22826;&#37070;</td>
+  <td>m</td>
+  <td>East Asia; Japanese</td>
+  <td>ja</td>
+ </tr>
+ <tr>
+  <td>Wén Jié</td>
+  <td>&#25991;&#20625;</td>
+  <td></td>
+  <td>East Asia; Chinese, Yue</td>
+  <td>yue, zh-Hant</td>
+ </tr>
 </tbody>
 </table>
 
 <hr>
 
-<p>Inserting personal names from other cultures into English-language examples is also affected by the very different ways that names are used culturally around the world. For example, some cultures expect the use of a patronym/matronym in addition to the given name; or some cultures prefer more formal names (e.g. "<em>Herr Dürer</em>" vs. the informal "<em>Albrecht</em>").</p>
-
-<p>Chinese people almost never use their given name without also including their family name. When writing examples in Chinese, one might see something like <span lang="zh-Hans">路人甲</span> (it means Person A, using the Han "Heavenly Stem" ordinals, cf. <a href="https://www.w3.org/TR/predefined-counter-styles/#cjk-heavenly-stem">Ready-made Counter Styles</a>) rather than a "exemplar name". When examples are used, they include both the family and given name. Bear in mind that in Chinese the family name comes first, before the given name.</p>
-
-<p>In Japanese, there are complex choices related to levels of formality. A person <em>might</em> be addressed by their given name in very informal situations (<em>Hiroshi</em>), but usually will be addressed with a family name that includes (unless one is being rude) a title or suffix, such as <code>-san</code> or <code>-sama</code> (e.g. <em>Tanaka-san</em>). Other suffixes or titles are also used, such as <em>senpai</em> or <em>sensei</em> (for senior or very esteemed individuals) or <em>shi</em> (when one is unfamiliar with the person). Thus an example in English that could say <em>Suppose Hiroki wants to set up a...</em> would probably be more culturally appropriate if it read <em>Suppose Tanaka-san wants to set up a...</em></p>
-
-
-
-
-
-<p style="display:none">Old examples being removed: 
-Chanda, Charun,    <!-- Hindi -->
-Dara, Damilola,    <!-- Yoruba -->
-Genet, Gebre,      <!-- Ethiopian -->
-Hatsue, Hiroki,    <!-- Japanese -->
-Júlía, Jökull,     <!-- Icelandic -->
-Khaliun, Khuyag,   <!-- Mongolian -->
-Ngatemi, Nugroho,  <!-- Javanese (Indonesia) -->
-Onya, Omari,       <!-- Tanzania (Swahili) -->
-Potira, Piatã,     <!-- Tupi, Guarani -->
-Qiàn (倩), Qiáng (强),         <!-- Chinese -->
-, ,  <!-- Thai -->
-Tuqiik, Tinmiak,   <!-- Yupik, Inupiat -->
-Uri (אוּרִי), ,  <!-- Hebrew -->
-Xiaoxia (晓霞), Xīn (鑫),      <!-- Chinese -->
-Zafirah, Zain      <!-- Arabic -->
-</p>
+-->
 
 </section>
 </section>
