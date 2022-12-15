@@ -105,7 +105,7 @@
   </script>
   </head>
   
-  <body onload="sortTable('exampleNamesTable', 0, false); sortTable('cldrExampleNamesTable', 0, false);">
+  <body onload="sortTable('exampleNamesTable', 0, false);">
   <div id="abstract">
       <p>This document provides a checklist of internationalization-related considerations when developing a specification. Most checklist items point to detailed supporting information in other documents. Where such information does not yet exist, it can be given a temporary home in this document.  <strong>The  information in this document will change regularly as new content is added and existing content is modified in the light of experience and discussion.</strong></p>
   </div>
@@ -4203,7 +4203,13 @@ PCENChar ::=
 </tbody>
 </table>
 
+<aside class="note">
+    <p>Another potential source for example names is Unicode's <cite>Common Locale Data Repository</cite> [[CLDR]] project, which maintains data about the presentation of personal names in different [= locales =] and cultures. That set of names can be accessed on CLDR's <a href="https://unicode-org.github.io/cldr-staging/charts/latest/by_type/miscellaneous.person_name_formats.html#SampleName_Fields_for_Item:_givenOnly">charts page</a>. Note that those names were collected with a focus on providing examples of the <em>formatting</em> of personal names, rather than as examples of typical names found in these cultures. For example, many of the names are variations on the name "Sinbad", even though "Sinbad" is not a commonly used name in many of these cultures. Other names are taken from sources, such as folk tales, that would be familiar in a given culture but not representative of actual persons.</p>
+</aside>
+
 <!-- start CLDR data -->
+<!--  commented out as a WG decision in teleconference of 2022-12-15
+      also removed this from the body onload: sortTable('cldrExampleNamesTable', 0, false);
 <h5>CLDR sample names</h5>
 
 <p>The following list of names is taken from Unicode's <cite>Common Locale Data Repository</cite> [[CLDR]] project, which maintains data about the presentation of personal names in different [= locales =] and cultures. In addition to the table below, this set of names can be accessed on CLDR's <a href="https://unicode-org.github.io/cldr-staging/charts/latest/by_type/miscellaneous.person_name_formats.html#SampleName_Fields_for_Item:_givenOnly">charts page</a>. Note that these names were collected with a focus on providing examples of the <em>formatting</em> of personal names, rather than as examples of typical names found in these cultures. For example, many of the names are variations on the name "Sinbad", even though "Sinbad" is not a commonly used name in many of these cultures. Other names are taken from sources, such as folk tales, that would be familiar in a given culture but not representative of actual persons.</p>
@@ -4745,7 +4751,7 @@ PCENChar ::=
   <td>East Asia; Korean</td>
   <td>ko</td>
  </tr>
- <!-- Dai Bun
+ <-- Dai Bun
  <tr>
   <td>dà wén</td>
   <td>&#22823;&#25991;</td>
@@ -4753,8 +4759,7 @@ PCENChar ::=
   <td>East Asia</td>
   <td>yue-Hans</td>
  </tr>
- -->
- <!-- Unihan?
+ <-- Unihan?
  <tr>
   <td>y&#468; hàn</td>
   <td>&#23431;&#28698;</td>
@@ -4762,7 +4767,7 @@ PCENChar ::=
   <td>East Asia</td>
   <td>zh</td>
  </tr>
- -->
+
  <tr>
   <td>Shintaro</td>
   <td>&#24910;&#22826;&#37070;</td>
@@ -4782,26 +4787,7 @@ PCENChar ::=
 
 <hr>
 
-
-
-
-<p style="display:none">Old examples being removed: 
-Chanda, Charun,    <!-- Hindi -->
-Dara, Damilola,    <!-- Yoruba -->
-Genet, Gebre,      <!-- Ethiopian -->
-Hatsue, Hiroki,    <!-- Japanese -->
-Júlía, Jökull,     <!-- Icelandic -->
-Khaliun, Khuyag,   <!-- Mongolian -->
-Ngatemi, Nugroho,  <!-- Javanese (Indonesia) -->
-Onya, Omari,       <!-- Tanzania (Swahili) -->
-Potira, Piatã,     <!-- Tupi, Guarani -->
-Qiàn (倩), Qiáng (强),         <!-- Chinese -->
-, ,  <!-- Thai -->
-Tuqiik, Tinmiak,   <!-- Yupik, Inupiat -->
-Uri (אוּרִי), ,  <!-- Hebrew -->
-Xiaoxia (晓霞), Xīn (鑫),      <!-- Chinese -->
-Zafirah, Zain      <!-- Arabic -->
-</p>
+-->
 
 </section>
 </section>
