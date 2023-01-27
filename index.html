@@ -2823,29 +2823,52 @@ just as characters are the basic unit of organization of encoded text.</p>
 </aside>
 
 
-    <p>Applications often need to organize sets of information or content. Frequently this involves sorting the content so that users can find what they are looking for. Many data types, such as numbers or dates, are easily sorted by comparing the values. When it comes to textual information, however, the nature of character encodings brings some additional complexity.</p>
+    <p>Applications often need to organize sets of information or content. Frequently this involves sorting the content so that users can find what they are looking for. Many data types, such as numbers or dates, are easily sorted by comparing the values. When it comes to textual information, however, the nature of character encodings and user expectations regarding "alphabetical" order brings some additional complexity.</p>
     
-    <p>One key choice is whether the sorting of textual data will be shown to users and thus follow the sorting rules of a specific language or culture or whether the sorting is strictly internal.</p>
+    <p>One key choice is whether the sorting of textual data will be shown to users and thus need to be [=locale=]-sensitive (that is, following the sorting rules of a specific language or culture) or whether the sorting is strictly internal. There are two potential internal sorting sequences: ordering by Unicode [=code point=] or ordering by [=code unit=]. For either type of ordering, the resulting list will not match any particular alphabet or lexicographical order.</p>
     
+    <p>Sorting by [=code point=] makes sense when strings are stored and processed as a sequence of code points, such as in a <a href="https://webidl.spec.whatwg.org/#idl-USVString">USVString</a>. Sorting by [=code unit=] makes sense when strings are stored and processed using the underlying encoding, such as in a <a href="https://webidl.spec.whatwg.org/#idl-DOMString">DOMString</a>.</p>
+    
+    <p>For example, consider JavaScript's function <code>Array.prototype.sort</code> applied to an <code>Array</code> of <code>String</code> values. In JavaScript, a String is a sequence of UTF-16 code units. This ordering compares the 16-bit (UTF-16) code units in each string, so [=supplementary characters=], which are encoded as a [=surrogate pair=], compare differently in this sort order than when ordering by code point.</p>
+    
+    <aside class="example" title="Code point vs. code unit ordering">
+		<p>Consider two strings, one containing <span class="codepoint" translate="no"><bdi lang="ja">&#x1f63a;</bdi> [<span class="uname">U+1F63A SMILING CAT FACE WITH OPEN MOUTH</span>]</span> and the other containing <span class="codepoint" translate="no"><bdi lang="ja">&#xff5e;</bdi> [<span class="uname">U+FF5E FULL WIDTH TILDE</span>]</span>.</p>
+		
+		<p>In ascending <em>code point order</em>, the strings sort like:</p>
+<pre>
+&#xff5e; (U+FF5E)
+&#x1f63a; (U+1F63A)
+</pre>
+		
+		<p>In ascending <em>code unit order</em>, the character U+1F63A is encoded as the code unit sequence <code>0xD83D 0xDE3A</code>, so the strings sort like:</p>	
+<pre>
+&#x1f63a; (0xD83D 0xDE3A)
+&#xff5e; (0xFF5E)
+</pre>
+       <p>Note that UTF-8 <em>code unit order</em> (that is, when sorting by byte values in UTF-8 encoded byte strings) is the same as code point order.</p>
+    </aside>
+    
+   
     <div class="req" id="char_sort_internal_only">
-	<p class="advisement">Specifications or implementations that require a program-internal, fast, and deterministic sorting of text (which will never be human visible) SHOULD specify that strings are sorted into ascending code unit order.</p>
-	<!--details class="links"><summary>explanations &amp; examples</summary>
-	TODO: add links
-	</details -->
+	<p class="advisement">Specifications or implementations that require a program-internal, fast, and deterministic sorting of text which is not intended for human viewing or interaction SHOULD specify that strings are sorted according to their definition of string. For string types based on UTF-16 (such as DOMString or JavaScript), specify <em>ascending code unit</em> order. For data that uses scalar value strings (such as USVString or many XML processes), specify <em>ascending code point</em> order.</p>
+	<details class="links"><summary>explanations &amp; examples</summary>
+	   <a href="#char_string">Defining 'string'</a>
+	</details>
     </div>
     
-    <p>This matches JavaScript's <code>Array.prototype.sort</code> on an <code>Array</code> of <code>String</code>. In JavaScript, this ordering compares the 16-bit code units in each string. The resulting list will not match any particular alphabet or lexicographical order, particularly for code points represented by a surrogate pair.</p>
-    
-    <p>Specifications or applications that need to deal with sorting natural language text face some additional complexity. Unicode defines a default collation (sorting) order as part of the <code>Unicode Collation Algorithm</code> [[UTS10]], which can then be tailored to meet the needs of specific languages, <a>locales</a>, and cultures.</p>
-
+    <p>Specifications or applications that need to deal with sorting natural language text for display to users face some additional complexity. Unicode defines a default collation (sorting) order as part of the <cite>Unicode Collation Algorithm</cite> [[UTS10]], which can then be tailored to meet the needs of specific languages, <a>locales</a>, and cultures.</p>
 
 
   	<div class="req" id="char_sort_units">
-	<p class="advisement">Software that sorts or searches text for users SHOULD do so on the basis of appropriate collation units and ordering rules for the relevant language and/or application.</p>
+	<p class="advisement">Software that sorts or searches text for display to users SHOULD do so on the basis of appropriate collation units and ordering rules for the relevant language and/or application.</p>
 	<details class="links"><summary>explanations &amp; examples</summary>
 	<p><a href="https://www.w3.org/TR/charmod/#sec-CollationUnits">Units of collation, C006</a>, in <cite>Character Model for the World Wide Web: Fundamentals</cite></p>
 	</details>
 	</div>
+	
+	<aside class="issue" id="char_sort_user_issue">
+		<p>The following requirement is somewhat unclear for specification authors. There are many places where what I'd want to advise specs to do is follow the language (locale) of the given document or of the application or to provide controls so that the application can choose appropriately. The "current user", where it means "operating system" or "user agent host system's locale" or "browser's localization" is not always what is expected.</p>
+	</aside>
 
   	<div class="req" id="char_sort_user">
 	<p class="advisement">Where searching or sorting is done dynamically, particularly in a multilingual environment, the 'relevant language' SHOULD be determined to be that of the current user, and may thus differ from user to user.</p>
