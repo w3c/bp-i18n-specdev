@@ -357,14 +357,17 @@
  	
  	<div class="req" id="use_lstr">
 		<p class="advisement">Specifications SHOULD refer to the IANA Language Subtag Registry instead of providing lists of codes extracted from ISO 639, ISO 3166, or other standards.</p>
+		<details class="links"><summary>more</summary>
+		  <p><a href="https://www.w3.org/International/questions/qa-choosing-language-tags">Choosing a language tag</a></p>
+		  <p><a href="https://r12a.github.io/app-subtags/">Language subtag lookup tool</a></p>
+		  <p><a href="https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry">IANA Language Subtag Registry</a></p>
+		</details>
  	</div>
  	
- 	<p>As part of BCP 47, IANA maintains the language subtag registry, which is a publicly available, machine-readable list of valid subtags for use in language tags. While this registry is based on underlying ISO standards, such as ISO 639 (languages) and ISO 3166 (regions), the list is actively maintained, stabilized, and comprehensive in ways that other lists found on the Internet may not be. Each of the subtag types is kept in sync with parent standards with the help and participation of those standards maintainers. These include the various parts of ISO 639 (639-1, 639-2, 639-3), the ISO 15924 script codes, and ISO 3166 and UN M.49 region codes. Extracting or making your own list of codes or referring to ones found elsewhere can lead to maintenance problems or confusion.</p>
+ 	<p>As part of BCP 47, IANA maintains the language subtag registry, which is a publicly available, machine-readable list of valid subtags for use in constructing language tags. This registry is based on underlying standards, including the various parts of ISO 639 (639-1, 639-2, 639-3), the ISO 15924 script codes, and ISO 3166 and UN M.49 region codes. The registry is actively maintained, stabilized, and comprehensive in ways that other lists found on the Internet may not be. Each of the subtag types is kept in sync with parent standards with the help and participation of those standards maintainers, so extracting or making your own list of codes or referring to ones found elsewhere can lead to maintenance problems or confusion.</p>
+ 	
+ 	<p>In addition, making your own list of fully formed language tags (or your own list of ISO or UN codes) will unnecessarily restrict the list of languages that can be described.</p>
 </section>
-
-
-
-
 
 
 <section id="lang_declaration" class="subtopic">
