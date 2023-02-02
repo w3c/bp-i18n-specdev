@@ -2835,10 +2835,10 @@ just as characters are the basic unit of organization of encoded text.</p>
 
     <p>Applications often need to organize sets of information or content. Frequently this involves sorting the content. Many data types, such as numbers or dates, are easily sorted by comparing the values. When it comes to textual information, however, the nature of character encodings and user expectations regarding "alphabetical" order brings some additional complexity.</p>
     
-    <p>One key choice is whether the sorting of textual data will strictly internal or whether the results will be shown to users and thus need to be sorted in a [=locale=]-sensitive (that is, following the sorting rules of a specific language or culture) manner.</p>
+    <p>One key choice is whether the sorting of textual data will be strictly internal or whether the results will be shown to users.</p>
     
     <section id="internal_sort" class="subtopic">
-		<h4>Program Internal Sorting</h4>
+    <h4>Program Internal Sorting</h4>
     
     <div class="req" id="char_sort_internal_only">
 	<p class="advisement">Specifications or implementations that require a program-internal, fast, and deterministic sorting of text which is not intended for human viewing or interaction SHOULD specify that strings are sorted according to their definition of string. For scalar value strings (such as <a href="https://webidl.spec.whatwg.org/#idl-USVString">USVString</a> or many XML processes), specify <em>ascending code point</em> order. For string types based on UTF-16 (such as <a href="https://webidl.spec.whatwg.org/#idl-DOMString">DOMString</a> or in many JavaScript APIs), specify <em>ascending code unit</em> order. </p>
@@ -2874,10 +2874,20 @@ just as characters are the basic unit of organization of encoded text.</p>
     
 	</section>
 	<section id="human_sorting" class="subtopic">
-		<h4>Human-visible Sorting</h4>
+	<h4>Human-visible Sorting</h4>
 		
     <p>Specifications or applications that need to deal with sorting natural language text for display to users face some additional complexity. Unicode defines a default collation (sorting) order as part of the <cite>Unicode Collation Algorithm</cite> [[UTS10]], which is then tailored to meet the needs of specific languages, [=locales=], and cultures.</p>
+    
+    <div class="req" id="char_sort_user">
+	<p class="advisement">When sorting text for presentation to users, the sort order SHOULD be tailored according to the most appropriate [=locale=] for the specific user in that application; thus the presentation order may differ from user to user.</p>
+	<details class="links"><summary>explanations &amp; examples</summary>
+	<p><a href="https://www.w3.org/TR/charmod/#sec-CollationUnits">Units of collation, C007</a>, in <cite>Character Model for the World Wide Web: Fundamentals</cite></p>
+	</details>
+	</div>
+	
+	<p>Determining which locale to use for the sorted list can depend on a number of factors. For example, an application might sort a list of values according to the localization of the page in which the data appears. In other cases it might make more sense to sort according to the runtime locale of the user-agent or according to some parameter passed in an API. The important thing to recognize is that this order might be different for different users or on different systems.</p>
 		
+<!-- Charmod:Fundamentals included the below best practices, which seem out of date
   	<div class="req" id="char_sort_units">
 	<p class="advisement">Software that sorts or searches text for display to users SHOULD do so on the basis of appropriate collation units and ordering rules for the relevant language and/or application.</p>
 	<details class="links"><summary>explanations &amp; examples</summary>
@@ -2885,13 +2895,6 @@ just as characters are the basic unit of organization of encoded text.</p>
 	</details>
 	</div>
 	
-  	<div class="req" id="char_sort_user">
-	<p class="advisement">When sorting text for presentation to users, the sort order SHOULD be tailored according to the most appropriate [=locale=] for the specific user in that application; thus the presentation order may differ from user to user.</p>
-	<details class="links"><summary>explanations &amp; examples</summary>
-	<p><a href="https://www.w3.org/TR/charmod/#sec-CollationUnits">Units of collation, C007</a>, in <cite>Character Model for the World Wide Web: Fundamentals</cite></p>
-	</details>
-	</div>
-
   	<div class="req" id="char_sort_alternatives">
 	<p class="advisement">Software that allows users to sort or search text SHOULD allow the user to select alternative rules for collation units and ordering.</p>
 	<details class="links"><summary>explanations &amp; examples</summary>
@@ -2905,6 +2908,11 @@ just as characters are the basic unit of organization of encoded text.</p>
 	<p><a href="https://www.w3.org/TR/charmod/#sec-CollationUnits">Units of collation, C008</a>, in <cite>Character Model for the World Wide Web: Fundamentals</cite></p>
 	</details>
 	</div>
+-->
+
+	<aside class="warning" id="find-is-hard" title="String search is hard">
+		<p>Searching text is a complex topic and this document does not currently contain a complete list of recommendations and best practices. The Internationalization Working Group has compiled a list of just a <em>few</em> of the issues involved as part of on-going work to document this space in our document <cite><a href="https://w3c.github.io/string-search">String Searching</a></cite>.</p>
+	</aside>
 </section>
 </section>
 </section>
