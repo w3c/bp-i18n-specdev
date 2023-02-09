@@ -954,11 +954,22 @@
 
 <p class="reviewComments"><a href="https://github.com/w3c/i18n-activity/labels/t%3Abidi_gen" target="_blank">See related review comments.</a></p>
 
+<div class="req" id="strcat_anti_pattern">
+	<p class="advisement">Specifications SHOULD NOT require the concatenation of string values to form display names.</p>
+</div>
+
+<p>Creation of [=natural language=] text values by concatenating multiple strings together is an internationalization anti-pattern. Languages vary greatly in word order, count, grammatical gender or case, punctuation, and many other requirements. As a result, avoid requiring or suggesting that implementations generate human-readable messages from sub-strings.</p>
+
+<div class="xref"><span class="seealso">See also</span>
+   <p><cite><a href="https://www.w3.org/International/articles/composite-messages/index.en.html">Working with Composite Messages</a></cite></p>
+</div>
+
 <div class="req" id="bidi_gen_advice">
 	<p class="advisement">When a specification needs to suggest the creation or generation of a display name or other string value and the value could potentially come from multiple sub-strings, guidance SHOULD be provided about how to avoid problems with text directionality.</p>
 </div>
 
 <aside class="example" title="Example of bidi generation guidance">
+	<p>Here is an example of a Note that you can include in your specification when recommending that implementations generate displayable [=natural language=] values:</p>
 	<div class="note" role="note" id="bidi-gen-note-example">
 	   <p class="example_note">If <em><code>_field_name_</code></em> contains or might contain [= bidirectional text =], care should be used to ensure that the string will display correctly without the application needing to process the string. For more information see <a href="https://www.w3.org/International/questions/qa-bidi-unicode-controls"><cite>How to use Unicode controls for bidi text</cite></a></p>
 	</div>
@@ -975,12 +986,12 @@
 <span style="color:red">Brand A123B</span> <span style="color:blue">(1920 x 1080)</span> <span style="color:green">36"</span> <span style="color:purple">monitor</span>, <span style="color:orange">75 Hz</span>, <span style="color:brown">4ms</span>, <span style="color:darkgrey">built-in speakers</span>
 </code></p>
 
-<p>This display string is merely the concatenation of the various sub-strings, some of which are separated by commas. If the implementation assembling this string were on a system running in a locale (such as the Arabic examples shown here) that uses a right-to-left language, the results of the same concatentation might look something like this:</p>
+<p>This display string is merely the concatenation of the various sub-strings, some of which are separated by commas. If the implementation assembling this string were on a system running in a locale that uses a right-to-left language (such as the Arabic examples shown below), the results of the same concatentation might look something like this:</p>
 
 <p style="background-color:#fdfdfd;indent:10px;font-size:larger" dir="rtl"><code>
 <span style="color:red">&#x0645;&#x0627;&#x0631;&#x0643;&#x0629; A123B</span> <span style="color:blue">(1920 x 1080)</span> <span style="color:green">36"</span> <span style="color:purple">&#x0634;&#x0627;&#x0634;&#x0629; &#x0627;&#x0644;&#x0643;&#x0645;&#x0628;&#x064A;&#x0648;&#x062A;&#x0631;</span>, <span style="color:orange">75 Hz</span>, <span style="color:brown">4 &#x0645;&#x0644;&#x0644;&#x064A; &#x062B;&#x0627;&#x0646;&#x064A;&#x0629;</span>, <span style="color:darkgrey">&#x0645;&#x0643;&#x0628;&#x0631;&#x0627;&#x062A; &#x0635;&#x0648;&#x062A; &#x0645;&#x062F;&#x0645;&#x062C;&#x0629;</span></code></p>
 
-<p>The logical sequence of characters remains the same, but the visual presentation is no longer intelligible. Notice how different parts of the description have become broken up and mixed together. Generating such a string value from a sequence of sub-strings thus requires extra care in order to display properly to the user. The addition of isolating bidirectional controls (either Unicode control characters or markup) to the above string produces better results:</p>
+<p>The logical sequence of sub-strings remains the same, but the visual presentation is no longer intelligible. Notice how different parts of the description have become broken up and mixed together. Generating such a string value from a sequence of sub-strings thus requires extra care in order to display properly to the user. The addition of isolating bidirectional controls (either Unicode control characters or markup) to the above string produces better results:</p>
 
 <p style="background-color:#fdfdfd;indent:10px;font-size:larger" dir="rtl"><code>
 	<span style="color:red" dir="rtl">&#x0645;&#x0627;&#x0631;&#x0643;&#x0629; A123B</span> <span style="color:blue" dir="ltr">(1920 x 1080)</span> <span style="color:green" dir="ltr">36"</span> <span style="color:purple" dir="rtl">&#x0634;&#x0627;&#x0634;&#x0629; &#x0627;&#x0644;&#x0643;&#x0645;&#x0628;&#x064A;&#x0648;&#x062A;&#x0631;</span>, <span style="color:orange" dir="rtl">75 Hz</span>, <span style="color:brown" dir="rtl">4 &#x0645;&#x0644;&#x0644;&#x064A; &#x062B;&#x0627;&#x0646;&#x064A;&#x0629;</span>, <span style="color:darkgrey" dir="rtl">&#x0645;&#x0643;&#x0628;&#x0631;&#x0627;&#x062A; &#x0635;&#x0648;&#x062A; &#x0645;&#x062F;&#x0645;&#x062C;&#x0629;</span>
