@@ -965,10 +965,10 @@
 </div>
 
 <div class="req" id="bidi_gen_advice">
-	<p class="advisement">When a specification needs to suggest the creation or generation of a display name or other string value and the value could potentially come from multiple sub-strings, guidance SHOULD be provided about how to avoid problems with text directionality.</p>
+	<p class="advisement">Specifications SHOULD provide guidance on avoiding problems with text directionality for any field(s) created or generated for display to users.</p>
 </div>
 
-<p>Specifications for APIs, protocols, or document formats sometimes require an implementation or end user to create display names or descriptions. When such a string is assembled from separate parts, it can result in problems with presentation or understanding due to the way that the <cite>Unicode Bidirectional Algorithm</cite> [[UAX9]] processes the assembled string.</p>
+<p>Specifications for APIs, protocols, or document formats sometimes require an implementation to create or provide a field containing a display name or description. When such a string is assembled from separate parts, it can result in problems with presentation or understanding due to the way that the <cite>Unicode Bidirectional Algorithm</cite> [[UAX9]] processes the assembled string. In such cases, the specification should guide users about how to create values that will display properly.</p>
 
 <aside class="example" title="Example of bidi generation guidance">
 	<p>Here is an example of a Note that you can include in your specification when recommending that implementations generate displayable [=natural language=] values:</p>
