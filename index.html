@@ -972,7 +972,7 @@
 <aside class="example" title="Example of bidi generation guidance">
 	<p>Here is an example of a Note that you can include in your specification when recommending that implementations generate displayable [=natural language=] values:</p>
 	<div class="note" role="note" id="bidi-gen-note-example">
-	   <p class="example_note">If values generated for <em><code>_field_name_</code></em> contain or might contain [= bidirectional text =], implementers should ensure that the string will display correctly without the application needing to process the contents of the string value via the insertion of Unicode bidirectional controls or, where applicable, markup and by supplying the correct base direction metadata. For more information see: <a href="https://www.w3.org/International/questions/qa-bidi-unicode-controls"><cite>How to use Unicode controls for bidi text</cite></a></p>
+	   <p class="example_note">If values generated for <em><code>_field_name_</code></em> contain or might contain [= bidirectional text =], [=producers=] should ensure that [=consumers=] of the string will display it correctly without having to process or alter the string. One way to do this is via the insertion of Unicode bidirectional controls or, where applicable, markup. In addition, supplying the correct base direction as metadata allows the [=consumer=] to both isolate the string and set its direction, avoiding spillover effects.  For more information see: <a href="https://www.w3.org/International/questions/qa-bidi-unicode-controls"><cite>How to use Unicode controls for bidi text</cite></a></p>
 	</div>
 </aside>
 
