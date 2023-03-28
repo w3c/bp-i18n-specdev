@@ -281,7 +281,7 @@
           </li>
     <li class="nonw3">
             <p class="link"><a href="https://www.rfc-editor.org/rfc/bcp/bcp47.txt">BCP 47</a></p>
-            <p class="desc">The IETF specification that indicates how to create language subtags and how to match them<a href="https://w3c.github.io/bp-i18n-specdev/"></a>.</p>
+            <p class="desc">The IETF specification that defines how language tags are formed, subtags are registered, as well as how to match language tags.</p>
     </li>
 	</ul>
 </aside>
@@ -303,21 +303,16 @@
 
 
 	<div class="req" id="lang_bcp_not_rfc">
-	<p class="advisement">Refer to BCP 47, not to RFC 5646.</p>
+	<p class="advisement">Refer to BCP 47, not to its constituent parts, such as RFC 5646 or RFC 4647.</p>
 	</div>
 
-    <p>The link to and name of BCP 47 was created specifically so that there is an unchanging reference to the definition of Tags for the Identification of Languages. RFCs 1766, 3066, 4646 were previous (superseded) versions and 5646 is the current version of BCP 47.</p>
-
-
-
+    <p>The link to and name of BCP 47 was created specifically so that there is an unchanging reference to the definition of <cite>Tags for the Identification of Languages</cite>. RFCs 1766, 3066, 4646 were previous (superseded) versions. The current version of BCP 47 is made up of two RFCs: 5646 and 4647.</p>
 
 	<div class="req" id="lang_values_specificity">
 	<p class="advisement">Be specific about what level of conformance you expect for language tags: BCP 47 defines two levels of conformance, "valid" and "well-formed".</p>
 	</div>
 
     <p>A <strong>well-formed</strong> BCP 47 language tag follows the syntax defined for a language tag: implementations check that each language tag consists of hyphen-separated subtags; each subtag has a specific length and specific content (letters, digits or specific combinations) depending on the placement in the tag. A <strong>valid</strong> BCP 47 language tag is well-formed but additionally ensures that only subtags that are listed in the IANA Subtag Registry are used. Note that the IANA Subtag Registry is frequently updated with new subtags.</p>
-
-
 
 
 	<div class="req" id="lang_checking_well_formed">
@@ -340,23 +335,24 @@
 	</div>
 
     <p>Normative language regarding language tags might be different between content and implementation requirements. Specification authors need to carefully consider what conformance requirements and tests are needed for their specification and what implementations are required to do. One solution is to normatively require that "valid" language tags be used by content authors but only require implementations to check for "well-formed" language tags.</p>
-
-
-
-
-	<div class="req" id="lang_matching_bcp">
-	<p class="advisement">Reference BCP47 for language tag matching.</p>
-	<details class="links"><summary>more</summary>
-	<p><a href="https://www.rfc-editor.org/rfc/bcp/bcp47.txt">BCP 47</a></p>
-	</details>
-	</div>
-
- 	<p>BCP 47 contains one RFC dedicated to the syntax and subtags of language tags, and another dedicated to how to match two or more subtags.  (This topic needs more detail, and may merit being a separate section.)</p>
+ 	
+ 	<div class="req" id="use_lstr">
+		<p class="advisement">Specifications SHOULD refer to the IANA Language Subtag Registry instead of providing lists of codes extracted from ISO 639, ISO 3166, or other standards.</p>
+		<details class="links"><summary>more</summary>
+		  <p><a href="https://www.w3.org/International/questions/qa-choosing-language-tags">Choosing a language tag</a></p>
+		  <p><a href="https://r12a.github.io/app-subtags/">Language subtag lookup tool</a></p>
+		  <p><a href="https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry">IANA Language Subtag Registry</a></p>
+		</details>
+ 	</div>
+ 	
+ 	<p>In the past, some of the standards used to provide subtags found in language tags were not freely or publicly available, so some specifications provided lists in order to help ensure interoperability. This is no longer necessary. As part of BCP 47, IANA maintains the language subtag registry, which is a publicly available, machine-readable list of valid subtags for use in constructing language tags. This registry is based on underlying standards, including the various parts of ISO 639 (639-1, 639-2, 639-3, etc.), ISO 15924 script codes, and ISO 3166 and UN M.49 region codes. The registry is actively maintained, stabilized, and comprehensive in ways that other lists found on the Internet might not be. Each of the subtag types is kept in sync with parent standards with the help and participation of those standards maintainers, so extracting or making your own list of codes or referring to ones found elsewhere can lead to maintenance problems or confusion.</p>
+ 	
+ 	<div class="req" id="avoid_lang_lists">
+		<p class="advisement">Avoid creating a list of valid or supported language tags, language subtags, or [=locales=].</p>
+ 	</div>
+ 	
+ 	<p>Making your own list of fully formed language tags will unnecessarily restrict the list of languages that can be used. In addition, locale data is always being expanded, so a list that describes support today will become outdated in the future. Restricting which tags or subtags are available to users conflicts with our goal of providing universal access.</p>
 </section>
-
-
-
-
 
 
 <section id="lang_declaration" class="subtopic">
@@ -490,9 +486,23 @@
 
 
 <section id="lang_detection" class="subtopic">
-<h3><em>Detecting &amp; matching language (TBD)</em></h3>
+<h3>Detecting &amp; matching language</h3>
 
-<p class="reviewComments"><a href="https://github.com/w3c/i18n-activity/labels/t%3Alang_detection_x" target="_blank">See related review comments.</a></p>
+<p class="reviewComments"><a href="https://github.com/w3c/i18n-activity/labels/t%3Alang_detection" target="_blank">See related review comments.</a></p>
+
+ 	
+<aside class="issue"><p>This section is under development.</p></aside>
+
+<div class="req" id="lang_matching_bcp">
+	<p class="advisement">Reference BCP47 for language tag matching.</p>
+	<details class="links"><summary>more</summary>
+	<p><a href="https://www.rfc-editor.org/rfc/bcp/bcp47.txt">BCP 47</a></p>
+	</details>
+</div>
+
+<p>In addition to defining language tags (in RFC 5646) BCP 47 also contains an RFC on the topic of matching language tags to a [=language range=]. Just as it is most appropriate to refer to the stable identifier BCP 47 for the definition of language tags, it is best to refer to BCP 47 when referencing matching schemes found therein.</p>
+
+<p>Unicode's [[CLDR]] project defines additional algorithms, rules and processes for matching language tags when used as [=locale=] identifiers.</p>
 
 </section>
 </section>
@@ -937,9 +947,58 @@
 
 <p class="reviewComments"><a href="https://github.com/w3c/i18n-activity/labels/t%3Abidi_detection_x" target="_blank">See related review comments.</a></p>
 </section>
+
+<section id="strcat" class="subtopic">
+<h3>Concatenation of strings</h3>
+
+<p class="reviewComments"><a href="https://github.com/w3c/i18n-activity/labels/t%3Astrcat" target="_blank">See related review comments.</a></p>
+
+<div class="req" id="strcat_anti_pattern">
+	<p class="advisement">Specifications SHOULD NOT require the concatenation of string values to form [=natural language=] or displayable string values.</p>
+</div>
+
+<p>Creation of [=natural language=] text values by concatenating multiple strings together is an internationalization anti-pattern. Languages vary greatly in word order, count, grammatical gender or case, punctuation, and many other requirements. As a result, avoid requiring or suggesting that implementations generate human-readable messages from sub-strings.</p>
+
+<div class="xref"><span class="seealso">See also</span>
+   <p><cite><a href="https://www.w3.org/International/articles/composite-messages/index.en.html">Working with Composite Messages</a></cite></p>
+</div>
+
+<div class="req" id="bidi_gen_advice">
+	<p class="advisement">Specifications SHOULD provide guidance to implementers on avoiding problems with text directionality for any field(s) that the specification requires an implementation to create or generate for display to users.</p>
+</div>
+
+<p>Specifications for APIs, protocols, or document formats sometimes require an implementation to create or provide a field containing a display name or description. When such a string is assembled from separate parts, it can result in problems with presentation or understanding due to the way that the <cite>Unicode Bidirectional Algorithm</cite> [[UAX9]] processes the assembled string. In such cases, the specification should guide implementers about how to create values that will display properly.</p>
+
+<aside class="example" title="Example of bidi generation guidance">
+	<p>Here is an example of a Note that you can include in your specification when recommending that implementations generate displayable [=natural language=] values:</p>
+	<div class="note" role="note" id="bidi-gen-note-example">
+	   <p class="example_note">If values generated for <em><code>_field_name_</code></em> contain or might contain [= bidirectional text =], [=producers=] should ensure that [=consumers=] of the string will display it correctly without having to process or alter the string. One way to do this is via the insertion of Unicode bidirectional controls or, where applicable, markup. In addition, supplying the correct base direction as metadata allows the [=consumer=] to both isolate the string and set its direction, avoiding spillover effects.  For more information see: <a href="https://www.w3.org/International/questions/qa-bidi-unicode-controls"><cite>How to use Unicode controls for bidi text</cite></a></p>
+	</div>
+</aside>
+
+<aside class="example" title="Spillover issues in a generated display name">
+<p>Suppose a specification provides a field in an API that is meant to be filled in by the implementation at runtime. One example of this is the <code>label</code> field in the [[window-placement]] API. The value of <code>label</code> in this API is meant to represent a user-visible description of a specific monitor attached to the system. This might take various different implementation-dependent forms, from simple labels like "1" and "2" to more complex labels taken from various device attributes. These labels are always natural language text generated by the system or user-agent.</p>
+
+<p>Suppose the label contains multiple pieces of information describing a given screen. In the example shown here, the label contains the brand name (<kbd>Brand</kbd>), part number (<kbd>A123B</kbd>), resolution (<kbd>(1920 x 1080)</kbd>), size (<kbd>36" monitor</kbd>), as well as various features (refresh rate, response time, and the presence of speakers). The resulting string in English might look like this (color has been added to make the effects more visible):</p>
+
+<p style="background-color:#fdfdfd;indent:10px;font-size:larger" dir="ltr"><code>
+<span style="color:red">Brand A123B</span> <span style="color:blue">(1920 x 1080)</span> <span style="color:green">36"</span> <span style="color:purple">monitor</span>, <span style="color:orange">75 Hz</span>, <span style="color:brown">4ms</span>, <span style="color:darkgrey">built-in speakers</span>
+</code></p>
+
+<p>This display string is merely the concatenation of the various sub-strings, some of which are separated by commas. If the implementation assembling this string were on a system running in a locale that uses a right-to-left language (such as the Arabic examples shown below), the results of the same concatentation might look something like this:</p>
+
+<p style="background-color:#fdfdfd;indent:10px;font-size:larger" dir="rtl"><code>
+<span style="color:red">&#x0645;&#x0627;&#x0631;&#x0643;&#x0629; A123B</span> <span style="color:blue">(1920 x 1080)</span> <span style="color:green">36"</span> <span style="color:purple">&#x0634;&#x0627;&#x0634;&#x0629; &#x0627;&#x0644;&#x0643;&#x0645;&#x0628;&#x064A;&#x0648;&#x062A;&#x0631;</span>, <span style="color:orange">75 Hz</span>, <span style="color:brown">4 &#x0645;&#x0644;&#x0644;&#x064A; &#x062B;&#x0627;&#x0646;&#x064A;&#x0629;</span>, <span style="color:darkgrey">&#x0645;&#x0643;&#x0628;&#x0631;&#x0627;&#x062A; &#x0635;&#x0648;&#x062A; &#x0645;&#x062F;&#x0645;&#x062C;&#x0629;</span></code></p>
+
+<p>The logical sequence of sub-strings remains the same, but the visual presentation is no longer intelligible. Notice how different parts of the description have become broken up and mixed together. Generating such a string value from a sequence of sub-strings thus requires extra care in order to display properly to the user. The addition of isolating bidirectional controls (either Unicode control characters or markup) to the above string produces better results:</p>
+
+<p style="background-color:#fdfdfd;indent:10px;font-size:larger" dir="rtl"><code>
+	<span style="color:red" dir="rtl">&#x0645;&#x0627;&#x0631;&#x0643;&#x0629; A123B</span> <span style="color:blue" dir="ltr">(1920 x 1080)</span> <span style="color:green" dir="ltr">36"</span> <span style="color:purple" dir="rtl">&#x0634;&#x0627;&#x0634;&#x0629; &#x0627;&#x0644;&#x0643;&#x0645;&#x0628;&#x064A;&#x0648;&#x062A;&#x0631;</span>, <span style="color:orange" dir="rtl">75 Hz</span>, <span style="color:brown" dir="rtl">4 &#x0645;&#x0644;&#x0644;&#x064A; &#x062B;&#x0627;&#x0646;&#x064A;&#x0629;</span>, <span style="color:darkgrey" dir="rtl">&#x0645;&#x0643;&#x0628;&#x0631;&#x0627;&#x062A; &#x0635;&#x0648;&#x062A; &#x0645;&#x062F;&#x0645;&#x062C;&#x0629;</span>
+</code></p>
+</aside>
+
 </section>
-
-
+</section>
 
 
 
@@ -2779,42 +2838,103 @@ just as characters are the basic unit of organization of encoded text.</p>
 <aside class="links" id="links_char_sort">
 <p class="links_title">Useful background and overviews for this section</p>
 <ul>
-<li class="w3"><p class="link"><a href="https://www.w3.org/TR/charmod/#sec-CollationUnits">Units of collation</a>, in <cite>Character Model for the World Wide Web: Fundamentals</cite>.</p></li>
+	<li><p class="link">Unicode's <a href="https://github.com/unicode-org/icu/blob/main/docs/userguide/collation/index.md">ICU Collation User Guide</a></p></li>
+	<li><p class="link"><a href="https://unicode.org/reports/tr10">Unicode Collation Algorithm</a> [[UTS10]]</p></li>
+    <li class="w3"><p class="link"><a href="https://www.w3.org/TR/charmod/#sec-CollationUnits">Units of collation</a>, in <cite>Character Model for the World Wide Web: Fundamentals</cite>.</p></li>
 </ul>
 </aside>
 
-
-    <p>Applications often need to organize sets of information or content. Frequently this involves sorting the content so that users can find what they are looking for. Many data types, such as numbers or dates, are easily sorted by comparing the values. When it comes to textual information, however, the nature of character encodings brings some additional complexity.</p>
+    <p>Applications often need to organize sets of information or content. Frequently this involves sorting the content. Many data types, such as numbers or dates, are easily sorted by comparing the values. When it comes to textual information, however, the nature of character encodings and user expectations regarding "alphabetical" order brings some additional complexity.</p>
     
-    <p>One key choice is whether the sorting of textual data will be shown to users and thus follow the sorting rules of a specific language or culture or whether the sorting is strictly internal.</p>
+    <p>One key choice is whether the sorting of textual data will be strictly internal or whether the results will be shown to users.</p>
+    
+    <section id="internal_sort" class="subtopic">
+    <h4>Program Internal Sorting</h4>
     
     <div class="req" id="char_sort_internal_only">
-	<p class="advisement">Specifications or implementations that require a program-internal, fast, and deterministic sorting of text (which will never be human visible) SHOULD specify that strings are sorted into ascending code unit order.</p>
-	<!--details class="links"><summary>explanations &amp; examples</summary>
-	TODO: add links
-	</details -->
+	<p class="advisement">Specifications or implementations that require a program-internal, fast, and deterministic sorting of text which is not intended for human viewing or interaction SHOULD specify that strings are sorted according to their definition of string. For scalar value strings (such as <a href="https://webidl.spec.whatwg.org/#idl-USVString">USVString</a> or many XML processes), specify <em>ascending code point</em> order. For string types based on UTF-16 (such as <a href="https://webidl.spec.whatwg.org/#idl-DOMString">DOMString</a> or in many JavaScript APIs), specify <em>ascending code unit</em> order. </p>
+	<details class="links"><summary>explanations &amp; examples</summary>
+	   <p>See: <a href="#char_string">Defining 'string'</a>
+	   <p><a href="https://www.w3.org/TR/xpath-functions/#codepoint-collation">Unicode Codepoint Collation</a> is defined as an XPath Function [[xpath-functions]]</p>
+	</details>
     </div>
     
-    <p>This matches JavaScript's <code>Array.prototype.sort</code> on an <code>Array</code> of <code>String</code>. In JavaScript, this ordering compares the 16-bit code units in each string. The resulting list will not match any particular alphabet or lexicographical order, particularly for code points represented by a surrogate pair.</p>
+    <p>There are two potential internal sorting sequences: ordering by Unicode [=code point=] or ordering by UTF-16 [=code unit=]. For either type of ordering, the resulting list will not match any particular alphabetic or lexicographical order.</p>
     
-    <p>Specifications or applications that need to deal with sorting natural language text face some additional complexity. Unicode defines a default collation (sorting) order as part of the <code>Unicode Collation Algorithm</code> [[UTS10]], which can then be tailored to meet the needs of specific languages, <a>locales</a>, and cultures.</p>
-
-
-
+    <p>Sorting by [=code point=] makes sense when strings are stored and processed as a sequence of code points, such as in a <a href="https://webidl.spec.whatwg.org/#idl-USVString">USVString</a>. Sorting by [=code unit=] makes sense when strings are stored and processed using the underlying encoding, such as in a <a href="https://webidl.spec.whatwg.org/#idl-DOMString">DOMString</a>.</p>
+    
+    <aside class="example" title="Code point vs. code unit ordering">
+		<p>Consider two strings, one containing <span class="codepoint" translate="no"><bdi lang="ja">&#x1f63a;</bdi> [<span class="uname">U+1F63A SMILING CAT FACE WITH OPEN MOUTH</span>]</span> and the other containing <span class="codepoint" translate="no"><bdi lang="ja">&#xff5e;</bdi> [<span class="uname">U+FF5E FULL WIDTH TILDE</span>]</span>.</p>
+		
+		<p>In ascending <em>code point order</em>, the strings sort like:</p>
+<pre>
+&#xff5e; (U+FF5E)
+&#x1f63a; (U+1F63A)
+</pre>
+		
+		<p>In ascending <em>code unit order</em> in the UTF-16 character encoding, the code point U+1F63A is encoded as the code unit sequence <code>0xD83D 0xDE3A</code> (a [=surrogate pair=]), so the strings sort like:</p>	
+<pre>
+&#x1f63a; (0xD83D 0xDE3A)
+&#xff5e; (0xFF5E)
+</pre>
+       <p>Note that UTF-8 <em>code unit order</em> (that is, when sorting by byte values in UTF-8 encoded byte strings) is the same as code point order.</p>
+    </aside>
+    
+    <p>Neither of these sort orders applies any type of normalization to the strings being compared. This means that some apparently equivalent strings compare as different. See <cite>String Matching</cite> [[CHARMOD-NORM]] for more information.</p>
+    
+    <aside class="example">
+		<p>Consider two strings, <em>A</em> and <em>B</em>. String A consists of <span class="codepoint" translate="no"><bdi lang="en">&#xC7;</bdi> [<span class="uname">U+00C7 LATIN CAPITAL LETTER C WITH CEDILLA</span>]</span>. String B consists of the sequence <span class="codepoint" translate="no"><bdi lang="en">&#x43;</bdi> [<span class="uname">U+0043 LATIN CAPITAL LETTER C</span>]</span> followed by <span class="codepoint" translate="no"><bdi lang="en">&#x327;</bdi> [<span class="uname">U+0327 COMBINING CEDILLA</span>]</span>. These strings are visually identical. Applying Unicode Normalization Form C or Form D to both would cause them to use the same code point (and thus code unit) sequences. However, they compare differently because <code>0x00C7</code> is greater than <code>0x0043</code>:</p>
+        <table>
+			<thead>
+				<tr>
+					<th style="text-align:center">String A</th>
+					<th></th>
+					<th style="text-align:center">String B</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td class="exampleChar">&#xC7;</td>
+					<td style="vertical-align:middle">&gt;</td>
+					<td class="exampleChar">C&#x327;</td>
+				</tr>
+				<tr>
+					<td><code>U+00C7</code></td>
+					<td></td>
+					<td><code>U+0043 U+0327</code></td>
+				</tr>
+			</tbody>
+        </table>
+    </aside>
+    
+ 
+	</section>
+	<section id="human_sorting" class="subtopic">
+	<h4>Human-visible Sorting</h4>
+		
+    <p>Specifications or applications that need to deal with sorting natural language text for display to users face some additional complexity. Unicode defines a default collation (sorting) order as part of the <cite>Unicode Collation Algorithm</cite> [[UTS10]], which is then tailored to meet the needs of specific languages, [=locales=], and cultures.</p>
+    
+    <div class="req" id="char_sort_user">
+	<p class="advisement">When sorting text for presentation to users, the sort order SHOULD be tailored according to the most appropriate [=locale=] for the specific user in that application; thus the presentation order may differ from user to user.</p>
+	<details class="links"><summary>explanations &amp; examples</summary>
+	<p><cite>Unicode Collation Algorithm</cite> [[UTS10]]</p>
+	<p><a href="https://www.unicode.org/reports/tr35/tr35-collation.html">Collation section of Locale Data Markup Language</a> [[UTS35]]</p>
+	<p><a href="https://www.w3.org/TR/charmod/#sec-CollationUnits">Units of collation, C007</a>, in <cite>Character Model for the World Wide Web: Fundamentals</cite></p>
+	</details>
+	</div>
+	
+	<p>Languages and cultures vary in how they sort text or use their alphabet or writing system to organize textual data. For example, German language speakers treat the letter <span class="codepoint" translate="no"><bdi lang="de">&#xFC;</bdi> [<span class="uname">U+00FC LATIN SMALL LETTER U WITH DIAERISIS</span>]</span> as sorting similar to the letter <strong>u</strong> (there are actually <em>two</em> German sorting sequences, which are slightly different in the exact handling of this letter), while Danish language speakers treat the same letter as separate in the alphabet and sort it after the letter "y".</p>
+	
+	<p>Determining which locale to use for a sorted list can depend on a number of factors. For example, an application might sort a list of values according to the localization of the page in which the data appears. In other cases it might make more sense to sort according to the runtime locale of the user-agent or according to some parameter passed in an API. The important thing to recognize is that this order might be different for different users or on different systems.</p>
+		
+<!-- Charmod:Fundamentals included the below best practices, which seem out of date
   	<div class="req" id="char_sort_units">
-	<p class="advisement">Software that sorts or searches text for users SHOULD do so on the basis of appropriate collation units and ordering rules for the relevant language and/or application.</p>
+	<p class="advisement">Software that sorts or searches text for display to users SHOULD do so on the basis of appropriate collation units and ordering rules for the relevant language and/or application.</p>
 	<details class="links"><summary>explanations &amp; examples</summary>
 	<p><a href="https://www.w3.org/TR/charmod/#sec-CollationUnits">Units of collation, C006</a>, in <cite>Character Model for the World Wide Web: Fundamentals</cite></p>
 	</details>
 	</div>
-
-  	<div class="req" id="char_sort_user">
-	<p class="advisement">Where searching or sorting is done dynamically, particularly in a multilingual environment, the 'relevant language' SHOULD be determined to be that of the current user, and may thus differ from user to user.</p>
-	<details class="links"><summary>explanations &amp; examples</summary>
-	<p><a href="https://www.w3.org/TR/charmod/#sec-CollationUnits">Units of collation, C007</a>, in <cite>Character Model for the World Wide Web: Fundamentals</cite></p>
-	</details>
-	</div>
-
+	
   	<div class="req" id="char_sort_alternatives">
 	<p class="advisement">Software that allows users to sort or search text SHOULD allow the user to select alternative rules for collation units and ordering.</p>
 	<details class="links"><summary>explanations &amp; examples</summary>
@@ -2828,6 +2948,12 @@ just as characters are the basic unit of organization of encoded text.</p>
 	<p><a href="https://www.w3.org/TR/charmod/#sec-CollationUnits">Units of collation, C008</a>, in <cite>Character Model for the World Wide Web: Fundamentals</cite></p>
 	</details>
 	</div>
+-->
+
+	<aside class="warning" id="find-is-hard" title="String search is hard">
+		<p>Searching text is a complex topic and this document does not currently contain a complete list of recommendations and best practices. The Internationalization Working Group has compiled a list of just a <em>few</em> of the issues involved as part of on-going work to document this space in our document <cite><a href="https://w3c.github.io/string-search">String Searching</a></cite>.</p>
+	</aside>
+</section>
 </section>
 </section>
 
