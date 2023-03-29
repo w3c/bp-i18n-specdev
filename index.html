@@ -964,7 +964,7 @@
 </div>
 
 <div class="req" id="bidi_gen_advice">
-	<p class="advisement">Specifications SHOULD provide guidance to implementers on avoiding problems with text directionality for any field(s) that the specification requires an implementation to create or generate for display to users.</p>
+	<p class="advisement">When a specification requires an implementation to create or generate text which will be displayed to users, the specification SHOULD provide implementers with guidance on how to avoid potential problems related to text direction.</p>
 </div>
 
 <p>Specifications for APIs, protocols, or document formats sometimes require an implementation to create or provide a field containing a display name or description. When such a string is assembled from separate parts, it can result in problems with presentation or understanding due to the way that the <cite>Unicode Bidirectional Algorithm</cite> [[UAX9]] processes the assembled string. In such cases, the specification should guide implementers about how to create values that will display properly.</p>
@@ -2844,7 +2844,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 </ul>
 </aside>
 
-    <p>Applications often need to organize sets of information or content. Frequently this involves sorting the content. Many data types, such as numbers or dates, are easily sorted by comparing the values. When it comes to textual information, however, the nature of character encodings and user expectations regarding "alphabetical" order brings some additional complexity.</p>
+    <p>Applications often need to organize sets of information or content. Frequently this involves sorting the content. Many non-textual data types, such as numbers or dates, can be easily sorted using the internal data representation. When it comes to textual information, however, the nature of character encodings and user expectations regarding "alphabetical" order brings some additional complexity.</p>
     
     <p>One key choice is whether the sorting of textual data will be strictly internal or whether the results will be shown to users.</p>
     
@@ -2949,11 +2949,15 @@ just as characters are the basic unit of organization of encoded text.</p>
 	</details>
 	</div>
 -->
+    </section>
+    <section id="string-search" class="subtopic">
+		<h4>Searching</h4>
 
-	<aside class="warning" id="find-is-hard" title="String search is hard">
+	<aside class="warning" id="find-is-hard" title="Under construction">
 		<p>Searching text is a complex topic and this document does not currently contain a complete list of recommendations and best practices. The Internationalization Working Group has compiled a list of just a <em>few</em> of the issues involved as part of on-going work to document this space in our document <cite><a href="https://w3c.github.io/string-search">String Searching</a></cite>.</p>
 	</aside>
-</section>
+	</section>
+
 </section>
 </section>
 
