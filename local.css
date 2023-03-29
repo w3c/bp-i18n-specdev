@@ -437,3 +437,9 @@ td.exampleChar {
   text-align: center;
   vertical-align: middle;
 }
+
+.spilloverExample {
+  background-color: #fdfdfd;
+  text-indent: 10px;
+  font-size: 140%;
+}

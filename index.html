@@ -981,18 +981,18 @@
 
 <p>Suppose the label contains multiple pieces of information describing a given screen. In the example shown here, the label contains the brand name (<kbd>Brand</kbd>), part number (<kbd>A123B</kbd>), resolution (<kbd>(1920 x 1080)</kbd>), size (<kbd>36" monitor</kbd>), as well as various features (refresh rate, response time, and the presence of speakers). The resulting string in English might look like this (color has been added to make the effects more visible):</p>
 
-<p style="background-color:#fdfdfd;indent:10px;font-size:larger" dir="ltr"><code>
+<p class="spilloverExample" dir="ltr"><code>
 <span style="color:red">Brand A123B</span> <span style="color:blue">(1920 x 1080)</span> <span style="color:green">36"</span> <span style="color:purple">monitor</span>, <span style="color:orange">75 Hz</span>, <span style="color:brown">4ms</span>, <span style="color:darkgrey">built-in speakers</span>
 </code></p>
 
 <p>This display string is merely the concatenation of the various sub-strings, some of which are separated by commas. If the implementation assembling this string were on a system running in a locale that uses a right-to-left language (such as the Arabic examples shown below), the results of the same concatentation might look something like this:</p>
 
-<p style="background-color:#fdfdfd;indent:10px;font-size:larger" dir="rtl"><code>
+<p class="spilloverExample" dir="rtl"><code>
 <span style="color:red">&#x0645;&#x0627;&#x0631;&#x0643;&#x0629; A123B</span> <span style="color:blue">(1920 x 1080)</span> <span style="color:green">36"</span> <span style="color:purple">&#x0634;&#x0627;&#x0634;&#x0629; &#x0627;&#x0644;&#x0643;&#x0645;&#x0628;&#x064A;&#x0648;&#x062A;&#x0631;</span>, <span style="color:orange">75 Hz</span>, <span style="color:brown">4 &#x0645;&#x0644;&#x0644;&#x064A; &#x062B;&#x0627;&#x0646;&#x064A;&#x0629;</span>, <span style="color:darkgrey">&#x0645;&#x0643;&#x0628;&#x0631;&#x0627;&#x062A; &#x0635;&#x0648;&#x062A; &#x0645;&#x062F;&#x0645;&#x062C;&#x0629;</span></code></p>
 
 <p>The logical sequence of sub-strings remains the same, but the visual presentation is no longer intelligible. Notice how different parts of the description have become broken up and mixed together. Generating such a string value from a sequence of sub-strings thus requires extra care in order to display properly to the user. The addition of isolating bidirectional controls (either Unicode control characters or markup) to the above string produces better results:</p>
 
-<p style="background-color:#fdfdfd;indent:10px;font-size:larger" dir="rtl"><code>
+<p class="spilloverExample" dir="rtl"><code>
 	<span style="color:red" dir="rtl">&#x0645;&#x0627;&#x0631;&#x0643;&#x0629; A123B</span> <span style="color:blue" dir="ltr">(1920 x 1080)</span> <span style="color:green" dir="ltr">36"</span> <span style="color:purple" dir="rtl">&#x0634;&#x0627;&#x0634;&#x0629; &#x0627;&#x0644;&#x0643;&#x0645;&#x0628;&#x064A;&#x0648;&#x062A;&#x0631;</span>, <span style="color:orange" dir="rtl">75 Hz</span>, <span style="color:brown" dir="rtl">4 &#x0645;&#x0644;&#x0644;&#x064A; &#x062B;&#x0627;&#x0646;&#x064A;&#x0629;</span>, <span style="color:darkgrey" dir="rtl">&#x0645;&#x0643;&#x0628;&#x0631;&#x0627;&#x062A; &#x0635;&#x0648;&#x062A; &#x0645;&#x062F;&#x0645;&#x062C;&#x0629;</span>
 </code></p>
 </aside>
@@ -3939,7 +3939,7 @@ PCENChar ::=
     <td>mi
 <tr>
     <td>Asahi</td>
-    <td jang="ja">朝陽</td>
+    <td lang="ja">朝陽</td>
     <td>m</td>
     <td>East Asia; Japan</td>
     <td>ja
