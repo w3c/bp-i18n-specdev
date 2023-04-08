@@ -144,11 +144,16 @@ a.termref:active {
 	border-bottom: 1px dotted #FC0; 
 	}
 
+.codepoint bdi {
+    font-size: 130%;
+}
+
 .uname {
-	text-transform: uppercase;
 	font-size: 85%;
-	letter-spacing:0.03em;
-	}
+	letter-spacing: 0.03em;
+	margin-inline: 0.15em 2px;
+	color: #22a;
+}
 	
 .note {
 	margin-left: 2em;
