@@ -2191,7 +2191,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 &lt;span class="uname">U+XXXX Unicode_character_name&lt;/span>&lt;/span>
 </pre>
 
-<p>For invisible characters (such as control characters) or for whitespace, the character and its surrounding <code translate="no">bdi</code> element should be omitted:</p>
+<p>For invisible characters (such as control characters) or for whitespace, the character and its surrounding <code translate="no" class="kw">bdi</code> element should be omitted:</p>
 
 <pre>
 &lt;span class="codepoint" translate="no">
@@ -2209,11 +2209,11 @@ just as characters are the basic unit of organization of encoded text.</p>
 <p>Produces output in the page like this: <span class="codepoint" translate="no"><bdi lang="fr">é</bdi><span class="uname">U+00E9 LATIN SMALL LETTER E WITH ACUTE</span></span>.</p>
 </aside>
 
-<p>Some notes about the markup used. The <code translate=no>bdi</code> element is used to ensure that example characters that are right-to-left do not interfere with the layout of the page. The <code translate=no>lang</code> attribute should be filled in appropriately to get the correct font selection for a given context. Examples in East Asian languages (such as Chinese, Japanese, or Korean) or in the Arabic script can sometimes require greater care in choosing a language tag.</p>
+<p>Some notes about the markup used. The <code translate="no" class="kw">bdi</code> element is used to ensure that example characters that are right-to-left do not interfere with the layout of the page. The <code translate="no" class="kw">lang</code> attribute should be filled in appropriately to get the correct font selection for a given context. Examples in East Asian languages (such as Chinese, Japanese, or Korean) or in the Arabic script can sometimes require greater care in choosing a language tag.</p>
 
 <aside class="example" title="Code point sequences">
-	<p>A short sequence of characters (2 to 3 code points) should list the character names. For example: <span class="codepoint" translate="no"><bdi lang="ar" dir="rtl">&#x062B;&#x064E;</bdi><span class="uname">U+062B ARABIC LETTER THEH</span> + <span class="uname">U+064E ARABIC FATHA</span></span></p>
-	<p>Longer sequences can just list the code points. For example: <span class="codepoint"><bdi lang="en">👨‍👩‍👧‍👧</bdi> <span class="uname">U+1F468 U+200D U+1F469 U+200D U+1F467 U+200D U+1F467</span></span></p>
+	<p>Short sequences of characters (2 or 3 code points) should list the character names, separated by unstyled <kbd> + </kbd>. For example: <span class="codepoint" translate="no"><bdi lang="ar" dir="rtl">&#x062B;&#x064E;</bdi><span class="uname">U+062B ARABIC LETTER THEH</span> + <span class="uname">U+064E ARABIC FATHA</span></span></p>
+	<p>Long sequences will sometimes just list the code points, although the character names should be retained where possible for clarity. An example can be found in this doucment in the <a href="#char_term_def">discussion of the composed "family" emoji</a>: <span class="codepoint"><bdi lang="en">👨‍👩‍👧‍👧</bdi> <span class="uname">U+1F468 U+200D U+1F469 U+200D U+1F467 U+200D U+1F467</span></span></p>
 </aside>
 
 
