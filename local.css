@@ -146,12 +146,13 @@ a.termref:active {
 
 .codepoint bdi {
     font-size: 130%;
+    margin-inline: 2px 0.5em;
 }
 
 .uname {
 	font-size: 85%;
 	letter-spacing: 0.03em;
-	margin-inline: 0.15em 2px;
+/*  margin-inline: 0.15em 2px; */
 	color: #22a;
 }
 	
