@@ -146,7 +146,7 @@ a.termref:active {
 
 .codepoint bdi {
     font-size: 130%;
-    margin-inline: 2px 0.5em;
+    margin-inline: 0.25em;
 }
 
 .uname {
