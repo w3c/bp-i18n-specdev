@@ -2202,26 +2202,27 @@ just as characters are the basic unit of organization of encoded text.</p>
 <p>Filling in the above template like this:</p>
 
 <pre>
-&lt;span class="codepoint" translate="no">&lt;bdi lang="fr">&#x00E9;&lt;/bdi> 
-&lt;span class="uname">U+00E9 LATIN SMALL LETTER E WITH ACUTE&lt;/span>&lt;/span>
+&lt;span class="codepoint" translate="no">
+   &lt;bdi lang="fr">&#x00E9;&lt;/bdi>&lt;span class="uname">U+00E9 LATIN SMALL LETTER E WITH ACUTE&lt;/span>
+&lt;/span>
 </pre>
 
 <p>Produces output in the page like this: <span class="codepoint" translate="no"><bdi lang="fr">é</bdi><span class="uname">U+00E9 LATIN SMALL LETTER E WITH ACUTE</span></span>.</p>
 </aside>
 
-<p>The <code translate="no" class="kw">bdi</code> element is used to ensure that example characters that are right-to-left do not interfere with the layout of the page.</p>
+<p>The <code translate="no" class="kw">bdi</code> element is used to ensure that example characters that are right-to-left do not interfere with the layout of the page. Although the elements are shown on separate lines in this section (for clarity), do not include line breaks or a space between the closing <code translate="no" class="kw">bdi</code> and the following <code translate="no" class="kw">span</code> element; spacing and presentation is controlled by styling.</p>
 
 <p>The <code translate="no" class="kw">lang</code> attribute should be filled in appropriately to get the correct font selection for a given context. Examples in East Asian languages (such as Chinese, Japanese, or Korean) or in the Arabic script can sometimes require greater care in choosing a language tag.</p>
 
 <p>Short sequences of characters should list the character names, separated by <span class="codepoint" translate="no">+</span>.
 
 <aside class="example" title="Example of a code point sequence">
-	<p>For example, this example: <span class="codepoint" translate="no"><bdi lang="ar" dir="rtl">&#x062B;&#x064E;</bdi><span class="uname">U+062B ARABIC LETTER THEH</span> + <span class="uname">U+064E ARABIC FATHA</span></span> uses the following markup:</p>
+	<p>This example: <span class="codepoint" translate="no"><bdi lang="hi">&#x0928&#x093f;</bdi><span class="uname">U+0928 DEVANAGARI LETTER NA</span> + <span class="uname">U+093F  DEVANAGARI VOWEL SIGN I</span></span> uses the following markup:</p>
 
 <pre>
-&lt;span class="codepoint" translate="no">&lt;bdi lang="ar" dir="rtl">&amp;#x062B;&amp;#x064E;&lt;/bdi>
-   &lt;span class="uname">U+062B ARABIC LETTER THEH&lt;/span> + 
-   &lt;span class="uname">U+064E ARABIC FATHA&lt;/span>
+&lt;span class="codepoint" translate="no">
+  &lt;bdi lang="hi">&amp;#x0928;&amp;#x093f;&lt;/bdi>&lt;span class="uname">U+0928 DEVANAGARI LETTER NA&lt;/span> + 
+  &lt;span class="uname">U+093F  DEVANAGARI VOWEL SIGN I&lt;/span>
 &lt;/span>
 </pre>	
 

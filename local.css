@@ -152,8 +152,7 @@ a.termref:active {
 .uname {
 	font-size: 85%;
 	letter-spacing: 0.03em;
-/*  margin-inline: 0.15em 2px; */
-	color: #22a;
+	color: teal;
 }
 	
 .note {
