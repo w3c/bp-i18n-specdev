@@ -144,11 +144,18 @@ a.termref:active {
 	border-bottom: 1px dotted #FC0; 
 	}
 
+.codepoint bdi {
+    line-height: 1em;
+    font-size: 130%;
+    margin-inline: 0.25em;
+}
+
 .uname {
-	text-transform: uppercase;
+    font-family: Arial, monospaced;
 	font-size: 85%;
-	letter-spacing:0.03em;
-	}
+	letter-spacing: 0.03em;
+	color: teal;
+}
 	
 .note {
 	margin-left: 2em;
@@ -433,7 +440,13 @@ table.whitespace caption {
 }
 
 td.exampleChar {
-  font-size: 36pt;
+  font-size: 300%;
   text-align: center;
   vertical-align: middle;
+}
+
+.spilloverExample {
+  background-color: #fdfdfd;
+  text-indent: 10px;
+  font-size: 140%;
 }

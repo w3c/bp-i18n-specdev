@@ -642,10 +642,38 @@
 <h4>Inline changes to base direction</h4>
 <p>Embedded ranges of text <em>within</em> a single paragraph may need to have a different base direction. For example, </p>
 <p>&quot;The title was '!NOITASILANOITANRETNI'.&quot;</p>
-<p>where the span within the single quotes is in Hebrew/Arabic/Divehi, etc., and needs to have a RTL base direction, instead of the LTR base direction of the surrounding paragraph, in order to place the exclamation mark correctly. </p>
+<p>where the span within the single quotes is in Hebrew/Arabic/Divehi, etc., and needs to have a [=RTL=] base direction, instead of the [=LTR=] base direction of the surrounding paragraph, in order to place the exclamation mark correctly.</p>
+
 <p>If markup is available to the content author, it is likely to be easier and safer to use markup to indicate such inline ranges (see below). In HTML you would usually use an inline element with a <code class="kw" translate="no">dir</code> attribute to establish the base direction for such runs of text.  If you can't mark up the text, such as in HTML's <code class="kw" translate="no">title</code> element, or any environment that handles only plain text content, you have to resort to Unicode's paired control characters to establish the base direction for such an internal range.</p>
-<p>Furthermore, inline ranges where the base direction is changed should be isolated from surrounding text, so that the UBA doesn't produce incorrect results due to interference across boundaries. <a href="https://www.w3.org/International/articles/inline-bidi-markup/bidi_examples#uc5">See an example</a> of how this can produce incorrect ordering of things such as text followed by numbers in HTML, or <a href="https://www.w3.org/International/articles/inline-bidi-markup/bidi_examples#usecase3">another example</a> of how it can affect lists.</p>
-<p>This means that if a content author is using Unicode control codes they should use RLI/LRI...PDI rather than RLE/LRE...PDF.  These isolating codes are fairly new, and applications may not yet support them.</p>
+
+<p>Furthermore, inline ranges where the base direction is changed should be [=bidi isolated=] from surrounding text, so that the [=Unicode Bidirectional Algorithm=] doesn't produce incorrect results ("[=spillover=]") due to interference across boundaries.</p>
+
+<aside class="example" title="Example of bidirectional interference across boundaries">
+<p>Suppose an implementation assembled a string by concatenating various values together. For example, the description of a monitor attached to a system. This label might contain the brand name and model number (<kbd>Brand A123B</kbd>); resolution (<kbd>(1920 x 1080)</kbd>); size and type (<kbd>36" monitor</kbd>); as well as various features like a refresh rate of <kbd>75 Hz</kbd> or response time of <kbd>4 ms</kbd>. The resulting string in English might look like this (color has been added to make the effects more visible):</p>
+
+<p class="spilloverExample" dir="ltr"><code>
+<span style="color:red">Brand A123B</span> <span style="color:blue">(1920 x 1080)</span> <span style="color:green">36"</span> <span style="color:purple">monitor</span>, <span style="color:orange">75 Hz</span>, <span style="color:brown">4ms</span>
+</code></p>
+
+<p>If the same implementation assembling this string were on a system running in a locale that uses a right-to-left language (such as the Arabic examples shown below), the results of the same concatentation might look something like this:</p>
+
+<p class="spilloverExample" dir="rtl"><code>
+<span style="color:red">&#x0645;&#x0627;&#x0631;&#x0643;&#x0629; A123B</span> <span style="color:blue">(1920 x 1080)</span> <span style="color:green">36"</span> <span style="color:purple">&#x0634;&#x0627;&#x0634;&#x0629; &#x0627;&#x0644;&#x0643;&#x0645;&#x0628;&#x064A;&#x0648;&#x062A;&#x0631;</span>&#x60c; <span style="color:orange">75 Hz</span>&#x60c; <span style="color:brown">4 &#x0645;&#x0644;&#x0644;&#x064A; &#x062B;&#x0627;&#x0646;&#x064A;&#x0629;</span></code></p>
+
+<p>The logical sequence of sub-strings remains the same, but the visual presentation is no longer intelligible. Notice how different parts of the description have become broken up and mixed together. The addition of isolating bidirectional controls (either markup or, when not available, Unicode control characters) to the above string produces better results:</p>
+
+<p class="spilloverExample" dir="rtl"><code>
+	<span style="color:red" dir="rtl">&#x0645;&#x0627;&#x0631;&#x0643;&#x0629; A123B</span> <span style="color:blue" dir="ltr">(1920 x 1080)</span> <span style="color:green" dir="ltr">36"</span> <span style="color:purple" dir="rtl">&#x0634;&#x0627;&#x0634;&#x0629; &#x0627;&#x0644;&#x0643;&#x0645;&#x0628;&#x064A;&#x0648;&#x062A;&#x0631;</span>&#x60c; <span style="color:orange" dir="rtl">75 Hz</span>&#x60c; <span style="color:brown" dir="rtl">4 &#x0645;&#x0644;&#x0644;&#x064A; &#x062B;&#x0627;&#x0646;&#x064A;&#x0629;</span>
+</code></p>
+</aside>
+
+<p>This means that if a content author is using Unicode control codes they should use the isolating controls <code class="kw" translate="no">RLI/LRI/FSI…PDI</code> rather than the embedding controls <code class="kw" translate="no">RLE/LRE…PDF</code>.</p>
+
+<div class="xref"><span class="seealso">See also</span>
+<p><a href="https://www.w3.org/International/articles/inline-bidi-markup/bidi_examples#uc5">An example of incorrect ordering of things such as text followed by numbers in HTML</a></p>
+<p><a href="https://www.w3.org/International/articles/inline-bidi-markup/bidi_examples#usecase3">An example of incorrect ordering of lists</a></p>
+</div>
+
 </section>
 
 
@@ -668,7 +696,7 @@
 
 <section id="rlmlrm">
 <h4>RLM and LRM</h4>
-<p>A word about the Unicode characters <span class="uname">U+200F   RIGHT-TO-LEFT MARK</span> (RLM) and <span class="uname">U+200E   LEFT-TO-RIGHT MARK</span> (LRM) is warranted at this point.</p>
+<p>A word about the Unicode characters <span class="uname">U+200F RIGHT-TO-LEFT MARK</span> (RLM) and <span class="uname">U+200E   LEFT-TO-RIGHT MARK</span> (LRM) is warranted at this point.</p>
 <p>The first point to be clear about is that neither RLM nor LRM establish the base direction for a range of text.&nbsp; They are simply invisible characters with strong directional properties.</p>
 <p>This means that you cannot use RLM for example, to make the text W3C appear to the left of the Hebrew text in the following example.</p>
 <p>The title is "<span dir="rtl">פעילות הבינאום, W3C</span>".</p>
@@ -693,7 +721,7 @@
     <ol>
     <li>you can't produce the <code class="kw" translate="no">auto</code> value with language tags.</li>
     <li>some languages are written with both RTL and LTR scripts.</li>
-    <li>the only reliable part of the language tag that would indicate the base direction is the script tag, but BCP47 recommends that you suppress the use of the script tag for languages that don't usually need it, such as  Hebrew (<code>suppressscript: Hebr</code>). Languages, such as Persian, that are usually written in a RTL script may be written in transcribed form, and it's not possible to guarantee that the necessary script tag would be present to carry the directional information. In summary, you won't be able to rely on people supplying script tags as part of the language information in order to influence direction.</li>
+    <li>the only reliable part of the language tag that would indicate the base direction is the script tag, but BCP47 recommends that you suppress the use of the script tag for languages that don't usually need it, such as  Hebrew (<code translate="no">Suppress-Script: Hebr</code>). Languages, such as Persian, that are usually written in a RTL script may be written in transcribed form, and it's not possible to guarantee that the necessary script tag would be present to carry the directional information. In summary, you won't be able to rely on people supplying script tags as part of the language information in order to influence direction.</li>
     <li>the incidence of use of language tags and base direction markers  often don't coincide.</li>
     <li>they are not semantically equivalent.</li>
     </ol>
@@ -893,7 +921,7 @@
 <section id="bidi_inline" class="subtopic">
 <h3>Setting base direction for inline or substring text</h3>
 
-<p>'Inline text' here has a readily understandable meaning in markup. It also applies to strings (eg. in JSON, CVS, or other plain text formats), meaning runs of characters which don't include all the characters in the string.</p>
+<p>'Inline text' here has a readily understandable meaning in markup. It also applies to strings (eg. in JSON, CSV, or other plain text formats), meaning runs of characters which don't include all the characters in the string.</p>
  
  
  
@@ -903,11 +931,13 @@
 	</div>
 
  	<div class="req" id="bidi_inline_auto">
-	<p class="advisement">It must be possible to also set the direction for a span to auto. This means that the base direction will be determined by examining the content itself. A typical approach here would be to set the direction based on the first strong directional character outside of any markup.</p>
+	<p class="advisement">It must be possible to also set the direction for a span of inline text to <code class="kw" translate="no">auto</code>, which means that the base direction will be determined by examining the content itself. A typical approach here would be to set the direction based on the first strong directional character outside of any markup.</p>
 	</div>
 
-    <p>The first-strong algorithm looks for the first character in the paragraph with a strong directional property according to the Unicode definitions. It then sets the base direction of the paragraph according to the direction of that character.</p>
-    <p>Note that the first-strong algorithm may incorrectly&nbsp;guess the direction of the paragraph when the first character is not typical of the rest of the paragraph, such as when a RTL paragraph or line starts with a LTR brand name or technical term.</p>
+    <p>The first-strong algorithm looks for the first character in the paragraph with a strong directional property according to the Unicode definitions. It then sets the [=base direction=] of the paragraph according to the direction of that character.</p>
+    
+    <p>Note that the first-strong algorithm may incorrectly guess the direction of the paragraph when the first character is not typical of the rest of the paragraph, such as when an [=RTL=] paragraph or line starts with a [=LTR=] brand name or technical term.</p>
+    
     <p>For additional information about algorithms for detecting direction, see <a href="https://www.w3.org/TR/html-bidi/#auto-direction-algorithms">Estimation algorithms</a> in the document where this was discussed with reference to HTML.</p>
 
 
@@ -948,56 +978,6 @@
 <p class="reviewComments"><a href="https://github.com/w3c/i18n-activity/labels/t%3Abidi_detection_x" target="_blank">See related review comments.</a></p>
 </section>
 
-<section id="strcat" class="subtopic">
-<h3>Concatenation of strings</h3>
-
-<p class="reviewComments"><a href="https://github.com/w3c/i18n-activity/labels/t%3Astrcat" target="_blank">See related review comments.</a></p>
-
-<div class="req" id="strcat_anti_pattern">
-	<p class="advisement">Specifications SHOULD NOT require the concatenation of string values to form [=natural language=] or displayable string values.</p>
-</div>
-
-<p>Creation of [=natural language=] text values by concatenating multiple strings together is an internationalization anti-pattern. Languages vary greatly in word order, count, grammatical gender or case, punctuation, and many other requirements. As a result, avoid requiring or suggesting that implementations generate human-readable messages from sub-strings.</p>
-
-<div class="xref"><span class="seealso">See also</span>
-   <p><cite><a href="https://www.w3.org/International/articles/composite-messages/index.en.html">Working with Composite Messages</a></cite></p>
-</div>
-
-<div class="req" id="bidi_gen_advice">
-	<p class="advisement">Specifications SHOULD provide guidance to implementers on avoiding problems with text directionality for any field(s) that the specification requires an implementation to create or generate for display to users.</p>
-</div>
-
-<p>Specifications for APIs, protocols, or document formats sometimes require an implementation to create or provide a field containing a display name or description. When such a string is assembled from separate parts, it can result in problems with presentation or understanding due to the way that the <cite>Unicode Bidirectional Algorithm</cite> [[UAX9]] processes the assembled string. In such cases, the specification should guide implementers about how to create values that will display properly.</p>
-
-<aside class="example" title="Example of bidi generation guidance">
-	<p>Here is an example of a Note that you can include in your specification when recommending that implementations generate displayable [=natural language=] values:</p>
-	<div class="note" role="note" id="bidi-gen-note-example">
-	   <p class="example_note">If values generated for <em><code>_field_name_</code></em> contain or might contain [= bidirectional text =], [=producers=] should ensure that [=consumers=] of the string will display it correctly without having to process or alter the string. One way to do this is via the insertion of Unicode bidirectional controls or, where applicable, markup. In addition, supplying the correct base direction as metadata allows the [=consumer=] to both isolate the string and set its direction, avoiding spillover effects.  For more information see: <a href="https://www.w3.org/International/questions/qa-bidi-unicode-controls"><cite>How to use Unicode controls for bidi text</cite></a></p>
-	</div>
-</aside>
-
-<aside class="example" title="Spillover issues in a generated display name">
-<p>Suppose a specification provides a field in an API that is meant to be filled in by the implementation at runtime. One example of this is the <code>label</code> field in the [[window-placement]] API. The value of <code>label</code> in this API is meant to represent a user-visible description of a specific monitor attached to the system. This might take various different implementation-dependent forms, from simple labels like "1" and "2" to more complex labels taken from various device attributes. These labels are always natural language text generated by the system or user-agent.</p>
-
-<p>Suppose the label contains multiple pieces of information describing a given screen. In the example shown here, the label contains the brand name (<kbd>Brand</kbd>), part number (<kbd>A123B</kbd>), resolution (<kbd>(1920 x 1080)</kbd>), size (<kbd>36" monitor</kbd>), as well as various features (refresh rate, response time, and the presence of speakers). The resulting string in English might look like this (color has been added to make the effects more visible):</p>
-
-<p style="background-color:#fdfdfd;indent:10px;font-size:larger" dir="ltr"><code>
-<span style="color:red">Brand A123B</span> <span style="color:blue">(1920 x 1080)</span> <span style="color:green">36"</span> <span style="color:purple">monitor</span>, <span style="color:orange">75 Hz</span>, <span style="color:brown">4ms</span>, <span style="color:darkgrey">built-in speakers</span>
-</code></p>
-
-<p>This display string is merely the concatenation of the various sub-strings, some of which are separated by commas. If the implementation assembling this string were on a system running in a locale that uses a right-to-left language (such as the Arabic examples shown below), the results of the same concatentation might look something like this:</p>
-
-<p style="background-color:#fdfdfd;indent:10px;font-size:larger" dir="rtl"><code>
-<span style="color:red">&#x0645;&#x0627;&#x0631;&#x0643;&#x0629; A123B</span> <span style="color:blue">(1920 x 1080)</span> <span style="color:green">36"</span> <span style="color:purple">&#x0634;&#x0627;&#x0634;&#x0629; &#x0627;&#x0644;&#x0643;&#x0645;&#x0628;&#x064A;&#x0648;&#x062A;&#x0631;</span>, <span style="color:orange">75 Hz</span>, <span style="color:brown">4 &#x0645;&#x0644;&#x0644;&#x064A; &#x062B;&#x0627;&#x0646;&#x064A;&#x0629;</span>, <span style="color:darkgrey">&#x0645;&#x0643;&#x0628;&#x0631;&#x0627;&#x062A; &#x0635;&#x0648;&#x062A; &#x0645;&#x062F;&#x0645;&#x062C;&#x0629;</span></code></p>
-
-<p>The logical sequence of sub-strings remains the same, but the visual presentation is no longer intelligible. Notice how different parts of the description have become broken up and mixed together. Generating such a string value from a sequence of sub-strings thus requires extra care in order to display properly to the user. The addition of isolating bidirectional controls (either Unicode control characters or markup) to the above string produces better results:</p>
-
-<p style="background-color:#fdfdfd;indent:10px;font-size:larger" dir="rtl"><code>
-	<span style="color:red" dir="rtl">&#x0645;&#x0627;&#x0631;&#x0643;&#x0629; A123B</span> <span style="color:blue" dir="ltr">(1920 x 1080)</span> <span style="color:green" dir="ltr">36"</span> <span style="color:purple" dir="rtl">&#x0634;&#x0627;&#x0634;&#x0629; &#x0627;&#x0644;&#x0643;&#x0645;&#x0628;&#x064A;&#x0648;&#x062A;&#x0631;</span>, <span style="color:orange" dir="rtl">75 Hz</span>, <span style="color:brown" dir="rtl">4 &#x0645;&#x0644;&#x0644;&#x064A; &#x062B;&#x0627;&#x0646;&#x064A;&#x0629;</span>, <span style="color:darkgrey" dir="rtl">&#x0645;&#x0643;&#x0628;&#x0631;&#x0627;&#x062A; &#x0635;&#x0648;&#x062A; &#x0645;&#x062F;&#x0645;&#x062C;&#x0629;</span>
-</code></p>
-</aside>
-
-</section>
 </section>
 
 
@@ -1099,7 +1079,7 @@
 
     </aside>
 
-    <p>Another example of the complex relationship between code points and graphemes are certain emoji. The emoji character for "family" has a code point in Unicode: <span class="codepoint"><span lang="en">&#x1F46A;</span> [<span class="uname">U+1F46A FAMILY</span>]</span>. It can also be formed by using using a sequence of code points: <span class="uname">U+1F468 U+200D U+1F469 U+200D U+1F466</span>. Altering or adding other emoji characters can alter the composition of the family. For example the sequence <span class="uname" translate="no">&#x1f468;&#x200d;&#x1f469;&#x200d;&#x1f467;&#x200d;&#x1f467; U+1F468 U+200D U+1F469 U+200D U+1F467 U+200D U+1F467</span> results in a composed emoji character for a "family: man, woman, girl, girl" on systems that support this kind of composition. Many common emoji can <em>only</em> be formed using sequences of code points, but should be treated as a single user-perceived character when displaying or processing the text. You wouldn't want to put a line-break in the middle of the family!</p>
+    <p>Another example of the complex relationship between code points and graphemes are certain emoji. The emoji character for "family" has a code point in Unicode: <span class="codepoint" translate="no"><bdi lang="en">&#x1F46A;</bdi><span class="uname">U+1F46A FAMILY</span></span>. It can also be formed by using using a sequence of code points: <span class="uname">U+1F468 U+200D U+1F469 U+200D U+1F466</span>. Altering or adding other emoji characters can alter the composition of the family. For example the sequence <span class="codepoint" translate="no"><bdi translate="no">&#x1f468;&#x200d;&#x1f469;&#x200d;&#x1f467;&#x200d;&#x1f467;</bdi><span class="uname" translate="no">U+1F468 U+200D U+1F469 U+200D U+1F467 U+200D U+1F467</span></span> results in a composed emoji character for a "family: man, woman, girl, girl" on systems that support this kind of composition. Many common emoji can <em>only</em> be formed using sequences of code points, but should be treated as a single user-perceived character when displaying or processing the text. You wouldn't want to put a line-break in the middle of the family!</p>
 
     <p>Unicode code points are just abstract integer values: they are not the values actually present in the memory of the computer or serialized on the wire. When processing text, computers use an array of fixed-size integer units. One such common unit is the <dfn class="lint-ignore">byte</dfn> (or <em>octet</em>, since bytes have 8 bits per unit). There are also 16-bit, 32-bit, or other size units. In many programming languages, the unit is called a <code>char</code>, which suggests that strings are made of "characters". We use the term <a>code unit</a> to refer unambiguously to the programming and serialized representation of characters. For example, in C, a <code>char</code> is generally an 8-bit byte: each <code>char</code> is a 8-bit code unit. In Java or Javascript, a <code>char</code> is a 16-bit value.</p>
 
@@ -1627,7 +1607,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 
 	
 	<div class="example" id="char-escape-examples">
-		<p>Here are some examples of common escaping mechanisms found on the Web or in common programming languages. The example character here is &#x1f63d; <code class="uname" translate="no">U+1F63D</code>.</p>
+		<p>Here are some examples of common escaping mechanisms found on the Web or in common programming languages. The example character here is <span class="codepoint"><bdi lang="en">&#x1f63d;</bdi><span class="uname" translate="no">U+1F63D KISSING CAT FACE WITH CLOSED EYES</span></span>.</p>
 		<table>
 			<thead>
 				<tr>
@@ -1787,7 +1767,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 	</details>
 </div>
 
-<p>The type <code>DOMString</code> is actually a UTF-16 <a>code unit</a> string. This type allows unpaired <a>surrogate</a> code units to appear in a string, which can result in errors or replacement with the Unicode replacment character (<span class="codepoint" translate="no"><bdi lang="und">&#xFFFD;</bdi> [<span class="uname">U+FFFD REPLACEMENT CHARACTER</span>]</span>). This type is appropriate when specifications do not need to do internal processing of the string value. The alternative type is <code translate="no"><a href="https://webidl.spec.whatwg.org/#idl-USVString">USVString</a></code>, which is a sequence of Unicode code points.</p>
+<p>The type <code>DOMString</code> is actually a UTF-16 <a>code unit</a> string. This type allows unpaired <a>surrogate</a> code units to appear in a string, which can result in errors or replacement with the Unicode replacment character (<span class="codepoint" translate="no"><bdi lang="und">&#xFFFD;</bdi><span class="uname">U+FFFD REPLACEMENT CHARACTER</span></span>). This type is appropriate when specifications do not need to do internal processing of the string value. The alternative type is <code translate="no"><a href="https://webidl.spec.whatwg.org/#idl-USVString">USVString</a></code>, which is a sequence of Unicode code points.</p>
 
 <p>The reason <code translate="no">DOMString</code> is preferred to <code translate="no">USVString</code> is that both [[DOM]] and the string types in JavaScript (and its derivatives, such as JSON) are defined in terms of UTF-16 code unit strings. Specifying <code translate="no">USVString</code> can result in inadvertently requiring an implementation to check for unpaired surrogates in cases where there is no benefit to doing so.</p>
 
@@ -1801,7 +1781,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 
 <p>The type <code translate="no">USVString</code> defines strings as a sequence of Unicode <a>code points</a>. For strings whose most common algorithms operate on or process individual <a>code points</a>, or for operations which can’t handle surrogates in input, <code translate="no">USVString</code> should be used. For example, if your specification is defining a process that parses a string or transforms specific characters, it is both easier to specify and more reliable to refer to code points (<em>"scalar values"</em>) than to deal with the UTF-16 <a>code units</a>.</p>
 
-<p>In a <code translate="no">USVString</code>, isolated <a>surrogate</a> code points are invalid and implementations are required to replace any found in a string with the Unicode replacment character (<span class="codepoint" translate="no"><bdi lang="und">&#xFFFD;</bdi> [<span class="uname">U+FFFD REPLACEMENT CHARACTER</span>]</span>).</p>
+<p>In a <code translate="no">USVString</code>, isolated <a>surrogate</a> code points are invalid and implementations are required to replace any found in a string with the Unicode replacment character (<span class="codepoint" translate="no"><bdi lang="und">&#xFFFD;</bdi><span class="uname">U+FFFD REPLACEMENT CHARACTER</span></span>).</p>
 
 
 <div class="req" id="char_string_byte">
@@ -2155,35 +2135,35 @@ just as characters are the basic unit of organization of encoded text.</p>
 		<thead>
 			<tr>
 				<th>Character</th>
-				<th>Name</th>
+				<th>Unicode Name</th>
 				<th>U+XXXX syntax</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr>
-				<td style="text-align:center">&#xa0;</td>
-				<td class="uname">SPACE</td>
-				<td>U+0020</td>
+				<td style="text-align:center">e</td>
+				<td class="uname">LATIN SMALL LETTER E</td>
+				<td class="uname" style="text-align:right">U+0065</td>
 			</tr>
 			<tr>
 				<td style="text-align:center">&#xe9;</td>
 				<td class="uname">LATIN SMALL LETTER E WITH ACUTE</td>
-				<td>U+00E9</td>
+				<td class="uname" style="text-align:right">U+00E9</td>
 			</tr>
 			<tr>
 				<td style="text-align:center">&#xa8a;</td>
 				<td class="uname">GUJURATI LETTER UU</td>
-				<td>U+0A8A</td>
+				<td class="uname" style="text-align:right">U+0A8A</td>
 			</tr>
 			<tr>
 				<td style="text-align:center">&#xfffd;</td>
 				<td class="uname">REPLACEMENT CHARACTER</td>
-				<td>U+FFFD</td>
+				<td class="uname" style="text-align:right">U+FFFD</td>
 			</tr>
 			<tr>
 				<td style="text-align:center">&#x1f62e;</td>
 				<td class="uname">FACE WITH OPEN MOUTH</td>
-				<td>U+1F62E</td>
+				<td class="uname" style="text-align:right">U+1F62E</td>
 			</tr>
 		</tbody>
 	</table>
@@ -2193,7 +2173,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 	<p class="advisement">Use the Unicode character name to describe specific code points. Use of the <a href="#char_ref_template">character naming template</a> is RECOMMENDED.</p>
 </div>
 
-<p>Unicode assigns unique, immutable names to each assigned Unicode code point. Using these names in your specification when referring to specific characters (along with the code point in <code class="uname" translate="no">U+XXXX</code> notation) will help make your specification unambiguous.</p>
+<p>Unicode assigns unique, immutable names to each assigned Unicode code point. Using these names in your specification when referring to specific characters (along with the code point in <span class="uname" translate="no">U+XXXX</span> notation) will help make your specification unambiguous.</p>
 
 <p>There are cases where doing this is overly pedantic and detracts from usability, but be cautious about being so informal as to impair meaning.</p>
 
@@ -2204,26 +2184,51 @@ just as characters are the basic unit of organization of encoded text.</p>
 	<p>[<a href="https://www.w3.org/International/i18n-activity/guidelines/editing#codepoints">I18N Editing Guidelines</a>].</p>
 	</div>
 	
-<p>Internationalization specifications use (and we recommend the use of) this template for character references:</p>
+<p>Use of the character template used in Internationalization specifications is recommended. For most characters, the template looks like this:</p>
 
 <pre>
 &lt;span class="codepoint" translate="no">&lt;bdi lang="??">&#xXXXX;&lt;/bdi> 
-[&lt;span class="uname">U+XXXX Unicode_character_name&lt;/span>]&lt;/span>
+&lt;span class="uname">U+XXXX Unicode_character_name&lt;/span>&lt;/span>
+</pre>
+
+<p>For invisible characters (such as control characters) or for whitespace, the character and its surrounding <code translate="no" class="kw">bdi</code> element should be omitted:</p>
+
+<pre>
+&lt;span class="codepoint" translate="no">
+&lt;span class="uname">U+XXXX Unicode_character_name&lt;/span>&lt;/span>
 </pre>
 
 <aside class="example" title="Example of a character reference">
 <p>Filling in the above template like this:</p>
 
 <pre>
-&lt;span class="codepoint" translate="no">&lt;bdi lang="fr">&#x00E9;&lt;/bdi> 
-[&lt;span class="uname">U+00E9 LATIN SMALL LETTER E WITH ACUTE&lt;/span>]&lt;/span>
+&lt;span class="codepoint" translate="no">
+   &lt;bdi lang="fr">&#x00E9;&lt;/bdi>&lt;span class="uname">U+00E9 LATIN SMALL LETTER E WITH ACUTE&lt;/span>
+&lt;/span>
 </pre>
 
-<p>Produces output in the page like this: <span class="codepoint" translate="no"><bdi lang="fr">é</bdi> [<span class="uname">U+00E9 LATIN SMALL LETTER E WITH ACUTE</span>]</span>.</p>
+<p>Produces output in the page like this: <span class="codepoint" translate="no"><bdi lang="fr">é</bdi><span class="uname">U+00E9 LATIN SMALL LETTER E WITH ACUTE</span></span>.</p>
 </aside>
 
-<p>Some notes about the markup used. The <code translate=no>bdi</code> element is used to ensure that example characters that are right-to-left do not interfere with the layout of the page. The <code translate=no>lang</code> attribute should be filled in appropriately to get the correct font selection for a given context. Examples in East Asian languages (such as Chinese, Japanese, or Korean) or in the Arabic script can sometimes require greater care in choosing a language tag.</p>
+<p>The <code translate="no" class="kw">bdi</code> element is used to ensure that example characters that are right-to-left do not interfere with the layout of the page. Although the elements are shown on separate lines in this section (for clarity), do not include line breaks or a space between the closing <code translate="no" class="kw">bdi</code> and the following <code translate="no" class="kw">span</code> element; spacing and presentation is controlled by styling.</p>
 
+<p>The <code translate="no" class="kw">lang</code> attribute should be filled in appropriately to get the correct font selection for a given context. Examples in East Asian languages (such as Chinese, Japanese, or Korean) or in the Arabic script can sometimes require greater care in choosing a language tag.</p>
+
+<p>Short sequences of characters should list the character names, separated by <span class="codepoint" translate="no">+</span>.
+
+<aside class="example" title="Example of a code point sequence">
+	<p>This example: <span class="codepoint" translate="no"><bdi lang="hi">&#x0928&#x093f;</bdi><span class="uname">U+0928 DEVANAGARI LETTER NA</span> + <span class="uname">U+093F  DEVANAGARI VOWEL SIGN I</span></span> uses the following markup:</p>
+
+<pre>
+&lt;span class="codepoint" translate="no">
+  &lt;bdi lang="hi">&amp;#x0928;&amp;#x093f;&lt;/bdi>&lt;span class="uname">U+0928 DEVANAGARI LETTER NA&lt;/span> + 
+  &lt;span class="uname">U+093F DEVANAGARI VOWEL SIGN I&lt;/span>
+&lt;/span>
+</pre>	
+
+</aside>
+
+<p>Long sequences will sometimes just list the code points, although the character names should be retained where possible for clarity. An example can be found in this document in the <a href="#char_term_def">discussion of the composed "family" emoji</a>: <span class="codepoint"><bdi lang="en">👨‍👩‍👧‍👧</bdi><span class="uname">U+1F468 U+200D U+1F469 U+200D U+1F467 U+200D U+1F467</span></span></p>
 
 
 </section>
@@ -2771,6 +2776,41 @@ just as characters are the basic unit of organization of encoded text.</p>
 	</div>
 </section>
 
+<section id="strcat" class="subtopic">
+<h3>Concatenation of strings</h3>
+
+<p class="reviewComments"><a href="https://github.com/w3c/i18n-activity/labels/t%3Astrcat" target="_blank">See related review comments.</a></p>
+
+<div class="req" id="strcat_anti_pattern">
+	<p class="advisement">Specifications SHOULD NOT require the concatenation of string values to form [=natural language=] or displayable string values.</p>
+</div>
+
+<p>Creation of [=natural language=] text values by concatenating multiple strings together is an internationalization anti-pattern. Languages vary greatly in word order, count, grammatical gender or case, punctuation, and many other requirements. As a result, avoid requiring or suggesting that implementations generate human-readable messages from sub-strings.</p>
+
+<div class="xref"><span class="seealso">See also</span>
+   <p><cite><a href="https://www.w3.org/International/articles/composite-messages/index.en.html">Working with Composite Messages</a></cite></p>
+</div>
+
+<div class="req" id="bidi_gen_advice">
+	<p class="advisement">When a specification requires an implementation to create or generate text which will be displayed to users, the specification SHOULD provide implementers with guidance on how to avoid potential problems related to text direction.</p>
+</div>
+
+<p>Specifications for APIs, protocols, or document formats sometimes require an implementation to create or provide a field containing a display name or description. When such a string is assembled from separate parts, it can result in problems with presentation or understanding due to the way that the <cite>Unicode Bidirectional Algorithm</cite> [[UAX9]] processes the assembled string. In such cases, the specification should guide implementers about how to create values that will display properly.</p>
+
+<aside class="example" title="Example of bidi generation guidance">
+	<p>Here is an example of a Note that you can include in your specification when recommending that implementations generate displayable [=natural language=] values:</p>
+	<div class="note" role="note" id="bidi-gen-note-example">
+	   <p class="example_note">When generating a value for <em><code>_field_name_</code></em>, [=producers=] need to ensure that directional changes <em>inside</em> the string will display correctly. When a [=producer=] assembles the value from multiple strings, individual substrings might need to be [=bidi isolated=] in order to prevent [=spillover=] effects. This can be done using markup (where available) or via the insertion of Unicode bidirectional controls. In addition, if the [=producer=] can supply the correct base direction as metadata, it allows the [=consumer=] to both isolate the string and set its direction, avoiding [=spillover=] effects between the full string and the context in which it is eventually displayed.  For more information see: <a href="https://www.w3.org/International/questions/qa-bidi-unicode-controls"><cite>How to use Unicode controls for bidi text</cite></a> and <a href="https://www.w3.org/TR/international-specs/#inline_changes">Inlines changes to base direction</a> [[INTERNATIONAL-SPECS]].</p>
+	</div>
+</aside>
+
+<div class="xref"><span class="seealso">See also</span>
+<p>[[[#inline_changes]]]</p>
+<p>[[[#bidi_inline]]]</p>
+</div>
+
+</section>
+
 <section id="file_naming" class="subtopic">
 <h3>Working with file and path names</h3>
 
@@ -2795,26 +2835,26 @@ just as characters are the basic unit of organization of encoded text.</p>
 	<p class="advisement">File name and path name definitions MUST NOT use the following Unicode code points.</p>
 	<p>These characters are known to cause interoperability problems with various file systems. Specifications and implementations should use an abundance of caution in their file naming when interoperability of content is key. The list of restricted characters is intended to help avoid some known problem areas, but it does not ensure that all other Unicode characters are supported.</p>
 	<ul>
-		<li><span class="codepoint"><span>"</span> [<span class="uname">U+0022 QUOTATION MARK</span>]</span></li>
-		<li><span class="codepoint"><span>*</span> [<span class="uname">U+002A ASTERISK</span>]</span></li>
-		<li><span class="codepoint"><span>/</span> [<span class="uname">U+002F SOLIDUS</span>]</span></li>
-		<li><span class="codepoint"><span>:</span> [<span class="uname">U+003A COLON</span>]</span></li>
-		<li><span class="codepoint"><span>&lt;</span> [<span class="uname">U+003C LESS-THAN SIGN</span>]</span></li>
-		<li><span class="codepoint"><span>&gt;</span> [<span class="uname">U+003E GREATER-THAN SIGN</span>]</span></li>
-		<li><span class="codepoint"><span>\</span> [<span class="uname">U+005C REVERSE SOLIDUS</span>]</span></li>
-		<li><span class="codepoint"><span>|</span> [<span class="uname">U+007C VERTICAL LINE</span>]</span></li>
+		<li><span class="codepoint"><bdi>"</bdi><span class="uname">U+0022 QUOTATION MARK</span></span></li>
+		<li><span class="codepoint"><bdi>*</bdi><span class="uname">U+002A ASTERISK</span></span></li>
+		<li><span class="codepoint"><bdi>/</bdi><span class="uname">U+002F SOLIDUS</span></span></li>
+		<li><span class="codepoint"><bdi>:</bdi><span class="uname">U+003A COLON</span></span></li>
+		<li><span class="codepoint"><bdi>&lt;</bdi><span class="uname">U+003C LESS-THAN SIGN</span></span></li>
+		<li><span class="codepoint"><bdi>&gt;</bdi><span class="uname">U+003E GREATER-THAN SIGN</span></span></li>
+		<li><span class="codepoint"><bdi>\</bdi><span class="uname">U+005C REVERSE SOLIDUS</span></span></li>
+		<li><span class="codepoint"><bdi>|</bdi><span class="uname">U+007C VERTICAL LINE</span></span></li>
 		<li><span class="codepoint"><span class="uname">U+007F DEL</span></span></li>
 		<li>Codepoints in the following ranges:
 		   <ul>
-			   <li>C0 Controls [<span class="uname">U+0000</span>...<span class="uname">U+001F</span>]</li>
-			   <li>C1 Controls [<span class="uname">U+0080</span>...<span class="uname">U+009F</span>]</li>
-			   <li>Private Use [<span class="uname">U+E000</span>...<span class="uname">U+F8FF</span>]</li>
-			   <li>Specials [<span class="uname">U+FFF0</span>...<span class="uname">U+FFFF</span>]</li>
-			   <li>Supplementary Private Use [<span class="uname">U+F0000</span>...<span class="uname">U+FFFFF</span>]</li>
-			   <li>Supplementary Private Use [<span class="uname">U+100000</span>...<span class="uname">U+10FFFF</span>]</li>
+			   <li>C0 Controls <span class="uname">U+0000</span>...<span class="uname">U+001F</span></li>
+			   <li>C1 Controls <span class="uname">U+0080</span>...<span class="uname">U+009F</span></li>
+			   <li>Private Use <span class="uname">U+E000</span>...<span class="uname">U+F8FF</span></li>
+			   <li>Specials <span class="uname">U+FFF0</span>...<span class="uname">U+FFFF</span></li>
+			   <li>Supplementary Private Use <span class="uname">U+F0000</span>...<span class="uname">U+FFFFF</span></li>
+			   <li>Supplementary Private Use <span class="uname">U+100000</span>...<span class="uname">U+10FFFF</span></li>
 		   </ul></li>
 
-		<li><span class="codepoint"><span>.</span> [<span class="uname">U+002E FULL STOP</span>]</span> as the last character (Note that this includes the file names <code>.</code> and <code>..</code>, which have special meaning to many file systems)</li><!-- break out -->
+		<li><span class="codepoint"><bdi>.</bdi><span class="uname">U+002E FULL STOP</span></span> as the last character (Note that this includes the file names <code>.</code> and <code>..</code>, which have special meaning to many file systems)</li><!-- break out -->
 
 		<li>All Unicode non-character code points, specifically:
 		<ul>
@@ -2844,7 +2884,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 </ul>
 </aside>
 
-    <p>Applications often need to organize sets of information or content. Frequently this involves sorting the content. Many data types, such as numbers or dates, are easily sorted by comparing the values. When it comes to textual information, however, the nature of character encodings and user expectations regarding "alphabetical" order brings some additional complexity.</p>
+    <p>Applications often need to organize sets of information or content. Frequently this involves sorting the content. Many non-textual data types, such as numbers or dates, can be easily sorted using the internal data representation. When it comes to textual information, however, the nature of character encodings and user expectations regarding "alphabetical" order brings some additional complexity.</p>
     
     <p>One key choice is whether the sorting of textual data will be strictly internal or whether the results will be shown to users.</p>
     
@@ -2864,7 +2904,7 @@ just as characters are the basic unit of organization of encoded text.</p>
     <p>Sorting by [=code point=] makes sense when strings are stored and processed as a sequence of code points, such as in a <a href="https://webidl.spec.whatwg.org/#idl-USVString">USVString</a>. Sorting by [=code unit=] makes sense when strings are stored and processed using the underlying encoding, such as in a <a href="https://webidl.spec.whatwg.org/#idl-DOMString">DOMString</a>.</p>
     
     <aside class="example" title="Code point vs. code unit ordering">
-		<p>Consider two strings, one containing <span class="codepoint" translate="no"><bdi lang="ja">&#x1f63a;</bdi> [<span class="uname">U+1F63A SMILING CAT FACE WITH OPEN MOUTH</span>]</span> and the other containing <span class="codepoint" translate="no"><bdi lang="ja">&#xff5e;</bdi> [<span class="uname">U+FF5E FULL WIDTH TILDE</span>]</span>.</p>
+		<p>Consider two strings, one containing <span class="codepoint" translate="no"><bdi lang="ja">&#x1f63a;</bdi><span class="uname">U+1F63A SMILING CAT FACE WITH OPEN MOUTH</span></span> and the other containing <span class="codepoint" translate="no"><bdi lang="ja">&#xff5e;</bdi><span class="uname">U+FF5E FULL WIDTH TILDE</span></span>.</p>
 		
 		<p>In ascending <em>code point order</em>, the strings sort like:</p>
 <pre>
@@ -2883,7 +2923,7 @@ just as characters are the basic unit of organization of encoded text.</p>
     <p>Neither of these sort orders applies any type of normalization to the strings being compared. This means that some apparently equivalent strings compare as different. See <cite>String Matching</cite> [[CHARMOD-NORM]] for more information.</p>
     
     <aside class="example">
-		<p>Consider two strings, <em>A</em> and <em>B</em>. String A consists of <span class="codepoint" translate="no"><bdi lang="en">&#xC7;</bdi> [<span class="uname">U+00C7 LATIN CAPITAL LETTER C WITH CEDILLA</span>]</span>. String B consists of the sequence <span class="codepoint" translate="no"><bdi lang="en">&#x43;</bdi> [<span class="uname">U+0043 LATIN CAPITAL LETTER C</span>]</span> followed by <span class="codepoint" translate="no"><bdi lang="en">&#x327;</bdi> [<span class="uname">U+0327 COMBINING CEDILLA</span>]</span>. These strings are visually identical. Applying Unicode Normalization Form C or Form D to both would cause them to use the same code point (and thus code unit) sequences. However, they compare differently because <code>0x00C7</code> is greater than <code>0x0043</code>:</p>
+		<p>Consider two strings, <em>A</em> and <em>B</em>. String A consists of <span class="codepoint" translate="no"><bdi lang="en">&#xC7;</bdi><span class="uname">U+00C7 LATIN CAPITAL LETTER C WITH CEDILLA</span></span>. String B consists of the sequence <span class="codepoint" translate="no"><bdi lang="en">&#x43;</bdi><span class="uname">U+0043 LATIN CAPITAL LETTER C</span></span> followed by <span class="codepoint" translate="no"><bdi lang="en">&#x327;</bdi><span class="uname">U+0327 COMBINING CEDILLA</span></span>. These strings are visually identical. Applying Unicode Normalization Form C or Form D to both would cause them to use the same code point (and thus code unit) sequences. However, they compare differently because <code>0x00C7</code> is greater than <code>0x0043</code>:</p>
         <table>
 			<thead>
 				<tr>
@@ -2923,7 +2963,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 	</details>
 	</div>
 	
-	<p>Languages and cultures vary in how they sort text or use their alphabet or writing system to organize textual data. For example, German language speakers treat the letter <span class="codepoint" translate="no"><bdi lang="de">&#xFC;</bdi> [<span class="uname">U+00FC LATIN SMALL LETTER U WITH DIAERISIS</span>]</span> as sorting similar to the letter <strong>u</strong> (there are actually <em>two</em> German sorting sequences, which are slightly different in the exact handling of this letter), while Danish language speakers treat the same letter as separate in the alphabet and sort it after the letter "y".</p>
+	<p>Languages and cultures vary in how they sort text or use their alphabet or writing system to organize textual data. For example, German language speakers treat the letter <span class="codepoint" translate="no"><bdi lang="de">&#xFC;</bdi><span class="uname">U+00FC LATIN SMALL LETTER U WITH DIAERISIS</span></span> as sorting similar to the letter <strong>u</strong> (there are actually <em>two</em> German sorting sequences, which are slightly different in the exact handling of this letter), while Danish language speakers treat the same letter as separate in the alphabet and sort it after the letter "y".</p>
 	
 	<p>Determining which locale to use for a sorted list can depend on a number of factors. For example, an application might sort a list of values according to the localization of the page in which the data appears. In other cases it might make more sense to sort according to the runtime locale of the user-agent or according to some parameter passed in an API. The important thing to recognize is that this order might be different for different users or on different systems.</p>
 		
@@ -2949,11 +2989,15 @@ just as characters are the basic unit of organization of encoded text.</p>
 	</details>
 	</div>
 -->
+    </section>
+    <section id="string-search" class="subtopic">
+		<h4>Searching</h4>
 
-	<aside class="warning" id="find-is-hard" title="String search is hard">
+	<aside class="warning" id="find-is-hard" title="Under construction">
 		<p>Searching text is a complex topic and this document does not currently contain a complete list of recommendations and best practices. The Internationalization Working Group has compiled a list of just a <em>few</em> of the issues involved as part of on-going work to document this space in our document <cite><a href="https://w3c.github.io/string-search">String Searching</a></cite>.</p>
 	</aside>
-</section>
+	</section>
+
 </section>
 </section>
 
@@ -3747,7 +3791,7 @@ PCENChar ::=
 	</details>
 	</div>
 
-<p>This ensures that names are correctly handled for people such as Dina Asher-Smith and Christopher O'Connell.  Note that the apostrophe may appear as <span class="codepoint" translate="no"><bdi lang="en">&#x0027;</bdi> [<span class="uname">U+0027 APOSTROPHE</span>]</span> or as <span class="codepoint" translate="no"><bdi lang="en">&#x02BC;</bdi> [<span class="uname">U+02BC MODIFIER LETTER APOSTROPHE</span>]</span>, or perhaps even <span class="codepoint" translate="no"><bdi lang="en">&#x2019;</bdi> [<span class="uname">U+2019 RIGHT SINGLE QUOTATION MARK</span>]</span>.  A hyphen may be represented using <span class="codepoint" translate="no"><bdi lang="en">&#x002D;</bdi> [<span class="uname">U+002D HYPHEN-MINUS</span>]</span> or <span class="codepoint" translate="no"><bdi lang="en">&#x2010;</bdi> [<span class="uname">U+2010 HYPHEN</span>]</span> or, in Japan, <span class="codepoint" translate="no"><span lang="ja">&#x30A0;</span> [<span class="uname">U+30A0 KATAKANA-HIRAGANA DOUBLE HYPHEN</span>]</span>.</p>
+<p>This ensures that names are correctly handled for people such as Dina Asher-Smith and Christopher O'Connell.  Note that the apostrophe may appear as <span class="codepoint" translate="no"><bdi lang="en">&#x0027;</bdi><span class="uname">U+0027 APOSTROPHE</span></span> or as <span class="codepoint" translate="no"><bdi lang="en">&#x02BC;</bdi><span class="uname">U+02BC MODIFIER LETTER APOSTROPHE</span></span>, or perhaps even <span class="codepoint" translate="no"><bdi lang="en">&#x2019;</bdi><span class="uname">U+2019 RIGHT SINGLE QUOTATION MARK</span></span>.  A hyphen may be represented using <span class="codepoint" translate="no"><bdi lang="en">&#x002D;</bdi><span class="uname">U+002D HYPHEN-MINUS</span></span> or <span class="codepoint" translate="no"><bdi lang="en">&#x2010;</bdi><span class="uname">U+2010 HYPHEN</span></span> or, in Japan, <span class="codepoint" translate="no"><span lang="ja">&#x30A0;</span><span class="uname">U+30A0 KATAKANA-HIRAGANA DOUBLE HYPHEN</span></span>.</p>
 <div class="req" id="loc_names_uppercase">
 <p class="advisement">Don't require names to be entered all in upper case.</p>
 <details class="links"><summary>source</summary>
@@ -3939,7 +3983,7 @@ PCENChar ::=
     <td>mi
 <tr>
     <td>Asahi</td>
-    <td jang="ja">朝陽</td>
+    <td lang="ja">朝陽</td>
     <td>m</td>
     <td>East Asia; Japan</td>
     <td>ja
