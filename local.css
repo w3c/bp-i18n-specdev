@@ -145,11 +145,13 @@ a.termref:active {
 	}
 
 .codepoint bdi {
+    line-height: 1em;
     font-size: 130%;
     margin-inline: 0.25em;
 }
 
 .uname {
+    font-family: Arial, monospaced;
 	font-size: 85%;
 	letter-spacing: 0.03em;
 	color: teal;
