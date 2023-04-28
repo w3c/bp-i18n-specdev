@@ -198,7 +198,7 @@
   
   
    	<div class="req" id="lang_basics_meta">
-	<p class="advisement">Consider whether it is useful to express the <a href="https://w3c.github.io/bp-i18n-specdev/#sec_lang_meta">intended linguistic audience</a> of a resource, in addition to specifying the language used for <a href="https://w3c.github.io/bp-i18n-specdev/#sec_text_processing_lang">text processing</a>.</p>
+	<p class="advisement">Consider whether it is useful to express the <a href="#sec_lang_meta">intended linguistic audience</a> of a resource, in addition to specifying the language used for <a href="#sec_text_processing_lang">text processing</a>.</p>
 	<details class="links"><summary>more</summary>
 		<p><a href="https://www.w3.org/International/questions/qa-text-processing-vs-metadata">Types of language declaration</a></p>
 	</details>
@@ -221,7 +221,7 @@
     <p>It is normal to express a text-processing language as the default language, for processing the resource as a whole, but it may also be necessary to indicate where the language changes within the resource.</p>
 
    	<div class="req" id="lang_attribute_xml">
-	<p class="advisement">Use the HTML <code class="kw" translate="no">lang</code> and XML <code class="kw" translate="no">xml:lang</code> language attributes where appropriate to identify the <a href="https://w3c.github.io/bp-i18n-specdev/#sec_text_processing_lang">text processing language</a>, rather than creating a new attribute or mechanism.</p>
+	<p class="advisement">Use the HTML <code class="kw" translate="no">lang</code> and XML <code class="kw" translate="no">xml:lang</code> language attributes where appropriate to identify the <a href="#sec_text_processing_lang">text processing language</a>, rather than creating a new attribute or mechanism.</p>
 	</div>
   
     To identify the text-processing language for a range of text, HTML provides the <code class="kw" translate="no">lang</code> attribute, while XML provides <code class="kw" translate="no">xml:lang</code> which can be used in all XML formats. It's useful to continue using those attributes for relevant markup formats, since authors recognize them, as do HTML and XML processors.
@@ -714,7 +714,7 @@
  	<div class="req" id="bidi_lang">
 	<p class="advisement">Do not assume that direction can be determined from language information.</p>
 	<details class="links"><summary>more</summary>
-	<p><a href="https://w3c.github.io/i18n-drafts/questions/qa-direction-from-language.html">Can we derive base direction from language?</a>, W3C article.</p>
+	<p><a href="https://www.w3.org/International/questions/qa-direction-from-language">Can we derive base direction from language?</a>, W3C article.</p>
 	</details>
 	</div>
 
@@ -849,18 +849,18 @@
 <section id="bidi_strings" class="subtopic">
 <h3>Handling base direction for strings</h3>
 
-<p class="note">The information in this section is pulled from <a href="https://w3c.github.io/string-meta/">Requirements for Language and Direction Metadata in Data Formats</a>. That document is still being written, so these guidelines are likely to change at any time.</p>
+<p class="note">The information in this section is pulled from <a href="https://www.w3.org/TR/string-meta/">Strings on the Web: Language and Direction Metadata</a>. That document is still being written, so these guidelines are likely to change at any time.</p>
 
 <p class="reviewComments"><a href="https://github.com/w3c/i18n-activity/labels/t%3Abidi_strings" target="_blank">See related review comments.</a></p>
 
 <aside class="links" id="links_bidi_strings">
 <p class="links_title">Useful background and overviews for this section</p>
 <ul>
-<li class="w3"><p class="link"><a href="https://w3c.github.io/string-meta/">Strings on the Web: Language and Direction Metadata</a>.</p>
+<li class="w3"><p class="link"><a href="https://www.w3.org/TR/string-meta/">Strings on the Web: Language and Direction Metadata</a>.</p>
 	<ul>
-	<li class="w3"><p class="link"><a href="https://w3c.github.io/string-meta/#bp_and-reco">Best Practices, Recommendations, and Gaps</a>.</p></li>
-	<li class="w3"><p class="link"><a href="https://w3c.github.io/string-meta/#use_cases">Requirements and Use Cases</a>.</p></li>
-	<li class="w3"><p class="link"><a href="https://w3c.github.io/string-meta/#bidi-approaches">Approaches Considered for Identifying the Base Direction</a>.</p></li>
+	<li class="w3"><p class="link"><a href="https://www.w3.org/TR/string-meta/#bp_and-reco">Best Practices, Recommendations, and Gaps</a>.</p></li>
+	<li class="w3"><p class="link"><a href="https://www.w3.org/TR/string-meta/#use_cases">Requirements and Use Cases</a>.</p></li>
+	<li class="w3"><p class="link"><a href="https://www.w3.org/TR/string-meta/#bidi-approaches">Approaches Considered for Identifying the Base Direction</a>.</p></li>
 	</ul>
 </li>
 </ul>
@@ -872,42 +872,42 @@
 	<div class="req" id="bidi_strings_metadata">
 	<p class="advisement">Provide metadata constructs that can be used to indicate the base direction of any <a>natural language</a> string.</p>
 	<details class="links"><summary>more</summary>
-	<p><a href="https://w3c.github.io/string-meta/#bp_and-reco">Best Practices, Recommendations, and Gaps</a>, in <cite>Strings on the Web: Language and Direction Metadata</cite></p>
+	<p><a href="https://www.w3.org/TR/string-meta/#bp_and-reco">Best Practices, Recommendations, and Gaps</a>, in <cite>Strings on the Web: Language and Direction Metadata</cite></p>
 	</details>
 	</div>
 
 	<div class="req" id="bidi_strings_heuristics">
 	<p class="advisement">Specify that consumers of strings should use  heuristics, preferably based on the Unicode Standard first-strong algorithm, to detect the base direction of a string except where metadata is provided.</p>
 	<details class="links"><summary>more</summary>
-	<p><a href="https://w3c.github.io/string-meta/#bp_and-reco">Best Practices, Recommendations, and Gaps</a>, in <cite>Strings on the Web: Language and Direction Metadata</cite></p>
+	<p><a href="https://www.w3.org/TR/string-meta/#bp_and-reco">Best Practices, Recommendations, and Gaps</a>, in <cite>Strings on the Web: Language and Direction Metadata</cite></p>
 	</details>
 	</div>
 
 	<div class="req" id="bidi_strings_default">
 	<p class="advisement">Where possible, define a field to  indicate the default direction for all strings in a given resource or document.</p>
 	<details class="links"><summary>more</summary>
-	<p><a href="https://w3c.github.io/string-meta/#bp_and-reco">Best Practices, Recommendations, and Gaps</a>, in <cite>Strings on the Web: Language and Direction Metadata</cite></p>
+	<p><a href="https://www.w3.org/TR/string-meta/#bp_and-reco">Best Practices, Recommendations, and Gaps</a>, in <cite>Strings on the Web: Language and Direction Metadata</cite></p>
 	</details>
 	</div>
 
 	<div class="req" id="bidi_strings_metadata_and_default">
 	<p class="advisement">Do NOT assume that a creating a document-level default without the ability to change direction for any string is sufficient.</p>
 	<details class="links"><summary>more</summary>
-	<p><a href="https://w3c.github.io/string-meta/#bp_and-reco">Best Practices, Recommendations, and Gaps</a>, in <cite>Strings on the Web: Language and Direction Metadata</cite></p>
+	<p><a href="https://www.w3.org/TR/string-meta/#bp_and-reco">Best Practices, Recommendations, and Gaps</a>, in <cite>Strings on the Web: Language and Direction Metadata</cite></p>
 	</details>
 	</div>
 
 	<div class="req" id="bidi_strings_script_tag">
 	<p class="advisement">If metadata is not available due to legacy implementations and cannot otherwise be provided, specifications MAY allow a base direction to be interpolated from available language metadata.</p>
 	<details class="links"><summary>more</summary>
-	<p><a href="https://w3c.github.io/string-meta/#bp_and-reco">Best Practices, Recommendations, and Gaps</a>, in <cite>Strings on the Web: Language and Direction Metadata</cite></p>
+	<p><a href="https://www.w3.org/TR/string-meta/#bp_and-reco">Best Practices, Recommendations, and Gaps</a>, in <cite>Strings on the Web: Language and Direction Metadata</cite></p>
 	</details>
 	</div>
 
 	<div class="req" id="bidi_strings_paired_controls">
 	<p class="advisement">Specifications MUST NOT require the production or use of paired bidi controls.</p>
 	<details class="links"><summary>more</summary>
-	<p><a href="https://w3c.github.io/string-meta/#bp_and-reco">Best Practices, Recommendations, and Gaps</a>, in <cite>Strings on the Web: Language and Direction Metadata</cite></p>
+	<p><a href="https://www.w3.org/TR/string-meta/#bp_and-reco">Best Practices, Recommendations, and Gaps</a>, in <cite>Strings on the Web: Language and Direction Metadata</cite></p>
 	</details>
 	</div>
 
@@ -3278,7 +3278,7 @@ PCENChar ::=
 <aside class="links" id="links_text_decoration">
 <p class="links_title">Useful background and overviews for this section</p>
 <ul>
-<li class="w3"><p class="link"><a href="https://w3c.github.io/typography/#text_decoration">Text decoration</a>, in the Language enablement index.</p></li>
+<li class="w3"><p class="link"><a href="https://www.w3.org/TR/typography/#text_decoration">Text decoration</a>, in the Language enablement index.</p></li>
 </ul>
 </aside>
 
@@ -3307,7 +3307,7 @@ PCENChar ::=
 <aside class="links" id="links_vertical">
 <p class="links_title">Useful background and overviews for this section</p>
 <ul>
-<li class="w3"><p class="link"><a href="https://w3c.github.io/typography/#vertical_text">Vertical text</a>, in the Language enablement index.</p></li>
+<li class="w3"><p class="link"><a href="https://www.w3.org/TR/typography/#vertical_text">Vertical text</a>, in the Language enablement index.</p></li>
 </ul>
 </aside>
 
@@ -3369,7 +3369,7 @@ PCENChar ::=
 <aside class="links" id="links_cursive">
 <p class="links_title">Useful background and overviews for this section</p>
 <ul>
-<li class="w3"><p class="link"><a href="https://w3c.github.io/typography/#cursive">Cursive text</a>, in the Language enablement index.</p></li>
+<li class="w3"><p class="link"><a href="https://www.w3.org/TR/typography/#cursive">Cursive text</a>, in the Language enablement index.</p></li>
 </ul>
 </aside>
 
@@ -3412,8 +3412,9 @@ PCENChar ::=
 <aside class="links" id="links_ruby">
 <p class="links_title">Useful background and overviews for this section</p>
 <ul>
-<li class="w3"><p class="link"><a href="https://w3c.github.io/typography/#cursive">What is ruby?</a>, W3C article.</p></li>
-<li class="w3"><p class="link"><a href="https://w3c.github.io/typography/#inline_notes">Ruby</a>, in the Language enablement index.</p></li>
+<li class="w3"><p class="link"><a href="https://www.w3.org/International/questions/qa-ruby">What is ruby?</a>, W3C article.</p></li>
+<li class="w3"><p class="link"><a href="https://www.w3.org/TR/typography/#inline_notes">Inline notes & annotations
+</a>, in the Language enablement index.</p></li>
 </ul>
 </aside>
 
