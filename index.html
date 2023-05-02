@@ -3325,10 +3325,14 @@ PCENChar ::=
 	</div>
 
   	<div class="req" id="vertical_utr50">
-	<p class="advisement">Vertical writing modes that are equivalent to the <code class="kw" translate="no">vertical-</code> values in CSS (only) should use UTR50 to apply default text orientation of characters. (This does not apply to writing modes that are equivalent to <code class="kw" translate="no">sideways-</code> in CSS.)</p>
+	<p class="advisement">Vertical writing modes that are equivalent to the <code class="kw" translate="no">vertical-</code> values in CSS (only) should use [[UTR50]] to apply default text orientation of characters. (This does not apply to writing modes that are equivalent to <code class="kw" translate="no">sideways-</code> in CSS.)</p>
 	</div>
 
-  	<div class="req" id="vertical_upright">
+	<div class="req" id="vertical_sideways">
+	<p class="advisement">Writing modes should provide values like <code class="kw" translate="no">sideways-lr</code> and <code class="kw" translate="no">sideways-rl</code> in CSS to allow for vertical rotation of  lines of horizontal script text. UTR50 is not applicable for these cases.</p>
+	</div>
+
+	<div class="req" id="vertical_upright">
 	<p class="advisement">By default, glyphs of scripts that are normally horizontal should run along a line in vertical text such that the top of the character is toward the right side of the vertical line, but there should also be a mechanism to allow them to progress down the line in upright orientation. Such a mechanism should use grapheme clusters as a minimum text unit, but where necessary allow syllabic clusters to be treated as a unit when they involve more than one grapheme cluster.</p>
 	</div>
 
@@ -3338,10 +3342,6 @@ PCENChar ::=
 
   	<div class="req" id="vertical_tatechuyoko">
 	<p class="advisement">It should be possible for some sequences of characters (particularly digits) to run horizontally within vertical lines (tate chu yoko).</p>
-	</div>
-
-  	<div class="req" id="vertical_sideways">
-	<p class="advisement">Writing modes should provide values like <code class="kw" translate="no">sideways-lr</code> and <code class="kw" translate="no">sideways-rl</code> in CSS to allow for vertical rotation of  lines of horizontal script text. UTR50 is not applicable for these cases.</p>
 	</div>
 </section>
 
