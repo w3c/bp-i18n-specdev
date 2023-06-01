@@ -2187,6 +2187,15 @@ just as characters are the basic unit of organization of encoded text.</p>
 &lt;span class="uname">U+XXXX Unicode_character_name&lt;/span>&lt;/span>
 </pre>
 
+<p>For combining characters (such as <span class="codepoint" translate="no"><bdi lang="en">&#x25cc;&#x0300;</bdi><span class="uname">U+0300 COMBINING ACCENT GRAVE</span></span>), if the specification uses a font which supports display with a <span class="codepoint" translate="no"><bdi lang="en">&#x25cc;</bdi><span class="uname">U+25CC DOTTED CIRCLE</span></span>, then a dotted circle should be used before the combining character:</p>
+
+<pre>
+&lt;span class="codepoint" translate="no">&lt;bdi lang="en">&amp;#x25cc;&amp;#x0300;&lt;/bdi>
+&lt;span class="uname">U+0300 COMBINING ACCENT GRAVE&lt;/span>&lt;/span>
+</pre>
+
+<p>Otherwise, an image for the combining character should be used.</p>
+
 <p>For invisible characters (such as control characters) or for whitespace, the character and its surrounding <code translate="no" class="kw">bdi</code> element should be omitted:</p>
 
 <pre>
