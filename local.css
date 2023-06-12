@@ -146,7 +146,7 @@ a.termref:active {
 
 .codepoint bdi {
     line-height: 1em;
-    font-size: 130%;
+    font-size: 120%;
     margin-inline: 0.25em;
 }
 
@@ -156,7 +156,7 @@ a.termref:active {
 	letter-spacing: 0.03em;
 	color: brown;
 }
-	
+
 .note {
 	margin-left: 2em;
 	margin-right: 3em;

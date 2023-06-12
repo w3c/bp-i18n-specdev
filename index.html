@@ -36,7 +36,7 @@
       
     </script>
     <!-- local styles for this document -->
-	<style data-include="https://w3c.github.io/bp-i18n-specdev/local.css"></style>
+	<link rel="stylesheet" href="local.css">
   
   <script>// check for changed fragment ids and route to the new id
   var fragid = location.hash
@@ -451,7 +451,7 @@
 <p>In this section we refer to information that needs to be provided for a range of characters in the middle of a paragraph or string.</p>
 
 <div class="xref"><span class="seealso">See also</span>
-<p>[[[#lang_values]]].</p>
+<p>[[[#lang_values]]]</p>
 </div>
 
 
@@ -471,9 +471,81 @@
 
 
 <section id="lang_strings" class="subtopic">
-<h3><em>Identifying the language of strings (TBD)</em></h3>
+<h3>Identifying the language of strings</h3>
+
+<p class="note">The information in this section is being developed in <a href="https://w3c.github.io/string-meta/">Requirements for Language and Direction Metadata in Data Formats</a> [[STRING-META]]. That document is still being written, so these guidelines are likely to change at any time.</p>
+
 
 <p class="reviewComments"><a href="https://github.com/w3c/i18n-activity/labels/t%3Alang_strings_x" target="_blank">See related review comments.</a></p>
+
+<div class="xref"><span class="seealso">See also</span>
+<p>[[[#bidi_strings]]]</p>
+</div>
+
+<div class="note">
+	<p>Work on language and direction metadata for string formats is a work in progress. Specifications might need to include a note indicating the need for future adoption of metadata. Here is a prototype:</p>
+	<p class="example_note">The field <code>{fieldname}</code> should follow the best practices found in <cite>Strings on the Web: Language and Direction Metadata</cite> [[STRING-META]]. This includes making use of any future standards which emerge regarding the reporting of string language and direction metadata.</p>
+</div>
+
+<div class="req" id="bp_lang_field_based_metadata">
+<p class="advisement">Use field-based metadata or string datatypes to indicate the language and the base direction for individual <a>localizable text</a> values.</p>
+</div>
+
+<div class="req" id="bp_default_setting">
+<p class="advisement">Specifications MAY define a mechanism to provide the default language and the default base direction for all strings in a given resource. However, specifications MUST NOT assume that a resource-wide default is sufficient.  Even if a resource-wide setting is available, it must be possible to use string-specific metadata  to override that default.</p>
+</div>
+
+<div class="req" id="bp_default_fallback">
+<p class="advisement">Specify that, in the absence of other information, the default direction and default language are unknown.</p>
+</div>
+
+<div class="req" id="bp_separate_localizable">
+<p class="advisement">Specifications SHOULD be careful to distinguish <a>syntactic content</a>, including <a>user-supplied values</a>, from <a>localizable text</a>.</p>
+</div>
+
+<div class="req" id="bp_non_displayable_syntactic">
+<p class="advisement">Specifications MUST NOT treat <a>syntactic content</a> values as "displayable".</p>
+</div>
+
+<div class="req" id="bp-do_not_use_language_non_data">
+	<p class="advisement">Specifications SHOULD NOT specify or require the use of language metadata for fields that cannot contain natural language text.</p>
+</div>
+
+<div class="req" id="bp_use_jsonld_language_context">
+<p class="advisement">For documents that use [[JSON-LD]], use of [[JSON-LD]] <code class="kw" translate="no">@context</code> and the built-in <code class="kw" translate="no">@language</code> attribute is RECOMMENDED as a document level default.</p>
+</div>
+
+<div class="req" id="bp-use_jsonld_i18n_namespace">
+	<p class="advisement">Specifications SHOULD use the <code class="kw" translate="no">i18n</code> Namespace feature for RDF literals, as defined in [[JSON-LD]] 1.1.</p>
+</div>
+
+<div class="req" id="bp_use_jsonld_atsign">
+<p class="advisement">Where the <code class="kw" translate="no">i18n</code> Namespace is not available or is inappropriate to use, specifications SHOULD require [[JSON-LD]] plain string literals for natural language values to provide string-specific language information.</p>
+</div>
+
+<!-- The following is in String-Meta but probably not appropriate for us to include here yet.
+<div class="req" id="bp_localizable">
+<p class="advisement">For [[WebIDL]]-defined data structures, define each <a>localizable text</a> (natural language text) field as a <q><a>Localizable</a></q>.</p>
+</div>
+-->
+
+<div class="req" id="bp_legacy_fmt_nonlang">
+   <p class="advisement">For string values and string fields that are <em>not</em> <a>localizable text</a>, specifications SHOULD specify that the field is non-linguistic in nature and recommend the language tag <code class="kw" translate="no">zxx</code> ("No linguistic content") be associated with each string value.</p>
+</div>
+
+<div class="req" id="bp_legacy_fmt_lang_unknown">
+	<p class="advisement">For string values and string fields that are known to contain <a>localizable text</a> but for which there is no possibility of language metadata from the underlying format, specifications SHOULD specify that the language of the content is unknown and recommend the language tag <code class="kw" translate="no">und</code> ("Undetermined") be associated with each string. Specifications MAY also allow the use of heuristics or the inference of the language from other field values where appropriate.</p>
+</div>
+
+<p>Some string values depend on or are defined by existing protocols or formats. Often these strings are not associated with or do not provide language or direction metadata. For example, many HTTP headers define their contents as if they were not <a>localizable text</a>, even when, in some cases, they contain natural language text. Consuming specifications sometimes need to take a dependency on strings of this nature or define a format that describes one of these strings. In these cases there will be no language or direction metadata for <a>consumers</a> to associate with the string in the specification's data structure or document format, and any metadata that the specification's data structure or document format provides (when functioning as a <a>producer</a>) will not be serialized through the underlying format.</p>
+
+<div class="req" id="bp_unicode_tag_chars_nonuse">
+<p class="advisement">Specifications SHOULD NOT use the Unicode "language tag" characters (code points <code>U+E0000</code> to <code>U+E007F</code>) for language identification.</p>
+</div>
+
+<div class="req" id="bp_language_indexing">
+<p class="advisement">Specifications SHOULD recommend the use of language indexing when localizable strings can be supplied in multiple languages for the same value.</p>
+</div>
 </section>
 
 
