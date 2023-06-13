@@ -547,7 +547,9 @@
 <p class="advisement">Specifications SHOULD recommend the use of <a>language indexing</a> when localizable strings can be supplied in multiple languages for the same value.</p>
 </div>
 
-<p><a>Producers</a> sometimes need to supply localized values for a given content item or data record. Sometimes this is done by <a>language negotiation</a> between the <a>producer</a> and <a>consumer</a>, with localization taking place in the <a>producer</a>. Other times this is done by having the <a>producer</a> return multiple language representations for a given data time and letting the <a>consumer</a> choose the display value. This latter process is called <dfn>language indexing</dfn>. For more information about language indexing, see <a href="https://www.w3.org/TR/string-meta#localization-considerations"><cite>Localization Considerations</cite></a> in [[STRING-META]].</p>
+<p><a>Producers</a> sometimes need to supply <a>localized</a> values for a given content item or data record. Sometimes this is done by <a>language negotiation</a> between the <a>producer</a> and <a>consumer</a>. Localization then takes place in the <a>producer</a> using the negotiated language to select the content returned.</p>
+	
+<p>Other times localization of a content item is done by having the <a>producer</a> return multiple language representations for the item and letting the <a>consumer</a> choose the value to display. This latter process is called <dfn>language indexing</dfn>. For more information about language indexing, see <a href="https://www.w3.org/TR/string-meta#localization-considerations"><cite>Localization Considerations</cite></a> in [[STRING-META]].</p>
 
 </section>
 
