@@ -3356,6 +3356,31 @@ PCENChar ::=
 
 
 
+
+
+
+
+<section id="typ_box_posn" class="subtopic">
+<h3>Setting box positioning coordinates when text direction varies</h3>
+
+  	<div class="req" id="vertical_box_posn">
+	<p class="advisement">Box positioning coordinates must take into account whether the text is horizontal or vertical.</p>
+	</div>
+
+<p>It is typical, when localizing a user interface or web page, to create mirror-images for the RTL and LTR versions. For example, it is likely that a box that appears near the left side of a window containing English content would appear near the right side of the window if the content is Arabic or Hebrew. It should preferably automatic for this to change, based on the base direction of the current context, unless there is a strong reason for using absolute geometry. One way to achieve this is to use keywords such as <code class="kw" translate="no">start</code> and <code class="kw" translate="no">end</code>, rather than <code class="kw" translate="no">left</code> and <code class="kw" translate="no">right</code>, to indicate position.</p>
+  </section>
+
+
+
+<section id="typ_logical" class="subtopic">
+<h3><em>Logical properties (TBD)</em></h3>
+
+<p class="reviewComments"><a href="https://github.com/w3c/i18n-activity/labels/t%3Atyp_logical_x" target="_blank">See related review comments.</a></p>
+</section>
+
+
+
+
 <section id="typ_cursive" class="subtopic">
 <h3>Cursive text</h3>
 
@@ -3377,24 +3402,6 @@ PCENChar ::=
 	<p class="advisement">When adding a text stroke or shadow, joined letters should not be separated from their neighbors in cursive script text.</p>
 	</div>
 </section>
-
-
-
-
-
-
-
-<section id="typ_box_posn" class="subtopic">
-<h3>Setting box positioning coordinates when text direction varies</h3>
-
-  	<div class="req" id="vertical_box_posn">
-	<p class="advisement">Box positioning coordinates must take into account whether the text is horizontal or vertical.</p>
-	</div>
-
-<p>It is typical, when localizing a user interface or web page, to create mirror-images for the RTL and LTR versions. For example, it is likely that a box that appears near the left side of a window containing English content would appear near the right side of the window if the content is Arabic or Hebrew. It should preferably automatic for this to change, based on the base direction of the current context, unless there is a strong reason for using absolute geometry. One way to achieve this is to use keywords such as <code class="kw" translate="no">start</code> and <code class="kw" translate="no">end</code>, rather than <code class="kw" translate="no">left</code> and <code class="kw" translate="no">right</code>, to indicate position.</p>
-  </section>
-
-
 
 
 
@@ -3433,17 +3440,6 @@ PCENChar ::=
    	<div class="req" id="ruby_dblsided">
 	<p class="advisement">Ruby implementations should allow annotations to appear on either or both sides of the base text.</p>
 	</div>
-</section>
-
-
-
-
-
-
-<section id="typ_logical" class="subtopic">
-<h3><em>Logical properties (TBD)</em></h3>
-
-<p class="reviewComments"><a href="https://github.com/w3c/i18n-activity/labels/t%3Atyp_logical_x" target="_blank">See related review comments.</a></p>
 </section>
 
 
