@@ -473,7 +473,7 @@
 <section id="lang_strings" class="subtopic">
 <h3>Identifying the language of strings</h3>
 
-<p class="note">The information in this section is being developed in <a href="https://w3c.github.io/string-meta/">Requirements for Language and Direction Metadata in Data Formats</a> [[STRING-META]]. That document is still being written, so these guidelines are likely to change at any time.</p>
+<p class="note">The information in this section is being developed in <a href="https://www.w3.org/TR/string-meta/">Requirements for Language and Direction Metadata in Data Formats</a> [[STRING-META]]. That document is still being written, so these guidelines are likely to change at any time.</p>
 
 <p>The exchange of data on the Web, to the degree possible, should use <a>locale-neutral</a> standardized formats. However, some data on the Web necessarily consists of <a>natural language</a> information intended for display to humans. This <a>natural language</a> information depends on and benefits from the presence of language and direction metadata for proper display. Along with support for Unicode, mechanisms for including and specifying the base direction and the natural language of spans of text are one of the key internationalization considerations when developing new formats and technologies for the Web.</p>
 
@@ -482,11 +482,11 @@
 <aside class="links" id="lang_strings_links">
 <p class="links_title">Useful background and overviews for this section</p>
 <ul>
-<li class="w3"><p class="link"><a href="https://w3c.github.io/string-meta/">Strings on the Web: Language and Direction Metadata</a>.</p>
+<li class="w3"><p class="link"><a href="https://www.w3.org/TR/string-meta/">Strings on the Web: Language and Direction Metadata</a>.</p>
 	<ul>
-	<li class="w3"><p class="link"><a href="https://w3c.github.io/string-meta/#bp_and-reco">Best Practices, Recommendations, and Gaps</a>.</p></li>
-	<li class="w3"><p class="link"><a href="https://w3c.github.io/string-meta/#use_cases">Requirements and Use Cases</a>.</p></li>
-	<li class="w3"><p class="link"><a href="https://w3c.github.io/string-meta/#bidi-approaches">Approaches Considered for Identifying the Base Direction</a>.</p></li>
+	<li class="w3"><p class="link"><a href="https://www.w3.org/TR/string-meta/#bp_and-reco">Best Practices, Recommendations, and Gaps</a>.</p></li>
+	<li class="w3"><p class="link"><a href="https://www.w3.org/TR/string-meta/#use_cases">Requirements and Use Cases</a>.</p></li>
+	<li class="w3"><p class="link"><a href="https://www.w3.org/TR/string-meta/#bidi-approaches">Approaches Considered for Identifying the Base Direction</a>.</p></li>
 	</ul></p>
 </aside>
 
@@ -949,18 +949,18 @@
 <section id="bidi_strings" class="subtopic">
 <h3>Handling base direction for strings</h3>
 
-<p class="note">The information in this section is pulled from <a href="https://w3c.github.io/string-meta/">Requirements for Language and Direction Metadata in Data Formats</a>. That document is still being written, so these guidelines are likely to change at any time.</p>
+<p class="note">The information in this section is pulled from <a href="https://www.w3.org/TR/string-meta/">Requirements for Language and Direction Metadata in Data Formats</a>. That document is still being written, so these guidelines are likely to change at any time.</p>
 
 <p class="reviewComments"><a href="https://github.com/w3c/i18n-activity/labels/t%3Abidi_strings" target="_blank">See related review comments.</a></p>
 
 <aside class="links" id="links_bidi_strings">
 <p class="links_title">Useful background and overviews for this section</p>
 <ul>
-<li class="w3"><p class="link"><a href="https://w3c.github.io/string-meta/">Strings on the Web: Language and Direction Metadata</a>.</p>
+<li class="w3"><p class="link"><a href="https://www.w3.org/TR/string-meta/">Strings on the Web: Language and Direction Metadata</a>.</p>
 	<ul>
-	<li class="w3"><p class="link"><a href="https://w3c.github.io/string-meta/#bp_and-reco">Best Practices, Recommendations, and Gaps</a>.</p></li>
-	<li class="w3"><p class="link"><a href="https://w3c.github.io/string-meta/#use_cases">Requirements and Use Cases</a>.</p></li>
-	<li class="w3"><p class="link"><a href="https://w3c.github.io/string-meta/#bidi-approaches">Approaches Considered for Identifying the Base Direction</a>.</p></li>
+	<li class="w3"><p class="link"><a href="https://www.w3.org/TR/string-meta/#bp_and-reco">Best Practices, Recommendations, and Gaps</a>.</p></li>
+	<li class="w3"><p class="link"><a href="https://www.w3.org/TR/string-meta/#use_cases">Requirements and Use Cases</a>.</p></li>
+	<li class="w3"><p class="link"><a href="https://www.w3.org/TR/string-meta/#bidi-approaches">Approaches Considered for Identifying the Base Direction</a>.</p></li>
 	</ul>
 </li>
 </ul>
@@ -972,42 +972,42 @@
 	<div class="req" id="bidi_strings_metadata">
 	<p class="advisement">Provide metadata constructs that can be used to indicate the base direction of any <a>natural language</a> string.</p>
 	<details class="links"><summary>more</summary>
-	<p><a href="https://w3c.github.io/string-meta/#bp_and-reco">Best Practices, Recommendations, and Gaps</a>, in <cite>Strings on the Web: Language and Direction Metadata</cite></p>
+	<p><a href="https://www.w3.org/TR/string-meta/#bp_and-reco">Best Practices, Recommendations, and Gaps</a>, in <cite>Strings on the Web: Language and Direction Metadata</cite></p>
 	</details>
 	</div>
 
 	<div class="req" id="bidi_strings_heuristics">
 	<p class="advisement">Specify that consumers of strings should use  heuristics, preferably based on the Unicode Standard first-strong algorithm, to detect the base direction of a string except where metadata is provided.</p>
 	<details class="links"><summary>more</summary>
-	<p><a href="https://w3c.github.io/string-meta/#bp_and-reco">Best Practices, Recommendations, and Gaps</a>, in <cite>Strings on the Web: Language and Direction Metadata</cite></p>
+	<p><a href="https://www.w3.org/TR/string-meta/#bp_and-reco">Best Practices, Recommendations, and Gaps</a>, in <cite>Strings on the Web: Language and Direction Metadata</cite></p>
 	</details>
 	</div>
 
 	<div class="req" id="bidi_strings_default">
 	<p class="advisement">Where possible, define a field to  indicate the default direction for all strings in a given resource or document.</p>
 	<details class="links"><summary>more</summary>
-	<p><a href="https://w3c.github.io/string-meta/#bp_and-reco">Best Practices, Recommendations, and Gaps</a>, in <cite>Strings on the Web: Language and Direction Metadata</cite></p>
+	<p><a href="https://www.w3.org/TR/string-meta/#bp_and-reco">Best Practices, Recommendations, and Gaps</a>, in <cite>Strings on the Web: Language and Direction Metadata</cite></p>
 	</details>
 	</div>
 
 	<div class="req" id="bidi_strings_metadata_and_default">
 	<p class="advisement">Do NOT assume that a creating a document-level default without the ability to change direction for any string is sufficient.</p>
 	<details class="links"><summary>more</summary>
-	<p><a href="https://w3c.github.io/string-meta/#bp_and-reco">Best Practices, Recommendations, and Gaps</a>, in <cite>Strings on the Web: Language and Direction Metadata</cite></p>
+	<p><a href="https://www.w3.org/TR/string-meta/#bp_and-reco">Best Practices, Recommendations, and Gaps</a>, in <cite>Strings on the Web: Language and Direction Metadata</cite></p>
 	</details>
 	</div>
 
 	<div class="req" id="bidi_strings_script_tag">
 	<p class="advisement">If metadata is not available due to legacy implementations and cannot otherwise be provided, specifications MAY allow a base direction to be interpolated from available language metadata.</p>
 	<details class="links"><summary>more</summary>
-	<p><a href="https://w3c.github.io/string-meta/#bp_and-reco">Best Practices, Recommendations, and Gaps</a>, in <cite>Strings on the Web: Language and Direction Metadata</cite></p>
+	<p><a href="https://www.w3.org/TR/string-meta/#bp_and-reco">Best Practices, Recommendations, and Gaps</a>, in <cite>Strings on the Web: Language and Direction Metadata</cite></p>
 	</details>
 	</div>
 
 	<div class="req" id="bidi_strings_paired_controls">
 	<p class="advisement">Specifications MUST NOT require the production or use of paired bidi controls.</p>
 	<details class="links"><summary>more</summary>
-	<p><a href="https://w3c.github.io/string-meta/#bp_and-reco">Best Practices, Recommendations, and Gaps</a>, in <cite>Strings on the Web: Language and Direction Metadata</cite></p>
+	<p><a href="https://www.w3.org/TR/string-meta/#bp_and-reco">Best Practices, Recommendations, and Gaps</a>, in <cite>Strings on the Web: Language and Direction Metadata</cite></p>
 	</details>
 	</div>
 
