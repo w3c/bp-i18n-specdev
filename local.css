@@ -144,19 +144,23 @@ a.termref:active {
 	border-bottom: 1px dotted #FC0; 
 	}
 
-.codepoint bdi {
-    line-height: 1em;
-    font-size: 130%;
-    margin-inline: 0.25em;
-}
+/** Styles to support the mention of Unicode characters and character sequences *****/
+   /* These match the styles in the tr-design stylesheet exactly.  */
 
-.uname {
-    font-family: Arial, monospace;
-	font-size: 85%;
-	letter-spacing: 0.03em;
-	color: brown;
-}
-	
+	.codepoint bdi {
+		line-height: 1em;
+		font-size: 125%;
+		padding-inline: 0.25em;
+	}
+
+	.uname {
+		font-variant: all-small-caps;
+		font-size: 100%;                    
+		letter-spacing: 0.03em;
+		color: brown;
+	}
+/** end of unicode styles */
+
 .note {
 	margin-left: 2em;
 	margin-right: 3em;

@@ -36,7 +36,7 @@
       
     </script>
     <!-- local styles for this document -->
-	<style data-include="https://w3c.github.io/bp-i18n-specdev/local.css"></style>
+	<link rel="stylesheet" href="local.css">
   
   <script>// check for changed fragment ids and route to the new id
   var fragid = location.hash
@@ -451,7 +451,7 @@
 <p>In this section we refer to information that needs to be provided for a range of characters in the middle of a paragraph or string.</p>
 
 <div class="xref"><span class="seealso">See also</span>
-<p>[[[#lang_values]]].</p>
+<p>[[[#lang_values]]]</p>
 </div>
 
 
@@ -471,9 +471,123 @@
 
 
 <section id="lang_strings" class="subtopic">
-<h3><em>Identifying the language of strings (TBD)</em></h3>
+<h3>Identifying the language of strings</h3>
+
+<p class="note">The information in this section is being developed in <a href="https://www.w3.org/TR/string-meta/">Requirements for Language and Direction Metadata in Data Formats</a> [[STRING-META]]. That document is still being written, so these guidelines are likely to change at any time.</p>
+
+<p>The exchange of data on the Web, to the degree possible, should use <a>locale-neutral</a> standardized formats. However, some data on the Web necessarily consists of <a>natural language</a> information intended for display to humans. This <a>natural language</a> information depends on and benefits from the presence of language and direction metadata for proper display. Along with support for Unicode, mechanisms for including and specifying the base direction and the natural language of spans of text are one of the key internationalization considerations when developing new formats and technologies for the Web.</p>
+
 
 <p class="reviewComments"><a href="https://github.com/w3c/i18n-activity/labels/t%3Alang_strings_x" target="_blank">See related review comments.</a></p>
+<aside class="links" id="lang_strings_links">
+<p class="links_title">Useful background and overviews for this section</p>
+<ul>
+<li class="w3"><p class="link"><a href="https://www.w3.org/TR/string-meta/">Strings on the Web: Language and Direction Metadata</a>.</p>
+	<ul>
+	<li class="w3"><p class="link"><a href="https://www.w3.org/TR/string-meta/#bp_and-reco">Best Practices, Recommendations, and Gaps</a>.</p></li>
+	<li class="w3"><p class="link"><a href="https://www.w3.org/TR/string-meta/#use_cases">Requirements and Use Cases</a>.</p></li>
+	<li class="w3"><p class="link"><a href="https://www.w3.org/TR/string-meta/#bidi-approaches">Approaches Considered for Identifying the Base Direction</a>.</p></li>
+	</ul></p>
+</aside>
+
+<div class="xref"><span class="seealso">See also</span>
+<p>[[[#bidi_strings]]].</p>
+</div>
+
+<div class="note">
+	<p>Work on language and direction metadata for string formats is a work in progress. Specifications might need to include a note indicating the need for future adoption of metadata. Here is a prototype:</p>
+	<p class="example_note" style="background-color:white;border:1px solid green;padding:10px">The field <code>{fieldname}</code> should follow the best practices found in <cite>Strings on the Web: Language and Direction Metadata</cite> [[STRING-META]]. This includes making use of any future standards which emerge regarding the reporting of string language and direction metadata.</p>
+</div>
+
+<div class="req" id="bp_lang_field_based_metadata">
+<p class="advisement">Use field-based metadata or string datatypes to indicate the language and the base direction for individual <a>localizable text</a> values.</p>
+</div>
+
+<p>Individual data values can differ in language or direction from other values found in the same data file or document. Providing metadata values directly associated with each <a>localizable text</a> field allows for the metadata to be overridden appropriately and helps applications automate processing when assembling, extracting, forwarding, or otherwise processing each data field for use.</p>
+
+<div class="req" id="bp_default_setting">
+<p class="advisement">Specifications MAY define a mechanism to provide the default language and the default base direction for all strings in a given resource. However, specifications MUST NOT assume that a resource-wide default is sufficient.  Even if a resource-wide setting is available, it must be possible to use string-specific metadata  to override that default.</p>
+</div>
+
+<p>Many documents contain data in a single language. Providing a means of indicating the intended language audience, perhaps in a header, can reduce overall document size and complexity. However, the ability to override specific string values remains important, as it is always possible that some strings might not be available in the document language or when the base direction is not consistent with the default direction of other <a>localizable text</a> values in the document as a whole.</p>
+
+<div class="req" id="bp_default_fallback">
+<p class="advisement">Specify that, in the absence of other information, the default direction and default language are unknown.</p>
+</div>
+
+<div class="req" id="bp_separate_localizable">
+<p class="advisement">Specifications SHOULD be careful to distinguish <a>syntactic content</a>, including <a>user-supplied values</a>, from <a>localizable text</a>.</p>
+</div>
+
+<div class="req" id="bp_non_displayable_syntactic">
+<p class="advisement">Specifications MUST NOT treat <a>syntactic content</a> values as "displayable".</p>
+</div>
+
+<div class="req" id="bp_do_not_use_language_non_data">
+<p class="advisement">Specifications SHOULD NOT specify or require the use of language metadata for fields that cannot contain natural language text.</p>
+</div>
+
+<p>Document formats on the Web consist of text. In most cases, data values in a given document format are meant to be representative and meaningful, not just arbitrary strings. The fact that a data value consists of, for example, an English keyword does not make the data value a <a>natural language</a> string meant for display as text (that is, the value is not <a>localizable text</a>). Such data values are part of the <a>syntactic content</a> of the document: not only do they not require language and direction metadata, but they should not be associated with such metadata.</p>
+
+<div class="req" id="bp_legacy_fmt_nonlang">
+<p class="advisement">For string values and string fields that are <em>not</em> <a>localizable text</a>, specifications SHOULD specify that the field is non-linguistic in nature and recommend the language tag <code class="kw" translate="no">zxx</code> ("No linguistic content") be associated with each string value.</p>
+</div>
+
+<div class="req" id="bp_legacy_fmt_lang_unknown">
+<p class="advisement">For string values and string fields that are known to contain <a>localizable text</a> but for which there is no possibility of language metadata from the underlying format, specifications SHOULD specify that the language of the content is unknown and recommend the language tag <code class="kw" translate="no">und</code> ("Undetermined") be associated with each string. Specifications MAY also allow the use of heuristics or the inference of the language from other field values where appropriate.</p>
+</div>
+
+<p>Some string values depend on or are defined by existing protocols or formats. Often these strings are not associated with or do not provide language or direction metadata. For example, many HTTP headers define their contents as if they were not <a>localizable text</a>, even when, in some cases, they contain natural language text. Consuming specifications sometimes need to take a dependency on strings of this nature or define a format that describes one of these strings. In these cases there will be no language or direction metadata for <a>consumers</a> to associate with the string in the specification's data structure or document format, and any metadata that the specification's data structure or document format provides (when functioning as a <a>producer</a>) will not be serialized through the underlying format.</p>
+
+<div class="req" id="bp_unicode_tag_chars_nonuse">
+<p class="advisement">Specifications SHOULD NOT use the Unicode "language tag" characters (code points <code>U+E0000</code> to <code>U+E007F</code>) for language identification.</p>
+</div>
+
+<p>The Unicode "language tag" characters are deprecated for use as language tags and there are many reasons why they are a poor solution to the language metadata problem in document formats and wire protocols. Specification authors are cautioned not to repurpose these characters or try to build new mechanisms for transmitting language information based on them.</p>
+
+<div class="req" id="bp_language_indexing">
+<p class="advisement">Specifications SHOULD recommend the use of <a>language indexing</a> when localizable strings can be supplied in multiple languages for the same value.</p>
+</div>
+
+<p><a>Producers</a> sometimes need to supply localized values for a given content item or data record. Sometimes this is done by <a>language negotiation</a> between the <a>producer</a> and <a>consumer</a>. Localization then takes place in the <a>producer</a> using the negotiated language to select the content returned.</p>
+	
+<p>Other times localization of a content item is done by having the <a>producer</a> return multiple language representations for the item and letting the <a>consumer</a> choose the value to display. This latter process is called <dfn>language indexing</dfn>. For more information about language indexing, see <a href="https://www.w3.org/TR/string-meta#localization-considerations"><cite>Localization Considerations</cite></a> in [[STRING-META]].</p>
+
+<section id="lang_strings_jsonld">
+<h4>Language information in JSON-LD</h4>
+
+<aside class="links" id="lang_strings_links">
+<p class="links_title">Additional material on this sub-section's contents can be found in:</p>
+<ul>
+<li class="w3"><p class="link"><a href="https://www.w3.org/TR/string-meta/">Strings on the Web: Language and Direction Metadata</a>.</p>
+	<ul>
+	<li class="w3"><p class="link"><a href="https://www.w3.org/TR/string-meta/#technology_specific_solutions">Technology-specific solutions</a>.</p></li>
+	</ul>
+</aside>
+
+<p>[[JSON-LD]] provides several mechanisms for satisfying some of the best practices found in this section:</p>
+	
+<div class="req" id="bp_use_jsonld_language_context">
+<p class="advisement">For documents that use [[JSON-LD]], use of [[JSON-LD]] <code class="kw" translate="no">@context</code> and the built-in <code class="kw" translate="no">@language</code> attribute is RECOMMENDED as a document level default.</p>
+</div>
+
+<div class="req" id="bp_use_jsonld_i18n_namespace">
+<p class="advisement">Specifications SHOULD use the <code class="kw" translate="no">i18n</code> Namespace feature for RDF literals, as defined in [[JSON-LD]] 1.1.</p>
+</div>
+
+<div class="req" id="bp_use_jsonld_atsign">
+<p class="advisement">Where the <code class="kw" translate="no">i18n</code> Namespace is not available or is inappropriate to use, specifications SHOULD require [[JSON-LD]] plain string literals for natural language values to provide string-specific language information.</p>
+</div>
+
+</section>
+
+<!-- The following is in String-Meta but probably not appropriate for us to include here yet.
+<div class="req" id="bp_localizable">
+<p class="advisement">For [[WebIDL]]-defined data structures, define each <a>localizable text</a> (natural language text) field as a <q><a>Localizable</a></q>.</p>
+</div>
+-->
+
+
 </section>
 
 
@@ -844,18 +958,18 @@
 <section id="bidi_strings" class="subtopic">
 <h3>Handling base direction for strings</h3>
 
-<p class="note">The information in this section is pulled from <a href="https://w3c.github.io/string-meta/">Requirements for Language and Direction Metadata in Data Formats</a>. That document is still being written, so these guidelines are likely to change at any time.</p>
+<p class="note">The information in this section is pulled from <a href="https://www.w3.org/TR/string-meta/">Requirements for Language and Direction Metadata in Data Formats</a>. That document is still being written, so these guidelines are likely to change at any time.</p>
 
 <p class="reviewComments"><a href="https://github.com/w3c/i18n-activity/labels/t%3Abidi_strings" target="_blank">See related review comments.</a></p>
 
 <aside class="links" id="links_bidi_strings">
 <p class="links_title">Useful background and overviews for this section</p>
 <ul>
-<li class="w3"><p class="link"><a href="https://w3c.github.io/string-meta/">Strings on the Web: Language and Direction Metadata</a>.</p>
+<li class="w3"><p class="link"><a href="https://www.w3.org/TR/string-meta/">Strings on the Web: Language and Direction Metadata</a>.</p>
 	<ul>
-	<li class="w3"><p class="link"><a href="https://w3c.github.io/string-meta/#bp_and-reco">Best Practices, Recommendations, and Gaps</a>.</p></li>
-	<li class="w3"><p class="link"><a href="https://w3c.github.io/string-meta/#use_cases">Requirements and Use Cases</a>.</p></li>
-	<li class="w3"><p class="link"><a href="https://w3c.github.io/string-meta/#bidi-approaches">Approaches Considered for Identifying the Base Direction</a>.</p></li>
+	<li class="w3"><p class="link"><a href="https://www.w3.org/TR/string-meta/#bp_and-reco">Best Practices, Recommendations, and Gaps</a>.</p></li>
+	<li class="w3"><p class="link"><a href="https://www.w3.org/TR/string-meta/#use_cases">Requirements and Use Cases</a>.</p></li>
+	<li class="w3"><p class="link"><a href="https://www.w3.org/TR/string-meta/#bidi-approaches">Approaches Considered for Identifying the Base Direction</a>.</p></li>
 	</ul>
 </li>
 </ul>
@@ -867,42 +981,42 @@
 	<div class="req" id="bidi_strings_metadata">
 	<p class="advisement">Provide metadata constructs that can be used to indicate the base direction of any <a>natural language</a> string.</p>
 	<details class="links"><summary>more</summary>
-	<p><a href="https://w3c.github.io/string-meta/#bp_and-reco">Best Practices, Recommendations, and Gaps</a>, in <cite>Strings on the Web: Language and Direction Metadata</cite></p>
+	<p><a href="https://www.w3.org/TR/string-meta/#bp_and-reco">Best Practices, Recommendations, and Gaps</a>, in <cite>Strings on the Web: Language and Direction Metadata</cite></p>
 	</details>
 	</div>
 
 	<div class="req" id="bidi_strings_heuristics">
 	<p class="advisement">Specify that consumers of strings should use  heuristics, preferably based on the Unicode Standard first-strong algorithm, to detect the base direction of a string except where metadata is provided.</p>
 	<details class="links"><summary>more</summary>
-	<p><a href="https://w3c.github.io/string-meta/#bp_and-reco">Best Practices, Recommendations, and Gaps</a>, in <cite>Strings on the Web: Language and Direction Metadata</cite></p>
+	<p><a href="https://www.w3.org/TR/string-meta/#bp_and-reco">Best Practices, Recommendations, and Gaps</a>, in <cite>Strings on the Web: Language and Direction Metadata</cite></p>
 	</details>
 	</div>
 
 	<div class="req" id="bidi_strings_default">
 	<p class="advisement">Where possible, define a field to  indicate the default direction for all strings in a given resource or document.</p>
 	<details class="links"><summary>more</summary>
-	<p><a href="https://w3c.github.io/string-meta/#bp_and-reco">Best Practices, Recommendations, and Gaps</a>, in <cite>Strings on the Web: Language and Direction Metadata</cite></p>
+	<p><a href="https://www.w3.org/TR/string-meta/#bp_and-reco">Best Practices, Recommendations, and Gaps</a>, in <cite>Strings on the Web: Language and Direction Metadata</cite></p>
 	</details>
 	</div>
 
 	<div class="req" id="bidi_strings_metadata_and_default">
 	<p class="advisement">Do NOT assume that a creating a document-level default without the ability to change direction for any string is sufficient.</p>
 	<details class="links"><summary>more</summary>
-	<p><a href="https://w3c.github.io/string-meta/#bp_and-reco">Best Practices, Recommendations, and Gaps</a>, in <cite>Strings on the Web: Language and Direction Metadata</cite></p>
+	<p><a href="https://www.w3.org/TR/string-meta/#bp_and-reco">Best Practices, Recommendations, and Gaps</a>, in <cite>Strings on the Web: Language and Direction Metadata</cite></p>
 	</details>
 	</div>
 
 	<div class="req" id="bidi_strings_script_tag">
 	<p class="advisement">If metadata is not available due to legacy implementations and cannot otherwise be provided, specifications MAY allow a base direction to be interpolated from available language metadata.</p>
 	<details class="links"><summary>more</summary>
-	<p><a href="https://w3c.github.io/string-meta/#bp_and-reco">Best Practices, Recommendations, and Gaps</a>, in <cite>Strings on the Web: Language and Direction Metadata</cite></p>
+	<p><a href="https://www.w3.org/TR/string-meta/#bp_and-reco">Best Practices, Recommendations, and Gaps</a>, in <cite>Strings on the Web: Language and Direction Metadata</cite></p>
 	</details>
 	</div>
 
 	<div class="req" id="bidi_strings_paired_controls">
 	<p class="advisement">Specifications MUST NOT require the production or use of paired bidi controls.</p>
 	<details class="links"><summary>more</summary>
-	<p><a href="https://w3c.github.io/string-meta/#bp_and-reco">Best Practices, Recommendations, and Gaps</a>, in <cite>Strings on the Web: Language and Direction Metadata</cite></p>
+	<p><a href="https://www.w3.org/TR/string-meta/#bp_and-reco">Best Practices, Recommendations, and Gaps</a>, in <cite>Strings on the Web: Language and Direction Metadata</cite></p>
 	</details>
 	</div>
 
