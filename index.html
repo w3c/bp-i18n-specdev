@@ -4,6 +4,13 @@
 	<meta charset="utf-8"/>
     <title>Internationalization Best Practices for Spec Developers</title>
 
+    <!--
+      Per the W3C Manual of Style, this document avoids gender-specific pronouns.
+      In this document, the terms "he", "his", and "her" appear in an example of gender-specific
+      cultural norms (related to personal name handling in applications), which represents a
+      well-considered expection to this rule. The word-token "he"
+      appears elsewhere in this document as a language tag for the Hebrew language.
+    -->
     <script src="make_checklist.js"></script>
     <script async src="https://www.w3.org/Tools/respec/respec-w3c" class="remove"></script>
     <script class="remove">
@@ -36,7 +43,7 @@
       
     </script>
     <!-- local styles for this document -->
-	<link rel="stylesheet" href="local.css">
+	<link rel="stylesheet" data-import href="local.css">
   
   <script>// check for changed fragment ids and route to the new id
   var fragid = location.hash
@@ -556,7 +563,7 @@
 <section id="lang_strings_jsonld">
 <h4>Language information in JSON-LD</h4>
 
-<aside class="links" id="lang_strings_links">
+<aside class="links" id="lang_strings_links_jsonld">
 <p class="links_title">Additional material on this sub-section's contents can be found in:</p>
 <ul>
 <li class="w3"><p class="link"><a href="https://www.w3.org/TR/string-meta/">Strings on the Web: Language and Direction Metadata</a>.</p>
