@@ -8,7 +8,7 @@
       Per the W3C Manual of Style, this document avoids gender-specific pronouns.
       In this document, the terms "he", "his", and "her" appear in an example of gender-specific
       cultural norms (related to personal name handling in applications), which represents a
-      well-considered expection to this rule. The word-token "he"
+      well-considered exception to this rule. The word-token "he"
       appears elsewhere in this document as a language tag for the Hebrew language.
     -->
     <script src="make_checklist.js"></script>
@@ -39,6 +39,20 @@
           github: 		"w3c/bp-i18n-specdev",
 		  maxTocLevel: 3,
 		  xref: ["i18n-glossary"],
+		  
+		  postProcess: [
+              async function importStyleSheet() { 
+			    const elems = document.querySelectorAll(`link[rel='stylesheet'][data-import]`)
+			    await Promise.all(
+				   [...elems].map(async link => {
+					   const text = await fetch(link.href).then(r => r.text())
+					   const style = document.createElement("style")
+					   style.textContent = text
+					   link.replaceWith(style)
+				   })
+			   )
+			}
+		]
       };
       
     </script>
@@ -5170,7 +5184,7 @@ PCENChar ::=
 
 	<div class="req" id="loc_numbers_lists">
 	<p class="advisement">When defining a feature that automatically labels items incrementally for display to the user (such as when creating a numbered list), allow for localized presentation of the labels as well as for various counting/listing systems or styles.</p>
-	<p>Examples of this can be found in <cite>CSS Counter Styles</cite> [[css-counter-styles]] and especially the accompanying <cite>Ready-made Counter Styles</cite> [[predefined-counter-styles]].</p>
+	<p>Examples of this can be found in <cite>CSS Counter Styles</cite> [[css-counter-styles-3]] and especially the accompanying <cite>Ready-made Counter Styles</cite> [[predefined-counter-styles]].</p>
 	<details class="links"><summary>more</summary>
 		<p>Defining counter styles in CSS:</p>
 	<ul>
