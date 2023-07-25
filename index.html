@@ -4,6 +4,13 @@
 	<meta charset="utf-8"/>
     <title>Internationalization Best Practices for Spec Developers</title>
 
+    <!--
+      Per the W3C Manual of Style, this document avoids gender-specific pronouns.
+      In this document, the terms "he", "his", and "her" appear in an example of gender-specific
+      cultural norms (related to personal name handling in applications), which represents a
+      well-considered exception to this rule. The word-token "he"
+      appears elsewhere in this document as a language tag for the Hebrew language.
+    -->
     <script src="make_checklist.js"></script>
     <script async src="https://www.w3.org/Tools/respec/respec-w3c" class="remove"></script>
     <script class="remove">
@@ -32,9 +39,25 @@
           github: 		"w3c/bp-i18n-specdev",
 		  maxTocLevel: 3,
 		  xref: ["i18n-glossary"],
+		  
+		  postProcess: [
+              async function importStyleSheet() { 
+			    const elems = document.querySelectorAll(`link[rel='stylesheet'][data-import]`)
+			    await Promise.all(
+				   [...elems].map(async link => {
+					   const text = await fetch(link.href).then(r => r.text())
+					   const style = document.createElement("style")
+					   style.textContent = text
+					   link.replaceWith(style)
+				   })
+			   )
+			}
+		]
       };
       
     </script>
+    <!-- I18N's shared stylesheet -->
+	<link rel="stylesheet" data-import href="https://w3c.github.io/i18n-drafts/style/respec_2022.css">
     <!-- local styles for this document -->
 	<link rel="stylesheet" href="local.css">
   
@@ -556,7 +579,7 @@
 <section id="lang_strings_jsonld">
 <h4>Language information in JSON-LD</h4>
 
-<aside class="links" id="lang_strings_links">
+<aside class="links" id="lang_strings_links_jsonld">
 <p class="links_title">Additional material on this sub-section's contents can be found in:</p>
 <ul>
 <li class="w3"><p class="link"><a href="https://www.w3.org/TR/string-meta/">Strings on the Web: Language and Direction Metadata</a>.</p>
@@ -2296,45 +2319,49 @@ just as characters are the basic unit of organization of encoded text.</p>
 	
 <p>Use of the character template used in Internationalization specifications is recommended. For most characters, the template looks like this:</p>
 
-<pre>
-&lt;span class="codepoint" translate="no">&lt;bdi lang="??">&#xXXXX;&lt;/bdi> 
-&lt;span class="uname">U+XXXX Unicode_character_name&lt;/span>&lt;/span>
-</pre>
+<code>
+&lt;span class="codepoint" translate="no">&lt;bdi lang="??">&#xXXXX;&lt;/bdi>&lt;span class="uname">U+XXXX UNICODE_CHARACTER_NAME_ALL_IN_CAPS&lt;/span>&lt;/span>
+</code>
 
-<p>For invisible characters (such as control characters) or for whitespace, the character and its surrounding <code translate="no" class="kw">bdi</code> element should be omitted:</p>
-
-<pre>
-&lt;span class="codepoint" translate="no">
-&lt;span class="uname">U+XXXX Unicode_character_name&lt;/span>&lt;/span>
-</pre>
 
 <aside class="example" title="Example of a character reference">
 <p>Filling in the above template like this:</p>
 
-<pre>
-&lt;span class="codepoint" translate="no">
-   &lt;bdi lang="fr">&#x00E9;&lt;/bdi>&lt;span class="uname">U+00E9 LATIN SMALL LETTER E WITH ACUTE&lt;/span>
-&lt;/span>
-</pre>
+<code>
+&lt;span class="codepoint" translate="no">&lt;bdi lang="fr">&#x00E9;&lt;/bdi>&lt;span class="uname">U+00E9 LATIN SMALL LETTER E WITH ACUTE&lt;/span>&lt;/span>
+</code>
 
 <p>Produces output in the page like this: <span class="codepoint" translate="no"><bdi lang="fr">é</bdi><span class="uname">U+00E9 LATIN SMALL LETTER E WITH ACUTE</span></span>.</p>
 </aside>
 
-<p>The <code translate="no" class="kw">bdi</code> element is used to ensure that example characters that are right-to-left do not interfere with the layout of the page. Although the elements are shown on separate lines in this section (for clarity), do not include line breaks or a space between the closing <code translate="no" class="kw">bdi</code> and the following <code translate="no" class="kw">span</code> element; spacing and presentation is controlled by styling.</p>
+<p>The <code translate="no" class="kw">bdi</code> element is used to ensure that example characters that are right-to-left do not interfere with the layout of the page. Do not include line breaks or a space between the closing <code translate="no" class="kw">bdi</code> and the following <code translate="no" class="kw">span</code> element; spacing and presentation is controlled by styling.</p>
 
 <p>The <code translate="no" class="kw">lang</code> attribute should be filled in appropriately to get the correct font selection for a given context. Examples in East Asian languages (such as Chinese, Japanese, or Korean) or in the Arabic script can sometimes require greater care in choosing a language tag.</p>
+
+<p>For invisible characters (such as control characters) or for whitespace, use an image instead of the character; or you may also omit the character and its surrounding <code translate="no" class="kw">bdi</code> element.</p>
+
+<code>
+&lt;span class="codepoint" translate="no">&lt;img alt="..." src="...">&lt;span class="uname">U+XXXX UNICODE_CHARACTER_NAME_ALL_IN_CAPS&lt;/span>&lt;/span>
+</code>
+
+<aside class="example" title="Example of a character reference with an image">
+<p>Filling in the above template like this:</p>
+
+<code>
+&lt;span class="codepoint" translate="no">&lt;img alt="NBSP" src="images/00A0.png">&lt;span class="uname">U+00A0 NO-BREAK SPACE&lt;/span>&lt;/span>
+</code>
+
+<p>Produces output in the page like this: <span class="codepoint" translate="no"><img alt="NBSP" src="images/00A0.png"><span class="uname">U+00A0 NO-BREAK SPACE</span></span>.</p>
+</aside>
 
 <p>Short sequences of characters should list the character names, separated by <span class="codepoint" translate="no">+</span>.
 
 <aside class="example" title="Example of a code point sequence">
 	<p>This example: <span class="codepoint" translate="no"><bdi lang="hi">&#x0928&#x093f;</bdi><span class="uname">U+0928 DEVANAGARI LETTER NA</span> + <span class="uname">U+093F  DEVANAGARI VOWEL SIGN I</span></span> uses the following markup:</p>
 
-<pre>
-&lt;span class="codepoint" translate="no">
-  &lt;bdi lang="hi">&amp;#x0928;&amp;#x093f;&lt;/bdi>&lt;span class="uname">U+0928 DEVANAGARI LETTER NA&lt;/span> + 
-  &lt;span class="uname">U+093F DEVANAGARI VOWEL SIGN I&lt;/span>
-&lt;/span>
-</pre>	
+<code>
+&lt;span class="codepoint" translate="no">&lt;bdi lang="hi">&amp;#x0928;&amp;#x093f;&lt;/bdi>&lt;span class="uname">U+0928 DEVANAGARI LETTER NA&lt;/span> + &lt;span class="uname">U+093F DEVANAGARI VOWEL SIGN I&lt;/span>&lt;/span>
+</code>	
 
 </aside>
 
@@ -5163,7 +5190,7 @@ PCENChar ::=
 
 	<div class="req" id="loc_numbers_lists">
 	<p class="advisement">When defining a feature that automatically labels items incrementally for display to the user (such as when creating a numbered list), allow for localized presentation of the labels as well as for various counting/listing systems or styles.</p>
-	<p>Examples of this can be found in <cite>CSS Counter Styles</cite> [[css-counter-styles]] and especially the accompanying <cite>Ready-made Counter Styles</cite> [[predefined-counter-styles]].</p>
+	<p>Examples of this can be found in <cite>CSS Counter Styles</cite> [[css-counter-styles-3]] and especially the accompanying <cite>Ready-made Counter Styles</cite> [[predefined-counter-styles]].</p>
 	<details class="links"><summary>more</summary>
 		<p>Defining counter styles in CSS:</p>
 	<ul>
