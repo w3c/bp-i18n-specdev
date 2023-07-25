@@ -168,6 +168,32 @@
 <li>Ensure that your GitHub issue has the i18n-tracker label set, so that the Internationalization WG is aware of your review results.</li>
 </ol>
 </section>
+
+<section id="I18N_Considerations">
+<h3>When and how to write an <em>Internationalization Considerations</em> section in your spec</h3>
+
+<p class="advisement">All additions of or changes to an <cite>Internationalization Considerations</cite> section MUST be reviewed by the Internationalization (i18n) WG.</p>
+
+<p>Specifications are not required to include a special section or appendix describing internationalization considerations of their specification. In general, the Internationalization (i18n) WG prefers that information about language, regional, or cultural variation, support, or adaptation appear in the body of the specification, closely associated with the relevant features.</p>
+
+<p>However, there are a few cases in which you should consider providing a section like this. You should consider including an internationalization considerations section when:
+<ul>
+	<li>International features require additional explanation that would otherwise interfere with or clutter-up the body of the specification.</li>
+	<li>You wish to provide examples of features, such as localization, without interfering with the body of the specification.</li>
+	<li>There are specific limitations or problems that your specification is unable to address, such as (but not limited to) technology that is evolving but not yet ready for inclusion; limitations discovered during the horizontal review process that you intend to address in future versions; or deliberate design decisions that limit or impact certain groups or cultures.</li>
+	<li>You have other information you wish to provide to adopters or implementers that doesn't fit with the remainder of your spec.</li>
+</ul></p>
+
+<p>If you decide to create an internationalization considerations section, you should do the following:</p>
+<ol>
+	<li>Raise an issue in your specification's github repo with the title <cite>Internationalization Considerations</cite> and apply the label <code>i18n-needs-resolution</code>. This will alert the I18N WG of your intention to write a section that requires review. (This also automatically creates a tracking issue in the I18N WG's repo.)</li>
+	<li>Mention the issue in any pull request that adds or modifies the section.</li>
+	<li>Mention the issue in your horizontal review request to the I18N WG.</li>
+</ol>
+
+<p>Your internationalization considerations section should have the title <cite>Internationalization Considerations</cite> or <cite>Internationalization (I18N) Considerations</cite>. It normally should appear as an appendix in your specification. The order relative to other appendices is up to you.</p>
+
+</section>
 </section>
 
 
