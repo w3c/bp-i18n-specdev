@@ -852,7 +852,7 @@
 
 <section id="rlmlrm">
 <h4>RLM and LRM</h4>
-<p>A word about the Unicode characters <span class="codepoint" translate="no"><code class="uname">U+200F RIGHT-TO-LEFT MARK</code></span> (RLM) and <span class="codepoint" translate="no"><code class="uname">U+200E LEFT-TO-RIGHT MARK</code></span> (LRM) is warranted at this point.</p>
+<p>A word about the Unicode characters <span class="codepoint" translate="no"><img alt="RLM" src="images/200F.png"><code class="uname">U+200F RIGHT-TO-LEFT MARK</code></span> (RLM) and <span class="codepoint" translate="no"><img alt="LRM" src="images/200E.png"><code class="uname">U+200E LEFT-TO-RIGHT MARK</code></span> (LRM) is warranted at this point.</p>
 <p>The first point to be clear about is that neither RLM nor LRM establish the base direction for a range of text.&nbsp; They are simply invisible characters with strong directional properties.</p>
 <p>This means that you cannot use RLM for example, to make the text W3C appear to the left of the Hebrew text in the following example.</p>
 <p>The title is "<span dir="rtl">פעילות הבינאום, W3C</span>".</p>
@@ -1106,7 +1106,7 @@
 	<p class="advisement">Use of RLM/LRM should be appropriate, and expectations of what those controls can and cannot do should be clear in the spec.</p>
 	</div>
 
-    <p>The Unicode bidirectional control characters <code class="uname">U+200F RIGHT-TO-LEFT MARK</code> and <code class="uname">U+200E LEFT-TO-RIGHT MARK</code> are not sufficient on their own to manage bidirectional text. They cannot produce a different base direction for embedded text. For that you need to be able to indicate the start and end of the range of the embedded text.&nbsp; This is best done by markup, if available, or failing that using the other Unicode bidirectional controls mentioned just above.</p>
+    <p>The Unicode bidirectional control characters <span class="codepoint" translate="no"><img alt="RLM" src="images/200F.png"><code class="uname">U+200F RIGHT-TO-LEFT MARK</code></span> and <span class="codepoint" translate="no"><img alt="LRM" src="images/200E.png"><code class="uname">U+200E LEFT-TO-RIGHT MARK</code></span> are not sufficient on their own to manage bidirectional text. They cannot produce a different base direction for embedded text. For that you need to be able to indicate the start and end of the range of the embedded text.&nbsp; This is best done by markup, if available, or failing that using the other Unicode bidirectional controls mentioned just above.</p>
 
 
 
@@ -2015,7 +2015,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 			</thead>
 			<tbody>
 				<tr>
-					<td><code class="uname" translate="no">U+0009 (horizontal tab)</code></td>
+					<td><span class="codepoint" translate="no"><img alt="HTAB" src="images/0009.png"><code class="uname" translate="no">U+0009 (horizontal tab)</code></span></td>
 					<td>✓</td>
 					<td>✓</td>
 					<td>✓</td>
@@ -2024,7 +2024,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>✓</td>
 				</tr>
 				<tr>
-					<td><code class="uname" translate="no">U+000A (line feed)</code></td>
+					<td><span class="codepoint" translate="no"><img alt="LF" src="images/000A.png"><code class="uname" translate="no">U+000A (line feed)</code></span></td>
 					<td>✓</td>
 					<td>✓</td>
 					<td>✓</td>
@@ -2033,7 +2033,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>✓</td>
 				</tr>
 				<tr>
-					<td><code class="uname" translate="no">U+000B (vertical tab)</code></td>
+					<td><span class="codepoint" translate="no"><img alt="VTAB" src="images/000B.png"><code class="uname" translate="no">U+000B (vertical tab)</code></span></td>
 					<td>✓</td>
 					<td>✓</td>
 					<td>&nbsp;</td>
@@ -2042,7 +2042,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td><code class="uname" translate="no">U+000C (form feed)</code></td>
+					<td><span class="codepoint" translate="no"><img alt="FF" src="images/000C.png"><code class="uname" translate="no">U+000C (form feed)</code></span></td>
 					<td>✓</td>
 					<td>✓</td>
 					<td>✓</td>
@@ -2051,7 +2051,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td><code class="uname" translate="no">U+000D (carriage return)</code></td>
+					<td><span class="codepoint" translate="no"><img alt="CR" src="images/000D.png"><code class="uname" translate="no">U+000D (carriage return)</code></span></td>
 					<td>✓</td>
 					<td>✓</td>
 					<td>✓</td>
@@ -2060,7 +2060,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>✓</td>
 				</tr>
 				<tr>
-					<td><code class="uname" translate="no">U+0020 SPACE</code></td>
+					<td><span class="codepoint" translate="no"><img alt="SP" src="images/0020.png"><code class="uname" translate="no">U+0020 SPACE</code></span></td>
 					<td>✓</td>
 					<td>✓</td>
 					<td>✓</td>
@@ -2069,7 +2069,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>✓</td>
 				</tr>
 				<tr>
-					<td><code class="uname" translate="no">U+0085 (next line)</code></td>
+					<td><span class="codepoint" translate="no"><img alt="NEL" src="images/0085.png"><code class="uname" translate="no">U+0085 (next line)</code></span></td>
 					<td>✓</td>
 					<td>✓</td>
 					<td>&nbsp;</td>
@@ -2078,7 +2078,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td><code class="uname" translate="no">U+00A0 NO-BREAK SPACE</code></td>
+					<td><span class="codepoint" translate="no"><img alt="NBSP" src="images/00A0.png"><code class="uname" translate="no">U+00A0 NO-BREAK SPACE</code></span></td>
 					<td>✓</td>
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
@@ -2087,7 +2087,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td><code class="uname" translate="no">U+1680 OGHAM SPACE MARK</code></td>
+					<td><span class="codepoint" translate="no"><img alt="Ogham space" src="images/1680.png"><code class="uname" translate="no">U+1680 OGHAM SPACE MARK</code></span></td>
 					<td>✓</td>
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
@@ -2096,7 +2096,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td><code class="uname" translate="no">U+2000 EN QUAD</code></td>
+					<td><span class="codepoint" translate="no"><img alt="NQSP" src="images/2000.png"><code class="uname" translate="no">U+2000 EN QUAD</code></span></td>
 					<td>✓</td>
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
@@ -2105,7 +2105,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td><code class="uname" translate="no">U+2001 EM QUAD</code></td>
+					<td><span class="codepoint" translate="no"><img alt="MQSP" src="images/2001.png"><code class="uname" translate="no">U+2001 EM QUAD</code></span></td>
 					<td>✓</td>
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
@@ -2114,7 +2114,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td><code class="uname" translate="no">U+2002 EN SPACE</code></td>
+					<td><span class="codepoint" translate="no"><img alt="ENSP" src="images/2002.png"><code class="uname" translate="no">U+2002 EN SPACE</code></span></td>
 					<td>✓</td>
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
@@ -2123,7 +2123,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td><code class="uname" translate="no">U+2003 EM SPACE</code></td>
+					<td><span class="codepoint" translate="no"><img alt="EMSP" src="images/2003.png"><code class="uname" translate="no">U+2003 EM SPACE</code></span></td>
 					<td>✓</td>
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
@@ -2132,7 +2132,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td><code class="uname" translate="no">U+2004 THREE-PER-EM SPACE</code></td>
+					<td><span class="codepoint" translate="no"><img alt="3/M SP" src="images/2004.png"><code class="uname" translate="no">U+2004 THREE-PER-EM SPACE</code></span></td>
 					<td>✓</td>
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
@@ -2141,7 +2141,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td><code class="uname" translate="no">U+2005 FOUR-PER-EM SPACE</code></td>
+					<td><span class="codepoint" translate="no"><img alt="4/M SP" src="images/2005.png"><code class="uname" translate="no">U+2005 FOUR-PER-EM SPACE</code></span></td>
 					<td>✓</td>
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
@@ -2150,7 +2150,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td><code class="uname" translate="no">U+2006 SIX-PER-EM SPACE</code></td>
+					<td><span class="codepoint" translate="no"><img alt="6/M SP" src="images/2006.png"><code class="uname" translate="no">U+2006 SIX-PER-EM SPACE</code></span></td>
 					<td>✓</td>
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
@@ -2159,7 +2159,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td><code class="uname" translate="no">U+2007 FIGURE SPACE</code></td>
+					<td><span class="codepoint" translate="no"><img alt="FSP" src="images/2007.png"><code class="uname" translate="no">U+2007 FIGURE SPACE</code></span></td>
 					<td>✓</td>
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
@@ -2168,7 +2168,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td><code class="uname" translate="no">U+2008 PUNCTUATION SPACE</code></td>
+					<td><span class="codepoint" translate="no"><img alt="PSP" src="images/2008.png"><code class="uname" translate="no">U+2008 PUNCTUATION SPACE</code></span></td>
 					<td>✓</td>
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
@@ -2177,7 +2177,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td><code class="uname" translate="no">U+2009 THIN SPACE</code></td>
+					<td><span class="codepoint" translate="no"><img alt="THSP" src="images/2009.png"><code class="uname" translate="no">U+2009 THIN SPACE</code></span></td>
 					<td>✓</td>
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
@@ -2186,7 +2186,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td><code class="uname" translate="no">U+200A HAIR SPACE</code></td>
+					<td><span class="codepoint" translate="no"><img alt="HSP" src="images/200A.png"><code class="uname" translate="no">U+200A HAIR SPACE</code></span></td>
 					<td>✓</td>
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
@@ -2195,7 +2195,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td><code class="uname" translate="no">U+200E LEFT-TO-RIGHT MARK</code></td>
+					<td><span class="codepoint" translate="no"><img alt="LRM" src="images/200E.png"><code class="uname" translate="no">U+200E LEFT-TO-RIGHT MARK</code></span></td>
 					<td>&nbsp;</td>
 					<td>✓</td>
 					<td>&nbsp;</td>
@@ -2204,7 +2204,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td><code class="uname" translate="no">U+200F RIGHT-TO-LEFT MARK</code></td>
+					<td><span class="codepoint" translate="no"><img alt="RLM" src="images/200F.png"><code class="uname" translate="no">U+200F RIGHT-TO-LEFT MARK</code></span></td>
 					<td>&nbsp;</td>
 					<td>✓</td>
 					<td>&nbsp;</td>
@@ -2213,7 +2213,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td><code class="uname" translate="no">U+2028 LINE SEPARATOR</code></td>
+					<td><span class="codepoint" translate="no"><img alt="LSEP" src="images/2028.png"><code class="uname" translate="no">U+2028 LINE SEPARATOR</code></span></td>
 					<td>✓</td>
 					<td>✓</td>
 					<td>&nbsp;</td>
@@ -2222,7 +2222,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td><code class="uname" translate="no">U+2029 PARAGRAPH SEPARATOR</code></td>
+					<td><span class="codepoint" translate="no"><img alt="PSEP" src="images/2029.png"><code class="uname" translate="no">U+2029 PARAGRAPH SEPARATOR</code></span></td>
 					<td>✓</td>
 					<td>✓</td>
 					<td>&nbsp;</td>
@@ -2231,7 +2231,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td><code class="uname" translate="no">U+202F NARROW NO-BREAK SPACE</code></td>
+					<td><span class="codepoint" translate="no"><img alt="NNBSP" src="images/202F.png"><code class="uname" translate="no">U+202F NARROW NO-BREAK SPACE</code></span></td>
 					<td>✓</td>
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
@@ -2240,7 +2240,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td><code class="uname" translate="no">U+205F MEDIUM MATHEMATICAL SPACE</code></td>
+					<td><span class="codepoint" translate="no"><img alt="MMSP" src="images/205F.png"><code class="uname" translate="no">U+205F MEDIUM MATHEMATICAL SPACE</code></span></td>
 					<td>✓</td>
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
@@ -2249,7 +2249,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td><code class="uname" translate="no">U+3000 IDEOGRAPHIC SPACE</code></td>
+					<td><span class="codepoint" translate="no"><img alt="IDSP" src="images/3000.png"><code class="uname" translate="no">U+3000 IDEOGRAPHIC SPACE</code></span></td>
 					<td>✓</td>
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
@@ -2258,7 +2258,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td><code class="uname" translate="no">U+FEFF ZERO WIDTH NO-BREAK SPACE</code></td>
+					<td><span class="codepoint" translate="no"><img alt="ZWNPSP" src="images/FEFF.png"><code class="uname" translate="no">U+FEFF ZERO WIDTH NO-BREAK SPACE</code></span></td>
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
@@ -3003,7 +3003,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 		<li><span class="codepoint"><bdi>&gt;</bdi><code class="uname">U+003E GREATER-THAN SIGN</code></span></li>
 		<li><span class="codepoint"><bdi>\</bdi><code class="uname">U+005C REVERSE SOLIDUS</code></span></li>
 		<li><span class="codepoint"><bdi>|</bdi><code class="uname">U+007C VERTICAL LINE</code></span></li>
-		<li><span class="codepoint"><code class="uname">U+007F DEL</code></span></li>
+		<li><span class="codepoint"><img alt="DEL" src="images/007F.png"><code class="uname">U+007F DEL</code></span></li>
 		<li>Codepoints in the following ranges:
 		   <ul>
 			   <li>C0 Controls <code class="uname">U+0000</code>...<code class="uname">U+001F</code></li>
@@ -3340,7 +3340,7 @@ PCENChar ::=
 		<p>HTML and CSS processing is defined such that Unicode character properties (such as whether a given character is a combining mark) are not considered when parsing identifiers and tokens. This allows identifiers to start with a combining character and still be processed reliably, but a plain text editor might not handle the value identically.</p>
 	</div>
 	
-	<p>Specifications should exercise care when defining identifiers with regards to the handling of whitespace. Note that there are Unicode horizontal whitespace characters other than the ASCII characters <code>U+0020 SPACE</code> and <code>U+0009 TAB</code>.</p>
+	<p>Specifications should exercise care when defining identifiers with regards to the handling of whitespace. Note that there are Unicode horizontal whitespace characters other than the ASCII characters <span class="codepoint" translate="no"><img alt="SP" src="images/0020.png"><code class="uname">U+0020 SPACE</code></span> and <span class="codepoint" translate="no"><img alt="HTAB" src="images/0009.png"><code class="uname">U+0009 TAB</code></span>.</p>
 	
 	<div class="req" id="identifier_content_surrogates">
 	<p class="advisement">Specifications should not allow surrogate <a>code points</a> (<code>U+D800</code> to <code>U+DFFF</code>) or non-character code points in identifiers.</p>
