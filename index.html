@@ -2278,7 +2278,10 @@ just as characters are the basic unit of organization of encoded text.</p>
 <section id="char_ref" class="subtopic">
 <h3>Referring to Unicode characters</h3>
 
-<p class="reviewComments"><a href="https://github.com/w3c/i18n-activity/labels/t%3Achar_ref" target="_blank">See related review comments.</a></p>
+<div class="reviewComments">
+<p><a href="https://github.com/w3c/i18n-activity/labels/t%3Achar_ref" target="_blank">See related review comments.</a></p>
+<p>For more information on character formatting, see: <a href="https://www.w3.org/International/i18n-activity/guidelines/editing#codepoints">I18N Editing Guidelines</a></p>
+</div>
 
  	<div class="req" id="char_ref_Uchar">
 	<p class="advisement">Use <code translate="no">U+XXXX</code> syntax to represent Unicode code points in the specification.</p>
@@ -2326,26 +2329,20 @@ just as characters are the basic unit of organization of encoded text.</p>
 </aside>
 
 <div class="req" id="char_ref_unicode_names">
-	<p class="advisement">Use the Unicode character name to describe specific code points. Use of the <a href="#char_ref_template">character naming template</a> is RECOMMENDED.</p>
+	<p class="advisement">Use the Unicode character name to describe specific code points.</p>
 </div>
 
 <p>Unicode assigns unique, immutable names to each assigned Unicode code point. Using these names in your specification when referring to specific characters (along with the code point in <code class="uname" translate="no">U+XXXX</code> notation) will help make your specification unambiguous.</p>
 
-<p>There are cases where doing this is overly pedantic and detracts from usability, but be cautious about being so informal as to impair meaning.</p>
+<div class="req" id="char_ref_unicode_template">
+	<p class="advisement">Use of the character naming template is RECOMMENDED.</p>
+</div>
 
-<section id="char_ref_template">
-<h5>Character naming template</h5>
-
-	<div class="xref"><span class="seealso">See also</span>
-	<p>[<a href="https://www.w3.org/International/i18n-activity/guidelines/editing#codepoints">I18N Editing Guidelines</a>].</p>
-	</div>
-	
-<p>Use of the character template used in Internationalization specifications is recommended. For most characters, the template looks like this:</p>
+<p>For most characters, the template looks like this:</p>
 
 <code>
 &lt;span class="codepoint" translate="no">&lt;bdi lang="??">&#xXXXX;&lt;/bdi>&lt;code class="uname">U+XXXX UNICODE_CHARACTER_NAME_ALL_IN_CAPS&lt;/code>&lt;/span>
 </code>
-
 
 <aside class="example" title="Example of a character reference">
 <p>Filling in the above template like this:</p>
@@ -2388,8 +2385,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 
 </aside>
 
-<p>Long sequences will sometimes just list the code points, although the character names should be retained where possible for clarity. An example can be found in this document in the <a href="#char_term_def">discussion of the composed "family" emoji</a>: <span class="codepoint"><bdi lang="en">👨‍👩‍👧‍👧</bdi><code class="uname">U+1F468 U+200D U+1F469 U+200D U+1F467 U+200D U+1F467</code></span></p>
-
+<p>There are cases where including the character name and additional markup is overly pedantic and detracts from usability, but be cautious about being so informal as to impair meaning. In particular, long sequences will sometimes just list the code points, although the character names should be retained where possible for clarity. An example can be found in this document in the <a href="#char_term_def">discussion of the composed "family" emoji</a>: <span class="codepoint"><bdi lang="en">👨‍👩‍👧‍👧</bdi><code class="uname">U+1F468 U+200D U+1F469 U+200D U+1F467 U+200D U+1F467</code></span></p>
 
 </section>
 </section>
