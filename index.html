@@ -852,7 +852,7 @@
 
 <section id="rlmlrm">
 <h4>RLM and LRM</h4>
-<p>A word about the Unicode characters <span class="uname">U+200F RIGHT-TO-LEFT MARK</span> (RLM) and <span class="uname">U+200E   LEFT-TO-RIGHT MARK</span> (LRM) is warranted at this point.</p>
+<p>A word about the Unicode characters <span class="codepoint" translate="no"><img alt="RLM" src="images/200F.png"><code class="uname">U+200F RIGHT-TO-LEFT MARK</code></span> (RLM) and <span class="codepoint" translate="no"><img alt="LRM" src="images/200E.png"><code class="uname">U+200E LEFT-TO-RIGHT MARK</code></span> (LRM) is warranted at this point.</p>
 <p>The first point to be clear about is that neither RLM nor LRM establish the base direction for a range of text.&nbsp; They are simply invisible characters with strong directional properties.</p>
 <p>This means that you cannot use RLM for example, to make the text W3C appear to the left of the Hebrew text in the following example.</p>
 <p>The title is "<span dir="rtl">פעילות הבינאום, W3C</span>".</p>
@@ -1106,7 +1106,7 @@
 	<p class="advisement">Use of RLM/LRM should be appropriate, and expectations of what those controls can and cannot do should be clear in the spec.</p>
 	</div>
 
-    <p>The Unicode bidirectional control characters <span class="uname">U+200F RIGHT-TO-LEFT MARK</span> and <span class="uname">U+200E LEFT-TO-RIGHT MARK</span> are not sufficient on their own to manage bidirectional text. They cannot produce a different base direction for embedded text. For that you need to be able to indicate the start and end of the range of the embedded text.&nbsp; This is best done by markup, if available, or failing that using the other Unicode bidirectional controls mentioned just above.</p>
+    <p>The Unicode bidirectional control characters <span class="codepoint" translate="no"><img alt="RLM" src="images/200F.png"><code class="uname">U+200F RIGHT-TO-LEFT MARK</code></span> and <span class="codepoint" translate="no"><img alt="LRM" src="images/200E.png"><code class="uname">U+200E LEFT-TO-RIGHT MARK</code></span> are not sufficient on their own to manage bidirectional text. They cannot produce a different base direction for embedded text. For that you need to be able to indicate the start and end of the range of the embedded text.&nbsp; This is best done by markup, if available, or failing that using the other Unicode bidirectional controls mentioned just above.</p>
 
 
 
@@ -1235,7 +1235,7 @@
 
     </aside>
 
-    <p>Another example of the complex relationship between code points and graphemes are certain emoji. The emoji character for "family" has a code point in Unicode: <span class="codepoint" translate="no"><bdi lang="en">&#x1F46A;</bdi><span class="uname">U+1F46A FAMILY</span></span>. It can also be formed by using using a sequence of code points: <span class="uname">U+1F468 U+200D U+1F469 U+200D U+1F466</span>. Altering or adding other emoji characters can alter the composition of the family. For example the sequence <span class="codepoint" translate="no"><bdi translate="no">&#x1f468;&#x200d;&#x1f469;&#x200d;&#x1f467;&#x200d;&#x1f467;</bdi><span class="uname" translate="no">U+1F468 U+200D U+1F469 U+200D U+1F467 U+200D U+1F467</span></span> results in a composed emoji character for a "family: man, woman, girl, girl" on systems that support this kind of composition. Many common emoji can <em>only</em> be formed using sequences of code points, but should be treated as a single user-perceived character when displaying or processing the text. You wouldn't want to put a line-break in the middle of the family!</p>
+    <p>Another example of the complex relationship between code points and graphemes are certain emoji. The emoji character for "family" has a code point in Unicode: <span class="codepoint" translate="no"><bdi lang="en">&#x1F46A;</bdi><code class="uname">U+1F46A FAMILY</code></span>. It can also be formed by using using a sequence of code points: <code class="uname">U+1F468 U+200D U+1F469 U+200D U+1F466</code>. Altering or adding other emoji characters can alter the composition of the family. For example the sequence <span class="codepoint" translate="no"><bdi translate="no">&#x1f468;&#x200d;&#x1f469;&#x200d;&#x1f467;&#x200d;&#x1f467;</bdi><code class="uname" translate="no">U+1F468 U+200D U+1F469 U+200D U+1F467 U+200D U+1F467</code></span> results in a composed emoji character for a "family: man, woman, girl, girl" on systems that support this kind of composition. Many common emoji can <em>only</em> be formed using sequences of code points, but should be treated as a single user-perceived character when displaying or processing the text. You wouldn't want to put a line-break in the middle of the family!</p>
 
     <p>Unicode code points are just abstract integer values: they are not the values actually present in the memory of the computer or serialized on the wire. When processing text, computers use an array of fixed-size integer units. One such common unit is the <dfn class="lint-ignore">byte</dfn> (or <em>octet</em>, since bytes have 8 bits per unit). There are also 16-bit, 32-bit, or other size units. In many programming languages, the unit is called a <code>char</code>, which suggests that strings are made of "characters". We use the term <a>code unit</a> to refer unambiguously to the programming and serialized representation of characters. For example, in C, a <code>char</code> is generally an 8-bit byte: each <code>char</code> is a 8-bit code unit. In Java or Javascript, a <code>char</code> is a 16-bit value.</p>
 
@@ -1763,7 +1763,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 
 	
 	<div class="example" id="char-escape-examples">
-		<p>Here are some examples of common escaping mechanisms found on the Web or in common programming languages. The example character here is <span class="codepoint"><bdi lang="en">&#x1f63d;</bdi><span class="uname" translate="no">U+1F63D KISSING CAT FACE WITH CLOSED EYES</span></span>.</p>
+		<p>Here are some examples of common escaping mechanisms found on the Web or in common programming languages. The example character here is <span class="codepoint"><bdi lang="en">&#x1f63d;</bdi><code class="uname" translate="no">U+1F63D KISSING CAT FACE WITH CLOSED EYES</code></span>.</p>
 		<table>
 			<thead>
 				<tr>
@@ -1923,7 +1923,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 	</details>
 </div>
 
-<p>The type <code>DOMString</code> is actually a UTF-16 <a>code unit</a> string. This type allows unpaired <a>surrogate</a> code units to appear in a string, which can result in errors or replacement with the Unicode replacment character (<span class="codepoint" translate="no"><bdi lang="und">&#xFFFD;</bdi><span class="uname">U+FFFD REPLACEMENT CHARACTER</span></span>). This type is appropriate when specifications do not need to do internal processing of the string value. The alternative type is <code translate="no"><a href="https://webidl.spec.whatwg.org/#idl-USVString">USVString</a></code>, which is a sequence of Unicode code points.</p>
+<p>The type <code>DOMString</code> is actually a UTF-16 <a>code unit</a> string. This type allows unpaired <a>surrogate</a> code units to appear in a string, which can result in errors or replacement with the Unicode replacment character (<span class="codepoint" translate="no"><bdi lang="und">&#xFFFD;</bdi><code class="uname">U+FFFD REPLACEMENT CHARACTER</code></span>). This type is appropriate when specifications do not need to do internal processing of the string value. The alternative type is <code translate="no"><a href="https://webidl.spec.whatwg.org/#idl-USVString">USVString</a></code>, which is a sequence of Unicode code points.</p>
 
 <p>The reason <code translate="no">DOMString</code> is preferred to <code translate="no">USVString</code> is that both [[DOM]] and the string types in JavaScript (and its derivatives, such as JSON) are defined in terms of UTF-16 code unit strings. Specifying <code translate="no">USVString</code> can result in inadvertently requiring an implementation to check for unpaired surrogates in cases where there is no benefit to doing so.</p>
 
@@ -1937,7 +1937,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 
 <p>The type <code translate="no">USVString</code> defines strings as a sequence of Unicode <a>code points</a>. For strings whose most common algorithms operate on or process individual <a>code points</a>, or for operations which can’t handle surrogates in input, <code translate="no">USVString</code> should be used. For example, if your specification is defining a process that parses a string or transforms specific characters, it is both easier to specify and more reliable to refer to code points (<em>"scalar values"</em>) than to deal with the UTF-16 <a>code units</a>.</p>
 
-<p>In a <code translate="no">USVString</code>, isolated <a>surrogate</a> code points are invalid and implementations are required to replace any found in a string with the Unicode replacment character (<span class="codepoint" translate="no"><bdi lang="und">&#xFFFD;</bdi><span class="uname">U+FFFD REPLACEMENT CHARACTER</span></span>).</p>
+<p>In a <code translate="no">USVString</code>, isolated <a>surrogate</a> code points are invalid and implementations are required to replace any found in a string with the Unicode replacment character (<span class="codepoint" translate="no"><bdi lang="und">&#xFFFD;</bdi><code class="uname">U+FFFD REPLACEMENT CHARACTER</code></span>).</p>
 
 
 <div class="req" id="char_string_byte">
@@ -2015,7 +2015,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 			</thead>
 			<tbody>
 				<tr>
-					<td><span class="uname" translate="no">U+0009 (horizontal tab)</span></td>
+					<td><span class="codepoint" translate="no"><img alt="HTAB" src="images/0009.png"><code class="uname" translate="no">U+0009 (horizontal tab)</code></span></td>
 					<td>✓</td>
 					<td>✓</td>
 					<td>✓</td>
@@ -2024,7 +2024,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>✓</td>
 				</tr>
 				<tr>
-					<td><span class="uname" translate="no">U+000A (line feed)</span></td>
+					<td><span class="codepoint" translate="no"><img alt="LF" src="images/000A.png"><code class="uname" translate="no">U+000A (line feed)</code></span></td>
 					<td>✓</td>
 					<td>✓</td>
 					<td>✓</td>
@@ -2033,7 +2033,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>✓</td>
 				</tr>
 				<tr>
-					<td><span class="uname" translate="no">U+000B (vertical tab)</span></td>
+					<td><span class="codepoint" translate="no"><img alt="VTAB" src="images/000B.png"><code class="uname" translate="no">U+000B (vertical tab)</code></span></td>
 					<td>✓</td>
 					<td>✓</td>
 					<td>&nbsp;</td>
@@ -2042,7 +2042,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td><span class="uname" translate="no">U+000C (form feed)</span></td>
+					<td><span class="codepoint" translate="no"><img alt="FF" src="images/000C.png"><code class="uname" translate="no">U+000C (form feed)</code></span></td>
 					<td>✓</td>
 					<td>✓</td>
 					<td>✓</td>
@@ -2051,7 +2051,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td><span class="uname" translate="no">U+000D (carriage return)</span></td>
+					<td><span class="codepoint" translate="no"><img alt="CR" src="images/000D.png"><code class="uname" translate="no">U+000D (carriage return)</code></span></td>
 					<td>✓</td>
 					<td>✓</td>
 					<td>✓</td>
@@ -2060,7 +2060,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>✓</td>
 				</tr>
 				<tr>
-					<td><span class="uname" translate="no">U+0020 SPACE</span></td>
+					<td><span class="codepoint" translate="no"><img alt="SP" src="images/0020.png"><code class="uname" translate="no">U+0020 SPACE</code></span></td>
 					<td>✓</td>
 					<td>✓</td>
 					<td>✓</td>
@@ -2069,7 +2069,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>✓</td>
 				</tr>
 				<tr>
-					<td><span class="uname" translate="no">U+0085 (next line)</span></td>
+					<td><span class="codepoint" translate="no"><img alt="NEL" src="images/0085.png"><code class="uname" translate="no">U+0085 (next line)</code></span></td>
 					<td>✓</td>
 					<td>✓</td>
 					<td>&nbsp;</td>
@@ -2078,7 +2078,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td><span class="uname" translate="no">U+00A0 NO-BREAK SPACE</span></td>
+					<td><span class="codepoint" translate="no"><img alt="NBSP" src="images/00A0.png"><code class="uname" translate="no">U+00A0 NO-BREAK SPACE</code></span></td>
 					<td>✓</td>
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
@@ -2087,7 +2087,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td><span class="uname" translate="no">U+1680 OGHAM SPACE MARK</span></td>
+					<td><span class="codepoint" translate="no"><img alt="Ogham space" src="images/1680.png"><code class="uname" translate="no">U+1680 OGHAM SPACE MARK</code></span></td>
 					<td>✓</td>
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
@@ -2096,7 +2096,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td><span class="uname" translate="no">U+2000 EN QUAD</span></td>
+					<td><span class="codepoint" translate="no"><img alt="NQSP" src="images/2000.png"><code class="uname" translate="no">U+2000 EN QUAD</code></span></td>
 					<td>✓</td>
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
@@ -2105,7 +2105,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td><span class="uname" translate="no">U+2001 EM QUAD</span></td>
+					<td><span class="codepoint" translate="no"><img alt="MQSP" src="images/2001.png"><code class="uname" translate="no">U+2001 EM QUAD</code></span></td>
 					<td>✓</td>
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
@@ -2114,7 +2114,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td><span class="uname" translate="no">U+2002 EN SPACE</span></td>
+					<td><span class="codepoint" translate="no"><img alt="ENSP" src="images/2002.png"><code class="uname" translate="no">U+2002 EN SPACE</code></span></td>
 					<td>✓</td>
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
@@ -2123,7 +2123,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td><span class="uname" translate="no">U+2003 EM SPACE</span></td>
+					<td><span class="codepoint" translate="no"><img alt="EMSP" src="images/2003.png"><code class="uname" translate="no">U+2003 EM SPACE</code></span></td>
 					<td>✓</td>
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
@@ -2132,7 +2132,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td><span class="uname" translate="no">U+2004 THREE-PER-EM SPACE</span></td>
+					<td><span class="codepoint" translate="no"><img alt="3/M SP" src="images/2004.png"><code class="uname" translate="no">U+2004 THREE-PER-EM SPACE</code></span></td>
 					<td>✓</td>
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
@@ -2141,7 +2141,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td><span class="uname" translate="no">U+2005 FOUR-PER-EM SPACE</span></td>
+					<td><span class="codepoint" translate="no"><img alt="4/M SP" src="images/2005.png"><code class="uname" translate="no">U+2005 FOUR-PER-EM SPACE</code></span></td>
 					<td>✓</td>
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
@@ -2150,7 +2150,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td><span class="uname" translate="no">U+2006 SIX-PER-EM SPACE</span></td>
+					<td><span class="codepoint" translate="no"><img alt="6/M SP" src="images/2006.png"><code class="uname" translate="no">U+2006 SIX-PER-EM SPACE</code></span></td>
 					<td>✓</td>
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
@@ -2159,7 +2159,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td><span class="uname" translate="no">U+2007 FIGURE SPACE</span></td>
+					<td><span class="codepoint" translate="no"><img alt="FSP" src="images/2007.png"><code class="uname" translate="no">U+2007 FIGURE SPACE</code></span></td>
 					<td>✓</td>
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
@@ -2168,7 +2168,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td><span class="uname" translate="no">U+2008 PUNCTUATION SPACE</span></td>
+					<td><span class="codepoint" translate="no"><img alt="PSP" src="images/2008.png"><code class="uname" translate="no">U+2008 PUNCTUATION SPACE</code></span></td>
 					<td>✓</td>
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
@@ -2177,7 +2177,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td><span class="uname" translate="no">U+2009 THIN SPACE</span></td>
+					<td><span class="codepoint" translate="no"><img alt="THSP" src="images/2009.png"><code class="uname" translate="no">U+2009 THIN SPACE</code></span></td>
 					<td>✓</td>
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
@@ -2186,7 +2186,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td><span class="uname" translate="no">U+200A HAIR SPACE</span></td>
+					<td><span class="codepoint" translate="no"><img alt="HSP" src="images/200A.png"><code class="uname" translate="no">U+200A HAIR SPACE</code></span></td>
 					<td>✓</td>
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
@@ -2195,7 +2195,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td><span class="uname" translate="no">U+200E LEFT-TO-RIGHT MARK</span></td>
+					<td><span class="codepoint" translate="no"><img alt="LRM" src="images/200E.png"><code class="uname" translate="no">U+200E LEFT-TO-RIGHT MARK</code></span></td>
 					<td>&nbsp;</td>
 					<td>✓</td>
 					<td>&nbsp;</td>
@@ -2204,7 +2204,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td><span class="uname" translate="no">U+200F RIGHT-TO-LEFT MARK</span></td>
+					<td><span class="codepoint" translate="no"><img alt="RLM" src="images/200F.png"><code class="uname" translate="no">U+200F RIGHT-TO-LEFT MARK</code></span></td>
 					<td>&nbsp;</td>
 					<td>✓</td>
 					<td>&nbsp;</td>
@@ -2213,7 +2213,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td><span class="uname" translate="no">U+2028 LINE SEPARATOR</span></td>
+					<td><span class="codepoint" translate="no"><img alt="LSEP" src="images/2028.png"><code class="uname" translate="no">U+2028 LINE SEPARATOR</code></span></td>
 					<td>✓</td>
 					<td>✓</td>
 					<td>&nbsp;</td>
@@ -2222,7 +2222,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td><span class="uname" translate="no">U+2029 PARAGRAPH SEPARATOR</span></td>
+					<td><span class="codepoint" translate="no"><img alt="PSEP" src="images/2029.png"><code class="uname" translate="no">U+2029 PARAGRAPH SEPARATOR</code></span></td>
 					<td>✓</td>
 					<td>✓</td>
 					<td>&nbsp;</td>
@@ -2231,7 +2231,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td><span class="uname" translate="no">U+202F NARROW NO-BREAK SPACE</span></td>
+					<td><span class="codepoint" translate="no"><img alt="NNBSP" src="images/202F.png"><code class="uname" translate="no">U+202F NARROW NO-BREAK SPACE</code></span></td>
 					<td>✓</td>
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
@@ -2240,7 +2240,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td><span class="uname" translate="no">U+205F MEDIUM MATHEMATICAL SPACE</span></td>
+					<td><span class="codepoint" translate="no"><img alt="MMSP" src="images/205F.png"><code class="uname" translate="no">U+205F MEDIUM MATHEMATICAL SPACE</code></span></td>
 					<td>✓</td>
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
@@ -2249,7 +2249,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td><span class="uname" translate="no">U+3000 IDEOGRAPHIC SPACE</span></td>
+					<td><span class="codepoint" translate="no"><img alt="IDSP" src="images/3000.png"><code class="uname" translate="no">U+3000 IDEOGRAPHIC SPACE</code></span></td>
 					<td>✓</td>
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
@@ -2258,7 +2258,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td><span class="uname" translate="no">U+FEFF ZERO WIDTH NO-BREAK SPACE</span></td>
+					<td><span class="codepoint" translate="no"><img alt="ZWNPSP" src="images/FEFF.png"><code class="uname" translate="no">U+FEFF ZERO WIDTH NO-BREAK SPACE</code></span></td>
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
@@ -2278,10 +2278,19 @@ just as characters are the basic unit of organization of encoded text.</p>
 <section id="char_ref" class="subtopic">
 <h3>Referring to Unicode characters</h3>
 
+
 <p class="reviewComments"><a href="https://github.com/w3c/i18n-activity/labels/t%3Achar_ref" target="_blank">See related review comments.</a></p>
 
+<aside class="links" id="links_char_unicoderef">
+<p class="links_title">Useful background and overviews for this section</p>
+<ul>
+<li class="w3"><p class="link"><a href="https://www.w3.org/International/i18n-activity/guidelines/editing#codepoints">I18N Editing Guidelines</a> &mdash; more information on character formatting</p></li>
+</ul>
+</aside>
+
+
  	<div class="req" id="char_ref_Uchar">
-	<p class="advisement">Use <code translate="no">U+XXXX</code> syntax to represent Unicode code points in the specification.</p>
+	<p class="advisement">Use <code translate="no">U+XXXX</code> syntax to represent Unicode code points in a specification.</p>
 	</div>
 
 <p>The <code translate="no">U+XXXX</code> format is well understood when referring to Unicode code points in a specification. These are space separated when appearing in a sequence. No additional decoration is needed. Note that a code point may contain four, five, or six hexadecimal digits. When fewer than four digits are needed, the code point number is zero filled.</p>
@@ -2326,70 +2335,63 @@ just as characters are the basic unit of organization of encoded text.</p>
 </aside>
 
 <div class="req" id="char_ref_unicode_names">
-	<p class="advisement">Use the Unicode character name to describe specific code points. Use of the <a href="#char_ref_template">character naming template</a> is RECOMMENDED.</p>
+	<p class="advisement">Use the Unicode character name to describe specific code points.</p>
 </div>
 
-<p>Unicode assigns unique, immutable names to each assigned Unicode code point. Using these names in your specification when referring to specific characters (along with the code point in <span class="uname" translate="no">U+XXXX</span> notation) will help make your specification unambiguous.</p>
+<p>Unicode assigns unique, immutable names to each assigned Unicode code point. Using these names in your specification when referring to specific characters (along with the code point in <code class="uname" translate="no">U+XXXX</code> notation) will help make your specification unambiguous.</p>
 
-<p>There are cases where doing this is overly pedantic and detracts from usability, but be cautious about being so informal as to impair meaning.</p>
+<div class="req" id="char_ref_unicode_template">
+	<p class="advisement">Use of the character naming template is RECOMMENDED.</p>
+</div>
 
-<section id="char_ref_template">
-<h5>Character naming template</h5>
-
-	<div class="xref"><span class="seealso">See also</span>
-	<p>[<a href="https://www.w3.org/International/i18n-activity/guidelines/editing#codepoints">I18N Editing Guidelines</a>].</p>
-	</div>
-	
-<p>Use of the character template used in Internationalization specifications is recommended. For most characters, the template looks like this:</p>
+<p>For most characters, the template looks like this:</p>
 
 <code>
-&lt;span class="codepoint" translate="no">&lt;bdi lang="??">&#xXXXX;&lt;/bdi>&lt;span class="uname">U+XXXX UNICODE_CHARACTER_NAME_ALL_IN_CAPS&lt;/span>&lt;/span>
+&lt;span class="codepoint" translate="no">&lt;bdi lang="??">&#xXXXX;&lt;/bdi>&lt;code class="uname">U+XXXX UNICODE_CHARACTER_NAME_ALL_IN_CAPS&lt;/code>&lt;/span>
 </code>
-
 
 <aside class="example" title="Example of a character reference">
 <p>Filling in the above template like this:</p>
 
 <code>
-&lt;span class="codepoint" translate="no">&lt;bdi lang="fr">&#x00E9;&lt;/bdi>&lt;span class="uname">U+00E9 LATIN SMALL LETTER E WITH ACUTE&lt;/span>&lt;/span>
+&lt;span class="codepoint" translate="no">&lt;bdi lang="fr">&#x00E9;&lt;/bdi>&lt;code class="uname">U+00E9 LATIN SMALL LETTER E WITH ACUTE&lt;/code>&lt;/span>
 </code>
 
-<p>Produces output in the page like this: <span class="codepoint" translate="no"><bdi lang="fr">é</bdi><span class="uname">U+00E9 LATIN SMALL LETTER E WITH ACUTE</span></span>.</p>
+<p>Produces output in the page like this: <span class="codepoint" translate="no"><bdi lang="fr">é</bdi><code class="uname">U+00E9 LATIN SMALL LETTER E WITH ACUTE</code></span>.</p>
 </aside>
 
-<p>The <code translate="no" class="kw">bdi</code> element is used to ensure that example characters that are right-to-left do not interfere with the layout of the page. Do not include line breaks or a space between the closing <code translate="no" class="kw">bdi</code> and the following <code translate="no" class="kw">span</code> element; spacing and presentation is controlled by styling.</p>
+<p>The <code translate="no" class="kw">bdi</code> element is used to ensure that example characters that are right-to-left do not interfere with the layout of the page. Do not include line breaks or a space between the closing <code translate="no" class="kw">bdi</code> and the following <code translate="no" class="kw">code</code> element; spacing and presentation is controlled by styling.</p>
 
-<p>The <code translate="no" class="kw">lang</code> attribute should be filled in appropriately to get the correct font selection for a given context. Examples in East Asian languages (such as Chinese, Japanese, or Korean) or in the Arabic script can sometimes require greater care in choosing a language tag.</p>
+<p>The <code translate="no" class="kw">lang</code> attribute should be filled in appropriately to get the correct font selection for a given context. Examples in East Asian languages (such as Chinese, Japanese, or Korean) or in the Arabic script can sometimes require greater care in choosing a language tag. Rarely, for certain languages, it might be necessary to adjust the style of the <code>bdi</code> element with a <kbd translate="no">font-family</kbd> and/or <kbd translate="no">font-size</kbd> in your own stylesheet.</p>
 
 <p>For invisible characters (such as control characters) or for whitespace, use an image instead of the character; or you may also omit the character and its surrounding <code translate="no" class="kw">bdi</code> element.</p>
 
 <code>
-&lt;span class="codepoint" translate="no">&lt;img alt="..." src="...">&lt;span class="uname">U+XXXX UNICODE_CHARACTER_NAME_ALL_IN_CAPS&lt;/span>&lt;/span>
+&lt;span class="codepoint" translate="no">&lt;img alt="..." src="...">&lt;code class="uname">U+XXXX UNICODE_CHARACTER_NAME_ALL_IN_CAPS&lt;/code>&lt;/span>
 </code>
 
 <aside class="example" title="Example of a character reference with an image">
 <p>Filling in the above template like this:</p>
 
 <code>
-&lt;span class="codepoint" translate="no">&lt;img alt="NBSP" src="images/00A0.png">&lt;span class="uname">U+00A0 NO-BREAK SPACE&lt;/span>&lt;/span>
+&lt;span class="codepoint" translate="no">&lt;img alt="NBSP" src="images/00A0.png">&lt;code class="uname">U+00A0 NO-BREAK SPACE&lt;/code>&lt;/span>
 </code>
 
-<p>Produces output in the page like this: <span class="codepoint" translate="no"><img alt="NBSP" src="images/00A0.png"><span class="uname">U+00A0 NO-BREAK SPACE</span></span>.</p>
+<p>Produces output in the page like this: <span class="codepoint" translate="no"><img alt="NBSP" src="images/00A0.png"><code class="uname">U+00A0 NO-BREAK SPACE</code></span>.</p>
 </aside>
 
 <p>Short sequences of characters should list the character names, separated by <span class="codepoint" translate="no">+</span>.
 
 <aside class="example" title="Example of a code point sequence">
-	<p>This example: <span class="codepoint" translate="no"><bdi lang="hi">&#x0928&#x093f;</bdi><span class="uname">U+0928 DEVANAGARI LETTER NA</span> + <span class="uname">U+093F  DEVANAGARI VOWEL SIGN I</span></span> uses the following markup:</p>
+	<p>This example: <span class="codepoint" translate="no"><bdi lang="hi">&#x0928&#x093f;</bdi><code class="uname">U+0928 DEVANAGARI LETTER NA</code> + <code class="uname">U+093F  DEVANAGARI VOWEL SIGN I</code></span> uses the following markup:</p>
 
 <code>
-&lt;span class="codepoint" translate="no">&lt;bdi lang="hi">&amp;#x0928;&amp;#x093f;&lt;/bdi>&lt;span class="uname">U+0928 DEVANAGARI LETTER NA&lt;/span> + &lt;span class="uname">U+093F DEVANAGARI VOWEL SIGN I&lt;/span>&lt;/span>
+&lt;span class="codepoint" translate="no">&lt;bdi lang="hi">&amp;#x0928;&amp;#x093f;&lt;/bdi>&lt;code class="uname">U+0928 DEVANAGARI LETTER NA&lt;/code> + &lt;code class="uname">U+093F DEVANAGARI VOWEL SIGN I&lt;/code>&lt;/span>
 </code>	
 
 </aside>
 
-<p>Long sequences will sometimes just list the code points, although the character names should be retained where possible for clarity. An example can be found in this document in the <a href="#char_term_def">discussion of the composed "family" emoji</a>: <span class="codepoint"><bdi lang="en">👨‍👩‍👧‍👧</bdi><span class="uname">U+1F468 U+200D U+1F469 U+200D U+1F467 U+200D U+1F467</span></span></p>
-
+<p>There are cases where including the character name and additional markup is overly pedantic and detracts from usability, but be cautious about being so informal as to impair meaning. In particular, long sequences will sometimes just list the code points, although the character names should be retained where possible for clarity. An example can be found in this document in the <a href="#char_term_def">discussion of the composed "family" emoji</a>: <span class="codepoint"><bdi lang="en">👨‍👩‍👧‍👧</bdi><code class="uname">U+1F468 U+200D U+1F469 U+200D U+1F467 U+200D U+1F467</code></span></p>
 
 </section>
 </section>
@@ -2995,26 +2997,26 @@ just as characters are the basic unit of organization of encoded text.</p>
 	<p class="advisement">File name and path name definitions MUST NOT use the following Unicode code points.</p>
 	<p>These characters are known to cause interoperability problems with various file systems. Specifications and implementations should use an abundance of caution in their file naming when interoperability of content is key. The list of restricted characters is intended to help avoid some known problem areas, but it does not ensure that all other Unicode characters are supported.</p>
 	<ul>
-		<li><span class="codepoint"><bdi>"</bdi><span class="uname">U+0022 QUOTATION MARK</span></span></li>
-		<li><span class="codepoint"><bdi>*</bdi><span class="uname">U+002A ASTERISK</span></span></li>
-		<li><span class="codepoint"><bdi>/</bdi><span class="uname">U+002F SOLIDUS</span></span></li>
-		<li><span class="codepoint"><bdi>:</bdi><span class="uname">U+003A COLON</span></span></li>
-		<li><span class="codepoint"><bdi>&lt;</bdi><span class="uname">U+003C LESS-THAN SIGN</span></span></li>
-		<li><span class="codepoint"><bdi>&gt;</bdi><span class="uname">U+003E GREATER-THAN SIGN</span></span></li>
-		<li><span class="codepoint"><bdi>\</bdi><span class="uname">U+005C REVERSE SOLIDUS</span></span></li>
-		<li><span class="codepoint"><bdi>|</bdi><span class="uname">U+007C VERTICAL LINE</span></span></li>
-		<li><span class="codepoint"><span class="uname">U+007F DEL</span></span></li>
+		<li><span class="codepoint"><bdi>"</bdi><code class="uname">U+0022 QUOTATION MARK</code></span></li>
+		<li><span class="codepoint"><bdi>*</bdi><code class="uname">U+002A ASTERISK</code></span></li>
+		<li><span class="codepoint"><bdi>/</bdi><code class="uname">U+002F SOLIDUS</code></span></li>
+		<li><span class="codepoint"><bdi>:</bdi><code class="uname">U+003A COLON</code></span></li>
+		<li><span class="codepoint"><bdi>&lt;</bdi><code class="uname">U+003C LESS-THAN SIGN</code></span></li>
+		<li><span class="codepoint"><bdi>&gt;</bdi><code class="uname">U+003E GREATER-THAN SIGN</code></span></li>
+		<li><span class="codepoint"><bdi>\</bdi><code class="uname">U+005C REVERSE SOLIDUS</code></span></li>
+		<li><span class="codepoint"><bdi>|</bdi><code class="uname">U+007C VERTICAL LINE</code></span></li>
+		<li><span class="codepoint"><img alt="DEL" src="images/007F.png"><code class="uname">U+007F DEL</code></span></li>
 		<li>Codepoints in the following ranges:
 		   <ul>
-			   <li>C0 Controls <span class="uname">U+0000</span>...<span class="uname">U+001F</span></li>
-			   <li>C1 Controls <span class="uname">U+0080</span>...<span class="uname">U+009F</span></li>
-			   <li>Private Use <span class="uname">U+E000</span>...<span class="uname">U+F8FF</span></li>
-			   <li>Specials <span class="uname">U+FFF0</span>...<span class="uname">U+FFFF</span></li>
-			   <li>Supplementary Private Use <span class="uname">U+F0000</span>...<span class="uname">U+FFFFF</span></li>
-			   <li>Supplementary Private Use <span class="uname">U+100000</span>...<span class="uname">U+10FFFF</span></li>
+			   <li>C0 Controls <code class="uname">U+0000</code>...<code class="uname">U+001F</code></li>
+			   <li>C1 Controls <code class="uname">U+0080</code>...<code class="uname">U+009F</code></li>
+			   <li>Private Use <code class="uname">U+E000</code>...<code class="uname">U+F8FF</code></li>
+			   <li>Specials <code class="uname">U+FFF0</code>...<code class="uname">U+FFFF</code></li>
+			   <li>Supplementary Private Use <code class="uname">U+F0000</code>...<code class="uname">U+FFFFF</code></li>
+			   <li>Supplementary Private Use <code class="uname">U+100000</code>...<code class="uname">U+10FFFF</code></li>
 		   </ul></li>
 
-		<li><span class="codepoint"><bdi>.</bdi><span class="uname">U+002E FULL STOP</span></span> as the last character (Note that this includes the file names <code>.</code> and <code>..</code>, which have special meaning to many file systems)</li><!-- break out -->
+		<li><span class="codepoint"><bdi>.</bdi><code class="uname">U+002E FULL STOP</code></span> as the last character (Note that this includes the file names <code>.</code> and <code>..</code>, which have special meaning to many file systems)</li><!-- break out -->
 
 		<li>All Unicode non-character code points, specifically:
 		<ul>
@@ -3064,7 +3066,7 @@ just as characters are the basic unit of organization of encoded text.</p>
     <p>Sorting by [=code point=] makes sense when strings are stored and processed as a sequence of code points, such as in a <a href="https://webidl.spec.whatwg.org/#idl-USVString">USVString</a>. Sorting by [=code unit=] makes sense when strings are stored and processed using the underlying encoding, such as in a <a href="https://webidl.spec.whatwg.org/#idl-DOMString">DOMString</a>.</p>
     
     <aside class="example" title="Code point vs. code unit ordering">
-		<p>Consider two strings, one containing <span class="codepoint" translate="no"><bdi lang="ja">&#x1f63a;</bdi><span class="uname">U+1F63A SMILING CAT FACE WITH OPEN MOUTH</span></span> and the other containing <span class="codepoint" translate="no"><bdi lang="ja">&#xff5e;</bdi><span class="uname">U+FF5E FULL WIDTH TILDE</span></span>.</p>
+		<p>Consider two strings, one containing <span class="codepoint" translate="no"><bdi lang="ja">&#x1f63a;</bdi><code class="uname">U+1F63A SMILING CAT FACE WITH OPEN MOUTH</code></span> and the other containing <span class="codepoint" translate="no"><bdi lang="ja">&#xff5e;</bdi><code class="uname">U+FF5E FULL WIDTH TILDE</code></span>.</p>
 		
 		<p>In ascending <em>code point order</em>, the strings sort like:</p>
 <pre>
@@ -3083,7 +3085,7 @@ just as characters are the basic unit of organization of encoded text.</p>
     <p>Neither of these sort orders applies any type of normalization to the strings being compared. This means that some apparently equivalent strings compare as different. See <cite>String Matching</cite> [[CHARMOD-NORM]] for more information.</p>
     
     <aside class="example">
-		<p>Consider two strings, <em>A</em> and <em>B</em>. String A consists of <span class="codepoint" translate="no"><bdi lang="en">&#xC7;</bdi><span class="uname">U+00C7 LATIN CAPITAL LETTER C WITH CEDILLA</span></span>. String B consists of the sequence <span class="codepoint" translate="no"><bdi lang="en">&#x43;</bdi><span class="uname">U+0043 LATIN CAPITAL LETTER C</span></span> followed by <span class="codepoint" translate="no"><bdi lang="en">&#x327;</bdi><span class="uname">U+0327 COMBINING CEDILLA</span></span>. These strings are visually identical. Applying Unicode Normalization Form C or Form D to both would cause them to use the same code point (and thus code unit) sequences. However, they compare differently because <code>0x00C7</code> is greater than <code>0x0043</code>:</p>
+		<p>Consider two strings, <em>A</em> and <em>B</em>. String A consists of <span class="codepoint" translate="no"><bdi lang="en">&#xC7;</bdi><code class="uname">U+00C7 LATIN CAPITAL LETTER C WITH CEDILLA</code></span>. String B consists of the sequence <span class="codepoint" translate="no"><bdi lang="en">&#x43;</bdi><code class="uname">U+0043 LATIN CAPITAL LETTER C</code></span> followed by <span class="codepoint" translate="no"><bdi lang="en">&#x327;</bdi><code class="uname">U+0327 COMBINING CEDILLA</code></span>. These strings are visually identical. Applying Unicode Normalization Form C or Form D to both would cause them to use the same code point (and thus code unit) sequences. However, they compare differently because <code>0x00C7</code> is greater than <code>0x0043</code>:</p>
         <table>
 			<thead>
 				<tr>
@@ -3123,7 +3125,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 	</details>
 	</div>
 	
-	<p>Languages and cultures vary in how they sort text or use their alphabet or writing system to organize textual data. For example, German language speakers treat the letter <span class="codepoint" translate="no"><bdi lang="de">&#xFC;</bdi><span class="uname">U+00FC LATIN SMALL LETTER U WITH DIAERISIS</span></span> as sorting similar to the letter <strong>u</strong> (there are actually <em>two</em> German sorting sequences, which are slightly different in the exact handling of this letter), while Danish language speakers treat the same letter as separate in the alphabet and sort it after the letter "y".</p>
+	<p>Languages and cultures vary in how they sort text or use their alphabet or writing system to organize textual data. For example, German language speakers treat the letter <span class="codepoint" translate="no"><bdi lang="de">&#xFC;</bdi><code class="uname">U+00FC LATIN SMALL LETTER U WITH DIAERISIS</code></span> as sorting similar to the letter <strong>u</strong> (there are actually <em>two</em> German sorting sequences, which are slightly different in the exact handling of this letter), while Danish language speakers treat the same letter as separate in the alphabet and sort it after the letter "y".</p>
 	
 	<p>Determining which locale to use for a sorted list can depend on a number of factors. For example, an application might sort a list of values according to the localization of the page in which the data appears. In other cases it might make more sense to sort according to the runtime locale of the user-agent or according to some parameter passed in an API. The important thing to recognize is that this order might be different for different users or on different systems.</p>
 		
@@ -3340,7 +3342,7 @@ PCENChar ::=
 		<p>HTML and CSS processing is defined such that Unicode character properties (such as whether a given character is a combining mark) are not considered when parsing identifiers and tokens. This allows identifiers to start with a combining character and still be processed reliably, but a plain text editor might not handle the value identically.</p>
 	</div>
 	
-	<p>Specifications should exercise care when defining identifiers with regards to the handling of whitespace. Note that there are Unicode horizontal whitespace characters other than the ASCII characters <code>U+0020 SPACE</code> and <code>U+0009 TAB</code>.</p>
+	<p>Specifications should exercise care when defining identifiers with regards to the handling of whitespace. Note that there are Unicode horizontal whitespace characters other than the ASCII characters <span class="codepoint" translate="no"><img alt="SP" src="images/0020.png"><code class="uname">U+0020 SPACE</code></span> and <span class="codepoint" translate="no"><img alt="HTAB" src="images/0009.png"><code class="uname">U+0009 TAB</code></span>.</p>
 	
 	<div class="req" id="identifier_content_surrogates">
 	<p class="advisement">Specifications should not allow surrogate <a>code points</a> (<code>U+D800</code> to <code>U+DFFF</code>) or non-character code points in identifiers.</p>
@@ -3947,7 +3949,7 @@ PCENChar ::=
 	</details>
 	</div>
 
-<p>This ensures that names are correctly handled for people such as Dina Asher-Smith and Christopher O'Connell.  Note that the apostrophe may appear as <span class="codepoint" translate="no"><bdi lang="en">&#x0027;</bdi><span class="uname">U+0027 APOSTROPHE</span></span> or as <span class="codepoint" translate="no"><bdi lang="en">&#x02BC;</bdi><span class="uname">U+02BC MODIFIER LETTER APOSTROPHE</span></span>, or perhaps even <span class="codepoint" translate="no"><bdi lang="en">&#x2019;</bdi><span class="uname">U+2019 RIGHT SINGLE QUOTATION MARK</span></span>.  A hyphen may be represented using <span class="codepoint" translate="no"><bdi lang="en">&#x002D;</bdi><span class="uname">U+002D HYPHEN-MINUS</span></span> or <span class="codepoint" translate="no"><bdi lang="en">&#x2010;</bdi><span class="uname">U+2010 HYPHEN</span></span> or, in Japan, <span class="codepoint" translate="no"><span lang="ja">&#x30A0;</span><span class="uname">U+30A0 KATAKANA-HIRAGANA DOUBLE HYPHEN</span></span>.</p>
+<p>This ensures that names are correctly handled for people such as Dina Asher-Smith and Christopher O'Connell.  Note that the apostrophe may appear as <span class="codepoint" translate="no"><bdi lang="en">&#x0027;</bdi><code class="uname">U+0027 APOSTROPHE</code></span> or as <span class="codepoint" translate="no"><bdi lang="en">&#x02BC;</bdi><code class="uname">U+02BC MODIFIER LETTER APOSTROPHE</code></span>, or perhaps even <span class="codepoint" translate="no"><bdi lang="en">&#x2019;</bdi><code class="uname">U+2019 RIGHT SINGLE QUOTATION MARK</code></span>.  A hyphen may be represented using <span class="codepoint" translate="no"><bdi lang="en">&#x002D;</bdi><code class="uname">U+002D HYPHEN-MINUS</code></span> or <span class="codepoint" translate="no"><bdi lang="en">&#x2010;</bdi><code class="uname">U+2010 HYPHEN</code></span> or, in Japan, <span class="codepoint" translate="no"><bdi lang="ja">&#x30A0;</bdi><code class="uname">U+30A0 KATAKANA-HIRAGANA DOUBLE HYPHEN</code></span>.</p>
 <div class="req" id="loc_names_uppercase">
 <p class="advisement">Don't require names to be entered all in upper case.</p>
 <details class="links"><summary>source</summary>
