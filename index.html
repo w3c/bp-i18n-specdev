@@ -1909,11 +1909,25 @@ just as characters are the basic unit of organization of encoded text.</p>
 <p>[[[#char_def]]].</p>
 </div>
 
-<p>Specifications need to be clear about the encoding and processing of textual data. The recommendations in this section are mutually consistent with those in [[DESIGN-PRINCIPLES]]. In general, specifications should only support well-formed Unicode code point strings and should avoid the use of (or access to) the underlying code units or the use of different character encodings.</p>
+<p>Specifications need to be clear about the encoding and processing of textual data. Unfortunately, the common term 'string' has multiple definitions. When working with the Web platform, the recommendations in this section are mutually consistent with those in [[DESIGN-PRINCIPLES]]: specifications in the Web platform, such as JavaScript APIs, should refer to the definitions in [[WEBIDL]].</p>
+
+<p>All of the definitions found in this section are terms in the [[I18N-GLOSSARY]]. Some of these definitions are taken directly from [[WEBIDL]], [[INFRA]], or the Unicode glossary; these definitions are quoted verbatim and include links to their source. Please refer to instructions in the Internationalization Glossary for how to import and link definitions in your own specification.</p>
+
+<p class="note">The term 'string' as defined in the [[I18N-GLOSSARY]] is consistent with a <a>USVString</a>. This is different from the term <a href="https://infra.spec.whatwg.org/#string" target="_blank">string</a> defined in [[INFRA]], which is consistent with a <a>DOMString</a>. Be sure that you're using the right definition of a string in your specification.</p>
 
 <aside class="note" id="char_string_char">
 	<p>Specifications should avoid adding or defining support for <a>legacy character encodings</a> unless there is a specific reason to do so. See also <a href="#char_choosing"></a>.</p>
 </aside>
+
+<p class="issue">Where is the definition of "web platform"???</p>
+
+<div class="req" id="char_string_generic">
+	<div class="advisement">
+	   <p>When developing a specification that is based on [[XML]] or is otherwise not part of the web platform, use this definition of string, found in the [[I18N-GLOSSARY]]:</p>
+	   <p style="background-color:white; border: 1px solid brown; inset:0.5em">A 'string' is a well-formed sequence of zero or more Unicode <a>code points</a>, consisting solely of Unicode <a>scalar values</a>.</p>
+</div>
+
+<p>Note that this definition is consistent with the type <code>xsd:string</code> found in [[XMLSCHEMA11-2]]</p>
 
 <div class="req" id="char_string_domstring">
 	<p class="advisement">When designing a web platform feature which operates on strings, use <a href="https://webidl.spec.whatwg.org/#idl-DOMString">DOMString</a> unless you have a specific reason not to.</p>
@@ -1927,6 +1941,8 @@ just as characters are the basic unit of organization of encoded text.</p>
 
 <p>The reason <code translate="no">DOMString</code> is preferred to <code translate="no">USVString</code> is that both [[DOM]] and the string types in JavaScript (and its derivatives, such as JSON) are defined in terms of UTF-16 code unit strings. Specifying <code translate="no">USVString</code> can result in inadvertently requiring an implementation to check for unpaired surrogates in cases where there is no benefit to doing so.</p>
 
+<p class="note">The [[INFRA]] spec defines the term <a href="https://infra.spec.whatwg.org/#string">string</a> with the same meaning. Because the term 'string' is ambiguous out-of-context, be careful to ensure that the specific meaning intended is clear in your own specification. If in doubt, use the term <a>DOMString</a>.</p>
+
 <div class="req" id="char_string_usvstring">
 	<p class="advisement">When designing a web platform feature or API that operates on the internal values of strings, including indexing, iterating, transformation, or searching, the use of <a href="https://webidl.spec.whatwg.org/#idl-USVString">USVString</a> is RECOMMENDED.</p>
 	<details class="links"><summary>explantations &amp; examples</summary>
@@ -1935,7 +1951,9 @@ just as characters are the basic unit of organization of encoded text.</p>
 	</details>
 </div>
 
-<p>The type <code translate="no">USVString</code> defines strings as a sequence of Unicode <a>code points</a>. For strings whose most common algorithms operate on or process individual <a>code points</a>, or for operations which can’t handle surrogates in input, <code translate="no">USVString</code> should be used. For example, if your specification is defining a process that parses a string or transforms specific characters, it is both easier to specify and more reliable to refer to code points (<em>"scalar values"</em>) than to deal with the UTF-16 <a>code units</a>.</p>
+<p>The type <code translate="no">USVString</code> defines strings as a sequence of <a>Unicode Scalar Values</a>. For strings whose most common algorithms operate on or process individual <a>code points</a>, or for operations which can’t handle surrogates in input, <code translate="no">USVString</code> should be used. For example, if your specification is defining a process that parses a string or transforms specific characters, it is both easier to specify and more reliable to refer to code points (<em>"scalar values"</em>) than to deal with the UTF-16 <a>code units</a>.</p>
+
+<p class="note">The [[INFRA]] spec defines the term <a href="https://infra.spec.whatwg.org/#scalar-value-string">scalar value string</a> with the same meaning.</p>
 
 <p>In a <code translate="no">USVString</code>, isolated <a>surrogate</a> code points are invalid and implementations are required to replace any found in a string with the Unicode replacment character (<span class="codepoint" translate="no"><bdi lang="und">&#xFFFD;</bdi><code class="uname">U+FFFD REPLACEMENT CHARACTER</code></span>).</p>
 
