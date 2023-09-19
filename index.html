@@ -1911,9 +1911,11 @@ just as characters are the basic unit of organization of encoded text.</p>
 
 <p>Specifications need to be clear about the encoding and processing of textual data. Unfortunately, the common term 'string' has multiple definitions. When working with the Web platform, the recommendations in this section are mutually consistent with those in [[DESIGN-PRINCIPLES]]: specifications in the Web platform, such as JavaScript APIs, should refer to the definitions in [[WEBIDL]].</p>
 
-<p>All of the definitions found in this section are terms in the [[I18N-GLOSSARY]]. Some of these definitions are taken directly from [[WEBIDL]], [[INFRA]], or the Unicode glossary; these definitions are quoted verbatim and include links to their source. Please refer to instructions in the Internationalization Glossary for how to import and link definitions in your own specification.</p>
+<p>The definitions in this section use terms found in the <cite>Internationalization Glossary</cite> [[I18N-GLOSSARY]]. Some of these definitions are taken directly from [[WEBIDL]], [[INFRA]], or the Unicode glossary; in which case the definitions are quoted verbatim and include links to their source. Please refer to instructions in the Internationalization Glossary for how to import and link definitions in your own specification.</p>
 
-<p class="note">The term 'string' as defined in the [[I18N-GLOSSARY]] is consistent with a <a>USVString</a>. This is different from the term <a href="https://infra.spec.whatwg.org/#string" target="_blank">string</a> defined in [[INFRA]], which is consistent with a <a>DOMString</a>. Be sure that you're using the right definition of a string in your specification.</p>
+<aside class="note" id="char_string_defs">
+    <p>The generic term <a>string</a> has a definition in the [[I18N-GLOSSARY]] consistent with a <a>USVString</a>. This is different from the term <a href="https://infra.spec.whatwg.org/#string" target="_blank">string</a> defined in [[INFRA]], which is consistent with a <a>DOMString</a>. Each definition is appropriate in different cases. Be sure that you're using the right definition of a string in your specification.</p>
+</aside>
 
 <aside class="note" id="char_string_char">
 	<p>Specifications should avoid adding or defining support for <a>legacy character encodings</a> unless there is a specific reason to do so. See also <a href="#char_choosing"></a>.</p>
@@ -1924,7 +1926,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 <div class="req" id="char_string_generic">
 	<div class="advisement">
 	   <p>When developing a specification that is based on [[XML]] or is otherwise not part of the web platform, use this definition of string, found in the [[I18N-GLOSSARY]]:</p>
-	   <p style="background-color:white; border: 1px solid brown; inset:0.5em">A 'string' is a well-formed sequence of zero or more Unicode <a>code points</a>, consisting solely of Unicode <a>scalar values</a>.</p>
+	   <p style="background-color:white; border: 1px solid brown; inset:0.5em">A 'string' is a well-formed sequence of zero or more <a>Unicode Scalar Values</a>.</p>
 </div>
 
 <p>Note that this definition is consistent with the type <code>xsd:string</code> found in [[XMLSCHEMA11-2]]</p>
