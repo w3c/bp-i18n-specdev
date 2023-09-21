@@ -1913,29 +1913,18 @@ just as characters are the basic unit of organization of encoded text.</p>
 
 <p>The best practices found in this section are mutually consistent with those in [[DESIGN-PRINCIPLES]]. The definitions in this section use terms found in the <cite>Internationalization Glossary</cite> [[I18N-GLOSSARY]]. Some of these definitions are taken directly from [[WEBIDL]], [[INFRA]], or the Unicode glossary; in which case the definitions are quoted verbatim and include links to their source. Please refer to instructions in the Internationalization Glossary for how to import and link definitions in your own specification.</p>
 
-<p>The most fundamental definition of a string is:</p>
-    
-<p style="background-color:white; border: 1px solid brown; margins:0.5em">A 'string' is a well-formed sequence of zero or more <a>Unicode Scalar Values</a>.</p>
-
-<p>This definition of a string consisting of a sequence of Unicode characters. Because of the need to be specific about the type of string in use, this definition can be more specifically referred to using one of these definitions:
+<p>[[UNICODE]] forms the basis for text on the Web, so the basic definition of a string is: <em>a well-formed sequence of zero or more <a>Unicode Scalar Values</a></em>. Because the term 'string' is ambiguous, this definition can be more specifically referred to using one of these definitions:
 
 <ul>
 	<li><a>USVString</a> [[WEBIDL]]</li>
 	<li><a>scalar value string</a> [[INFRA]]</li>
-	<li>The <code>xsd:string</code> type [[XMLSCHEMA11-2]]</li>
+	<li><code>xsd:string</code> [[XMLSCHEMA11-2]]</li>
 </ul></p> 
 
 
-<p>The other common definition of the term 'string' found in the Web platform depends on the use of <a>UTF-16</a> <a>code units</a> to encode Unicode <a>code points</a>:</p>
+<p>The [[DOM]], JavaScript (including its APIs and document formats), or certain platforms use the <a>UTF-16</a> <a>character encoding</a> to store and process string data. This can expose the underlying details of the UTF-16 encoding, leading to the need to use a different type of string, the <a>DOMString</a> [[WEBIDL]]. For example, [[INFRA]] defines a string this way:</p>
 
-<p style="background-color:white; border: 1px solid brown; margins:0.5em">A string is a sequence of unsigned 16-bit integers, also known as <a>code units</a></p>
-
-<p>Because of the need to be specific about the type of string in use, this definition is sometimes referred to using one of these definitions:
-
-<ul>
-	<li><a>DOMString</a> [[WEBIDL]]</li>
-	<li><a>string</a> [[INFRA]]</li>
-</ul></p> 
+<p style="background-color:white; border: 1px solid brown; margin:0.5em">A string is a sequence of unsigned 16-bit integers, also known as <a>code units</a></p>
 
 <div class="req" id="char_string_domstring">
 	<p class="advisement">When designing a Web platform feature which operates on strings, use <a href="https://webidl.spec.whatwg.org/#idl-DOMString">DOMString</a> unless you have a specific reason not to.</p>
