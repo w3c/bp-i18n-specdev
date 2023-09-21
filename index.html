@@ -1909,27 +1909,25 @@ just as characters are the basic unit of organization of encoded text.</p>
 <p>[[[#char_def]]].</p>
 </div>
 
-<p>Specifications need to be clear about the encoding and processing of textual data. Unfortunately, the common term 'string' has multiple definitions. When working with the Web platform, the recommendations in this section are mutually consistent with those in [[DESIGN-PRINCIPLES]]: specifications in the Web platform, such as JavaScript APIs, should refer to the definitions in [[WEBIDL]].</p>
+<p>Specifications need to be clear about the encoding and processing of textual data. Strings are a fundamental component of the protocols and document formats that make up the Web. Because there are multiple ways of working with strings, different terminology has evolved to support the needs of differing applications. Be sure to understand your specification's needs and use the most appropriate and precise term.</p>
 
-<p>The definitions in this section use terms found in the <cite>Internationalization Glossary</cite> [[I18N-GLOSSARY]]. Some of these definitions are taken directly from [[WEBIDL]], [[INFRA]], or the Unicode glossary; in which case the definitions are quoted verbatim and include links to their source. Please refer to instructions in the Internationalization Glossary for how to import and link definitions in your own specification.</p>
+<p>The best practices found in this section are mutually consistent with those in [[DESIGN-PRINCIPLES]]. The definitions in this section use terms found in the <cite>Internationalization Glossary</cite> [[I18N-GLOSSARY]]. Some of these definitions are taken directly from [[WEBIDL]], [[INFRA]], or the Unicode glossary; in which case the definitions are quoted verbatim and include links to their source. Please refer to instructions in the Internationalization Glossary for how to import and link definitions in your own specification.</p>
 
-<aside class="note" id="char_string_defs">
-    <p>The generic term <a>string</a> has a definition in the [[I18N-GLOSSARY]] consistent with a <a>USVString</a>. This is different from the term <a href="https://infra.spec.whatwg.org/#string" target="_blank">string</a> defined in [[INFRA]], which is consistent with a <a>DOMString</a>. Each definition is appropriate in different cases. Be sure that you're using the right definition of a string in your specification.</p>
-</aside>
+<div>
+    <p>The most fundamental definition of a string is:</p>
+    
+    <p style="background-color:white; border: 1px solid brown; inset:0.5em">A 'string' is a well-formed sequence of zero or more <a>Unicode Scalar Values</a>.</p>
+</div>
+
+<p>This definition of a 'string' is consistent with the term <a>USVString</a> in [[WEBIDL]] and the term <a>scalar value string</a> in [[INFRA]]. Specifications that work with the [[DOM]], JavaScript (or JavaScript APIs), [[WEBIDL]], or the browser often use a different definition of the term 'string': the <a href="https://infra.spec.whatwg.org/#string" target="_blank">string</a> defined in [[INFRA]] refers to a <a>DOMString</a>. This definition reads:</p>
+
+<p style="background-color:white; border: 1px solid brown; inset:0.5em">A string is a sequence of unsigned 16-bit integers, also known as <a>code units</a></p>
+
+<p>Note that this definition relies on the implicit use of the <a>UTF-16</a> character encoding for string values.</p>
 
 <aside class="note" id="char_string_char">
 	<p>Specifications should avoid adding or defining support for <a>legacy character encodings</a> unless there is a specific reason to do so. See also <a href="#char_choosing"></a>.</p>
 </aside>
-
-<p class="issue">Where is the definition of "web platform"???</p>
-
-<div class="req" id="char_string_generic">
-	<div class="advisement">
-	   <p>When developing a specification that is based on [[XML]] or is otherwise not part of the web platform, use this definition of string, found in the [[I18N-GLOSSARY]]:</p>
-	   <p style="background-color:white; border: 1px solid brown; inset:0.5em">A 'string' is a well-formed sequence of zero or more <a>Unicode Scalar Values</a>.</p>
-</div>
-
-<p>Note that this definition is consistent with the type <code>xsd:string</code> found in [[XMLSCHEMA11-2]]</p>
 
 <div class="req" id="char_string_domstring">
 	<p class="advisement">When designing a web platform feature which operates on strings, use <a href="https://webidl.spec.whatwg.org/#idl-DOMString">DOMString</a> unless you have a specific reason not to.</p>
@@ -1939,7 +1937,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 	</details>
 </div>
 
-<p>The type <code>DOMString</code> is actually a UTF-16 <a>code unit</a> string. This type allows unpaired <a>surrogate</a> code units to appear in a string, which can result in errors or replacement with the Unicode replacment character (<span class="codepoint" translate="no"><bdi lang="und">&#xFFFD;</bdi><code class="uname">U+FFFD REPLACEMENT CHARACTER</code></span>). This type is appropriate when specifications do not need to do internal processing of the string value. The alternative type is <code translate="no"><a href="https://webidl.spec.whatwg.org/#idl-USVString">USVString</a></code>, which is a sequence of Unicode code points.</p>
+<p>The type <code>DOMString</code> is a UTF-16 <a>code unit</a> string. This type allows unpaired <a>surrogate</a> code units to appear in a string, which can result in errors or replacement with the Unicode replacment character (<span class="codepoint" translate="no"><bdi lang="und">&#xFFFD;</bdi><code class="uname">U+FFFD REPLACEMENT CHARACTER</code></span>). This type is appropriate when specifications do not need to do internal processing of the string value. The alternative type is <code translate="no"><a href="https://webidl.spec.whatwg.org/#idl-USVString">USVString</a></code>, which is a sequence of Unicode code points.</p>
 
 <p>The reason <code translate="no">DOMString</code> is preferred to <code translate="no">USVString</code> is that both [[DOM]] and the string types in JavaScript (and its derivatives, such as JSON) are defined in terms of UTF-16 code unit strings. Specifying <code translate="no">USVString</code> can result in inadvertently requiring an implementation to check for unpaired surrogates in cases where there is no benefit to doing so.</p>
 
