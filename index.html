@@ -1924,7 +1924,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 
 <p>The [[DOM]], JavaScript (including its APIs and document formats), or certain platforms use the <a>UTF-16</a> <a>character encoding</a> to store and process string data. This can expose the underlying details of the UTF-16 encoding, leading to the need to use a different type of string, the <a>DOMString</a> [[WEBIDL]]. For example, [[INFRA]] defines a string this way:</p>
 
-<p style="background-color:white; border: 1px solid brown; margin:0.5em">A string is a sequence of unsigned 16-bit integers, also known as <a>code units</a></p>
+<p style="background-color:white; border: 1px solid brown; margin:0.5em; padding:0.5em">A string is a sequence of unsigned 16-bit integers, also known as <a>code units</a></p>
 
 <div class="req" id="char_string_domstring">
 	<p class="advisement">When designing a Web platform feature which operates on strings, use <a href="https://webidl.spec.whatwg.org/#idl-DOMString">DOMString</a> unless you have a specific reason not to.</p>
