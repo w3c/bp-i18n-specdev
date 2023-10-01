@@ -452,3 +452,10 @@ td.exampleChar {
   text-indent: 10px;
   font-size: 140%;
 }
+
+.localdef {
+    background-color:white;
+    border: 1px solid brown; 
+    margin:0.5em; 
+    padding:0.5em;
+}
