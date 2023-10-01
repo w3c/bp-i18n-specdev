@@ -1926,18 +1926,18 @@ just as characters are the basic unit of organization of encoded text.</p>
 <p>Because there are multiple ways of working with strings, different terminology has evolved to support the needs of different specifications. Be sure to understand your specification's needs and use the most appropriate and precise terminology. On the Web, there are three types of strings:
 
 <ul>
-	<li><a>USVString</a>. Strings based on Unicode <a>code points</a>, also known as </a><a>Unicode Scalar Values</a></li>
-	<li><a>DOMString</a>. Strings based on <a>UTF-16</a> <a>code units</a></li>
-	<li><a>ByteString</a>. Strings based on bytes in some <a>character encoding form</a> (usually <a>UTF-8</a>)</li>
+	<li>{{USVString}}. Strings based on Unicode <a>code points</a>, also known as </a><a>Unicode Scalar Values</a></li>
+	<li>{{DOMString}}. Strings based on <a>UTF-16</a> <a>code units</a></li>
+	<li>{{ByteString}}. Strings based on bytes in some <a>character encoding form</a> (usually <a>UTF-8</a>)</li>
 </ul></p>
 
 <p>One difference between these different string types is how <a>surrogate</a> <a>code points</a> are handled. In a <code translate="no">USVString</code>, isolated <a>surrogate</a> code points are invalid and implementations are required to replace any found in a string with the Unicode replacment character (<span class="codepoint" translate="no"><bdi lang="und">&#xFFFD;</bdi><code class="uname">U+FFFD REPLACEMENT CHARACTER</code></span>).</p>
 
-<p>By contrast, a <a>DOMString</a> allows unpaired <a>surrogate</a> <a>code units</a> to appear in a string. An unpaired surrogate can result in processing errors or it must be replaced with the Unicode replacment character (<span class="codepoint" translate="no"><bdi lang="und">&#xFFFD;</bdi><code class="uname">U+FFFD REPLACEMENT CHARACTER</code></span>) when processing the characters inside the string.</p>
+<p>By contrast, a {{DOMString}} allows unpaired <a>surrogate</a> <a>code units</a> to appear in a string. An unpaired surrogate can result in processing errors or it must be replaced with the Unicode replacment character (<span class="codepoint" translate="no"><bdi lang="und">&#xFFFD;</bdi><code class="uname">U+FFFD REPLACEMENT CHARACTER</code></span>) when processing the characters inside the string.</p>
 
 <p>In well-formed <a>UTF-8</a>, <a>surrogate</a> <a>code points</a> should not be encoded and isolated surrogates are replaced by the replacement character. <a>Legacy character encodings</a> never encode <a>surrogates</a>.</p>
 
-<p>The [[DOM]], JavaScript (including its APIs and document formats), and certain document formats and platforms use the <a>UTF-16</a> <a>character encoding</a> to store and process string data. The string type based on <a>UTF-16</a> <a>code units</a> is called a <a>DOMString</a> [[WEBIDL]]. The [[INFRA]] standard defines the term 'string' to mean a <a>DOMString</a>:</p>
+<p>The [[DOM]], JavaScript (including its APIs and document formats), and certain document formats and platforms use the <a>UTF-16</a> <a>character encoding</a> to store and process string data. The string type based on <a>UTF-16</a> <a>code units</a> is called a {{DOMString}} [[WEBIDL]]. The [[INFRA]] standard defines the term 'string' to mean a {{DOMString}}:</p>
 
 <p class="localdef">A string is a sequence of unsigned 16-bit integers, also known as <a>code units</a>.</p>
 
@@ -1951,7 +1951,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 	</details>
 </div>
 
-<p><code translate="no">DOMString</code> is appropriate when specifications do not need to do internal processing of the string value. <code translate="no">DOMString</code> is preferred to other definitions of a string because specifying <code translate="no">USVString</code> instead would result in requiring an implementation to check for unpaired surrogates in cases where there is no benefit to doing so.</p>
+<p>{{DOMString}} is appropriate when specifications do not need to do internal processing of the string value. {{DOMString}} is preferred to other definitions of a string because specifying {{USVString}} instead would result in requiring an implementation to check for unpaired surrogates in cases where there is no benefit to doing so.</p>
 
 <div class="req" id="char_string_usvstring">
 	<p class="advisement">When designing a Web platform feature or API that operates on the internal values of strings, including indexing, iterating, transformation, or searching, the use of <a href="https://webidl.spec.whatwg.org/#idl-USVString">USVString</a> is RECOMMENDED.</p>
@@ -1961,12 +1961,12 @@ just as characters are the basic unit of organization of encoded text.</p>
 	</details>
 </div>
 
-<p>The type <code translate="no">USVString</code> defines strings as a sequence of <a>Unicode Scalar Values</a>. Specifications that operate on or process individual <a>code points</a>, or for operations which can’t handle surrogates in input, <code translate="no">USVString</code> should be used. For example, if your specification is defining a process that searches for or transforms specific characters, it is both easier to specify and more reliable to refer to <a>code points</a> than to deal with the UTF-16 <a>code units</a> of a <a>DOMString</a>.</p>
+<p>The type {{USVString}} defines strings as a sequence of <a>Unicode Scalar Values</a>. Specifications that operate on or process individual <a>code points</a>, or for operations which can’t handle surrogates in input, {{USVString}} should be used. For example, if your specification is defining a process that searches for or transforms specific characters, it is both easier to specify and more reliable to refer to <a>code points</a> than to deal with the UTF-16 <a>code units</a> of a {{DOMString}}.</p>
 
-<p><a>USVString</a> can be referred to using these equivalent definitions (depending on the needs of your specification):
+<p>{{USVString}} can be referred to using these equivalent definitions (depending on the needs of your specification):
 
 <ul>
-	<li><a>USVString</a> [[WEBIDL]]</li>
+	<li>{{USVString}} [[WEBIDL]]</li>
 	<li><a>scalar value string</a> [[INFRA]]</li>
 	<li><a target="_blank" href="https://www.w3.org/TR/xmlschema11-2/#string">xsd:string</a> [[XMLSCHEMA11-2]]</li>
 </ul></p> 
@@ -1979,7 +1979,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 </div>
 
 <div class="req" id="char_string_byte">
-	<p class="advisement">Specifications SHOULD NOT define a string as a <code translate="no">ByteString</code> or as a sequence of bytes ('byte string'). For binary data or sequences of bytes, use <code translate="no">Uint8Array</code> instead.</p>
+	<p class="advisement">Specifications SHOULD NOT define a string as a {{ByteString}} or as a sequence of bytes ('byte string'). For binary data or sequences of bytes, use {{Uint8Array}} instead.</p>
 	<details class="links"><summary>explanations &amp; examples</summary>
 	   <p><a href="https://www.w3.org/TR/charmod/#sec-Strings">String concepts, C011</a>, in <cite>Character Model for the World Wide Web: Fundamentals</cite>.</p>
 	   <p><a href="https://www.w3.org/TR/string-meta/#protocol-strings">Strings that are part of a legacy protocol or format</a>, in <cite>Strings on the Web: Language and Direction Metadata</cite> [[STRING-META]]</p>
@@ -1987,12 +1987,12 @@ just as characters are the basic unit of organization of encoded text.</p>
 	</details>
 </div>
 
-<p>The type <code translate="no">ByteString</code> defines strings as sequences of bytes (octets). Interpretation of byte strings thus requires the specification of a <a>character encoding form</a>. UTF-8 is the preferred encoding for wire and document formats [[ENCODING]], but there is generally no reason to specify strings in terms of the underlying byte values.</p>
+<p>The type {{ByteString}} defines strings as sequences of bytes (octets). Interpretation of byte strings thus requires the specification of a <a>character encoding form</a>. UTF-8 is the preferred encoding for wire and document formats [[ENCODING]], but there is generally no reason to specify strings in terms of the underlying byte values.</p>
 
 <aside class="note">
-	<p>Specifications for document formats or protocols often deal with the specific byte values used for various fields or values or with the <a>character encoding</a> used for serializing the data. It is therefore tempting to specify a text field ("string") as a <a>ByteString</a> which uses the <a>UTF-8</a> <a>character encoding form</a>.</p>
+	<p>Specifications for document formats or protocols often deal with the specific byte values used for various fields or values or with the <a>character encoding</a> used for serializing the data. It is therefore tempting to specify a text field ("string") as a {{ByteString}} which uses the <a>UTF-8</a> <a>character encoding form</a>.</p>
 	
-	<p>It is preferable, however, to specify these fields as a <a>DOMString</a>, since the data encoded into these fields must be serialized from and deserialized into in-memory string representations, such as the [[DOM]] or JavaScript strings or your platform's native Unicode string type.</p>
+	<p>It is preferable, however, to specify these fields as a {{DOMString}} (or, rarely, a {{USVString}}), since the data encoded into these fields must be serialized from and deserialized into in-memory string representations, such as the [[DOM]] or JavaScript strings or your platform's native Unicode string type.</p>
 </aside>
 
 <p>See <a href="#char_choosing"></a> for additional best practices.</p>
