@@ -1935,7 +1935,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 
 <p>By contrast, a {{DOMString}} allows unpaired <a>surrogate</a> <a>code units</a> to appear in a string. An unpaired surrogate can result in processing errors or it must be replaced with the Unicode replacment character (<span class="codepoint" translate="no"><bdi lang="und">&#xFFFD;</bdi><code class="uname">U+FFFD REPLACEMENT CHARACTER</code></span>) when processing the characters inside the string.</p>
 
-<p>In well-formed <a>UTF-8</a>, <a>surrogate</a> <a>code points</a> should not be encoded and isolated surrogates are replaced by the replacement character. <a>Legacy character encodings</a> never encode <a>surrogates</a>.</p>
+<p>Isolated <a>surrogate</a> <a>code points</a>, when encoding text into or decoding text from <a>UTF-8</a>, are replaced by <span class="codepoint" translate="no"><bdi lang="und">&#xFFFD;</bdi><code class="uname">U+FFFD REPLACEMENT CHARACTER</code></span> and <a>legacy character encodings</a> don't encode <a>surrogates</a> at all.</p>
 
 <p>The [[DOM]], JavaScript (including its APIs and document formats), and certain document formats and platforms use the <a>UTF-16</a> <a>character encoding</a> to store and process string data. The string type based on <a>UTF-16</a> <a>code units</a> is called a {{DOMString}} [[WEBIDL]]. The [[INFRA]] standard defines the term 'string' to mean a {{DOMString}}:</p>
 
