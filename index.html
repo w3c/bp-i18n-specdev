@@ -1919,6 +1919,15 @@ just as characters are the basic unit of organization of encoded text.</p>
     <p>The best practices found in this section are mutually consistent with those in [[DESIGN-PRINCIPLES]]. The definitions in this section use terms found in the <cite>Internationalization Glossary</cite> [[I18N-GLOSSARY]]. Some of these definitions are themselves taken from [[WEBIDL]], [[INFRA]], or the Unicode glossary; in which case the definitions are quoted verbatim and include links to their source. Please refer to instructions in the Internationalization Glossary for how to import and link definitions in your own specification.</p>
 </aside>
 
+<div class="req" id="char_string_usvstring">
+	<p class="advisement">Use {{DOMString}} unless you have a reason not to. Use {{USVString}} or one of its synonyms if you operate on <a>scalar values</a> or for operations which cannot handle <a>surrogate</a> <a>code points</a> in input (such as APIs that pass strings through to native platform APIs)</a>. 
+	<details class="links"><summary>explantations &amp; examples</summary>
+	   <p><a href="https://infra.spec.whatwg.org/#scalar-value-string">Scalar value string</a> definition in [[INFRA]]</p>
+	   <p><a href="https://www.w3.org/TR/design-principles/#idl-string-types">IDL String Types</a> in <cite>Web Platform Design Principles</cite> [[DESIGN-PRINCIPLES]]</p>
+	   <p><a href="https://www.w3.org/TR/charmod/#sec-Strings">String concepts, C012</a>, in <cite>Character Model for the World Wide Web: Fundamentals</cite>.</p>
+	</details>
+</div>
+
 <p>A string is a sequence of characters. Because [[UNICODE]] is fundamental to understanding and working with text, including text that uses <a>legacy character encodings</a>, the basic definition of a string depends on Unicode and its concept of a encoded character. Specifically:</p> 
 
 <p class="localdef">A <dfn class="lint-ignore">string</dfn> is a well-formed sequence of zero or more <a>Unicode Scalar Values</a>.</p>
@@ -1950,15 +1959,6 @@ just as characters are the basic unit of organization of encoded text.</p>
 <p class="note">[[INFRA]]'s use of the term <a>code unit</a> refers specifically to the <a>UTF-16</a> character encoding's code units, rather than the more general definition of a <a>code unit</a> that can refer to different size values, such as bytes, in any <a>character encoding form</a>.</p>
 
 <p>A {{ByteString}} depends on the <a>character encoding form</a> used to encode characters into bytes. <a>Legacy character encodings</a> do not have a concept of "surrogates", so there is generally no way to encode a surrogate code point. Valid <a>UTF-8</a> does not permit surrogate code points: these are replaced by <span class="codepoint" translate="no"><bdi lang="und">&#xFFFD;</bdi><code class="uname">U+FFFD REPLACEMENT CHARACTER</code></span> when encoding or decoding text in <a>UTF-8</a>. When converting <a>UTF-16</a> to <a>UTF-8</a>, any <a>surrogate pairs</a> are transformed into the proper UTF-8 byte sequence encoding the specific <a>scalar value</a>.</p>
-
-<div class="req" id="char_string_usvstring">
-	<p class="advisement">Use {{DOMString}} unless you have a reason not to. Use {{USVString}} or one of its synonyms if you operate on <a>scalar values</a> or for operations which cannot handle <a>surrogate</a> <a>code points</a> in input (such as APIs that pass strings through to native platform APIs)</a>. 
-	<details class="links"><summary>explantations &amp; examples</summary>
-	   <p><a href="https://infra.spec.whatwg.org/#scalar-value-string">Scalar value string</a> definition in [[INFRA]]</p>
-	   <p><a href="https://www.w3.org/TR/design-principles/#idl-string-types">IDL String Types</a> in <cite>Web Platform Design Principles</cite> [[DESIGN-PRINCIPLES]]</p>
-	   <p><a href="https://www.w3.org/TR/charmod/#sec-Strings">String concepts, C012</a>, in <cite>Character Model for the World Wide Web: Fundamentals</cite>.</p>
-	</details>
-</div>
 
 <div class="req" id="char_string_no_legacy">
 	<p class="advisement">Specifications SHOULD NOT add or define support for <a>legacy character encodings</a> unless there is a specific reason to do so.</p>
