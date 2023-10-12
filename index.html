@@ -1928,7 +1928,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 </div>
 
 <div class="req" id="char_string_dom">
-	<p class="advisement">If your specification pertains to the [[DOM]], [[HTML]], or uses [[WebIDL]], or defines strings as opaque values that are not processed, use {{DOMString}} as a definition of string.</p>
+	<p class="advisement">Use a string definition consistent with {{DOMString}} if your specification does not process the internal value of strings and is not required to check for unpaired surrogate code points, or if your specification pertains to the [[DOM]], defines a JavaScript API or data format, or defines strings as opaque values that are not processed.</p>
 	<details class="links"><summary>explantations &amp; examples</summary>
 	   <p><a href="https://infra.spec.whatwg.org/#scalar-value-string">Scalar value string</a> definition in [[INFRA]]</p>
 	   <p><a href="https://www.w3.org/TR/design-principles/#idl-string-types">IDL String Types</a> in <cite>Web Platform Design Principles</cite> [[DESIGN-PRINCIPLES]]</p>
