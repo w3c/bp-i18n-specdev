@@ -38,7 +38,7 @@
           group:        "i18n",
           github: 		"w3c/bp-i18n-specdev",
 		  maxTocLevel: 3,
-		  xref: ["i18n-glossary"],
+		  xref: ["i18n-glossary", "webidl"],
 		  
 		  postProcess: [
               async function importStyleSheet() { 
@@ -1915,39 +1915,68 @@ just as characters are the basic unit of organization of encoded text.</p>
 <p>[[[#char_def]]].</p>
 </div>
 
-<p>Specifications need to be clear about the encoding and processing of textual data. The recommendations in this section are mutually consistent with those in [[DESIGN-PRINCIPLES]]. In general, specifications should only support well-formed Unicode code point strings and should avoid the use of (or access to) the underlying code units or the use of different character encodings.</p>
-
-<aside class="note" id="char_string_char">
-	<p>Specifications should avoid adding or defining support for <a>legacy character encodings</a> unless there is a specific reason to do so. See also <a href="#char_choosing"></a>.</p>
+<aside class="note">
+    <p>The best practices found in this section are intended to be mutually consistent with those in [[DESIGN-PRINCIPLES]]. The definitions in this section use terms found in the <cite>Internationalization Glossary</cite> [[I18N-GLOSSARY]]. Some of these definitions are themselves taken from [[WEBIDL]], [[INFRA]], or the Unicode glossary; in which case the definitions are quoted verbatim and include links to their source. Please refer to instructions in the Internationalization Glossary for how to import and link definitions in your own specification.</p>
 </aside>
 
-<div class="req" id="char_string_domstring">
-	<p class="advisement">When designing a web platform feature which operates on strings, use <a href="https://webidl.spec.whatwg.org/#idl-DOMString">DOMString</a> unless you have a specific reason not to.</p>
-	<details class="links"><summary>explanations &amp; examples</summary>
-	   <p><a href="https://www.w3.org/TR/charmod/#sec-Strings">String concepts, C012</a>, in <cite>Character Model for the World Wide Web: Fundamentals</cite>.</p>
-	   <p><a href="https://www.w3.org/TR/design-principles/#idl-string-types">IDL String Types</a> in <cite>Web Platform Design Principles</cite> [[DESIGN-PRINCIPLES]]</p>
-	</details>
+<div class="issue">
+	<p>Notwithstanding the note just above, I18N's best practices appear to be exactly opposite those in [[DESIGN-PRINCIPLES]] at the moment. The details turn out to be the same, but we need to resolve differences in guidance and wording. The issue <a href="https://github.com/w3ctag/design-principles/issues/454">design-principles#454</a> tracks this.</p>
 </div>
 
-<p>The type <code>DOMString</code> is actually a UTF-16 <a>code unit</a> string. This type allows unpaired <a>surrogate</a> code units to appear in a string, which can result in errors or replacement with the Unicode replacment character (<span class="codepoint" translate="no"><bdi lang="und">&#xFFFD;</bdi><code class="uname">U+FFFD REPLACEMENT CHARACTER</code></span>). This type is appropriate when specifications do not need to do internal processing of the string value. The alternative type is <code translate="no"><a href="https://webidl.spec.whatwg.org/#idl-USVString">USVString</a></code>, which is a sequence of Unicode code points.</p>
+<div class="req" id="char_string_default">
+	<p class="advisement">Unless you have a reason not to, use a string definition consistent with {{USVString}}.</p>
+</div>
 
-<p>The reason <code translate="no">DOMString</code> is preferred to <code translate="no">USVString</code> is that both [[DOM]] and the string types in JavaScript (and its derivatives, such as JSON) are defined in terms of UTF-16 code unit strings. Specifying <code translate="no">USVString</code> can result in inadvertently requiring an implementation to check for unpaired surrogates in cases where there is no benefit to doing so.</p>
-
-<div class="req" id="char_string_usvstring">
-	<p class="advisement">When designing a web platform feature or API that operates on the internal values of strings, including indexing, iterating, transformation, or searching, the use of <a href="https://webidl.spec.whatwg.org/#idl-USVString">USVString</a> is RECOMMENDED.</p>
+<div class="req" id="char_string_dom">
+	<p class="advisement">Use a string definition consistent with {{DOMString}} if your specification does not process the internal value of strings and is not required to check for unpaired surrogate code points, or if your specification pertains to the [[DOM]], defines a JavaScript API or data format, or defines strings as opaque values that are not processed.</p>
 	<details class="links"><summary>explanations &amp; examples</summary>
 	   <p><a href="https://infra.spec.whatwg.org/#scalar-value-string">Scalar value string</a> definition in [[INFRA]]</p>
 	   <p><a href="https://www.w3.org/TR/design-principles/#idl-string-types">IDL String Types</a> in <cite>Web Platform Design Principles</cite> [[DESIGN-PRINCIPLES]]</p>
+	   <p><a href="https://www.w3.org/TR/charmod/#sec-Strings">String concepts, C012</a>, in <cite>Character Model for the World Wide Web: Fundamentals</cite>.</p>
 	</details>
 </div>
 
-<p>The type <code translate="no">USVString</code> defines strings as a sequence of Unicode <a>code points</a>. For strings whose most common algorithms operate on or process individual <a>code points</a>, or for operations which can’t handle surrogates in input, <code translate="no">USVString</code> should be used. For example, if your specification is defining a process that parses a string or transforms specific characters, it is both easier to specify and more reliable to refer to code points (<em>"scalar values"</em>) than to deal with the UTF-16 <a>code units</a>.</p>
+<p>A string is a sequence of characters. Because [[UNICODE]] is fundamental to understanding and working with text, including text that uses <a>legacy character encodings</a>, the basic definition of a string depends on Unicode and its concept of a encoded character. Specifically:</p> 
 
-<p>In a <code translate="no">USVString</code>, isolated <a>surrogate</a> code points are invalid and implementations are required to replace any found in a string with the Unicode replacment character (<span class="codepoint" translate="no"><bdi lang="und">&#xFFFD;</bdi><code class="uname">U+FFFD REPLACEMENT CHARACTER</code></span>).</p>
+<p class="localdef">A <dfn class="lint-ignore">string</dfn> is a well-formed sequence of zero or more <a>Unicode Scalar Values</a>.</p>
 
+<p>Because there are multiple ways of working with strings, different terminology has evolved to support the needs of different specifications. Be sure to understand your specification's needs and use the most appropriate and precise terminology. On the Web, there are three types of strings:
+
+<ul>
+	<li>{{USVString}}. Strings based on Unicode <a>code points</a>, also known as </a><a>Unicode Scalar Values</a></li>
+	<li>{{DOMString}}. Strings based on <a>UTF-16</a> <a>code units</a></li>
+	<li>{{ByteString}}. Strings based on bytes in some <a>character encoding form</a> (preferably <a>UTF-8</a>)</li>
+</ul></p>
+
+<p>One difference between these different string types is how <a>surrogate</a> <a>code points</a> are handled. Note the difference between a <a>code point</a> (which represents a <a>Unicode Scalar Value</a>, i.e. a character) and a <a>code unit</a> (a unit of encoding in a <a>character encoding form</a>).</p>
+
+<p>The <a>UTF-16</a> <a>character encoding form</a> uses 16-bit <a>code units</a>. Characters whose <a>scalar values</a> require more than 16-bits are encoded using a pair of <a>surrogate</a> <a>code units</a>: a "low surrogate" (in the range <code class="uname">U+D800-U+DBFF</code>) followed by a "high surrogate" (in the range <code class="uname">U+DC00-U+DFFF</code>). Unicode reserves the <a>code points</a> in these ranges as non-characters so that there is no confusion between the <a>code units</a> in <a>UTF-16</a> and normal text.</p>
+
+<p>In a {{USVString}}, isolated <a>surrogate</a> code points are invalid and implementations are required to replace any found in a string with the Unicode replacment character (<span class="codepoint" translate="no"><bdi lang="und">&#xFFFD;</bdi><code class="uname">U+FFFD REPLACEMENT CHARACTER</code></span>). For strings whose most common algorithms operate on scalar values (such as percent-encoding), or for operations which can’t handle surrogates in input (such as APIs that pass strings through to native platform APIs), {{USVString}} should be used. Any of these references are equivalent to this:
+	<ul>
+	    <li>{{USVString}} [[WEBIDL]]</li>
+	    <li><a>scalar value string</a> [[INFRA]]</li>
+	    <li><a target="_blank" href="https://www.w3.org/TR/xmlschema11-2/#string">xsd:string</a> [[XMLSCHEMA11-2]]</li>
+    </ul>
+</p>
+
+<p>In a {{DOMString}}, unpaired <a>surrogate</a> <a>code units</a> can appear in a string. Most string operations don’t need to interpret the <a>code units</a> inside of strings. Specifying {{DOMString}} means that implementations are not required to validate the contents of the string, making this the ideal string type for most data structures, formats, or APIs. The [[DOM]] and JavaScript strings use {{DOMString}} as their string type and the [[INFRA]] standard defines the term 'string' to mean a {{DOMString}}:</p>
+
+<p class="localdef">A string is a sequence of unsigned 16-bit integers, also known as <a>code units</a>.</p>
+
+<p class="note">[[INFRA]]'s use of the term <a>code unit</a> refers specifically to the <a>UTF-16</a> character encoding's code units, rather than the more general definition of a <a>code unit</a> that can refer to different size values, such as bytes, in any <a>character encoding form</a>.</p>
+
+<p>A {{ByteString}} depends on the <a>character encoding form</a> used to encode characters into bytes. <a>Legacy character encodings</a> do not have a concept of "surrogates", so there is generally no way to encode a surrogate code point. Valid <a>UTF-8</a> does not permit surrogate code points: these are replaced by <span class="codepoint" translate="no"><bdi lang="und">&#xFFFD;</bdi><code class="uname">U+FFFD REPLACEMENT CHARACTER</code></span> when encoding or decoding text in <a>UTF-8</a>. When converting <a>UTF-16</a> to <a>UTF-8</a>, any <a>surrogate pairs</a> are transformed into the proper UTF-8 byte sequence encoding the specific <a>scalar value</a>.</p>
+
+<div class="req" id="char_string_no_legacy">
+	<p class="advisement">Specifications SHOULD NOT add or define support for <a>legacy character encodings</a> unless there is a specific reason to do so.</p>
+	<details class="links"><summary>explanations &amp; examples</summary>
+	<p>See also <a href="#char_choosing"></a>.</p>
+	</details>
+</div>
 
 <div class="req" id="char_string_byte">
-	<p class="advisement">Specifications SHOULD NOT define a string as a <code translate="no">ByteString</code> or as a sequence of bytes ('byte string'). For binary data or sequences of bytes, use <code translate="no">Uint8Array</code> instead.</p>
+	<p class="advisement">Specifications SHOULD NOT define a string as a {{ByteString}} or as a sequence of bytes ('byte string'). For binary data or sequences of bytes, use {{Uint8Array}} instead.</p>
 	<details class="links"><summary>explanations &amp; examples</summary>
 	   <p><a href="https://www.w3.org/TR/charmod/#sec-Strings">String concepts, C011</a>, in <cite>Character Model for the World Wide Web: Fundamentals</cite>.</p>
 	   <p><a href="https://www.w3.org/TR/string-meta/#protocol-strings">Strings that are part of a legacy protocol or format</a>, in <cite>Strings on the Web: Language and Direction Metadata</cite> [[STRING-META]]</p>
@@ -1955,7 +1984,15 @@ just as characters are the basic unit of organization of encoded text.</p>
 	</details>
 </div>
 
-<p>The type <code translate="no">ByteString</code> defines strings as sequences of bytes (octets). Interpretation of byte strings thus requires the specification of a <a>character encoding form</a>. UTF-8 is the preferred encoding for wire and document formats [[ENCODING]], but there is generally no reason to specify strings in terms of the underlying byte values. See <a href="#char_choosing"></a> for additional best practices.</p>
+<p>The type {{ByteString}} defines strings as sequences of bytes (octets). Interpretation of byte strings thus requires the specification of a <a>character encoding form</a>. UTF-8 is the preferred encoding for wire and document formats [[ENCODING]], but there is generally no reason to specify strings in terms of the underlying byte values.</p>
+
+<aside class="note">
+	<p>Specifications for document formats or protocols often deal with the specific byte values used for various fields or values or with the <a>character encoding</a> used for serializing the data. It is therefore tempting to specify a text field ("string") as a {{ByteString}} which uses the <a>UTF-8</a> <a>character encoding form</a>.</p>
+	
+	<p>It is preferable, however, to specify these fields as a {{DOMString}} (or, rarely, a {{USVString}}), since the data encoded into these fields must be serialized from and deserialized into in-memory string representations, such as the [[DOM]] or JavaScript strings or your platform's native Unicode string type.</p>
+</aside>
+
+<p>See <a href="#char_choosing"></a> for additional best practices.</p>
 
 </section>
 
