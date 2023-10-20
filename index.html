@@ -3421,13 +3421,13 @@ PCENChar ::=
 </section>
 
 <section id="" class="subtopic">
-<h3>Working with Non-Localizable and Localizable Data Values</h3>
+<h3>Working with String Data Values</h3>
    
    <div class="req" id="">
-   <p class="advisement">Specifications that define non-localizable data values intended to be machine-readable should choose values that are not readily confused with natural language text.</p>
+   <p class="advisement">Specifications that define non-localizable string data values intended to be machine-readable should use values that are not readily confused with natural language text.</p>
    </div>
    
-   <p>Many protocols, document formats, or data structures define enumerated values for internal use. These values are never visible to humans directly. Sometimes it is helpful if these values are given descriptive names (often in English) to aid users working with the specification, protocol, or API or who might need to debug a given document or interaction. When a specification assigns these values, the names should appear to be "code-like" so that users do not assume that the value can be displayed as if it were natural language text.</p>
+   <p>Many protocols, document formats, or data structures define enumerated values for internal use. These values are not meant to be visible to humans directly. Sometimes it is helpful if these values are given descriptive names (often in English) to aid users working with the specification, protocol, or API or who might need to debug a given document or interaction. When asigning these values in a specificatino, the names chosen should appear to be "code-like" so that users do not assume that the value can be displayed as if it were natural language text.</p>
    
    <p>A common best practice is to use SNAKE_CASE, naming the field in English, using ASCII letters and digits, all in uppercase, with words separated by underscores (<span class="codepoint"><bdi lang="en">_</bdi><code class="uname">U+005F LOW LINE</code></span>).</p>
    
