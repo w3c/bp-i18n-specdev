@@ -3439,6 +3439,8 @@ PCENChar ::=
    <div class="req" id="">
    <p class="advisement">Choose locale-neutral and culturally-neutral names for fields and values.</p>
    </div>
+   
+   <p>When defining identifiers, including field names and values, choose names that are as culturally-neutral as possible. For example, prefer <code>postalCode</code> to the (USA-specific) <code>ZIPCode</code> or prefer <code>givenName/familyName</code> to the more-culturally linked <code>firstName/lastName</code>.</p>
 		
 	
 <section id="" class="subtopic">
@@ -3469,8 +3471,12 @@ transactionResult: [ SUCCESS, NOT_AUTHORIZED, INTERNAL_ERROR, UNKNOWN_ERROR ]
 	   </pre>
    </aside>
    
+   <aside class="note">
+	   <p>Enumerated values defined by a specification should not be considered as "natural language strings". While they generally use English language words to form the identifiers, they are not intended for end-users to view nor are they free-form text values. Developers are expected to read the definition backing the keywords in enumerated values (the description of which can be localized). In fact, it is a best practice to define values in a locale-neutral way and wrap that with display strings.</p>
+   </aside>
+   
    <div class="req" id="">
-   <p class="advisement">Fields intended for consumption by humans must always be treated as <a>natural language</a> string values. It must be possible to find the language and base direction metadata for every such field.</p>
+   <p class="advisement">Fields whose content is intended for consumption by humans must always be treated as <a>natural language</a> string values. It must be possible to find the language and base direction metadata for every such field.</p>
    </div>
    
    <p>Fields that contain human-readable strings, particularly those of a descriptive nature, must be assumed to be natural language strings. This is true even if the user viewing the string is expected to be a software developer. It must be possible to determine the language tag and base paragraph direction for each such field in a document or data structure.</p>
@@ -3482,6 +3488,12 @@ transactionResult: [ SUCCESS, NOT_AUTHORIZED, INTERNAL_ERROR, UNKNOWN_ERROR ]
    </div>
    
    <p>This can take various forms. For example, a specification or protocol might allow for language negotiation and only return the best matching localized strings. Or a given resource might contain multiple languages that the <a>consumer</a> can choose between.</p>
+   
+   <div class="req" id="">
+   <p class="advisement">Field names and other enumerated values should be wrapped with localizable display names.</p>
+   </div>
+   
+   <p>Field names and enumerated values are not natural language text, even if the names appear to be plain text and might be understood by users. These fields and values should not have language or direction metadata associated with them and, where necessary, implementers should be guided by the specification to provide appropriate localized wrapping.</p>
    
 </section>
 </section>
