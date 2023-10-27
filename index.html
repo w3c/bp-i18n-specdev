@@ -3291,7 +3291,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 
 
 <section id="markup" class="topic">
-<h2>Markup &amp; syntax</h2>
+<h2>Document formats, markup &amp; syntax</h2>
 
 
 <div id="markup_checklist" class="summaryC"></div>
@@ -3306,11 +3306,15 @@ just as characters are the basic unit of organization of encoded text.</p>
 	<li>[[[#markup_plaintext]]]</li>
 	</ul-->
 
+<p>Specifications that deal with formal languages, document formats, protocols, or APIs often need to define markup, syntax, or application-internal values. The best practices in this section cover the different needs when defining these.</p>
 
+<p>Specifications define <code>elements</code> and <code>attributes</code> when defining a markup language or syntax. For example, an [[XML]] DTD defines elements and attributes that are valid in a specific document type.</p>
+
+<p>Specifications define <code>identifiers</code> when reserving keywords, naming fields, or defining permitted values in a given document format, protocol, or API. Note that some such values are <code>application-internal</code> values, that is, completely defined by the specification, while others are <code>user-defined</code> values which a specification makes available to users.</p>
 
 
 <section id="markup_elements_attributes" class="subtopic">
-<h3>Defining elements and attributes</h3>
+<h3>Defining elements and attributes in markup</h3>
 
 <p class="reviewComments"><a href="https://github.com/w3c/i18n-activity/labels/t%3Amarkup_elements_attributes" target="_blank">See related review comments.</a></p>
 
@@ -3332,11 +3336,27 @@ just as characters are the basic unit of organization of encoded text.</p>
 	</details>
 	</div>
 </section>
+	
+<section id="markup_plaintext" class="subtopic">
+<h3>Handling plain text in markup</h3>
+
+<p class="reviewComments"><a href="https://github.com/w3c/i18n-activity/labels/t%3Amarkup_plaintext" target="_blank">See related review comments.</a></p>
+
+  	<div class="req" id="plain_avoid">
+	<p class="advisement">Avoid <a>natural language</a> text in elements or attribute values that only allow for plain text.</p>
+	</div>
+	
+	<div class="req" id="plain_attr_avoid">
+	<p class="advisement">Avoid defining attribute values whose content will be <a>natural language</a> text.</p>
+	</div>
+
+  	<div class="req" id="plain_span">
+	<p class="advisement">Provide a span-like element that can be used for any text content to apply information needed for internationalization.</p>
+	</div>
 
 
-
-
-
+<p>Internationalization information may include language and base direction metadata, inline changes of language, bidirectional text behavioural changes, translate flags, etc.</p>
+</section>
 
 
 <section id="markup_identifiers" class="subtopic">
@@ -3416,30 +3436,37 @@ PCENChar ::=
 	</details>
 	</div>
 	
+   <div class="req" id="">
+   <p class="advisement">Choose locale-neutral and culturally-neutral names for fields and values.</p>
+   </div>
 		
 	
-</section>
-
 <section id="" class="subtopic">
-<h3>Working with String Data Values</h3>
+<h4>Defining application-internal data values</h4>
+
+   <p>Some specifications need to define the values for a given field in a document format or protocol. When the data values are associated with a specific type, such as numbers or dates, the format of the field is usually defined using some well-known schema, such as [[XMLSCHEMA11-2]] or [[JSON-SCHEMA]].</p>
    
    <div class="req" id="">
    <p class="advisement">Specifications that define non-localizable string data values intended to be machine-readable should use values that are not readily confused with natural language text.</p>
    </div>
    
-   <p>Many protocols, document formats, or data structures define enumerated values for internal use. These values are not meant to be visible to humans directly. Sometimes it is helpful if these values are given descriptive names (often in English) to aid users working with the specification, protocol, or API or who might need to debug a given document or interaction. When asigning these values in a specificatino, the names chosen should appear to be "code-like" so that users do not assume that the value can be displayed as if it were natural language text.</p>
+   <p>Many protocols, document formats, or data structures define enumerated values for internal use. These values are not meant to be visible to humans directly. Sometimes it is helpful if these values are given descriptive names (often in English) to aid users working with the specification, protocol, or API or who might need to debug a given document or interaction. When assigning these values in a specification, the names chosen should appear to be "code-like" so that users do not assume that the value can be displayed as if it were natural language text.</p>
    
-   <p>A common best practice is to use SNAKE_CASE, naming the field in English, using ASCII letters and digits, all in uppercase, with words separated by underscores (<span class="codepoint"><bdi lang="en">_</bdi><code class="uname">U+005F LOW LINE</code></span>).</p>
+   <p>There are several styles that different groups have adopted to make application-internal values look "code-like". Choose the one best suited to your specification. These include:</p>
+   
+   <ul>
+      <li><strong>SNAKE_CASE</strong>. Snake case uses ASCII letters and digits, all in uppercase, with words separated by underscores (<span class="codepoint"><bdi lang="en">_</bdi><code class="uname">U+005F LOW LINE</code></span>).</li>
+      <li><strong>PascalCase</strong> or <strong>camelCase</strong>. These use ASCII letters and digits, with each "word" inside the identifer being capitalized.</li>
+   </ul>
    
    <aside class="example" title="Example of code internal values">
-	   <p>For example, a specification might define a field <code>result</code> which can include the status of the transaction.</p>
-	   <p>The best practice would be to provide return values for <code>result</code> that are code-like. For example:
-	      <ul>
-			  <li><code>SUCCESS</code></li>
-			  <li><code>FAILED</code></li>
-			  <li><code>NOT_AUTHENTICATED</code></li>
-	      </ul>
-	   </p>
+	   <p>For example, a specification might define a document with a set of fields named in camelCase whose predefined values are named in SNAKE_CASE:</p>
+	   
+	   <pre>
+type: [ PURCHASE_REQUEST, INVOICE_REQUEST, RECEIPT_REQUEST ]
+responseType: [ EMAIL, SMS_MESSAGE, JSON_DOCUMENT ]
+transactionResult: [ SUCCESS, NOT_AUTHORIZED, INTERNAL_ERROR, UNKNOWN_ERROR ]
+	   </pre>
    </aside>
    
    <div class="req" id="">
@@ -3457,26 +3484,6 @@ PCENChar ::=
    <p>This can take various forms. For example, a specification or protocol might allow for language negotiation and only return the best matching localized strings. Or a given resource might contain multiple languages that the <a>consumer</a> can choose between.</p>
    
 </section>
-
-<section id="markup_plaintext" class="subtopic">
-<h3>Working with plain text</h3>
-
-<p class="reviewComments"><a href="https://github.com/w3c/i18n-activity/labels/t%3Amarkup_plaintext" target="_blank">See related review comments.</a></p>
-
-  	<div class="req" id="plain_avoid">
-	<p class="advisement">Avoid <a>natural language</a> text in elements or attribute values that only allow for plain text.</p>
-	</div>
-	
-	<div class="req" id="plain_attr_avoid">
-	<p class="advisement">Avoid defining attribute values whose content will be <a>natural language</a> text.</p>
-	</div>
-
-  	<div class="req" id="plain_span">
-	<p class="advisement">Provide a span-like element that can be used for any text content to apply information needed for internationalization.</p>
-	</div>
-
-
-<p>Internationalization information may include language and base direction metadata, inline changes of language, bidirectional text behavioural changes, translate flags, etc.</p>
 </section>
 </section>
 
