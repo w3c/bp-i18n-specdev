@@ -3306,11 +3306,34 @@ just as characters are the basic unit of organization of encoded text.</p>
 	<li>[[[#markup_plaintext]]]</li>
 	</ul-->
 
-<p>Specifications that deal with formal languages, document formats, protocols, or APIs often need to define markup, syntax, or application-internal values. The best practices in this section cover the different needs when defining these.</p>
+<p>Specifications that deal with formal languages, document formats, protocols, or APIs often need to define markup, syntax, or <a>application internal identifiers</a>. The best practices in this section cover the different needs when defining these.</p>
 
-<p>Specifications define <code>elements</code> and <code>attributes</code> when defining a markup language or syntax. For example, an [[XML]] DTD defines elements and attributes that are valid in a specific document type.</p>
+<p>Specifications that are defining a markup language or a syntax based on a given markup language are concerned with defining elements, attributes, and their values. For example, an [[XML]] DTD defines elements and attributes that are valid in a specific document type.</p>
 
-<p>Specifications define <code>identifiers</code> when reserving keywords, naming fields, or defining permitted values in a given document format, protocol, or API. Note that some such values are <code>application-internal</code> values, that is, completely defined by the specification, while others are <code>user-defined</code> values which a specification makes available to users.</p>
+<p>Specifications that are defining a given document format, protocol, or API are usually concerned with defining identifiers for reserved keywords, field names, or permitted values. Many of these are <a>application internal identifiers</a>, whose names and values are completely defined by the specification. In some cases the specification will permit some or all of these to be a <a>user-supplied value</a> which can be filled in or named by users.</p>
+
+<aside class="example">
+	
+<p>Let's use CSS to illustrate some of these concepts. Here is a fragment of a style sheet:</p>
+<pre class="css">
+p.myClassName {
+  text-align: center;
+  color: red;
+}
+</pre>
+
+<p>The <code>p.myClassName</code> rule contains two properties (<code>text-align</code> and <code>color</code>). Each of these is an <a>application internal identifier</a>.</p>
+
+<p>Each property has been assign a value from a list of available values defined by CSS. For example, here the property <code>text-align</code> has been given the value <code>center</code>. Other possible values for this property are part of a list of <a>application internal identifiers</a> defined by [[CSS3-TEXT]] and include <code>start</code>, <code>end</code>, <code>left</code>, <code>right</code>, <code>justify</code>, <code>match-parent</code>, or <code>justify-all</code>.</p>
+
+<p>The class name <code>myClassName</code> is an example of a <a>user-supplied value</a>. A user might assign a class name using any valid class identifier in CSS, including using words in other languages, such as using an identifier in Japanese:</p>
+
+<pre class="css" lang="ja">
+p.私のクラス名 {
+	color: #434322;
+}
+</pre>
+</aside>
 
 
 <section id="markup_elements_attributes" class="subtopic">
