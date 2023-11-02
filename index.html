@@ -3459,19 +3459,19 @@ PCENChar ::=
 	</details>
 	</div>
 	
-   <div class="req" id="">
+   <div class="req" id="identifier_locale_neutral_names">
    <p class="advisement">Choose locale-neutral and culturally-neutral names for fields and values.</p>
    </div>
    
    <p>When defining identifiers, including field names and values, choose names that are as culturally-neutral as possible. For example, prefer <code>postalCode</code> to the (USA-specific) <code>ZIPCode</code> or prefer <code>givenName/familyName</code> to the more-culturally linked <code>firstName/lastName</code>.</p>
 		
 	
-<section id="" class="subtopic">
+<section id="application_internal" class="subtopic">
 <h4>Defining application-internal data values</h4>
 
    <p>Some specifications need to define the values for a given field in a document format or protocol. When the data values are associated with a specific type, such as numbers or dates, the format of the field is usually defined using some well-known schema, such as [[XMLSCHEMA11-2]] or [[JSON-SCHEMA]].</p>
    
-   <div class="req" id="">
+   <div class="req" id="application_internal_code_like">
    <p class="advisement">Specifications that define non-localizable string data values intended to be machine-readable should use values that are not readily confused with natural language text.</p>
    </div>
    
@@ -3498,7 +3498,7 @@ transactionResult: [ SUCCESS, NOT_AUTHORIZED, INTERNAL_ERROR, UNKNOWN_ERROR ]
 	   <p>Enumerated values defined by a specification should not be considered as "natural language strings". While they generally use English language words to form the identifiers, they are not intended for end-users to view nor are they free-form text values. Developers are expected to read the definition backing the keywords in enumerated values (the description of which can be localized). In fact, it is a best practice to define values in a locale-neutral way and wrap that with display strings.</p>
    </aside>
    
-   <div class="req" id="">
+   <div class="req" id="application_internal_localizable_metadata">
    <p class="advisement">Fields whose content is intended for consumption by humans must always be treated as <a>natural language</a> string values. It must be possible to find the language and base direction metadata for every such field.</p>
    </div>
    
@@ -3506,13 +3506,13 @@ transactionResult: [ SUCCESS, NOT_AUTHORIZED, INTERNAL_ERROR, UNKNOWN_ERROR ]
    
    <p>Common names for fields of this type include <code>name</code>, <code>description</code>, <code>title</code>, <code>message</code>, or occassionally <code>value</code>. One test for this is if, as a specification author or user, you are uncomfortable making the content of the field <kbd>SNAKE_CASE_SHOUTED</kbd>, the field might be better considered as natural language text.</p>
    
-   <div class="req" id="">
+   <div class="req" id="application_internal_localizable">
    <p class="advisement">Fields intended for consumption by humans should be localizable.</p>
    </div>
    
    <p>This can take various forms. For example, a specification or protocol might allow for language negotiation and only return the best matching localized strings. Or a given resource might contain multiple languages that the <a>consumer</a> can choose between.</p>
    
-   <div class="req" id="">
+   <div class="req" id="application_internal_localizable_wrapper">
    <p class="advisement">Field names and other enumerated values should be wrapped with localizable display names.</p>
    </div>
    
