@@ -2407,7 +2407,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 
 <p>The <code translate="no" class="kw">lang</code> attribute should be filled in appropriately to get the correct font selection for a given context. Examples in East Asian languages (such as Chinese, Japanese, or Korean) or in the Arabic script can sometimes require greater care in choosing a language tag. Rarely, for certain languages, it might be necessary to adjust the style of the <code>bdi</code> element with a <kbd translate="no">font-family</kbd> and/or <kbd translate="no">font-size</kbd> in your own stylesheet.</p>
 
-<p>For invisible characters (such as control characters) or for whitespace, use an image instead of the character; or you may also omit the character and its surrounding <code translate="no" class="kw">bdi</code> element.</p>
+<p>For invisible characters (such as control characters), combining characters, or for whitespace, use an image instead of the character; or you may also omit the character and its surrounding <code translate="no" class="kw">bdi</code> element.</p>
 
 <code>
 &lt;span class="codepoint" translate="no">&lt;img alt="..." src="...">&lt;code class="uname">U+XXXX UNICODE_CHARACTER_NAME_ALL_IN_CAPS&lt;/code>&lt;/span>
