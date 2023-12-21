@@ -2969,7 +2969,7 @@ just as characters are the basic unit of organization of encoded text.</p>
     	</div>
 
 	<div class="req" id="char_trunc_grapheme_boundary">
-	<p class="advisement">Specifications that limit the length of a string SHOULD require truncation on grapheme boundaries, as truncation in the midst of a combining or joining sequence can alter the meaning of the string.</p>
+	<p class="advisement">Specifications that limit the length of a string SHOULD require truncation on grapheme boundaries, as truncation in the midst of a <a>grapheme</a> or <a>combining character sequence</a> can alter the meaning of the string.</p>
 	</div>
 
 	<div class="req" id="char_trunc_indicator">
@@ -2977,8 +2977,14 @@ just as characters are the basic unit of organization of encoded text.</p>
 	</div>
 
 	<div class="req" id="char_trunc_min_size">
-	<p class="advisement">When specifying a length limitation in code units (such as bytes), specifications SHOULD set the maximum length in a way that accommodates users whose language requires multibyte code unit sequences.</p>
+	<p class="advisement">When specifying a length limitation in code units (such as bytes), specifications SHOULD set the limit in a way that accommodates users whose language requires multibyte code unit sequences.</p>
 	</div>
+	
+	<div class="req" id="char_trunc_character_encoding">
+		<p class="advisement">If a specification specifies a length limit in code units (such as bytes), it MUST specify the <a>character encoding</a> used in measuring the limit; such a limit SHOULD NOT specify a <a>legacy character encoding</a>.</p>
+	</div>
+	
+	<p>If a specification permits or requires truncation of a field, the <a>character encoding</a> is important in knowing what the limit means. If the limit is in bytes and <a>legacy character encodings</a> are permitted, note that conversion of Unicode data to a non-Unicode encoding can also result in data loss (since most <a>legacy character encodings</a> encode only a subset of Unicode).</p>
 </section>
 
 <section id="strcat" class="subtopic">
