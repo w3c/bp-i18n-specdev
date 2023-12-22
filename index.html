@@ -245,7 +245,7 @@
   
   
    	<div class="req" id="lang_basics_meta">
-	<p class="advisement">Consider whether it is useful to express the <a href="https://w3c.github.io/bp-i18n-specdev/#sec_lang_meta">intended linguistic audience</a> of a resource, in addition to specifying the language used for <a href="https://w3c.github.io/bp-i18n-specdev/#sec_text_processing_lang">text processing</a>.</p>
+	<p class="advisement">Consider whether it is useful to express the [=intended linguistic audience=] of a resource, in addition to specifying the language used for <a href="#sec_text_processing_lang">text processing</a>.</p>
 	<details class="links"><summary>more</summary>
 		<p><a href="https://www.w3.org/International/questions/qa-text-processing-vs-metadata">Types of language declaration</a></p>
 	</details>
@@ -268,7 +268,7 @@
     <p>It is normal to express a text-processing language as the default language, for processing the resource as a whole, but it may also be necessary to indicate where the language changes within the resource.</p>
 
    	<div class="req" id="lang_attribute_xml">
-	<p class="advisement">Use the HTML <code class="kw" translate="no">lang</code> and XML <code class="kw" translate="no">xml:lang</code> language attributes where appropriate to identify the <a href="https://w3c.github.io/bp-i18n-specdev/#sec_text_processing_lang">text processing language</a>, rather than creating a new attribute or mechanism.</p>
+	<p class="advisement">Use the HTML <code class="kw" translate="no">lang</code> and XML <code class="kw" translate="no">xml:lang</code> language attributes where appropriate to identify the <a href="#sec_text_processing_lang">text processing language</a>, rather than creating a new attribute or mechanism.</p>
 	</div>
   
     To identify the text-processing language for a range of text, HTML provides the <code class="kw" translate="no">lang</code> attribute, while XML provides <code class="kw" translate="no">xml:lang</code> which can be used in all XML formats. It's useful to continue using those attributes for relevant markup formats, since authors recognize them, as do HTML and XML processors.
@@ -281,7 +281,7 @@
 <section id="sec_lang_meta">
 <h4>Language metadata about the resource as a whole</h4>
 
-<p>It may also be useful to describe the language of a resource <strong> as a whole</strong>. This type of language declaration typically indicates the <strong>intended use of the resource</strong>. For example, such metadata may be used for searching, serving the right language version, classification, etc. </p>
+<p>It may also be useful to describe the language of a resource <strong>as a whole</strong>. This type of language declaration is called the <dfn>intended linguistic audience</dfn> <strong>of a resource</strong>. For example, such metadata may be used for searching, serving the right language version, classification, etc. </p>
     <p>This type of language declaration differs from that of the text-processing declaration in that (a)  the value for such declarations may be more than one  language subtag, and (b) the language value declared doesn't indicate which bits of a multilingual resource are in which language.</p>
 
 
@@ -875,7 +875,7 @@
  	<div class="req" id="bidi_lang">
 	<p class="advisement">Do not assume that direction can be determined from language information.</p>
 	<details class="links"><summary>more</summary>
-	<p><a href="https://w3c.github.io/i18n-drafts/questions/qa-direction-from-language.html">Can we derive base direction from language?</a>, W3C article.</p>
+	<p><a href="https://www.w3.org/International/questions/qa-direction-from-language">Can we derive base direction from language?</a>, W3C article.</p>
 	</details>
 	</div>
 
@@ -1010,7 +1010,7 @@
 <section id="bidi_strings" class="subtopic">
 <h3>Handling base direction for strings</h3>
 
-<p class="note">The information in this section is pulled from <a href="https://www.w3.org/TR/string-meta/">Requirements for Language and Direction Metadata in Data Formats</a>. That document is still being written, so these guidelines are likely to change at any time.</p>
+<p class="note">The information in this section is pulled from <a href="https://www.w3.org/TR/string-meta/">Strings on the Web: Language and Direction Metadata</a>. That document is still being written, so these guidelines are likely to change at any time.</p>
 
 <p class="reviewComments"><a href="https://github.com/w3c/i18n-activity/labels/t%3Abidi_strings" target="_blank">See related review comments.</a></p>
 
@@ -3567,7 +3567,7 @@ transactionResult: [ SUCCESS, NOT_AUTHORIZED, INTERNAL_ERROR, UNKNOWN_ERROR ]
 <aside class="links" id="links_text_decoration">
 <p class="links_title">Useful background and overviews for this section</p>
 <ul>
-<li class="w3"><p class="link"><a href="https://w3c.github.io/typography/#text_decoration">Text decoration</a>, in the Language enablement index.</p></li>
+<li class="w3"><p class="link"><a href="https://www.w3.org/TR/typography/#text_decoration">Text decoration</a>, in the Language enablement index.</p></li>
 </ul>
 </aside>
 
@@ -3596,7 +3596,7 @@ transactionResult: [ SUCCESS, NOT_AUTHORIZED, INTERNAL_ERROR, UNKNOWN_ERROR ]
 <aside class="links" id="links_vertical">
 <p class="links_title">Useful background and overviews for this section</p>
 <ul>
-<li class="w3"><p class="link"><a href="https://w3c.github.io/typography/#vertical_text">Vertical text</a>, in the Language enablement index.</p></li>
+<li class="w3"><p class="link"><a href="https://www.w3.org/TR/typography/#vertical_text">Vertical text</a>, in the Language enablement index.</p></li>
 </ul>
 </aside>
 
@@ -3694,7 +3694,7 @@ transactionResult: [ SUCCESS, NOT_AUTHORIZED, INTERNAL_ERROR, UNKNOWN_ERROR ]
 <aside class="links" id="links_cursive">
 <p class="links_title">Useful background and overviews for this section</p>
 <ul>
-<li class="w3"><p class="link"><a href="https://w3c.github.io/typography/#cursive">Cursive text</a>, in the Language enablement index.</p></li>
+<li class="w3"><p class="link"><a href="https://www.w3.org/TR/typography/#cursive">Cursive text</a>, in the Language enablement index.</p></li>
 </ul>
 </aside>
 
@@ -3719,8 +3719,8 @@ transactionResult: [ SUCCESS, NOT_AUTHORIZED, INTERNAL_ERROR, UNKNOWN_ERROR ]
 <aside class="links" id="links_ruby">
 <p class="links_title">Useful background and overviews for this section</p>
 <ul>
-<li class="w3"><p class="link"><a href="https://w3c.github.io/typography/#cursive">What is ruby?</a>, W3C article.</p></li>
-<li class="w3"><p class="link"><a href="https://w3c.github.io/typography/#inline_notes">Ruby</a>, in the Language enablement index.</p></li>
+<li class="w3"><p class="link"><a href="https://www.w3.org/International/questions/qa-ruby">What is ruby?</a>, W3C article.</p></li>
+<li class="w3"><p class="link"><a href="https://www.w3.org/TR/typography/#inline_notes">Inline notes & annotations</a>, in the Language enablement index.</p></li>
 </ul>
 </aside>
 
