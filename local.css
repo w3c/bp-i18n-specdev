@@ -1,19 +1,39 @@
 @charset "utf-8";
 
+/** Styles to support the mention of Unicode characters and character sequences *****/
+   /* These match the styles in the tr-design stylesheet exactly.
+    * They are present in this stylesheet so that we can experiment with
+    * fixes and changes conveniently.
+    */
 
-figcaption {
-	text-align: center;
-	margin: 0.5em 2em;
-	font-style: italic;
-	font-size: 90%;
+	.codepoint bdi {
+		line-height: 1em;
+		font-size: 1.25em;
+		padding-inline: 0.25em;
 	}
-figure { 
-	margin-bottom: 2em; 
-	text-align: center;
+	
+	.codepoint img {
+	    height: 2em;
+        margin-inline: 0.25em;
+        vertical-align: bottom;
 	}
-.figno:after {
-	content: ':\00A0  ';
-}
+
+	.uname {
+        font-family: Arial, monospace;
+		font-size: 0.75em;                    
+		letter-spacing: 0.03em;
+		color: brown;
+	}
+/** end of unicode styles */
+
+
+/** 
+ * The remainder of the styles in this file are used locally in specdev.
+ * Over time most of these should be migrated to I18N's shared stylesheet
+ * (currently respec_2022.css). * 
+ */
+
+
 
 .bp { /*background-color:#ffffcc; border: 1px solid #ccc;*/ 
 	background-color: #feb; 
@@ -96,13 +116,7 @@ section h2 {
 .head h2, #abstract h2, #sotd h2 {
 	margin-top: 0;
 	}
-h3 {
-	margin-top: 3em;
-	}
-h4  { font-size: 100%; font-weight: normal; }
-h5 {
-	margin-bottom: 0;
-	}
+
 ins { 
 	background-color: #99FF99; 
 	text-decoration: none; 
@@ -144,19 +158,7 @@ a.termref:active {
 	border-bottom: 1px dotted #FC0; 
 	}
 
-.codepoint bdi {
-    line-height: 1em;
-    font-size: 130%;
-    margin-inline: 0.25em;
-}
 
-.uname {
-    font-family: Arial, monospaced;
-	font-size: 85%;
-	letter-spacing: 0.03em;
-	color: teal;
-}
-	
 .note {
 	margin-left: 2em;
 	margin-right: 3em;
@@ -449,4 +451,11 @@ td.exampleChar {
   background-color: #fdfdfd;
   text-indent: 10px;
   font-size: 140%;
+}
+
+.localdef {
+    background-color:white;
+    border: 1px solid brown; 
+    margin:0.5em; 
+    padding:0.5em;
 }

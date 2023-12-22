@@ -4,12 +4,14 @@
 	<meta charset="utf-8"/>
     <title>Internationalization Best Practices for Spec Developers</title>
 
-    <script src="make_checklist.js"></script>
     <!--
-      === NOTA BENE ===
-      For the three scripts below, if your spec resides on dev.w3 you can check them
-      out in the same tree and use relative links so that they'll work offline,
-     -->
+      Per the W3C Manual of Style, this document avoids gender-specific pronouns.
+      In this document, the terms "he", "his", and "her" appear in an example of gender-specific
+      cultural norms (related to personal name handling in applications), which represents a
+      well-considered exception to this rule. The word-token "he"
+      appears elsewhere in this document as a language tag for the Hebrew language.
+    -->
+    <script src="make_checklist.js"></script>
     <script async src="https://www.w3.org/Tools/respec/respec-w3c" class="remove"></script>
     <script class="remove">
       var respecConfig = {
@@ -36,12 +38,28 @@
           group:        "i18n",
           github: 		"w3c/bp-i18n-specdev",
 		  maxTocLevel: 3,
-		  xref: ["i18n-glossary"],
+		  xref: ["i18n-glossary", "webidl"],
+		  
+		  postProcess: [
+              async function importStyleSheet() { 
+			    const elems = document.querySelectorAll(`link[rel='stylesheet'][data-import]`)
+			    await Promise.all(
+				   [...elems].map(async link => {
+					   const text = await fetch(link.href).then(r => r.text())
+					   const style = document.createElement("style")
+					   style.textContent = text
+					   link.replaceWith(style)
+				   })
+			   )
+			}
+		]
       };
       
     </script>
+    <!-- I18N's shared stylesheet -->
+	<link rel="stylesheet" data-import href="https://w3c.github.io/i18n-drafts/style/respec_2022.css">
     <!-- local styles for this document -->
-	<style data-include="https://w3c.github.io/bp-i18n-specdev/local.css"></style>
+	<link rel="stylesheet" href="local.css">
   
   <script>// check for changed fragment ids and route to the new id
   var fragid = location.hash
@@ -149,6 +167,35 @@
 <li>Add clarification notes for the results by editing the markdown in the GitHub issue.</li>
 <li>Ensure that your GitHub issue has the i18n-tracker label set, so that the Internationalization WG is aware of your review results.</li>
 </ol>
+</section>
+
+<section id="I18N_Considerations">
+<h3>When and how to write an <em>Internationalization Considerations</em> section in your spec</h3>
+
+<p class="reviewComments"><a href="https://github.com/w3c/i18n-activity/labels/t%3Ai18n_considerations" target="_blank">See related review comments.</a></p>
+
+<div class="req" id="i18n_considerations_review">
+   <p class="advisement">All additions of or changes to an <cite>Internationalization Considerations</cite> section MUST be reviewed by the Internationalization (i18n) WG.</p>
+</div>
+
+<div class="req" id="i18n_considerations_title">
+   <p class="advisement">If you create an internationalization considerations section, it MUST have the title <cite>Internationalization Considerations</cite> or <cite>Internationalization (i18n) Considerations</cite>.</p>
+</div>
+
+<p>Specifications are not required to include a special section or appendix describing internationalization considerations of their specification. In general, the Internationalization WG instead prefers that information about language, regional, or cultural variation, support, or adaptation appear in the body of the specification, closely associated with the relevant features.</p>
+
+<p>However, there are a few cases in which you might consider providing a section like this. Consider including an internationalization considerations section when:
+<ul>
+	<li>International features require additional explanation that would otherwise interfere with or clutter-up the body of the specification.</li>
+	<li>You wish to provide examples of features, such as localization, without interfering with the body of the specification. For example, summaries of the general approach taken, or factors that affect the approach taken throughout the document.</li>
+	<li>There are specific limitations or problems that your specification is unable to address, such as (but not limited to) technology that is evolving but not yet ready for inclusion; limitations discovered during the horizontal review process that you intend to address in future versions; or deliberate design decisions that limit or impact certain languages, groups, or cultures.</li>
+	<li>You have other information you wish to provide to adopters or implementers that doesn't fit with the remainder of your spec.</li>
+</ul></p>
+
+<p>If you decide to create an Internationalization Considerations section, it will usually be as an appendix. However, the order and placement relative to other parts of your spec or to other appendices is up to you.</p>
+
+<p>If you decide to create an Internationalization Considerations section, you need to mention it in your horizontal review request to the Internationalization WG. The review request template includes a checkbox which allows you to do this easily.</p>
+
 </section>
 </section>
 
@@ -456,7 +503,7 @@
 <p>In this section we refer to information that needs to be provided for a range of characters in the middle of a paragraph or string.</p>
 
 <div class="xref"><span class="seealso">See also</span>
-<p>[[[#lang_values]]].</p>
+<p>[[[#lang_values]]]</p>
 </div>
 
 
@@ -476,9 +523,123 @@
 
 
 <section id="lang_strings" class="subtopic">
-<h3><em>Identifying the language of strings (TBD)</em></h3>
+<h3>Identifying the language of strings</h3>
+
+<p class="note">The information in this section is being developed in <a href="https://www.w3.org/TR/string-meta/">Requirements for Language and Direction Metadata in Data Formats</a> [[STRING-META]]. That document is still being written, so these guidelines are likely to change at any time.</p>
+
+<p>The exchange of data on the Web, to the degree possible, should use <a>locale-neutral</a> standardized formats. However, some data on the Web necessarily consists of <a>natural language</a> information intended for display to humans. This <a>natural language</a> information depends on and benefits from the presence of language and direction metadata for proper display. Along with support for Unicode, mechanisms for including and specifying the base direction and the natural language of spans of text are one of the key internationalization considerations when developing new formats and technologies for the Web.</p>
+
 
 <p class="reviewComments"><a href="https://github.com/w3c/i18n-activity/labels/t%3Alang_strings_x" target="_blank">See related review comments.</a></p>
+<aside class="links" id="lang_strings_links">
+<p class="links_title">Useful background and overviews for this section</p>
+<ul>
+<li class="w3"><p class="link"><a href="https://www.w3.org/TR/string-meta/">Strings on the Web: Language and Direction Metadata</a>.</p>
+	<ul>
+	<li class="w3"><p class="link"><a href="https://www.w3.org/TR/string-meta/#bp_and-reco">Best Practices, Recommendations, and Gaps</a>.</p></li>
+	<li class="w3"><p class="link"><a href="https://www.w3.org/TR/string-meta/#use_cases">Requirements and Use Cases</a>.</p></li>
+	<li class="w3"><p class="link"><a href="https://www.w3.org/TR/string-meta/#bidi-approaches">Approaches Considered for Identifying the Base Direction</a>.</p></li>
+	</ul></p>
+</aside>
+
+<div class="xref"><span class="seealso">See also</span>
+<p>[[[#bidi_strings]]].</p>
+</div>
+
+<div class="note">
+	<p>Work on language and direction metadata for string formats is a work in progress. Specifications might need to include a note indicating the need for future adoption of metadata. Here is a prototype:</p>
+	<p class="example_note" style="background-color:white;border:1px solid green;padding:10px">The field <code>{fieldname}</code> should follow the best practices found in <cite>Strings on the Web: Language and Direction Metadata</cite> [[STRING-META]]. This includes making use of any future standards which emerge regarding the reporting of string language and direction metadata.</p>
+</div>
+
+<div class="req" id="bp_lang_field_based_metadata">
+<p class="advisement">Use field-based metadata or string datatypes to indicate the language and the base direction for individual <a>localizable text</a> values.</p>
+</div>
+
+<p>Individual data values can differ in language or direction from other values found in the same data file or document. Providing metadata values directly associated with each <a>localizable text</a> field allows for the metadata to be overridden appropriately and helps applications automate processing when assembling, extracting, forwarding, or otherwise processing each data field for use.</p>
+
+<div class="req" id="bp_default_setting">
+<p class="advisement">Specifications MAY define a mechanism to provide the default language and the default base direction for all strings in a given resource. However, specifications MUST NOT assume that a resource-wide default is sufficient.  Even if a resource-wide setting is available, it must be possible to use string-specific metadata  to override that default.</p>
+</div>
+
+<p>Many documents contain data in a single language. Providing a means of indicating the intended language audience, perhaps in a header, can reduce overall document size and complexity. However, the ability to override specific string values remains important, as it is always possible that some strings might not be available in the document language or when the base direction is not consistent with the default direction of other <a>localizable text</a> values in the document as a whole.</p>
+
+<div class="req" id="bp_default_fallback">
+<p class="advisement">Specify that, in the absence of other information, the default direction and default language are unknown.</p>
+</div>
+
+<div class="req" id="bp_separate_localizable">
+<p class="advisement">Specifications SHOULD be careful to distinguish <a>syntactic content</a>, including <a>user-supplied values</a>, from <a>localizable text</a>.</p>
+</div>
+
+<div class="req" id="bp_non_displayable_syntactic">
+<p class="advisement">Specifications MUST NOT treat <a>syntactic content</a> values as "displayable".</p>
+</div>
+
+<div class="req" id="bp_do_not_use_language_non_data">
+<p class="advisement">Specifications SHOULD NOT specify or require the use of language metadata for fields that cannot contain natural language text.</p>
+</div>
+
+<p>Document formats on the Web consist of text. In most cases, data values in a given document format are meant to be representative and meaningful, not just arbitrary strings. The fact that a data value consists of, for example, an English keyword does not make the data value a <a>natural language</a> string meant for display as text (that is, the value is not <a>localizable text</a>). Such data values are part of the <a>syntactic content</a> of the document: not only do they not require language and direction metadata, but they should not be associated with such metadata.</p>
+
+<div class="req" id="bp_legacy_fmt_nonlang">
+<p class="advisement">For string values and string fields that are <em>not</em> <a>localizable text</a>, specifications SHOULD specify that the field is non-linguistic in nature and recommend the language tag <code class="kw" translate="no">zxx</code> ("No linguistic content") be associated with each string value.</p>
+</div>
+
+<div class="req" id="bp_legacy_fmt_lang_unknown">
+<p class="advisement">For string values and string fields that are known to contain <a>localizable text</a> but for which there is no possibility of language metadata from the underlying format, specifications SHOULD specify that the language of the content is unknown and recommend the language tag <code class="kw" translate="no">und</code> ("Undetermined") be associated with each string. Specifications MAY also allow the use of heuristics or the inference of the language from other field values where appropriate.</p>
+</div>
+
+<p>Some string values depend on or are defined by existing protocols or formats. Often these strings are not associated with or do not provide language or direction metadata. For example, many HTTP headers define their contents as if they were not <a>localizable text</a>, even when, in some cases, they contain natural language text. Consuming specifications sometimes need to take a dependency on strings of this nature or define a format that describes one of these strings. In these cases there will be no language or direction metadata for <a>consumers</a> to associate with the string in the specification's data structure or document format, and any metadata that the specification's data structure or document format provides (when functioning as a <a>producer</a>) will not be serialized through the underlying format.</p>
+
+<div class="req" id="bp_unicode_tag_chars_nonuse">
+<p class="advisement">Specifications SHOULD NOT use the Unicode "language tag" characters (code points <code>U+E0000</code> to <code>U+E007F</code>) for language identification.</p>
+</div>
+
+<p>The Unicode "language tag" characters are deprecated for use as language tags and there are many reasons why they are a poor solution to the language metadata problem in document formats and wire protocols. Specification authors are cautioned not to repurpose these characters or try to build new mechanisms for transmitting language information based on them.</p>
+
+<div class="req" id="bp_language_indexing">
+<p class="advisement">Specifications SHOULD recommend the use of <a>language indexing</a> when localizable strings can be supplied in multiple languages for the same value.</p>
+</div>
+
+<p><a>Producers</a> sometimes need to supply localized values for a given content item or data record. Sometimes this is done by <a>language negotiation</a> between the <a>producer</a> and <a>consumer</a>. Localization then takes place in the <a>producer</a> using the negotiated language to select the content returned.</p>
+	
+<p>Other times localization of a content item is done by having the <a>producer</a> return multiple language representations for the item and letting the <a>consumer</a> choose the value to display. This latter process is called <dfn>language indexing</dfn>. For more information about language indexing, see <a href="https://www.w3.org/TR/string-meta#localization-considerations"><cite>Localization Considerations</cite></a> in [[STRING-META]].</p>
+
+<section id="lang_strings_jsonld">
+<h4>Language information in JSON-LD</h4>
+
+<aside class="links" id="lang_strings_links_jsonld">
+<p class="links_title">Additional material on this sub-section's contents can be found in:</p>
+<ul>
+<li class="w3"><p class="link"><a href="https://www.w3.org/TR/string-meta/">Strings on the Web: Language and Direction Metadata</a>.</p>
+	<ul>
+	<li class="w3"><p class="link"><a href="https://www.w3.org/TR/string-meta/#technology_specific_solutions">Technology-specific solutions</a>.</p></li>
+	</ul>
+</aside>
+
+<p>[[JSON-LD]] provides several mechanisms for satisfying some of the best practices found in this section:</p>
+	
+<div class="req" id="bp_use_jsonld_language_context">
+<p class="advisement">For documents that use [[JSON-LD]], use of [[JSON-LD]] <code class="kw" translate="no">@context</code> and the built-in <code class="kw" translate="no">@language</code> attribute is RECOMMENDED as a document level default.</p>
+</div>
+
+<div class="req" id="bp_use_jsonld_i18n_namespace">
+<p class="advisement">Specifications SHOULD use the <code class="kw" translate="no">i18n</code> Namespace feature for RDF literals, as defined in [[JSON-LD]] 1.1.</p>
+</div>
+
+<div class="req" id="bp_use_jsonld_atsign">
+<p class="advisement">Where the <code class="kw" translate="no">i18n</code> Namespace is not available or is inappropriate to use, specifications SHOULD require [[JSON-LD]] plain string literals for natural language values to provide string-specific language information.</p>
+</div>
+
+</section>
+
+<!-- The following is in String-Meta but probably not appropriate for us to include here yet.
+<div class="req" id="bp_localizable">
+<p class="advisement">For [[WebIDL]]-defined data structures, define each <a>localizable text</a> (natural language text) field as a <q><a>Localizable</a></q>.</p>
+</div>
+-->
+
+
 </section>
 
 
@@ -697,7 +858,7 @@
 
 <section id="rlmlrm">
 <h4>RLM and LRM</h4>
-<p>A word about the Unicode characters <span class="uname">U+200F RIGHT-TO-LEFT MARK</span> (RLM) and <span class="uname">U+200E   LEFT-TO-RIGHT MARK</span> (LRM) is warranted at this point.</p>
+<p>A word about the Unicode characters <span class="codepoint" translate="no"><img alt="RLM" src="images/200F.png"><code class="uname">U+200F RIGHT-TO-LEFT MARK</code></span> (RLM) and <span class="codepoint" translate="no"><img alt="LRM" src="images/200E.png"><code class="uname">U+200E LEFT-TO-RIGHT MARK</code></span> (LRM) is warranted at this point.</p>
 <p>The first point to be clear about is that neither RLM nor LRM establish the base direction for a range of text.&nbsp; They are simply invisible characters with strong directional properties.</p>
 <p>This means that you cannot use RLM for example, to make the text W3C appear to the left of the Hebrew text in the following example.</p>
 <p>The title is "<span dir="rtl">פעילות הבינאום, W3C</span>".</p>
@@ -951,7 +1112,7 @@
 	<p class="advisement">Use of RLM/LRM should be appropriate, and expectations of what those controls can and cannot do should be clear in the spec.</p>
 	</div>
 
-    <p>The Unicode bidirectional control characters <span class="uname">U+200F RIGHT-TO-LEFT MARK</span> and <span class="uname">U+200E LEFT-TO-RIGHT MARK</span> are not sufficient on their own to manage bidirectional text. They cannot produce a different base direction for embedded text. For that you need to be able to indicate the start and end of the range of the embedded text.&nbsp; This is best done by markup, if available, or failing that using the other Unicode bidirectional controls mentioned just above.</p>
+    <p>The Unicode bidirectional control characters <span class="codepoint" translate="no"><img alt="RLM" src="images/200F.png"><code class="uname">U+200F RIGHT-TO-LEFT MARK</code></span> and <span class="codepoint" translate="no"><img alt="LRM" src="images/200E.png"><code class="uname">U+200E LEFT-TO-RIGHT MARK</code></span> are not sufficient on their own to manage bidirectional text. They cannot produce a different base direction for embedded text. For that you need to be able to indicate the start and end of the range of the embedded text.&nbsp; This is best done by markup, if available, or failing that using the other Unicode bidirectional controls mentioned just above.</p>
 
 
 
@@ -1080,7 +1241,7 @@
 
     </aside>
 
-    <p>Another example of the complex relationship between code points and graphemes are certain emoji. The emoji character for "family" has a code point in Unicode: <span class="codepoint" translate="no"><bdi lang="en">&#x1F46A;</bdi><span class="uname">U+1F46A FAMILY</span></span>. It can also be formed by using using a sequence of code points: <span class="uname">U+1F468 U+200D U+1F469 U+200D U+1F466</span>. Altering or adding other emoji characters can alter the composition of the family. For example the sequence <span class="codepoint" translate="no"><bdi translate="no">&#x1f468;&#x200d;&#x1f469;&#x200d;&#x1f467;&#x200d;&#x1f467;</bdi><span class="uname" translate="no">U+1F468 U+200D U+1F469 U+200D U+1F467 U+200D U+1F467</span></span> results in a composed emoji character for a "family: man, woman, girl, girl" on systems that support this kind of composition. Many common emoji can <em>only</em> be formed using sequences of code points, but should be treated as a single user-perceived character when displaying or processing the text. You wouldn't want to put a line-break in the middle of the family!</p>
+    <p>Another example of the complex relationship between code points and graphemes are certain emoji. The emoji character for "family" has a code point in Unicode: <span class="codepoint" translate="no"><bdi lang="en">&#x1F46A;</bdi><code class="uname">U+1F46A FAMILY</code></span>. It can also be formed by using using a sequence of code points: <code class="uname">U+1F468 U+200D U+1F469 U+200D U+1F466</code>. Altering or adding other emoji characters can alter the composition of the family. For example the sequence <span class="codepoint" translate="no"><bdi translate="no">&#x1f468;&#x200d;&#x1f469;&#x200d;&#x1f467;&#x200d;&#x1f467;</bdi><code class="uname" translate="no">U+1F468 U+200D U+1F469 U+200D U+1F467 U+200D U+1F467</code></span> results in a composed emoji character for a "family: man, woman, girl, girl" on systems that support this kind of composition. Many common emoji can <em>only</em> be formed using sequences of code points, but should be treated as a single user-perceived character when displaying or processing the text. You wouldn't want to put a line-break in the middle of the family!</p>
 
     <p>Unicode code points are just abstract integer values: they are not the values actually present in the memory of the computer or serialized on the wire. When processing text, computers use an array of fixed-size integer units. One such common unit is the <dfn class="lint-ignore">byte</dfn> (or <em>octet</em>, since bytes have 8 bits per unit). There are also 16-bit, 32-bit, or other size units. In many programming languages, the unit is called a <code>char</code>, which suggests that strings are made of "characters". We use the term <a>code unit</a> to refer unambiguously to the programming and serialized representation of characters. For example, in C, a <code>char</code> is generally an 8-bit byte: each <code>char</code> is a 8-bit code unit. In Java or Javascript, a <code>char</code> is a 16-bit value.</p>
 
@@ -1608,7 +1769,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 
 	
 	<div class="example" id="char-escape-examples">
-		<p>Here are some examples of common escaping mechanisms found on the Web or in common programming languages. The example character here is <span class="codepoint"><bdi lang="en">&#x1f63d;</bdi><span class="uname" translate="no">U+1F63D KISSING CAT FACE WITH CLOSED EYES</span></span>.</p>
+		<p>Here are some examples of common escaping mechanisms found on the Web or in common programming languages. The example character here is <span class="codepoint"><bdi lang="en">&#x1f63d;</bdi><code class="uname" translate="no">U+1F63D KISSING CAT FACE WITH CLOSED EYES</code></span>.</p>
 		<table>
 			<thead>
 				<tr>
@@ -1754,39 +1915,68 @@ just as characters are the basic unit of organization of encoded text.</p>
 <p>[[[#char_def]]].</p>
 </div>
 
-<p>Specifications need to be clear about the encoding and processing of textual data. The recommendations in this section are mutually consistent with those in [[DESIGN-PRINCIPLES]]. In general, specifications should only support well-formed Unicode code point strings and should avoid the use of (or access to) the underlying code units or the use of different character encodings.</p>
-
-<aside class="note" id="char_string_char">
-	<p>Specifications should avoid adding or defining support for <a>legacy character encodings</a> unless there is a specific reason to do so. See also <a href="#char_choosing"></a>.</p>
+<aside class="note">
+    <p>The best practices found in this section are intended to be mutually consistent with those in [[DESIGN-PRINCIPLES]]. The definitions in this section use terms found in the <cite>Internationalization Glossary</cite> [[I18N-GLOSSARY]]. Some of these definitions are themselves taken from [[WEBIDL]], [[INFRA]], or the Unicode glossary; in which case the definitions are quoted verbatim and include links to their source. Please refer to instructions in the Internationalization Glossary for how to import and link definitions in your own specification.</p>
 </aside>
 
-<div class="req" id="char_string_domstring">
-	<p class="advisement">When designing a web platform feature which operates on strings, use <a href="https://webidl.spec.whatwg.org/#idl-DOMString">DOMString</a> unless you have a specific reason not to.</p>
-	<details class="links"><summary>explanations &amp; examples</summary>
-	   <p><a href="https://www.w3.org/TR/charmod/#sec-Strings">String concepts, C012</a>, in <cite>Character Model for the World Wide Web: Fundamentals</cite>.</p>
-	   <p><a href="https://www.w3.org/TR/design-principles/#idl-string-types">IDL String Types</a> in <cite>Web Platform Design Principles</cite> [[DESIGN-PRINCIPLES]]</p>
-	</details>
+<div class="issue">
+	<p>Notwithstanding the note just above, I18N's best practices appear to be exactly opposite those in [[DESIGN-PRINCIPLES]] at the moment. The details turn out to be the same, but we need to resolve differences in guidance and wording. The issue <a href="https://github.com/w3ctag/design-principles/issues/454">design-principles#454</a> tracks this.</p>
 </div>
 
-<p>The type <code>DOMString</code> is actually a UTF-16 <a>code unit</a> string. This type allows unpaired <a>surrogate</a> code units to appear in a string, which can result in errors or replacement with the Unicode replacment character (<span class="codepoint" translate="no"><bdi lang="und">&#xFFFD;</bdi><span class="uname">U+FFFD REPLACEMENT CHARACTER</span></span>). This type is appropriate when specifications do not need to do internal processing of the string value. The alternative type is <code translate="no"><a href="https://webidl.spec.whatwg.org/#idl-USVString">USVString</a></code>, which is a sequence of Unicode code points.</p>
+<div class="req" id="char_string_default">
+	<p class="advisement">Unless you have a reason not to, use a string definition consistent with {{USVString}}.</p>
+</div>
 
-<p>The reason <code translate="no">DOMString</code> is preferred to <code translate="no">USVString</code> is that both [[DOM]] and the string types in JavaScript (and its derivatives, such as JSON) are defined in terms of UTF-16 code unit strings. Specifying <code translate="no">USVString</code> can result in inadvertently requiring an implementation to check for unpaired surrogates in cases where there is no benefit to doing so.</p>
-
-<div class="req" id="char_string_usvstring">
-	<p class="advisement">When designing a web platform feature or API that operates on the internal values of strings, including indexing, iterating, transformation, or searching, the use of <a href="">USVString</a> is RECOMMENDED.</p>
-	<details class="links"><summary>explantations &amp; examples</summary>
+<div class="req" id="char_string_dom">
+	<p class="advisement">Use a string definition consistent with {{DOMString}} if your specification does not process the internal value of strings and is not required to check for unpaired surrogate code points, or if your specification pertains to the [[DOM]], defines a JavaScript API or data format, or defines strings as opaque values that are not processed.</p>
+	<details class="links"><summary>explanations &amp; examples</summary>
 	   <p><a href="https://infra.spec.whatwg.org/#scalar-value-string">Scalar value string</a> definition in [[INFRA]]</p>
 	   <p><a href="https://www.w3.org/TR/design-principles/#idl-string-types">IDL String Types</a> in <cite>Web Platform Design Principles</cite> [[DESIGN-PRINCIPLES]]</p>
+	   <p><a href="https://www.w3.org/TR/charmod/#sec-Strings">String concepts, C012</a>, in <cite>Character Model for the World Wide Web: Fundamentals</cite>.</p>
 	</details>
 </div>
 
-<p>The type <code translate="no">USVString</code> defines strings as a sequence of Unicode <a>code points</a>. For strings whose most common algorithms operate on or process individual <a>code points</a>, or for operations which can’t handle surrogates in input, <code translate="no">USVString</code> should be used. For example, if your specification is defining a process that parses a string or transforms specific characters, it is both easier to specify and more reliable to refer to code points (<em>"scalar values"</em>) than to deal with the UTF-16 <a>code units</a>.</p>
+<p>A string is a sequence of characters. Because [[UNICODE]] is fundamental to understanding and working with text, including text that uses <a>legacy character encodings</a>, the basic definition of a string depends on Unicode and its concept of a encoded character. Specifically:</p> 
 
-<p>In a <code translate="no">USVString</code>, isolated <a>surrogate</a> code points are invalid and implementations are required to replace any found in a string with the Unicode replacment character (<span class="codepoint" translate="no"><bdi lang="und">&#xFFFD;</bdi><span class="uname">U+FFFD REPLACEMENT CHARACTER</span></span>).</p>
+<p class="localdef">A <dfn class="lint-ignore">string</dfn> is a well-formed sequence of zero or more <a>Unicode Scalar Values</a>.</p>
 
+<p>Because there are multiple ways of working with strings, different terminology has evolved to support the needs of different specifications. Be sure to understand your specification's needs and use the most appropriate and precise terminology. On the Web, there are three types of strings:
+
+<ul>
+	<li>{{USVString}}. Strings based on Unicode <a>code points</a>, also known as </a><a>Unicode Scalar Values</a></li>
+	<li>{{DOMString}}. Strings based on <a>UTF-16</a> <a>code units</a></li>
+	<li>{{ByteString}}. Strings based on bytes in some <a>character encoding form</a> (preferably <a>UTF-8</a>)</li>
+</ul></p>
+
+<p>One difference between these different string types is how <a>surrogate</a> <a>code points</a> are handled. Note the difference between a <a>code point</a> (which represents a <a>Unicode Scalar Value</a>, i.e. a character) and a <a>code unit</a> (a unit of encoding in a <a>character encoding form</a>).</p>
+
+<p>The <a>UTF-16</a> <a>character encoding form</a> uses 16-bit <a>code units</a>. Characters whose <a>scalar values</a> require more than 16-bits are encoded using a pair of <a>surrogate</a> <a>code units</a>: a "low surrogate" (in the range <code class="uname">U+D800-U+DBFF</code>) followed by a "high surrogate" (in the range <code class="uname">U+DC00-U+DFFF</code>). Unicode reserves the <a>code points</a> in these ranges as non-characters so that there is no confusion between the <a>code units</a> in <a>UTF-16</a> and normal text.</p>
+
+<p>In a {{USVString}}, isolated <a>surrogate</a> code points are invalid and implementations are required to replace any found in a string with the Unicode replacment character (<span class="codepoint" translate="no"><bdi lang="und">&#xFFFD;</bdi><code class="uname">U+FFFD REPLACEMENT CHARACTER</code></span>). For strings whose most common algorithms operate on scalar values (such as percent-encoding), or for operations which can’t handle surrogates in input (such as APIs that pass strings through to native platform APIs), {{USVString}} should be used. Any of these references are equivalent to this:
+	<ul>
+	    <li>{{USVString}} [[WEBIDL]]</li>
+	    <li><a>scalar value string</a> [[INFRA]]</li>
+	    <li><a target="_blank" href="https://www.w3.org/TR/xmlschema11-2/#string">xsd:string</a> [[XMLSCHEMA11-2]]</li>
+    </ul>
+</p>
+
+<p>In a {{DOMString}}, unpaired <a>surrogate</a> <a>code units</a> can appear in a string. Most string operations don’t need to interpret the <a>code units</a> inside of strings. Specifying {{DOMString}} means that implementations are not required to validate the contents of the string, making this the ideal string type for most data structures, formats, or APIs. The [[DOM]] and JavaScript strings use {{DOMString}} as their string type and the [[INFRA]] standard defines the term 'string' to mean a {{DOMString}}:</p>
+
+<p class="localdef">A string is a sequence of unsigned 16-bit integers, also known as <a>code units</a>.</p>
+
+<p class="note">[[INFRA]]'s use of the term <a>code unit</a> refers specifically to the <a>UTF-16</a> character encoding's code units, rather than the more general definition of a <a>code unit</a> that can refer to different size values, such as bytes, in any <a>character encoding form</a>.</p>
+
+<p>A {{ByteString}} depends on the <a>character encoding form</a> used to encode characters into bytes. <a>Legacy character encodings</a> do not have a concept of "surrogates", so there is generally no way to encode a surrogate code point. Valid <a>UTF-8</a> does not permit surrogate code points: these are replaced by <span class="codepoint" translate="no"><bdi lang="und">&#xFFFD;</bdi><code class="uname">U+FFFD REPLACEMENT CHARACTER</code></span> when encoding or decoding text in <a>UTF-8</a>. When converting <a>UTF-16</a> to <a>UTF-8</a>, any <a>surrogate pairs</a> are transformed into the proper UTF-8 byte sequence encoding the specific <a>scalar value</a>.</p>
+
+<div class="req" id="char_string_no_legacy">
+	<p class="advisement">Specifications SHOULD NOT add or define support for <a>legacy character encodings</a> unless there is a specific reason to do so.</p>
+	<details class="links"><summary>explanations &amp; examples</summary>
+	<p>See also <a href="#char_choosing"></a>.</p>
+	</details>
+</div>
 
 <div class="req" id="char_string_byte">
-	<p class="advisement">Specifications SHOULD NOT define a string as a <code translate="no">ByteString</code> or as a sequence of bytes ('byte string'). For binary data or sequences of bytes, use <code translate="no">Uint8Array</code> instead.</p>
+	<p class="advisement">Specifications SHOULD NOT define a string as a {{ByteString}} or as a sequence of bytes ('byte string'). For binary data or sequences of bytes, use {{Uint8Array}} instead.</p>
 	<details class="links"><summary>explanations &amp; examples</summary>
 	   <p><a href="https://www.w3.org/TR/charmod/#sec-Strings">String concepts, C011</a>, in <cite>Character Model for the World Wide Web: Fundamentals</cite>.</p>
 	   <p><a href="https://www.w3.org/TR/string-meta/#protocol-strings">Strings that are part of a legacy protocol or format</a>, in <cite>Strings on the Web: Language and Direction Metadata</cite> [[STRING-META]]</p>
@@ -1794,7 +1984,15 @@ just as characters are the basic unit of organization of encoded text.</p>
 	</details>
 </div>
 
-<p>The type <code translate="no">ByteString</code> defines strings as sequences of bytes (octets). Interpretation of byte strings thus requires the specification of a <a>character encoding form</a>. UTF-8 is the preferred encoding for wire and document formats [[ENCODING]], but there is generally no reason to specify strings in terms of the underlying byte values. See <a href="#char_choosing"></a> for additional best practices.</p>
+<p>The type {{ByteString}} defines strings as sequences of bytes (octets). Interpretation of byte strings thus requires the specification of a <a>character encoding form</a>. UTF-8 is the preferred encoding for wire and document formats [[ENCODING]], but there is generally no reason to specify strings in terms of the underlying byte values.</p>
+
+<aside class="note">
+	<p>Specifications for document formats or protocols often deal with the specific byte values used for various fields or values or with the <a>character encoding</a> used for serializing the data. It is therefore tempting to specify a text field ("string") as a {{ByteString}} which uses the <a>UTF-8</a> <a>character encoding form</a>.</p>
+	
+	<p>It is preferable, however, to specify these fields as a {{DOMString}} (or, rarely, a {{USVString}}), since the data encoded into these fields must be serialized from and deserialized into in-memory string representations, such as the [[DOM]] or JavaScript strings or your platform's native Unicode string type.</p>
+</aside>
+
+<p>See <a href="#char_choosing"></a> for additional best practices.</p>
 
 </section>
 
@@ -1860,7 +2058,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 			</thead>
 			<tbody>
 				<tr>
-					<td><span class="uname" translate="no">U+0009 (horizontal tab)</span></td>
+					<td><span class="codepoint" translate="no"><img alt="HTAB" src="images/0009.png"><code class="uname" translate="no">U+0009 (horizontal tab)</code></span></td>
 					<td>✓</td>
 					<td>✓</td>
 					<td>✓</td>
@@ -1869,7 +2067,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>✓</td>
 				</tr>
 				<tr>
-					<td><span class="uname" translate="no">U+000A (line feed)</span></td>
+					<td><span class="codepoint" translate="no"><img alt="LF" src="images/000A.png"><code class="uname" translate="no">U+000A (line feed)</code></span></td>
 					<td>✓</td>
 					<td>✓</td>
 					<td>✓</td>
@@ -1878,7 +2076,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>✓</td>
 				</tr>
 				<tr>
-					<td><span class="uname" translate="no">U+000B (vertical tab)</span></td>
+					<td><span class="codepoint" translate="no"><img alt="VTAB" src="images/000B.png"><code class="uname" translate="no">U+000B (vertical tab)</code></span></td>
 					<td>✓</td>
 					<td>✓</td>
 					<td>&nbsp;</td>
@@ -1887,7 +2085,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td><span class="uname" translate="no">U+000C (form feed)</span></td>
+					<td><span class="codepoint" translate="no"><img alt="FF" src="images/000C.png"><code class="uname" translate="no">U+000C (form feed)</code></span></td>
 					<td>✓</td>
 					<td>✓</td>
 					<td>✓</td>
@@ -1896,7 +2094,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td><span class="uname" translate="no">U+000D (carriage return)</span></td>
+					<td><span class="codepoint" translate="no"><img alt="CR" src="images/000D.png"><code class="uname" translate="no">U+000D (carriage return)</code></span></td>
 					<td>✓</td>
 					<td>✓</td>
 					<td>✓</td>
@@ -1905,7 +2103,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>✓</td>
 				</tr>
 				<tr>
-					<td><span class="uname" translate="no">U+0020 SPACE</span></td>
+					<td><span class="codepoint" translate="no"><img alt="SP" src="images/0020.png"><code class="uname" translate="no">U+0020 SPACE</code></span></td>
 					<td>✓</td>
 					<td>✓</td>
 					<td>✓</td>
@@ -1914,7 +2112,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>✓</td>
 				</tr>
 				<tr>
-					<td><span class="uname" translate="no">U+0085 (next line)</span></td>
+					<td><span class="codepoint" translate="no"><img alt="NEL" src="images/0085.png"><code class="uname" translate="no">U+0085 (next line)</code></span></td>
 					<td>✓</td>
 					<td>✓</td>
 					<td>&nbsp;</td>
@@ -1923,7 +2121,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td><span class="uname" translate="no">U+00A0 NO-BREAK SPACE</span></td>
+					<td><span class="codepoint" translate="no"><img alt="NBSP" src="images/00A0.png"><code class="uname" translate="no">U+00A0 NO-BREAK SPACE</code></span></td>
 					<td>✓</td>
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
@@ -1932,7 +2130,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td><span class="uname" translate="no">U+1680 OGHAM SPACE MARK</span></td>
+					<td><span class="codepoint" translate="no"><img alt="Ogham space" src="images/1680.png"><code class="uname" translate="no">U+1680 OGHAM SPACE MARK</code></span></td>
 					<td>✓</td>
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
@@ -1941,7 +2139,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td><span class="uname" translate="no">U+2000 EN QUAD</span></td>
+					<td><span class="codepoint" translate="no"><img alt="NQSP" src="images/2000.png"><code class="uname" translate="no">U+2000 EN QUAD</code></span></td>
 					<td>✓</td>
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
@@ -1950,7 +2148,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td><span class="uname" translate="no">U+2001 EM QUAD</span></td>
+					<td><span class="codepoint" translate="no"><img alt="MQSP" src="images/2001.png"><code class="uname" translate="no">U+2001 EM QUAD</code></span></td>
 					<td>✓</td>
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
@@ -1959,7 +2157,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td><span class="uname" translate="no">U+2002 EN SPACE</span></td>
+					<td><span class="codepoint" translate="no"><img alt="ENSP" src="images/2002.png"><code class="uname" translate="no">U+2002 EN SPACE</code></span></td>
 					<td>✓</td>
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
@@ -1968,7 +2166,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td><span class="uname" translate="no">U+2003 EM SPACE</span></td>
+					<td><span class="codepoint" translate="no"><img alt="EMSP" src="images/2003.png"><code class="uname" translate="no">U+2003 EM SPACE</code></span></td>
 					<td>✓</td>
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
@@ -1977,7 +2175,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td><span class="uname" translate="no">U+2004 THREE-PER-EM SPACE</span></td>
+					<td><span class="codepoint" translate="no"><img alt="3/M SP" src="images/2004.png"><code class="uname" translate="no">U+2004 THREE-PER-EM SPACE</code></span></td>
 					<td>✓</td>
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
@@ -1986,7 +2184,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td><span class="uname" translate="no">U+2005 FOUR-PER-EM SPACE</span></td>
+					<td><span class="codepoint" translate="no"><img alt="4/M SP" src="images/2005.png"><code class="uname" translate="no">U+2005 FOUR-PER-EM SPACE</code></span></td>
 					<td>✓</td>
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
@@ -1995,7 +2193,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td><span class="uname" translate="no">U+2006 SIX-PER-EM SPACE</span></td>
+					<td><span class="codepoint" translate="no"><img alt="6/M SP" src="images/2006.png"><code class="uname" translate="no">U+2006 SIX-PER-EM SPACE</code></span></td>
 					<td>✓</td>
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
@@ -2004,7 +2202,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td><span class="uname" translate="no">U+2007 FIGURE SPACE</span></td>
+					<td><span class="codepoint" translate="no"><img alt="FSP" src="images/2007.png"><code class="uname" translate="no">U+2007 FIGURE SPACE</code></span></td>
 					<td>✓</td>
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
@@ -2013,7 +2211,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td><span class="uname" translate="no">U+2008 PUNCTUATION SPACE</span></td>
+					<td><span class="codepoint" translate="no"><img alt="PSP" src="images/2008.png"><code class="uname" translate="no">U+2008 PUNCTUATION SPACE</code></span></td>
 					<td>✓</td>
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
@@ -2022,7 +2220,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td><span class="uname" translate="no">U+2009 THIN SPACE</span></td>
+					<td><span class="codepoint" translate="no"><img alt="THSP" src="images/2009.png"><code class="uname" translate="no">U+2009 THIN SPACE</code></span></td>
 					<td>✓</td>
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
@@ -2031,7 +2229,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td><span class="uname" translate="no">U+200A HAIR SPACE</span></td>
+					<td><span class="codepoint" translate="no"><img alt="HSP" src="images/200A.png"><code class="uname" translate="no">U+200A HAIR SPACE</code></span></td>
 					<td>✓</td>
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
@@ -2040,7 +2238,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td><span class="uname" translate="no">U+200E LEFT-TO-RIGHT MARK</span></td>
+					<td><span class="codepoint" translate="no"><img alt="LRM" src="images/200E.png"><code class="uname" translate="no">U+200E LEFT-TO-RIGHT MARK</code></span></td>
 					<td>&nbsp;</td>
 					<td>✓</td>
 					<td>&nbsp;</td>
@@ -2049,7 +2247,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td><span class="uname" translate="no">U+200F RIGHT-TO-LEFT MARK</span></td>
+					<td><span class="codepoint" translate="no"><img alt="RLM" src="images/200F.png"><code class="uname" translate="no">U+200F RIGHT-TO-LEFT MARK</code></span></td>
 					<td>&nbsp;</td>
 					<td>✓</td>
 					<td>&nbsp;</td>
@@ -2058,7 +2256,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td><span class="uname" translate="no">U+2028 LINE SEPARATOR</span></td>
+					<td><span class="codepoint" translate="no"><img alt="LSEP" src="images/2028.png"><code class="uname" translate="no">U+2028 LINE SEPARATOR</code></span></td>
 					<td>✓</td>
 					<td>✓</td>
 					<td>&nbsp;</td>
@@ -2067,7 +2265,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td><span class="uname" translate="no">U+2029 PARAGRAPH SEPARATOR</span></td>
+					<td><span class="codepoint" translate="no"><img alt="PSEP" src="images/2029.png"><code class="uname" translate="no">U+2029 PARAGRAPH SEPARATOR</code></span></td>
 					<td>✓</td>
 					<td>✓</td>
 					<td>&nbsp;</td>
@@ -2076,7 +2274,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td><span class="uname" translate="no">U+202F NARROW NO-BREAK SPACE</span></td>
+					<td><span class="codepoint" translate="no"><img alt="NNBSP" src="images/202F.png"><code class="uname" translate="no">U+202F NARROW NO-BREAK SPACE</code></span></td>
 					<td>✓</td>
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
@@ -2085,7 +2283,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td><span class="uname" translate="no">U+205F MEDIUM MATHEMATICAL SPACE</span></td>
+					<td><span class="codepoint" translate="no"><img alt="MMSP" src="images/205F.png"><code class="uname" translate="no">U+205F MEDIUM MATHEMATICAL SPACE</code></span></td>
 					<td>✓</td>
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
@@ -2094,7 +2292,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td><span class="uname" translate="no">U+3000 IDEOGRAPHIC SPACE</span></td>
+					<td><span class="codepoint" translate="no"><img alt="IDSP" src="images/3000.png"><code class="uname" translate="no">U+3000 IDEOGRAPHIC SPACE</code></span></td>
 					<td>✓</td>
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
@@ -2103,7 +2301,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td><span class="uname" translate="no">U+FEFF ZERO WIDTH NO-BREAK SPACE</span></td>
+					<td><span class="codepoint" translate="no"><img alt="ZWNPSP" src="images/FEFF.png"><code class="uname" translate="no">U+FEFF ZERO WIDTH NO-BREAK SPACE</code></span></td>
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
@@ -2123,10 +2321,19 @@ just as characters are the basic unit of organization of encoded text.</p>
 <section id="char_ref" class="subtopic">
 <h3>Referring to Unicode characters</h3>
 
+
 <p class="reviewComments"><a href="https://github.com/w3c/i18n-activity/labels/t%3Achar_ref" target="_blank">See related review comments.</a></p>
 
+<aside class="links" id="links_char_ref">
+<p class="links_title">Useful background and overviews for this section</p>
+<ul>
+<li class="w3"><p class="link"><a href="https://www.w3.org/International/i18n-activity/guidelines/editing#codepoints">I18N Editing Guidelines</a> &mdash; more information on character formatting</p></li>
+</ul>
+</aside>
+
+
  	<div class="req" id="char_ref_Uchar">
-	<p class="advisement">Use <code translate="no">U+XXXX</code> syntax to represent Unicode code points in the specification.</p>
+	<p class="advisement">Use <code translate="no">U+XXXX</code> syntax to represent Unicode code points in a specification.</p>
 	</div>
 
 <p>The <code translate="no">U+XXXX</code> format is well understood when referring to Unicode code points in a specification. These are space separated when appearing in a sequence. No additional decoration is needed. Note that a code point may contain four, five, or six hexadecimal digits. When fewer than four digits are needed, the code point number is zero filled.</p>
@@ -2171,66 +2378,63 @@ just as characters are the basic unit of organization of encoded text.</p>
 </aside>
 
 <div class="req" id="char_ref_unicode_names">
-	<p class="advisement">Use the Unicode character name to describe specific code points. Use of the <a href="#char_ref_template">character naming template</a> is RECOMMENDED.</p>
+	<p class="advisement">Use the Unicode character name to describe specific code points.</p>
 </div>
 
-<p>Unicode assigns unique, immutable names to each assigned Unicode code point. Using these names in your specification when referring to specific characters (along with the code point in <span class="uname" translate="no">U+XXXX</span> notation) will help make your specification unambiguous.</p>
+<p>Unicode assigns unique, immutable names to each assigned Unicode code point. Using these names in your specification when referring to specific characters (along with the code point in <code class="uname" translate="no">U+XXXX</code> notation) will help make your specification unambiguous.</p>
 
-<p>There are cases where doing this is overly pedantic and detracts from usability, but be cautious about being so informal as to impair meaning.</p>
+<div class="req" id="char_ref_unicode_template">
+	<p class="advisement">Use of the character naming template is RECOMMENDED.</p>
+</div>
 
-<section id="char_ref_template">
-<h5>Character naming template</h5>
+<p>For most characters, the template looks like this:</p>
 
-	<div class="xref"><span class="seealso">See also</span>
-	<p>[<a href="https://www.w3.org/International/i18n-activity/guidelines/editing#codepoints">I18N Editing Guidelines</a>].</p>
-	</div>
-	
-<p>Use of the character template used in Internationalization specifications is recommended. For most characters, the template looks like this:</p>
-
-<pre>
-&lt;span class="codepoint" translate="no">&lt;bdi lang="??">&#xXXXX;&lt;/bdi> 
-&lt;span class="uname">U+XXXX Unicode_character_name&lt;/span>&lt;/span>
-</pre>
-
-<p>For invisible characters (such as control characters) or for whitespace, the character and its surrounding <code translate="no" class="kw">bdi</code> element should be omitted:</p>
-
-<pre>
-&lt;span class="codepoint" translate="no">
-&lt;span class="uname">U+XXXX Unicode_character_name&lt;/span>&lt;/span>
-</pre>
+<code>
+&lt;span class="codepoint" translate="no">&lt;bdi lang="??">&#xXXXX;&lt;/bdi>&lt;code class="uname">U+XXXX UNICODE_CHARACTER_NAME_ALL_IN_CAPS&lt;/code>&lt;/span>
+</code>
 
 <aside class="example" title="Example of a character reference">
 <p>Filling in the above template like this:</p>
 
-<pre>
-&lt;span class="codepoint" translate="no">
-   &lt;bdi lang="fr">&#x00E9;&lt;/bdi>&lt;span class="uname">U+00E9 LATIN SMALL LETTER E WITH ACUTE&lt;/span>
-&lt;/span>
-</pre>
+<code>
+&lt;span class="codepoint" translate="no">&lt;bdi lang="fr">&#x00E9;&lt;/bdi>&lt;code class="uname">U+00E9 LATIN SMALL LETTER E WITH ACUTE&lt;/code>&lt;/span>
+</code>
 
-<p>Produces output in the page like this: <span class="codepoint" translate="no"><bdi lang="fr">é</bdi><span class="uname">U+00E9 LATIN SMALL LETTER E WITH ACUTE</span></span>.</p>
+<p>Produces output in the page like this: <span class="codepoint" translate="no"><bdi lang="fr">é</bdi><code class="uname">U+00E9 LATIN SMALL LETTER E WITH ACUTE</code></span>.</p>
 </aside>
 
-<p>The <code translate="no" class="kw">bdi</code> element is used to ensure that example characters that are right-to-left do not interfere with the layout of the page. Although the elements are shown on separate lines in this section (for clarity), do not include line breaks or a space between the closing <code translate="no" class="kw">bdi</code> and the following <code translate="no" class="kw">span</code> element; spacing and presentation is controlled by styling.</p>
+<p>The <code translate="no" class="kw">bdi</code> element is used to ensure that example characters that are right-to-left do not interfere with the layout of the page. Do not include line breaks or a space between the closing <code translate="no" class="kw">bdi</code> and the following <code translate="no" class="kw">code</code> element; spacing and presentation is controlled by styling.</p>
 
-<p>The <code translate="no" class="kw">lang</code> attribute should be filled in appropriately to get the correct font selection for a given context. Examples in East Asian languages (such as Chinese, Japanese, or Korean) or in the Arabic script can sometimes require greater care in choosing a language tag.</p>
+<p>The <code translate="no" class="kw">lang</code> attribute should be filled in appropriately to get the correct font selection for a given context. Examples in East Asian languages (such as Chinese, Japanese, or Korean) or in the Arabic script can sometimes require greater care in choosing a language tag. Rarely, for certain languages, it might be necessary to adjust the style of the <code>bdi</code> element with a <kbd translate="no">font-family</kbd> and/or <kbd translate="no">font-size</kbd> in your own stylesheet.</p>
+
+<p>For invisible characters (such as control characters) or for whitespace, use an image instead of the character; or you may also omit the character and its surrounding <code translate="no" class="kw">bdi</code> element.</p>
+
+<code>
+&lt;span class="codepoint" translate="no">&lt;img alt="..." src="...">&lt;code class="uname">U+XXXX UNICODE_CHARACTER_NAME_ALL_IN_CAPS&lt;/code>&lt;/span>
+</code>
+
+<aside class="example" title="Example of a character reference with an image">
+<p>Filling in the above template like this:</p>
+
+<code>
+&lt;span class="codepoint" translate="no">&lt;img alt="NBSP" src="images/00A0.png">&lt;code class="uname">U+00A0 NO-BREAK SPACE&lt;/code>&lt;/span>
+</code>
+
+<p>Produces output in the page like this: <span class="codepoint" translate="no"><img alt="NBSP" src="images/00A0.png"><code class="uname">U+00A0 NO-BREAK SPACE</code></span>.</p>
+</aside>
 
 <p>Short sequences of characters should list the character names, separated by <span class="codepoint" translate="no">+</span>.
 
 <aside class="example" title="Example of a code point sequence">
-	<p>This example: <span class="codepoint" translate="no"><bdi lang="hi">&#x0928&#x093f;</bdi><span class="uname">U+0928 DEVANAGARI LETTER NA</span> + <span class="uname">U+093F  DEVANAGARI VOWEL SIGN I</span></span> uses the following markup:</p>
+	<p>This example: <span class="codepoint" translate="no"><bdi lang="hi">&#x0928&#x093f;</bdi><code class="uname">U+0928 DEVANAGARI LETTER NA</code> + <code class="uname">U+093F  DEVANAGARI VOWEL SIGN I</code></span> uses the following markup:</p>
 
-<pre>
-&lt;span class="codepoint" translate="no">
-  &lt;bdi lang="hi">&amp;#x0928;&amp;#x093f;&lt;/bdi>&lt;span class="uname">U+0928 DEVANAGARI LETTER NA&lt;/span> + 
-  &lt;span class="uname">U+093F DEVANAGARI VOWEL SIGN I&lt;/span>
-&lt;/span>
-</pre>	
+<code>
+&lt;span class="codepoint" translate="no">&lt;bdi lang="hi">&amp;#x0928;&amp;#x093f;&lt;/bdi>&lt;code class="uname">U+0928 DEVANAGARI LETTER NA&lt;/code> + &lt;code class="uname">U+093F DEVANAGARI VOWEL SIGN I&lt;/code>&lt;/span>
+</code>	
 
 </aside>
 
-<p>Long sequences will sometimes just list the code points, although the character names should be retained where possible for clarity. An example can be found in this document in the <a href="#char_term_def">discussion of the composed "family" emoji</a>: <span class="codepoint"><bdi lang="en">👨‍👩‍👧‍👧</bdi><span class="uname">U+1F468 U+200D U+1F469 U+200D U+1F467 U+200D U+1F467</span></span></p>
-
+<p>There are cases where including the character name and additional markup is overly pedantic and detracts from usability, but be cautious about being so informal as to impair meaning. In particular, long sequences will sometimes just list the code points, although the character names should be retained where possible for clarity. An example can be found in this document in the <a href="#char_term_def">discussion of the composed "family" emoji</a>: <span class="codepoint"><bdi lang="en">👨‍👩‍👧‍👧</bdi><code class="uname">U+1F468 U+200D U+1F469 U+200D U+1F467 U+200D U+1F467</code></span></p>
 
 </section>
 </section>
@@ -2765,7 +2969,7 @@ just as characters are the basic unit of organization of encoded text.</p>
     	</div>
 
 	<div class="req" id="char_trunc_grapheme_boundary">
-	<p class="advisement">Specifications that limit the length of a string SHOULD require truncation on grapheme boundaries, as truncation in the midst of a combining or joining sequence can alter the meaning of the string.</p>
+	<p class="advisement">Specifications that limit the length of a string SHOULD require truncation on grapheme boundaries, as truncation in the midst of a <a>grapheme</a> or <a>combining character sequence</a> can alter the meaning of the string.</p>
 	</div>
 
 	<div class="req" id="char_trunc_indicator">
@@ -2773,8 +2977,14 @@ just as characters are the basic unit of organization of encoded text.</p>
 	</div>
 
 	<div class="req" id="char_trunc_min_size">
-	<p class="advisement">When specifying a length limitation in code units (such as bytes), specifications SHOULD set the maximum length in a way that accommodates users whose language requires multibyte code unit sequences.</p>
+	<p class="advisement">When specifying a length limitation in code units (such as bytes), specifications SHOULD set the limit in a way that accommodates users whose language requires multibyte code unit sequences.</p>
 	</div>
+	
+	<div class="req" id="char_trunc_character_encoding">
+		<p class="advisement">If a specification specifies a length limit in code units (such as bytes), it MUST specify the <a>character encoding</a> used in measuring the limit; such a limit SHOULD NOT specify a <a>legacy character encoding</a>.</p>
+	</div>
+	
+	<p>If a specification permits or requires truncation of a field, the <a>character encoding</a> is important in knowing what the limit means. If the limit is in bytes and <a>legacy character encodings</a> are permitted, note that conversion of Unicode data to a non-Unicode encoding can also result in data loss (since most <a>legacy character encodings</a> encode only a subset of Unicode).</p>
 </section>
 
 <section id="strcat" class="subtopic">
@@ -2836,26 +3046,26 @@ just as characters are the basic unit of organization of encoded text.</p>
 	<p class="advisement">File name and path name definitions MUST NOT use the following Unicode code points.</p>
 	<p>These characters are known to cause interoperability problems with various file systems. Specifications and implementations should use an abundance of caution in their file naming when interoperability of content is key. The list of restricted characters is intended to help avoid some known problem areas, but it does not ensure that all other Unicode characters are supported.</p>
 	<ul>
-		<li><span class="codepoint"><bdi>"</bdi><span class="uname">U+0022 QUOTATION MARK</span></span></li>
-		<li><span class="codepoint"><bdi>*</bdi><span class="uname">U+002A ASTERISK</span></span></li>
-		<li><span class="codepoint"><bdi>/</bdi><span class="uname">U+002F SOLIDUS</span></span></li>
-		<li><span class="codepoint"><bdi>:</bdi><span class="uname">U+003A COLON</span></span></li>
-		<li><span class="codepoint"><bdi>&lt;</bdi><span class="uname">U+003C LESS-THAN SIGN</span></span></li>
-		<li><span class="codepoint"><bdi>&gt;</bdi><span class="uname">U+003E GREATER-THAN SIGN</span></span></li>
-		<li><span class="codepoint"><bdi>\</bdi><span class="uname">U+005C REVERSE SOLIDUS</span></span></li>
-		<li><span class="codepoint"><bdi>|</bdi><span class="uname">U+007C VERTICAL LINE</span></span></li>
-		<li><span class="codepoint"><span class="uname">U+007F DEL</span></span></li>
+		<li><span class="codepoint"><bdi>"</bdi><code class="uname">U+0022 QUOTATION MARK</code></span></li>
+		<li><span class="codepoint"><bdi>*</bdi><code class="uname">U+002A ASTERISK</code></span></li>
+		<li><span class="codepoint"><bdi>/</bdi><code class="uname">U+002F SOLIDUS</code></span></li>
+		<li><span class="codepoint"><bdi>:</bdi><code class="uname">U+003A COLON</code></span></li>
+		<li><span class="codepoint"><bdi>&lt;</bdi><code class="uname">U+003C LESS-THAN SIGN</code></span></li>
+		<li><span class="codepoint"><bdi>&gt;</bdi><code class="uname">U+003E GREATER-THAN SIGN</code></span></li>
+		<li><span class="codepoint"><bdi>\</bdi><code class="uname">U+005C REVERSE SOLIDUS</code></span></li>
+		<li><span class="codepoint"><bdi>|</bdi><code class="uname">U+007C VERTICAL LINE</code></span></li>
+		<li><span class="codepoint"><img alt="DEL" src="images/007F.png"><code class="uname">U+007F DEL</code></span></li>
 		<li>Codepoints in the following ranges:
 		   <ul>
-			   <li>C0 Controls <span class="uname">U+0000</span>...<span class="uname">U+001F</span></li>
-			   <li>C1 Controls <span class="uname">U+0080</span>...<span class="uname">U+009F</span></li>
-			   <li>Private Use <span class="uname">U+E000</span>...<span class="uname">U+F8FF</span></li>
-			   <li>Specials <span class="uname">U+FFF0</span>...<span class="uname">U+FFFF</span></li>
-			   <li>Supplementary Private Use <span class="uname">U+F0000</span>...<span class="uname">U+FFFFF</span></li>
-			   <li>Supplementary Private Use <span class="uname">U+100000</span>...<span class="uname">U+10FFFF</span></li>
+			   <li>C0 Controls <code class="uname">U+0000</code>...<code class="uname">U+001F</code></li>
+			   <li>C1 Controls <code class="uname">U+0080</code>...<code class="uname">U+009F</code></li>
+			   <li>Private Use <code class="uname">U+E000</code>...<code class="uname">U+F8FF</code></li>
+			   <li>Specials <code class="uname">U+FFF0</code>...<code class="uname">U+FFFF</code></li>
+			   <li>Supplementary Private Use <code class="uname">U+F0000</code>...<code class="uname">U+FFFFF</code></li>
+			   <li>Supplementary Private Use <code class="uname">U+100000</code>...<code class="uname">U+10FFFF</code></li>
 		   </ul></li>
 
-		<li><span class="codepoint"><bdi>.</bdi><span class="uname">U+002E FULL STOP</span></span> as the last character (Note that this includes the file names <code>.</code> and <code>..</code>, which have special meaning to many file systems)</li><!-- break out -->
+		<li><span class="codepoint"><bdi>.</bdi><code class="uname">U+002E FULL STOP</code></span> as the last character (Note that this includes the file names <code>.</code> and <code>..</code>, which have special meaning to many file systems)</li><!-- break out -->
 
 		<li>All Unicode non-character code points, specifically:
 		<ul>
@@ -2905,7 +3115,7 @@ just as characters are the basic unit of organization of encoded text.</p>
     <p>Sorting by [=code point=] makes sense when strings are stored and processed as a sequence of code points, such as in a <a href="https://webidl.spec.whatwg.org/#idl-USVString">USVString</a>. Sorting by [=code unit=] makes sense when strings are stored and processed using the underlying encoding, such as in a <a href="https://webidl.spec.whatwg.org/#idl-DOMString">DOMString</a>.</p>
     
     <aside class="example" title="Code point vs. code unit ordering">
-		<p>Consider two strings, one containing <span class="codepoint" translate="no"><bdi lang="ja">&#x1f63a;</bdi><span class="uname">U+1F63A SMILING CAT FACE WITH OPEN MOUTH</span></span> and the other containing <span class="codepoint" translate="no"><bdi lang="ja">&#xff5e;</bdi><span class="uname">U+FF5E FULL WIDTH TILDE</span></span>.</p>
+		<p>Consider two strings, one containing <span class="codepoint" translate="no"><bdi lang="ja">&#x1f63a;</bdi><code class="uname">U+1F63A SMILING CAT FACE WITH OPEN MOUTH</code></span> and the other containing <span class="codepoint" translate="no"><bdi lang="ja">&#xff5e;</bdi><code class="uname">U+FF5E FULL WIDTH TILDE</code></span>.</p>
 		
 		<p>In ascending <em>code point order</em>, the strings sort like:</p>
 <pre>
@@ -2924,7 +3134,7 @@ just as characters are the basic unit of organization of encoded text.</p>
     <p>Neither of these sort orders applies any type of normalization to the strings being compared. This means that some apparently equivalent strings compare as different. See <cite>String Matching</cite> [[CHARMOD-NORM]] for more information.</p>
     
     <aside class="example">
-		<p>Consider two strings, <em>A</em> and <em>B</em>. String A consists of <span class="codepoint" translate="no"><bdi lang="en">&#xC7;</bdi><span class="uname">U+00C7 LATIN CAPITAL LETTER C WITH CEDILLA</span></span>. String B consists of the sequence <span class="codepoint" translate="no"><bdi lang="en">&#x43;</bdi><span class="uname">U+0043 LATIN CAPITAL LETTER C</span></span> followed by <span class="codepoint" translate="no"><bdi lang="en">&#x327;</bdi><span class="uname">U+0327 COMBINING CEDILLA</span></span>. These strings are visually identical. Applying Unicode Normalization Form C or Form D to both would cause them to use the same code point (and thus code unit) sequences. However, they compare differently because <code>0x00C7</code> is greater than <code>0x0043</code>:</p>
+		<p>Consider two strings, <em>A</em> and <em>B</em>. String A consists of <span class="codepoint" translate="no"><bdi lang="en">&#xC7;</bdi><code class="uname">U+00C7 LATIN CAPITAL LETTER C WITH CEDILLA</code></span>. String B consists of the sequence <span class="codepoint" translate="no"><bdi lang="en">&#x43;</bdi><code class="uname">U+0043 LATIN CAPITAL LETTER C</code></span> followed by <span class="codepoint" translate="no"><bdi lang="en">&#x327;</bdi><code class="uname">U+0327 COMBINING CEDILLA</code></span>. These strings are visually identical. Applying Unicode Normalization Form C or Form D to both would cause them to use the same code point (and thus code unit) sequences. However, they compare differently because <code>0x00C7</code> is greater than <code>0x0043</code>:</p>
         <table>
 			<thead>
 				<tr>
@@ -2964,7 +3174,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 	</details>
 	</div>
 	
-	<p>Languages and cultures vary in how they sort text or use their alphabet or writing system to organize textual data. For example, German language speakers treat the letter <span class="codepoint" translate="no"><bdi lang="de">&#xFC;</bdi><span class="uname">U+00FC LATIN SMALL LETTER U WITH DIAERISIS</span></span> as sorting similar to the letter <strong>u</strong> (there are actually <em>two</em> German sorting sequences, which are slightly different in the exact handling of this letter), while Danish language speakers treat the same letter as separate in the alphabet and sort it after the letter "y".</p>
+	<p>Languages and cultures vary in how they sort text or use their alphabet or writing system to organize textual data. For example, German language speakers treat the letter <span class="codepoint" translate="no"><bdi lang="de">&#xFC;</bdi><code class="uname">U+00FC LATIN SMALL LETTER U WITH DIAERISIS</code></span> as sorting similar to the letter <strong>u</strong> (there are actually <em>two</em> German sorting sequences, which are slightly different in the exact handling of this letter), while Danish language speakers treat the same letter as separate in the alphabet and sort it after the letter "y".</p>
 	
 	<p>Determining which locale to use for a sorted list can depend on a number of factors. For example, an application might sort a list of values according to the localization of the page in which the data appears. In other cases it might make more sense to sort according to the runtime locale of the user-agent or according to some parameter passed in an API. The important thing to recognize is that this order might be different for different users or on different systems.</p>
 		
@@ -3087,7 +3297,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 
 
 <section id="markup" class="topic">
-<h2>Markup &amp; syntax</h2>
+<h2>Document formats, markup &amp; syntax</h2>
 
 
 <div id="markup_checklist" class="summaryC"></div>
@@ -3102,11 +3312,38 @@ just as characters are the basic unit of organization of encoded text.</p>
 	<li>[[[#markup_plaintext]]]</li>
 	</ul-->
 
+<p>Specifications that deal with formal languages, document formats, protocols, or APIs often need to define markup, syntax, or <a>application internal identifiers</a>. The best practices in this section cover the different needs when defining these.</p>
 
+<p>Specifications that are defining a markup language or a syntax based on a given markup language are concerned with defining elements, attributes, and their values. For example, an [[XML]] DTD defines elements and attributes that are valid in a specific document type.</p>
+
+<p>Specifications that are defining a given document format, protocol, or API are usually concerned with defining identifiers for reserved keywords, field names, or permitted values. Many of these are <a>application internal identifiers</a>, whose names and values are completely defined by the specification. In some cases the specification will permit some or all of these to be a <a>user-supplied value</a> which can be filled in or named by users.</p>
+
+<aside class="example">
+	
+<p>Let's use CSS to illustrate some of these concepts. Here is a fragment of a style sheet:</p>
+<pre class="css">
+p.myClassName {
+  text-align: center;
+  color: red;
+}
+</pre>
+
+<p>The <code>p.myClassName</code> rule contains two properties (<code>text-align</code> and <code>color</code>). Each of these is an <a>application internal identifier</a>.</p>
+
+<p>Each property has been assigned a value from a list of available values defined by CSS. For example, here the property <code>text-align</code> has been given the value <code>center</code>. Other possible values for this property are part of a list of <a>application internal identifiers</a> defined by [[CSS3-TEXT]] and include <code>start</code>, <code>end</code>, <code>left</code>, <code>right</code>, <code>justify</code>, <code>match-parent</code>, or <code>justify-all</code>.</p>
+
+<p>The class name <code>myClassName</code> is an example of a <a>user-supplied value</a>. A user might assign a class name using any valid class identifier in CSS, including using words in other languages, such as using an identifier in Japanese:</p>
+
+<pre class="css" lang="ja">
+p.私のクラス名 {
+	color: #434322;
+}
+</pre>
+</aside>
 
 
 <section id="markup_elements_attributes" class="subtopic">
-<h3>Defining elements and attributes</h3>
+<h3>Defining elements and attributes in markup</h3>
 
 <p class="reviewComments"><a href="https://github.com/w3c/i18n-activity/labels/t%3Amarkup_elements_attributes" target="_blank">See related review comments.</a></p>
 
@@ -3128,11 +3365,27 @@ just as characters are the basic unit of organization of encoded text.</p>
 	</details>
 	</div>
 </section>
+	
+<section id="markup_plaintext" class="subtopic">
+<h3>Handling plain text in markup</h3>
+
+<p class="reviewComments"><a href="https://github.com/w3c/i18n-activity/labels/t%3Amarkup_plaintext" target="_blank">See related review comments.</a></p>
+
+  	<div class="req" id="plain_avoid">
+	<p class="advisement">Avoid <a>natural language</a> text in elements or attribute values that only allow for plain text.</p>
+	</div>
+	
+	<div class="req" id="plain_attr_avoid">
+	<p class="advisement">Avoid defining attribute values whose content will be <a>natural language</a> text.</p>
+	</div>
+
+  	<div class="req" id="plain_span">
+	<p class="advisement">Provide a span-like element that can be used for any text content to apply information needed for internationalization.</p>
+	</div>
 
 
-
-
-
+<p>Internationalization information may include language and base direction metadata, inline changes of language, bidirectional text behavioural changes, translate flags, etc.</p>
+</section>
 
 
 <section id="markup_identifiers" class="subtopic">
@@ -3181,7 +3434,7 @@ PCENChar ::=
 		<p>HTML and CSS processing is defined such that Unicode character properties (such as whether a given character is a combining mark) are not considered when parsing identifiers and tokens. This allows identifiers to start with a combining character and still be processed reliably, but a plain text editor might not handle the value identically.</p>
 	</div>
 	
-	<p>Specifications should exercise care when defining identifiers with regards to the handling of whitespace. Note that there are Unicode horizontal whitespace characters other than the ASCII characters <code>U+0020 SPACE</code> and <code>U+0009 TAB</code>.</p>
+	<p>Specifications should exercise care when defining identifiers with regards to the handling of whitespace. Note that there are Unicode horizontal whitespace characters other than the ASCII characters <span class="codepoint" translate="no"><img alt="SP" src="images/0020.png"><code class="uname">U+0020 SPACE</code></span> and <span class="codepoint" translate="no"><img alt="HTAB" src="images/0009.png"><code class="uname">U+0009 TAB</code></span>.</p>
 	
 	<div class="req" id="identifier_content_surrogates">
 	<p class="advisement">Specifications should not allow surrogate <a>code points</a> (<code>U+D800</code> to <code>U+DFFF</code>) or non-character code points in identifiers.</p>
@@ -3212,30 +3465,66 @@ PCENChar ::=
 	</details>
 	</div>
 	
+   <div class="req" id="identifier_locale_neutral_names">
+   <p class="advisement">Choose locale-neutral and culturally-neutral names for fields and values.</p>
+   </div>
+   
+   <p>When defining identifiers, including field names and values, choose names that are as culturally-neutral as possible. For example, prefer <code>postalCode</code> to the (USA-specific) <code>ZIPCode</code> or prefer <code>givenName/familyName</code> to the more-culturally linked <code>firstName/lastName</code>.</p>
 		
 	
+<section id="application_internal" class="subtopic">
+<h4>Defining application-internal data values</h4>
+
+   <p>Some specifications need to define the values for a given field in a document format or protocol. When the data values are associated with a specific type, such as numbers or dates, the format of the field is usually defined using some well-known schema, such as [[XMLSCHEMA11-2]] or [[JSON-SCHEMA]].</p>
+   
+   <div class="req" id="application_internal_code_like">
+   <p class="advisement">Specifications that define non-localizable string data values intended to be machine-readable should use values that are not readily confused with natural language text.</p>
+   </div>
+   
+   <p>Many protocols, document formats, or data structures define enumerated values for internal use. These values are not meant to be visible to humans directly. Sometimes it is helpful if these values are given descriptive names (often in English) to aid users working with the specification, protocol, or API or who might need to debug a given document or interaction. When assigning these values in a specification, the names chosen should appear to be "code-like" so that users do not assume that the value can be displayed as if it were natural language text.</p>
+   
+   <p>There are several styles that different groups have adopted to make application-internal values look "code-like". Choose the one best suited to your specification. These include:</p>
+   
+   <ul>
+      <li><strong>SNAKE_CASE</strong>. Snake case uses ASCII letters and digits, all in uppercase, with words separated by underscores (<span class="codepoint"><bdi lang="en">_</bdi><code class="uname">U+005F LOW LINE</code></span>).</li>
+      <li><strong>PascalCase</strong> or <strong>camelCase</strong>. These use ASCII letters and digits, with each "word" inside the identifer being capitalized.</li>
+   </ul>
+   
+   <aside class="example" title="Example of code internal values">
+	   <p>For example, a specification might define a document with a set of fields named in camelCase whose predefined values are named in SNAKE_CASE:</p>
+	   
+	   <pre>
+type: [ PURCHASE_REQUEST, INVOICE_REQUEST, RECEIPT_REQUEST ]
+responseType: [ EMAIL, SMS_MESSAGE, JSON_DOCUMENT ]
+transactionResult: [ SUCCESS, NOT_AUTHORIZED, INTERNAL_ERROR, UNKNOWN_ERROR ]
+	   </pre>
+   </aside>
+   
+   <aside class="note">
+	   <p>Enumerated values defined by a specification should not be considered as "natural language strings". While they generally use English language words to form the identifiers, they are not intended for end-users to view nor are they free-form text values. Developers are expected to read the definition backing the keywords in enumerated values (the description of which can be localized). In fact, it is a best practice to define values in a locale-neutral way and wrap that with display strings.</p>
+   </aside>
+   
+   <div class="req" id="application_internal_localizable_metadata">
+   <p class="advisement">Fields whose content is intended for consumption by humans must always be treated as <a>natural language</a> string values. It must be possible to find the language and base direction metadata for every such field.</p>
+   </div>
+   
+   <p>Fields that contain human-readable strings, particularly those of a descriptive nature, must be assumed to be natural language strings. This is true even if the user viewing the string is expected to be a software developer. It must be possible to determine the language tag and base paragraph direction for each such field in a document or data structure.</p>
+   
+   <p>Common names for fields of this type include <code>name</code>, <code>description</code>, <code>title</code>, <code>message</code>, or occassionally <code>value</code>. One test for this is if, as a specification author or user, you are uncomfortable making the content of the field <kbd>SNAKE_CASE_SHOUTED</kbd>, the field might be better considered as natural language text.</p>
+   
+   <div class="req" id="application_internal_localizable">
+   <p class="advisement">Fields intended for consumption by humans should be localizable.</p>
+   </div>
+   
+   <p>This can take various forms. For example, a specification or protocol might allow for language negotiation and only return the best matching localized strings. Or a given resource might contain multiple languages that the <a>consumer</a> can choose between.</p>
+   
+   <div class="req" id="application_internal_localizable_wrapper">
+   <p class="advisement">Field names and other enumerated values should be wrapped with localizable display names.</p>
+   </div>
+   
+   <p>Field names and enumerated values are not natural language text, even if the names appear to be plain text and might be understood by users. These fields and values should not have language or direction metadata associated with them and, where necessary, implementers should be guided by the specification to provide appropriate localized wrapping.</p>
+   
 </section>
-
-
-<section id="markup_plaintext" class="subtopic">
-<h3>Working with plain text</h3>
-
-<p class="reviewComments"><a href="https://github.com/w3c/i18n-activity/labels/t%3Amarkup_plaintext" target="_blank">See related review comments.</a></p>
-
-  	<div class="req" id="plain_avoid">
-	<p class="advisement">Avoid <a>natural language</a> text in elements or attribute values that only allow for plain text.</p>
-	</div>
-	
-	<div class="req" id="plain_attr_avoid">
-	<p class="advisement">Avoid defining attribute values whose content will be <a>natural language</a> text.</p>
-	</div>
-
-  	<div class="req" id="plain_span">
-	<p class="advisement">Provide a span-like element that can be used for any text content to apply information needed for internationalization.</p>
-	</div>
-
-
-<p>Internationalization information may include language and base direction metadata, inline changes of language, bidirectional text behavioural changes, translate flags, etc.</p>
 </section>
 </section>
 
@@ -3325,10 +3614,14 @@ PCENChar ::=
 	</div>
 
   	<div class="req" id="vertical_utr50">
-	<p class="advisement">Vertical writing modes that are equivalent to the <code class="kw" translate="no">vertical-</code> values in CSS (only) should use UTR50 to apply default text orientation of characters. (This does not apply to writing modes that are equivalent to <code class="kw" translate="no">sideways-</code> in CSS.)</p>
+	<p class="advisement">Vertical writing modes that are equivalent to the <code class="kw" translate="no">vertical-</code> values in CSS (only) should use [[UTR50]] to apply default text orientation of characters. (This does not apply to writing modes that are equivalent to <code class="kw" translate="no">sideways-</code> in CSS.)</p>
 	</div>
 
-  	<div class="req" id="vertical_upright">
+	<div class="req" id="vertical_sideways">
+	<p class="advisement">Writing modes should provide values like <code class="kw" translate="no">sideways-lr</code> and <code class="kw" translate="no">sideways-rl</code> in CSS to allow for vertical rotation of  lines of horizontal script text. UTR50 is not applicable for these cases.</p>
+	</div>
+
+	<div class="req" id="vertical_upright">
 	<p class="advisement">By default, glyphs of scripts that are normally horizontal should run along a line in vertical text such that the top of the character is toward the right side of the vertical line, but there should also be a mechanism to allow them to progress down the line in upright orientation. Such a mechanism should use grapheme clusters as a minimum text unit, but where necessary allow syllabic clusters to be treated as a unit when they involve more than one grapheme cluster.</p>
 	</div>
 
@@ -3339,10 +3632,6 @@ PCENChar ::=
   	<div class="req" id="vertical_tatechuyoko">
 	<p class="advisement">It should be possible for some sequences of characters (particularly digits) to run horizontally within vertical lines (tate chu yoko).</p>
 	</div>
-
-  	<div class="req" id="vertical_sideways">
-	<p class="advisement">Writing modes should provide values like <code class="kw" translate="no">sideways-lr</code> and <code class="kw" translate="no">sideways-rl</code> in CSS to allow for vertical rotation of  lines of horizontal script text. UTR50 is not applicable for these cases.</p>
-	</div>
 </section>
 
 
@@ -3351,12 +3640,48 @@ PCENChar ::=
 
 
 <section id="typ_bidi" class="subtopic">
-<h3><em>RTL/bidi text (TBD)</em></h3>
+<h3>RTL/bidi text</h3>
 
 <p class="reviewComments"><a href="https://github.com/w3c/i18n-activity/labels/t%3Atyp_bidi_x" target="_blank">See related review comments.</a></p>
+<aside class="links" id="links_cursive">
+<p class="links_title">Useful background and overviews for this section</p>
+<ul>
+<li class="w3"><p class="link"><a href="https://www.w3.org/TR/typography/#bidi_text">Bidirectional text</a>, in the Language enablement index.</p></li>
+</ul>
+</aside>
+
+<div class="req" id="italics_left">
+	<p class="advisement">Specifications that enable sloping of letterforms SHOULD provide for characters to slope either to the right or to the left according to the needs of the specific language.</p>
+</div>
+
 </section>
 
 
+
+
+
+
+
+
+
+
+<section id="typ_box_posn" class="subtopic">
+<h3>Setting box positioning coordinates when text direction varies</h3>
+
+  	<div class="req" id="vertical_box_posn">
+	<p class="advisement">Box positioning coordinates must take into account whether the text is horizontal or vertical.</p>
+	</div>
+
+<p>It is typical, when localizing a user interface or web page, to create mirror-images for the RTL and LTR versions. For example, it is likely that a box that appears near the left side of a window containing English content would appear near the right side of the window if the content is Arabic or Hebrew. It should preferably automatic for this to change, based on the base direction of the current context, unless there is a strong reason for using absolute geometry. One way to achieve this is to use keywords such as <code class="kw" translate="no">start</code> and <code class="kw" translate="no">end</code>, rather than <code class="kw" translate="no">left</code> and <code class="kw" translate="no">right</code>, to indicate position.</p>
+  </section>
+
+
+
+<section id="typ_logical" class="subtopic">
+<h3><em>Logical properties (TBD)</em></h3>
+
+<p class="reviewComments"><a href="https://github.com/w3c/i18n-activity/labels/t%3Atyp_logical_x" target="_blank">See related review comments.</a></p>
+</section>
 
 
 
@@ -3382,24 +3707,6 @@ PCENChar ::=
 	<p class="advisement">When adding a text stroke or shadow, joined letters should not be separated from their neighbors in cursive script text.</p>
 	</div>
 </section>
-
-
-
-
-
-
-
-<section id="typ_box_posn" class="subtopic">
-<h3>Setting box positioning coordinates when text direction varies</h3>
-
-  	<div class="req" id="vertical_box_posn">
-	<p class="advisement">Box positioning coordinates must take into account whether the text is horizontal or vertical.</p>
-	</div>
-
-<p>It is typical, when localizing a user interface or web page, to create mirror-images for the RTL and LTR versions. For example, it is likely that a box that appears near the left side of a window containing English content would appear near the right side of the window if the content is Arabic or Hebrew. It should preferably automatic for this to change, based on the base direction of the current context, unless there is a strong reason for using absolute geometry. One way to achieve this is to use keywords such as <code class="kw" translate="no">start</code> and <code class="kw" translate="no">end</code>, rather than <code class="kw" translate="no">left</code> and <code class="kw" translate="no">right</code>, to indicate position.</p>
-  </section>
-
-
 
 
 
@@ -3438,17 +3745,6 @@ PCENChar ::=
    	<div class="req" id="ruby_dblsided">
 	<p class="advisement">Ruby implementations should allow annotations to appear on either or both sides of the base text.</p>
 	</div>
-</section>
-
-
-
-
-
-
-<section id="typ_logical" class="subtopic">
-<h3><em>Logical properties (TBD)</em></h3>
-
-<p class="reviewComments"><a href="https://github.com/w3c/i18n-activity/labels/t%3Atyp_logical_x" target="_blank">See related review comments.</a></p>
 </section>
 
 
@@ -3792,7 +4088,7 @@ PCENChar ::=
 	</details>
 	</div>
 
-<p>This ensures that names are correctly handled for people such as Dina Asher-Smith and Christopher O'Connell.  Note that the apostrophe may appear as <span class="codepoint" translate="no"><bdi lang="en">&#x0027;</bdi><span class="uname">U+0027 APOSTROPHE</span></span> or as <span class="codepoint" translate="no"><bdi lang="en">&#x02BC;</bdi><span class="uname">U+02BC MODIFIER LETTER APOSTROPHE</span></span>, or perhaps even <span class="codepoint" translate="no"><bdi lang="en">&#x2019;</bdi><span class="uname">U+2019 RIGHT SINGLE QUOTATION MARK</span></span>.  A hyphen may be represented using <span class="codepoint" translate="no"><bdi lang="en">&#x002D;</bdi><span class="uname">U+002D HYPHEN-MINUS</span></span> or <span class="codepoint" translate="no"><bdi lang="en">&#x2010;</bdi><span class="uname">U+2010 HYPHEN</span></span> or, in Japan, <span class="codepoint" translate="no"><span lang="ja">&#x30A0;</span><span class="uname">U+30A0 KATAKANA-HIRAGANA DOUBLE HYPHEN</span></span>.</p>
+<p>This ensures that names are correctly handled for people such as Dina Asher-Smith and Christopher O'Connell.  Note that the apostrophe may appear as <span class="codepoint" translate="no"><bdi lang="en">&#x0027;</bdi><code class="uname">U+0027 APOSTROPHE</code></span> or as <span class="codepoint" translate="no"><bdi lang="en">&#x02BC;</bdi><code class="uname">U+02BC MODIFIER LETTER APOSTROPHE</code></span>, or perhaps even <span class="codepoint" translate="no"><bdi lang="en">&#x2019;</bdi><code class="uname">U+2019 RIGHT SINGLE QUOTATION MARK</code></span>.  A hyphen may be represented using <span class="codepoint" translate="no"><bdi lang="en">&#x002D;</bdi><code class="uname">U+002D HYPHEN-MINUS</code></span> or <span class="codepoint" translate="no"><bdi lang="en">&#x2010;</bdi><code class="uname">U+2010 HYPHEN</code></span> or, in Japan, <span class="codepoint" translate="no"><bdi lang="ja">&#x30A0;</bdi><code class="uname">U+30A0 KATAKANA-HIRAGANA DOUBLE HYPHEN</code></span>.</p>
 <div class="req" id="loc_names_uppercase">
 <p class="advisement">Don't require names to be entered all in upper case.</p>
 <details class="links"><summary>source</summary>
@@ -4450,7 +4746,7 @@ PCENChar ::=
 </table>
 
 <aside class="note">
-    <p>Another potential source for example names is Unicode's <cite>Common Locale Data Repository</cite> [[CLDR]] project, which maintains data about the presentation of personal names in different [= locales =] and cultures. That set of names can be accessed on CLDR's <a href="https://unicode-org.github.io/cldr-staging/charts/latest/by_type/miscellaneous.person_name_formats.html#SampleName_Fields_for_Item:_givenOnly">charts page</a>. Note that those names were collected with a focus on providing examples of the <em>formatting</em> of personal names, rather than as examples of typical names found in these cultures. For example, many of the names are variations on the name "Sinbad", even though "Sinbad" is not a commonly used name in many of these cultures. Other names are taken from sources, such as folk tales, that would be familiar in a given culture but not representative of actual persons.</p>
+    <p>Another potential source for example names is Unicode's <cite>Common Locale Data Repository</cite> [[CLDR]] project, which maintains data about the presentation of personal names in different [= locales =] and cultures. That set of names can be accessed on CLDR's <a href="https://www.unicode.org/cldr/charts/latest/by_type/miscellaneous.person_name_formats.html#SampleName_Fields_for_Item:_nativeG">charts page</a>. Note that those names were collected with a focus on providing examples of the <em>formatting</em> of personal names, rather than as examples of typical names found in these cultures. For example, many of the names are variations on the name "Sinbad", even though "Sinbad" is not a commonly used name in many of these cultures. Other names are taken from sources, such as folk tales, that would be familiar in a given culture but not representative of actual persons.</p>
 </aside>
 
 <!-- start CLDR data -->
@@ -5054,6 +5350,18 @@ PCENChar ::=
 
 	<div class="req" id="loc_numbers_shape_display">
 	<p class="advisement">When formatting numeric values for display, allow for culturally sensitive display, including the use of non-ASCII digits (digit shaping).</p>
+	</div>
+
+	<div class="req" id="loc_numbers_lists">
+	<p class="advisement">When defining a feature that automatically labels items incrementally for display to the user (such as when creating a numbered list), allow for localized presentation of the labels as well as for various counting/listing systems or styles.</p>
+	<p>Examples of this can be found in <cite>CSS Counter Styles</cite> [[css-counter-styles-3]] and especially the accompanying <cite>Ready-made Counter Styles</cite> [[predefined-counter-styles]].</p>
+	<details class="links"><summary>more</summary>
+		<p>Defining counter styles in CSS:</p>
+	<ul>
+		<li><a href="https://www.w3.org/TR/css-counter-styles/">CSS Counter Styles</a>.</li>
+	    <li><a href="https://www.w3.org/TR/predefined-counter-styles/">Ready-made Counter Styles</a>.</li>
+	</ul>
+	</details>
 	</div>
 </section>
 
