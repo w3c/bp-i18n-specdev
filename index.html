@@ -529,6 +529,12 @@
 
 <p>The exchange of data on the Web, to the degree possible, should use <a>locale-neutral</a> standardized formats. However, some data on the Web necessarily consists of <a>natural language</a> information intended for display to humans. This <a>natural language</a> information depends on and benefits from the presence of language and direction metadata for proper display. Along with support for Unicode, mechanisms for including and specifying the base direction and the natural language of spans of text are one of the key internationalization considerations when developing new formats and technologies for the Web.</p>
 
+<p>The most basic best practice, which the Internationalization Working Group looks for in every specification, is:</p>
+
+<div class="req" id="bp-determine">
+	<p class="advisement">For any string field containing natural language text, it MUST be possible to determine the language and <a>string direction</a> of that specific string. Such determination SHOULD use metadata at the string or document level and SHOULD NOT depend on heuristics.</p>
+</div>
+
 
 <p class="reviewComments"><a href="https://github.com/w3c/i18n-activity/labels/t%3Alang_strings_x" target="_blank">See related review comments.</a></p>
 <aside class="links" id="lang_strings_links">
@@ -1649,7 +1655,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 	</details>
 	</div>
 
-<p class="note">The above guideline needs further consideration: utf-16 and utf-32 are not recommended these days. UTF-8 is the recommended encoding.</p>
+<p class="note">The above guideline needs further consideration: UTF-16 and UTF-32 are not recommended these days. UTF-8 is the recommended encoding.</p>
 	
 	
 	
@@ -1944,13 +1950,13 @@ just as characters are the basic unit of organization of encoded text.</p>
 
 <ul>
 	<li>{{USVString}}. Strings based on Unicode <a>code points</a>, also known as </a><a>Unicode Scalar Values</a></li>
-	<li>{{DOMString}}. Strings based on <a>UTF-16</a> <a>code units</a></li>
+	<li>{{DOMString}}. Strings based on <a href="https://www.w3.org/TR/i18n-glossary/#dfn-utf-16">UTF-16</a> <a>code units</a></li>
 	<li>{{ByteString}}. Strings based on bytes in some <a>character encoding form</a> (preferably <a>UTF-8</a>)</li>
 </ul></p>
 
 <p>One difference between these different string types is how <a>surrogate</a> <a>code points</a> are handled. Note the difference between a <a>code point</a> (which represents a <a>Unicode Scalar Value</a>, i.e. a character) and a <a>code unit</a> (a unit of encoding in a <a>character encoding form</a>).</p>
 
-<p>The <a>UTF-16</a> <a>character encoding form</a> uses 16-bit <a>code units</a>. Characters whose <a>scalar values</a> require more than 16-bits are encoded using a pair of <a>surrogate</a> <a>code units</a>: a "low surrogate" (in the range <code class="uname">U+D800-U+DBFF</code>) followed by a "high surrogate" (in the range <code class="uname">U+DC00-U+DFFF</code>). Unicode reserves the <a>code points</a> in these ranges as non-characters so that there is no confusion between the <a>code units</a> in <a>UTF-16</a> and normal text.</p>
+<p>The <a href="https://www.w3.org/TR/i18n-glossary/#dfn-utf-16">UTF-16</a> <a>character encoding form</a> uses 16-bit <a>code units</a>. Characters whose <a>scalar values</a> require more than 16-bits are encoded using a pair of <a>surrogate</a> <a>code units</a>: a "low surrogate" (in the range <code class="uname">U+D800-U+DBFF</code>) followed by a "high surrogate" (in the range <code class="uname">U+DC00-U+DFFF</code>). Unicode reserves the <a>code points</a> in these ranges as non-characters so that there is no confusion between the <a>code units</a> in <a href="https://www.w3.org/TR/i18n-glossary/#dfn-utf-16">UTF-16</a> and normal text.</p>
 
 <p>In a {{USVString}}, isolated <a>surrogate</a> code points are invalid and implementations are required to replace any found in a string with the Unicode replacment character (<span class="codepoint" translate="no"><bdi lang="und">&#xFFFD;</bdi><code class="uname">U+FFFD REPLACEMENT CHARACTER</code></span>). For strings whose most common algorithms operate on scalar values (such as percent-encoding), or for operations which can’t handle surrogates in input (such as APIs that pass strings through to native platform APIs), {{USVString}} should be used. Any of these references are equivalent to this:
 	<ul>
@@ -1964,9 +1970,9 @@ just as characters are the basic unit of organization of encoded text.</p>
 
 <p class="localdef">A string is a sequence of unsigned 16-bit integers, also known as <a>code units</a>.</p>
 
-<p class="note">[[INFRA]]'s use of the term <a>code unit</a> refers specifically to the <a>UTF-16</a> character encoding's code units, rather than the more general definition of a <a>code unit</a> that can refer to different size values, such as bytes, in any <a>character encoding form</a>.</p>
+<p class="note">[[INFRA]]'s use of the term <a>code unit</a> refers specifically to the <a href="https://www.w3.org/TR/i18n-glossary/#dfn-utf-16">UTF-16</a> character encoding's code units, rather than the more general definition of a <a>code unit</a> that can refer to different size values, such as bytes, in any <a>character encoding form</a>.</p>
 
-<p>A {{ByteString}} depends on the <a>character encoding form</a> used to encode characters into bytes. <a>Legacy character encodings</a> do not have a concept of "surrogates", so there is generally no way to encode a surrogate code point. Valid <a>UTF-8</a> does not permit surrogate code points: these are replaced by <span class="codepoint" translate="no"><bdi lang="und">&#xFFFD;</bdi><code class="uname">U+FFFD REPLACEMENT CHARACTER</code></span> when encoding or decoding text in <a>UTF-8</a>. When converting <a>UTF-16</a> to <a>UTF-8</a>, any <a>surrogate pairs</a> are transformed into the proper UTF-8 byte sequence encoding the specific <a>scalar value</a>.</p>
+<p>A {{ByteString}} depends on the <a>character encoding form</a> used to encode characters into bytes. <a>Legacy character encodings</a> do not have a concept of "surrogates", so there is generally no way to encode a surrogate code point. Valid <a>UTF-8</a> does not permit surrogate code points: these are replaced by <span class="codepoint" translate="no"><bdi lang="und">&#xFFFD;</bdi><code class="uname">U+FFFD REPLACEMENT CHARACTER</code></span> when encoding or decoding text in <a>UTF-8</a>. When converting <a href="https://www.w3.org/TR/i18n-glossary/#dfn-utf-16">UTF-16</a> to <a>UTF-8</a>, any <a>surrogate pairs</a> are transformed into the proper UTF-8 byte sequence encoding the specific <a>scalar value</a>.</p>
 
 <div class="req" id="char_string_no_legacy">
 	<p class="advisement">Specifications SHOULD NOT add or define support for <a>legacy character encodings</a> unless there is a specific reason to do so.</p>
@@ -3508,7 +3514,7 @@ transactionResult: [ SUCCESS, NOT_AUTHORIZED, INTERNAL_ERROR, UNKNOWN_ERROR ]
    <p class="advisement">Fields whose content is intended for consumption by humans must always be treated as <a>natural language</a> string values. It must be possible to find the language and base direction metadata for every such field.</p>
    </div>
    
-   <p>Fields that contain human-readable strings, particularly those of a descriptive nature, must be assumed to be natural language strings. This is true even if the user viewing the string is expected to be a software developer. It must be possible to determine the language tag and base paragraph direction for each such field in a document or data structure.</p>
+   <p>Fields that contain human-readable strings, particularly those of a descriptive nature, must be assumed to be natural language strings. This is true even if the user viewing the string is expected to be a software developer. It must be possible to determine the language tag and string direction for each such field in a document or data structure.</p>
    
    <p>Common names for fields of this type include <code>name</code>, <code>description</code>, <code>title</code>, <code>message</code>, or occassionally <code>value</code>. One test for this is if, as a specification author or user, you are uncomfortable making the content of the field <kbd>SNAKE_CASE_SHOUTED</kbd>, the field might be better considered as natural language text.</p>
    
@@ -5415,7 +5421,7 @@ transactionResult: [ SUCCESS, NOT_AUTHORIZED, INTERNAL_ERROR, UNKNOWN_ERROR ]
 <p>Natural language data values need language and base direction in order to ensure proper presentation, even if localized messages are not provided. This includes any error messages or other internal messages that are human readable in an API or protocol. See also [[STRING-META]].</p>
 
 	<div class="req" id="l10n_api_message_metadata">
-	<p class="advisement">APIs and protocols SHOULD include language and base direction metadata for all <a>natural language</a> messages and data fields.</p>
+	<p class="advisement">APIs and protocols SHOULD include language and string direction metadata for all <a>natural language</a> messages and data fields.</p>
 	</div>
 
 	<div class="req" id="l10n_api_message_language">
