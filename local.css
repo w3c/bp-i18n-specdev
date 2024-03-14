@@ -22,7 +22,7 @@
         font-family: Arial, monospace;
 		font-size: 0.75em;                    
 		letter-spacing: 0.03em;
-		color: brown;
+		color: var(--uname-text);
 	}
 /** end of unicode styles */
 
@@ -33,6 +33,25 @@
  * (currently respec_2022.css). * 
  */
 
+:root {
+	--review-comments-bg: #EFEFF9;
+	--links-bg: #EFEFF9;
+	--uname-text: brown;
+	--links-title-text: #005a9c;
+	--xref-bg: #fbf4e0;
+	--summary-text: saddlebrown;
+	}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		--review-comments-bg: rgb(30 33 34);
+		--links-bg: rgb(30 33 34);
+		--uname-text: rgb(215 99 99);
+		--links-title-text: rgb(110 194 255);
+		--xref-bg: rgb(53 42 11);
+		--summary-text: rgb(236 164 113);
+		}
+	}
 
 
 .bp { /*background-color:#ffffcc; border: 1px solid #ccc;*/ 
@@ -213,7 +232,7 @@ h4 { 	color: #005a9c; margin-top: 2em;  }
 	/*background-color: #a09de5; border: 1px solid #ccc; */  
 	font-size: 90%; 
 	padding: 1em;
-	background-color: #EFEFF9; 
+	background-color: var(--links-bg);
 	border-radius: 5px;
 	/*margin-bottom: 20px; 
 	float: left; width: 60%;*/  
@@ -222,7 +241,7 @@ h4 { 	color: #005a9c; margin-top: 2em;  }
 	/* background-color: #feb; border: 1px solid #fc0; border-radius: 10px;*/  
 	font-size: 80%; 
 	padding: 1em; 
-	background-color: #fbf4e0;
+	background-color: var(--xref-bg);
 	border-radius: 5px;
 	/*margin-bottom: 40px; 
 	float: right;  width: 30%;*/ 
@@ -366,7 +385,7 @@ table.whitespace caption {
 	}
 
 
-.links_title { margin-top: 0; font-weight: bold; color: #005a9c; }
+.links_title { margin-top: 0; font-weight: bold; color: var(--links-title-text); }
 .links_subtitle { font-style: italic; margin-block-start: 1rem; margin-bottom: 0; }
 
 
@@ -400,7 +419,7 @@ table.whitespace caption {
     margin-inline-start: 2rem;
     }
 .summaryC summary {
-    color: saddlebrown;
+    color: var(--summary-text);
     font-weight: normal;
     cursor: pointer;
     }
@@ -414,7 +433,7 @@ table.whitespace caption {
 .reviewComments {
 	font-size: 90%;
 	padding: 1em;
-	background-color: #EFEFF9;
+	background-color: var(--review-comments-bg);
 	border-radius: 5px;
 	margin-block: 0;
 	font-style: italic;
