@@ -558,13 +558,13 @@
 </div>
 
 <div class="req" id="bp_lang_field_based_metadata">
-<p class="advisement">Use field-based metadata or string datatypes to indicate the language and the base direction for individual <a>localizable text</a> values.</p>
+<p class="advisement">Use field-based metadata or string datatypes to indicate the language and the [=string direction=] for individual <a>localizable text</a> values.</p>
 </div>
 
 <p>Individual data values can differ in language or direction from other values found in the same data file or document. Providing metadata values directly associated with each <a>localizable text</a> field allows for the metadata to be overridden appropriately and helps applications automate processing when assembling, extracting, forwarding, or otherwise processing each data field for use.</p>
 
 <div class="req" id="bp_default_setting">
-<p class="advisement">Specifications MAY define a mechanism to provide the default language and the default base direction for all strings in a given resource. However, specifications MUST NOT assume that a resource-wide default is sufficient.  Even if a resource-wide setting is available, it must be possible to use string-specific metadata  to override that default.</p>
+<p class="advisement">Specifications MAY define a mechanism to provide the default language and the default [=string direction=] for all strings in a given resource. However, specifications MUST NOT assume that a resource-wide default is sufficient.  Even if a resource-wide setting is available, it must be possible to use string-specific metadata to override that default.</p>
 </div>
 
 <p>Many documents contain data in a single language. Providing a means of indicating the intended language audience, perhaps in a header, can reduce overall document size and complexity. However, the ability to override specific string values remains important, as it is always possible that some strings might not be available in the document language or when the base direction is not consistent with the default direction of other <a>localizable text</a> values in the document as a whole.</p>
@@ -717,6 +717,12 @@
 	<div class="req" id="dir_paragraphs">
 	<p class="advisement">It must be possible to indicate base direction for each individual paragraph-level item of <a>natural language</a> text that will be read by someone.</p>
 	</div>
+	
+	<p>A special case of the above applies to [=natural language=] string values in data structures and document formats:</p>
+	
+	<div class="req" id="dir_strings">
+	<p class="advisement">For any string field containing [=natural language=] text, it MUST be possible to determine the language and [=string direction=] of that specific string. Such determination SHOULD use metadata at the string or document level and SHOULD NOT depend on heuristics.</p>
+	</div>
 
 	<div class="req" id="dir_inline">
 	<p class="advisement">It must be possible to indicate base direction changes for embedded runs of inline bidirectional text for all <a>localizable text</a>.</p>
@@ -741,6 +747,7 @@
 <p class="links_title">Useful background and overviews for this section</p>
 <ul>
 <li class="w3"><p class="link"><a href="https://www.w3.org/International/articles/inline-bidi-markup/uba-basics">Unicode Bidirectional Algorithm basics</a>.</p></li>
+<li class="w3"><p class="link"><a href="https://www.w3.org/TR/string-meta">String on the Web: Language and Direction Metadata</a> [[STRING-META]]</p></li>
 </ul>
 </aside>
 
@@ -772,6 +779,11 @@
   </aside>
 
   <p>In this section, the word <dfn class="lint-ignore">paragraph</dfn> indicates a run of text followed by a hard line-break in plain text, but may signify different things in other situations. In CSV it equates to 'cell', so a single line of comma-separated items is actually a set of comma-separated paragraphs.&nbsp; In HTML it equates to the lowest level of block element, which is often a <code class="kw" translate="no">p</code> element, but may be things such as <code class="kw" translate="no">div</code>, <code class="kw" translate="no">li</code>, etc., if they only contain text and/or inline elements. In JSON, it often equates to a quoted string value, but if a string value uses markup then paragraphs are associated with block elements, and if the string value is multiple lines of plain text then each line is a paragraph.</p>
+  
+  <aside class="note">
+	  <p>While the Unicode Bidirectional Algorithm [[UAX9]] formally refers to <em>paragraphs</em> and <em>paragraph direction</em> (or the <em>base direction</em> of a paragraph), this can sometimes be confusing when the text in question is not in a long-form document. Instead, this document and others will sometimes use the terms "block direction" or especially [=string direction=] to refer to the paragraph direction of a specific string of natural language text.</p>
+  </aside>
+  
   <p>The term <a>metadata</a> is used here to mean information which could be an annotation or property associated with the data, or could be markup in scenarios that allow that, or could be a higher-level protocol, etc.</p>
 </section>
 
@@ -1065,7 +1077,7 @@
 	</div>
 
 	<div class="req" id="bidi_strings_script_tag">
-	<p class="advisement">If metadata is not available due to legacy implementations and cannot otherwise be provided, specifications MAY allow a base direction to be interpolated from available language metadata.</p>
+	<p class="advisement">If metadata is not available due to legacy implementations and cannot otherwise be provided, specifications MAY allow a [=string direction=] to be interpolated from available language metadata.</p>
 	<details class="links"><summary>more</summary>
 	<p><a href="https://www.w3.org/TR/string-meta/#bp_and-reco">Best Practices, Recommendations, and Gaps</a>, in <cite>Strings on the Web: Language and Direction Metadata</cite></p>
 	</details>
