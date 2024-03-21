@@ -256,11 +256,13 @@ p.sidenote {
     font-size:60%;
     }
     
-table.truncExample th,td {
+table.truncExample th,
+table.truncExample td {	
     vertical-align: top;
     }
     
-table.truncExample kbd,code {
+table.truncExample kbd,
+table.truncExample code {
     color: blue;
     font-size: larger;
     }
