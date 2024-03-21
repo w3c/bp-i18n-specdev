@@ -40,6 +40,7 @@
 	--links-title-text: #005a9c;
 	--xref-bg: #fbf4e0;
 	--summary-text: saddlebrown;
+	--h4-color: #005a9c;
 	}
 
 @media (prefers-color-scheme: dark) {
@@ -50,6 +51,7 @@
 		--links-title-text: rgb(110 194 255);
 		--xref-bg: rgb(53 42 11);
 		--summary-text: rgb(236 164 113);
+		--h4-color: rgb(110 194 255);
 		}
 	}
 
@@ -217,7 +219,7 @@ body { font-size: 80%; margin: 2em; }
 
 
 
-h4 { 	color: #005a9c; margin-top: 2em;  }
+h4 { 	color: var(--h4-color); margin-top: 2em;  }
 .indent { margin-left: 3em; }
 
 .links h4, .xref h4 {
