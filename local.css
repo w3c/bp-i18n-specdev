@@ -41,7 +41,7 @@
 	--example-note-bg: white;
 	--exampleNamesTable-td-border: #ddd;
 	--exampleNamesTable-tr-2n: #f2f2f2;
-	--exampleNamesTable-tr-hover: #ddd;
+	--exampleNamesTable-tr-hover: var(--exampleNamesTable-td-border);
 	--h4-color: #005a9c;
 	--links-bg: #EFEFF9;
 	--links-title-text: #005a9c;
@@ -62,7 +62,7 @@
 		--example-note-bg: #181a1b;
 		--exampleNamesTable-td-border: rgb(58 62 65);
 		--exampleNamesTable-tr-2n: rgb(31 34 35);
-		--exampleNamesTable-tr-hover: rgb(58 62 65);
+		--exampleNamesTable-tr-hover: var(--exampleNamesTable-td-border);
 		--h4-color: rgb(110 194 255);
 		--links-bg: rgb(30 33 34);
 		--links-title-text: rgb(110 194 255);
