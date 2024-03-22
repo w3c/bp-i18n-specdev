@@ -34,43 +34,47 @@
  */
 
 :root {
-	--review-comments-bg: #EFEFF9;
-	--links-bg: #EFEFF9;
-	--uname-text: brown;
-	--links-title-text: #005a9c;
-	--xref-bg: #fbf4e0;
-	--summary-text: saddlebrown;
+	--blue: blue;
+	--checklistGroup-li-bg: antiquewhite;
+	--checklistGroup-li-input: chocolate;
+	--checklistGroup-li: brown;
+	--example-note-bg: white;
+	--exampleNamesTable-td-border: #ddd;
+	--exampleNamesTable-tr-2n: #f2f2f2;
+	--exampleNamesTable-tr-hover: #ddd;
 	--h4-color: #005a9c;
+	--links-bg: #EFEFF9;
+	--links-title-text: #005a9c;
+	--localdef-bg: white;
+	--localdef-border: brown;
+	--review-comments-bg: #EFEFF9;
+	--summary-text: saddlebrown;
+	--uname-text: brown;
+	--xref-bg: #fbf4e0;
 	}
 
 @media (prefers-color-scheme: dark) {
 	:root {
-		--review-comments-bg: rgb(30 33 34);
-		--links-bg: rgb(30 33 34);
-		--uname-text: rgb(215 99 99);
-		--links-title-text: rgb(110 194 255);
-		--xref-bg: rgb(53 42 11);
-		--summary-text: rgb(236 164 113);
+		--blue: rgb(51 125 255);
+		--checklistGroup-li-bg: rgb(69 43 9);
+		--checklistGroup-li-input: rgb(228 132 63);
+		--checklistGroup-li: rgb(215 99 99);
+		--example-note-bg: #181a1b;
+		--exampleNamesTable-td-border: rgb(58 62 65);
+		--exampleNamesTable-tr-2n: rgb(31 34 35);
+		--exampleNamesTable-tr-hover: rgb(58 62 65);
 		--h4-color: rgb(110 194 255);
+		--links-bg: rgb(30 33 34);
+		--links-title-text: rgb(110 194 255);
+		--localdef-bg: rgb(24 26 27);
+		--localdef-border: rgb(154 39 39);
+		--review-comments-bg: rgb(30 33 34);
+		--summary-text: rgb(236 164 113);
+		--uname-text: rgb(215 99 99);
+		--xref-bg: rgb(53 42 11);
 		}
 	}
 
-
-.bp { /*background-color:#ffffcc; border: 1px solid #ccc;*/ 
-	background-color: #feb; 
-	border-radius: 8px; 
-	border-radius: 4px; 
-	padding: 10px; 
-	position: relative;  
-	margin: 30px; 
-	margin-right: 60px; 
-	}
-.bp a {
-	font-style: italic;
-	}
-.bp a.local { 
-	display:none;
-	}
 
 .advisement { /*background-color:#ffffcc; border: 1px solid #ccc;*/ 
 	border-radius: 4px; 
@@ -87,48 +91,12 @@ body {
 	counter-reset: advisement;                  		 /* Set the section counter to 0 */
 	/*counter-reset: bp;                  		  Set the section counter to 0 */
 	}
-a.self {
-    position: absolute;
-    top: -20px;
-    border: medium none;
-    transition: opacity 0.2s ease 0s;
-    opacity: 0.5;
-	color: #999;
-	text-decoration: none;
-	}
-a.self:visited {
-	color: #999;
-	}
-a.self:hover {
-	color: red;
-	}
-a.self::after {
-	content:  attr(href); 	
-	font-weight: normal;
-	font-style: italic;
-	font-size: 80%;
-	}
-
-.editor-note { 
-	font-style: italic; 
-	color: teal;
-	}
-.ed { 
-	font-style: italic; 
-	color: white;
-	background-color: #F90;
-	padding-left: 10px; padding-right: 10px; 
-	}
 
 .new-term { 
 	font-weight: bold 
 	}
 code { 
 	font-family: monospace; 
-	}
-del { 
-	display: inline; 
-	color: silver; 
 	}
 section h2 {
 	margin-top: 5em;
@@ -138,23 +106,10 @@ section h2 {
 	margin-top: 0;
 	}
 
-ins { 
-	background-color: #99FF99; 
-	text-decoration: none; 
-	}
 .term { 
 	font-weight: bold;
 	margin-top: 1em;
 	}
-.definition {
-    position: relative;
-    background-color: #efefef;
-    padding: 0.5em;
-    border: 0.5em;
-    border-left: 6pt solid green;
-    border-right: 6pt solid green;
-    margin: 1em auto;
-}
 a.termref:link {
 	color:#C60;
 	text-decoration:none;
@@ -192,23 +147,7 @@ a.termref:active {
 	background-color: #E2FFF0;
 	font-size: 0.8em;
 	}
-span.note-head {
-	padding: .2em;
-	color:#066;
-	border: none;
-	position:relative;
-	display: block;
-	width: 40px;
-	left: -1.5em;
-	top: -.5em;
-	background: #F2FFF1;
-	padding-left: .2em;
-	text-align: center;
-	}
 	  
-.counterstyle { margin: 20px 30px; }
-.counterstyle code { font-family: "Lucida Console", Monaco, monospace; color: black; font-size: 12px; }
-
 @media print {
  .bp { background: #ffcc99 }
 
@@ -259,7 +198,7 @@ h4 { 	color: var(--h4-color); margin-top: 2em;  }
 
 .bigtext {
     font-size: 36pt;
-    color: blue;
+    color: var(--blue);
     text-align: left;
     }
 
@@ -272,11 +211,6 @@ table.cpExample {
     width: 80%;
     }
     
-p.sidenote {
-    color: gray;
-    font-size:60%;
-    }
-    
 table.truncExample th,
 table.truncExample td {	
     vertical-align: top;
@@ -284,7 +218,7 @@ table.truncExample td {
     
 table.truncExample kbd,
 table.truncExample code {
-    color: blue;
+    color: var(--blue);
     font-size: larger;
     }
 
@@ -398,8 +332,8 @@ table.whitespace caption {
     padding-inline: 1rem;
     padding-block: .3em;
     min-height: 2rem;
-    color: brown;
-    background-color: antiquewhite;
+    color: var(--checklistGroup-li);
+    background-color: var(--checklistGroup-li-bg);
     border-radius: 5px;
     font-size: 95%;
     }
@@ -410,7 +344,7 @@ table.whitespace caption {
     margin-inline-start: 1rem;
     }
 .checklistGroup li input {
-    accent-color: chocolate;
+    accent-color: var(--checklistGroup-li-input);
     }
 .checklist summary {
     font-weight: normal;
@@ -447,13 +381,13 @@ table.whitespace caption {
 }
 
 .exampleNamesTable td, .exampleNamesTable th {
-  border: 1px solid #ddd;
+  border: 1px solid var(--exampleNamesTable-td-border);
   padding: 8px;
 }
 
-.exampleNamesTable tr:nth-child(even){background-color: #f2f2f2;}
+.exampleNamesTable tr:nth-child(even){background-color: var(--exampleNamesTable-tr-2n);}
 
-.exampleNamesTable tr:hover {background-color: #ddd;}
+.exampleNamesTable tr:hover {background-color: var(--exampleNamesTable-tr-hover);}
 
 .exampleNamesTable th {
   cursor: pointer;
@@ -477,8 +411,14 @@ td.exampleChar {
 }
 
 .localdef {
-    background-color:white;
-    border: 1px solid brown; 
+    background-color:var(--localdef-bg);
+    border: 1px solid var(--localdef-border); 
     margin:0.5em; 
     padding:0.5em;
+}
+
+#string_meta_progress p.example_note {
+    background-color: var(--example-note-bg);
+    border: 1px solid green;
+    padding:10px;
 }
