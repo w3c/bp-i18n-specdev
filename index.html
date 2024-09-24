@@ -964,7 +964,7 @@
 <h4>Establishing the base direction for paragraphs</h4>
 
  	<div class="req" id="bidi_block_change">
-	<p class="advisement">The content author must be able to indicate parts of the text where the base direction changes. At the block level, this should be achieved using attributes or metadata, and should not rely on Unicode control characters.</p>
+	<p class="advisement">The content author must be able to indicate parts of the text where the base direction changes. At the block level, this should be achieved using attributes or metadata, and should not require the content author to use Unicode control characters to control direction.</p>
 	</div>
 
 
@@ -1143,7 +1143,7 @@
 	</div>
 
  	<div class="req" id="bidi_inline_embed">
-	<p class="advisement">For markup, provide attributes that allow the user to (a) create an embedded base direction or (b) override the bidirectional algorithm altogether; the attribute should allow the user to set the direction to LTR or RTL or the aforementioned Auto in either of these two scenarios.</p>
+	<p class="advisement">For markup, provide attributes that allow the user to (a) create an isolated or embedded base direction or (b) override the bidirectional algorithm altogether. Such attributes should allow the user to set the direction to LTR, RTL, or Auto in either of these two scenarios.</p>
 	</div>
 </section>
 
