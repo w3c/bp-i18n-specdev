@@ -875,13 +875,13 @@
 
 
 <section id="rlmlrm">
-<h4>RLM and LRM</h4>
-<p>A word about the Unicode characters <span class="codepoint" translate="no"><img alt="RLM" src="images/200F.png"><code class="uname">U+200F RIGHT-TO-LEFT MARK</code></span> (RLM) and <span class="codepoint" translate="no"><img alt="LRM" src="images/200E.png"><code class="uname">U+200E LEFT-TO-RIGHT MARK</code></span> (LRM) is warranted at this point.</p>
-<p>The first point to be clear about is that neither RLM nor LRM establish the base direction for a range of text.&nbsp; They are simply invisible characters with strong directional properties.</p>
+<h4>Strong direction marks: RLM, LRM, and ALM</h4>
+<p>A word about the Unicode characters <span class="codepoint" translate="no"><img alt="RLM" src="images/200F.png"><code class="uname">U+200F RIGHT-TO-LEFT MARK</code></span> (RLM), <span class="codepoint" translate="no"><img alt="LRM" src="images/200E.png"><code class="uname">U+200E LEFT-TO-RIGHT MARK</code></span> (LRM), and <span class="codepoint" translate="no"><img alt="ALM" src="images/061C.png"><code class="uname">U+061C ARABIC LETTER MARK</code></span> (ALM) is warranted at this point.</p>
+<p>The first point to be clear about is that these three characters do not establish the base direction for a range of text.&nbsp; They are simply invisible characters with strong directional properties.</p>
 <p>This means that you cannot use RLM for example, to make the text W3C appear to the left of the Hebrew text in the following example.</p>
 <p>The title is "<span dir="rtl">פעילות הבינאום, W3C</span>".</p>
 <p>For this you can only use metadata or the paired control characters.</p>
-<p>Of course, if you are detecting base direction using first-strong heuristics then RLM and LRM can be useful for setting the base direction where the text in question begins with something that would otherwise give the wrong result, eg. </p>
+<p>Of course, if you are detecting base direction using first-strong heuristics then RLM, ALM, and LRM can be useful for setting the base direction where the text in question begins with something that would otherwise give the wrong result, eg. </p>
 <p>"<span dir="rtl">نشاط التدويل</span>" is how you say "i18n Activity" in Arabic.</p>
 <p>Here an LRM could be placed at the start of the text, before the strong RTL Arabic characters, to prevent the algorithm from assuming that the text should be right-to-left. (Remember that if metadata is used to set the base direction, that character is ignored, unless the metadata specifically says that first-strong heuristics should be used.)</p>
 </section>
