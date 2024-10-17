@@ -954,7 +954,7 @@
 
 
 	<div class="req" id="bidi_res_default">
-	<p class="advisement">The  default base direction, in the absence of other information, should be LTR.</p>
+	<p class="advisement">The  default base direction, in the absence of other information, should be <span class="kw" translate="no">auto</span>.</p>
 	</div>
 </section>
 
@@ -3738,6 +3738,7 @@ transactionResult: [ SUCCESS, NOT_AUTHORIZED, INTERNAL_ERROR, UNKNOWN_ERROR ]
 <p class="links_title">Useful background and overviews for this section</p>
 <ul>
 <li class="w3"><p class="link"><a href="https://www.w3.org/International/questions/qa-ruby">What is ruby?</a>, W3C article.</p></li>
+<li class="w3"><p class="link"><a href="https://www.w3.org/International/articles/ruby/markup.en.html">Ruby Markup</a>, W3C article.</p></li>
 <li class="w3"><p class="link"><a href="https://www.w3.org/TR/typography/#inline_notes">Inline notes & annotations</a>, in the Language enablement index.</p></li>
 </ul>
 </aside>
@@ -3762,6 +3763,9 @@ transactionResult: [ SUCCESS, NOT_AUTHORIZED, INTERNAL_ERROR, UNKNOWN_ERROR ]
 
    	<div class="req" id="ruby_dblsided">
 	<p class="advisement">Ruby implementations should allow annotations to appear on either or both sides of the base text.</p>
+	</div>
+	<div class="req" id="ruby_cjk">
+	<p class="advisement">Ruby markup in HTML is designed specifically for Chinese, Japanese, Korean, and Mongolian requirements, and should not be used as a general glossing mechanism.</p>
 	</div>
 </section>
 
