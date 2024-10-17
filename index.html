@@ -875,15 +875,44 @@
 
 
 <section id="rlmlrm">
-<h4>RLM and LRM</h4>
-<p>A word about the Unicode characters <span class="codepoint" translate="no"><img alt="RLM" src="images/200F.png"><code class="uname">U+200F RIGHT-TO-LEFT MARK</code></span> (RLM) and <span class="codepoint" translate="no"><img alt="LRM" src="images/200E.png"><code class="uname">U+200E LEFT-TO-RIGHT MARK</code></span> (LRM) is warranted at this point.</p>
-<p>The first point to be clear about is that neither RLM nor LRM establish the base direction for a range of text.&nbsp; They are simply invisible characters with strong directional properties.</p>
-<p>This means that you cannot use RLM for example, to make the text W3C appear to the left of the Hebrew text in the following example.</p>
-<p>The title is "<span dir="rtl">פעילות הבינאום, W3C</span>".</p>
+<h4>Strong directional formatting characters: RLM, LRM, and ALM</h4>
+<p>A word about the Unicode characters <span class="codepoint" translate="no"><img alt="RLM" src="images/200F.png"><code class="uname">U+200F RIGHT-TO-LEFT MARK</code></span> (RLM), <span class="codepoint" translate="no"><img alt="LRM" src="images/200E.png"><code class="uname">U+200E LEFT-TO-RIGHT MARK</code></span> (LRM), and <span class="codepoint" translate="no"><img alt="ALM" src="images/061C.png"><code class="uname">U+061C ARABIC LETTER MARK</code></span> (ALM) is warranted at this point.</p>
+<p>The first point to be clear about is that these three characters do not establish the base direction for a range of text. They are simply invisible characters with strong directional properties.</p>
+<p>This means that you cannot use RLM for example, to make the text <kbd>W3C</kbd> appear to the left of the Hebrew text in the following example.</p>
+<p>The title is "<span dir="rtl" lang="he">פעילות הבינאום, W3C</span>".</p>
 <p>For this you can only use metadata or the paired control characters.</p>
-<p>Of course, if you are detecting base direction using first-strong heuristics then RLM and LRM can be useful for setting the base direction where the text in question begins with something that would otherwise give the wrong result, eg. </p>
-<p>"<span dir="rtl">نشاط التدويل</span>" is how you say "i18n Activity" in Arabic.</p>
-<p>Here an LRM could be placed at the start of the text, before the strong RTL Arabic characters, to prevent the algorithm from assuming that the text should be right-to-left. (Remember that if metadata is used to set the base direction, that character is ignored, unless the metadata specifically says that first-strong heuristics should be used.)</p>
+<p>Of course, if you are detecting base direction using first-strong heuristics (such as <code>dir="auto"</code> in HTML), then inserting an RLM, ALM, or LRM can be useful for influencing the base direction detected where the text in question begins with something that would otherwise give the wrong result. For example:</p>
+<p>"<span dir="rtl" lang="ar">نشاط التدويل</span>" is how you say "i18n Activity" in Arabic.</p>
+<p>Here an LRM could be placed at the start of the text, before the strong right-to-left Arabic characters, to prevent the algorithm from assuming that the text should be right-to-left. (Remember that if metadata is used to set the base direction, the strong directional formatting character is ignored, unless the metadata specifically says that first-strong heuristics should be used.)</p>
+<p>Finally, a note about the use of <span class="codepoint" translate="no"><img alt="ALM" src="images/061C.png"><code class="uname">U+061C ARABIC LETTER MARK</code></span> (ALM). This character is used to influence the display of sequences of numbers in Arabic script text in cases where no Arabic letters occur before the number.</p>
+<aside class="example" title="Example of ALM usage">
+   <p>In some Arabic-script languages the range <code dir="rtl">100-200</code> should appear as <code dir="rtl">&#x061c;100-200</code>. If no Arabic letters appear before the numbers, the [=Unicode Bidirectional Algorithm=] will not perform this reordering. Note that the character sequences in both cases is "100-200" and that both have a <kbd>code</kbd> element with a <code>dir="rtl"</code> around them.  In the third example, an ALM is used to provide the necessary hint, like so:</p>
+   <table>
+	   <thead>
+		   <tr><th>Description</th><th>HTML / Appearance</th></tr>
+	   </thead>
+	   <tbody>
+		   	<tr>
+			   <td rowspan="2">Preceded by Arabic letters</td>
+			   <td><pre type="html">&lt;code dir="rtl" lang="ar"&gt;&#x0634;&#x0627;&#x0637; &#x0627;&#x0644;&#x062A;&#x062F;&#x0648;&#x064A;&#x0644; 100-200&lt;/code&gt;</pre></td>
+			</tr><tr>
+			   <td dir="rtl" class="spilloverExample"><code dir="rtl" lang="ar">&#x0634;&#x0627;&#x0637; &#x0627;&#x0644;&#x062A;&#x062F;&#x0648;&#x064A;&#x0644; 100-200</code></td>
+		   </tr>
+		   <tr>
+			   <td rowspan="2">Without ALM</td>
+			   <td><pre type="html">&lt;code dir="rtl" lang="ar"&gt100-200&lt;/code&gt;</pre></td>
+		   </tr><tr>
+			   <td dir="rtl" class="spilloverExample"><code dir="rtl" lang="ar">100-200</code></td>
+		   </tr>
+		   <tr>
+			   <td rowspan="2">With ALM</td>
+			   <td><pre type="html">&lt;code dir="rtl" lang="ar"&gt&amp;#x061C;100-200&lt;/code&gt;</pre></td>
+		   </tr><tr>
+			   <td dir="rtl" class="spilloverExample"><code dir="rtl" lang="ar" >&#x061C;100-200</code></td>
+		   </tr>
+	   </tbody>
+   </table>
+</aside>
 </section>
 
 
@@ -964,7 +993,7 @@
 <h4>Establishing the base direction for paragraphs</h4>
 
  	<div class="req" id="bidi_block_change">
-	<p class="advisement">The content author must be able to indicate parts of the text where the base direction changes. At the block level, this should be achieved using attributes or metadata, and should not rely on Unicode control characters.</p>
+	<p class="advisement">The content author must be able to indicate parts of the text where the base direction changes. At the block level, this should be achieved using attributes or metadata, and should not require the content author to use Unicode control characters to control direction.</p>
 	</div>
 
 
@@ -1143,7 +1172,7 @@
 	</div>
 
  	<div class="req" id="bidi_inline_embed">
-	<p class="advisement">For markup, provide attributes that allow the user to (a) create an embedded base direction or (b) override the bidirectional algorithm altogether; the attribute should allow the user to set the direction to LTR or RTL or the aforementioned Auto in either of these two scenarios.</p>
+	<p class="advisement">For markup, provide attributes that allow the user to (a) create an isolated or embedded base direction or (b) override the bidirectional algorithm altogether. Such attributes should allow the user to set the direction to LTR, RTL, or Auto in either of these two scenarios.</p>
 	</div>
 </section>
 
