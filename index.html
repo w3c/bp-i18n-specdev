@@ -886,26 +886,29 @@
 <p>Here an LRM could be placed at the start of the text, before the strong right-to-left Arabic characters, to prevent the algorithm from assuming that the text should be right-to-left. (Remember that if metadata is used to set the base direction, the strong directional formatting character is ignored, unless the metadata specifically says that first-strong heuristics should be used.)</p>
 <p>Finally, a note about the use of <span class="codepoint" translate="no"><img alt="ALM" src="images/061C.png"><code class="uname">U+061C ARABIC LETTER MARK</code></span> (ALM). This character is used to influence the display of sequences of numbers in Arabic script text in cases where no Arabic letters occur before the number.</p>
 <aside class="example" title="Example of ALM usage">
-   <p>In some Arabic-script languages the range <code dir="rtl">100-200</code> should appear as <code dir="rtl">&#x061c;100-200</code>. If no Arabic letters appear before the numbers, the [=Unicode Bidirectional Algorithm=] will not perform this reordering. Note that the character sequences in both cases is "100-200" and that both have a <kbd>code</kbd> element with a <code>dir="rtl"</code> around them.  In the second example, an ALM was used to provide the necessary hint, like so:</p>
+   <p>In some Arabic-script languages the range <code dir="rtl">100-200</code> should appear as <code dir="rtl">&#x061c;100-200</code>. If no Arabic letters appear before the numbers, the [=Unicode Bidirectional Algorithm=] will not perform this reordering. Note that the character sequences in both cases is "100-200" and that both have a <kbd>code</kbd> element with a <code>dir="rtl"</code> around them.  In the third example, an ALM is used to provide the necessary hint, like so:</p>
    <table>
 	   <thead>
-		   <tr><th>Description</th><th>HTML</th><th>Appearance</th></tr>
+		   <tr><th>Description</th><th>HTML / Appearance</th></tr>
 	   </thead>
 	   <tbody>
 		   	<tr>
-			   <td>Preceded by Arabic letters</td>
+			   <td rowspan="2">Preceded by Arabic letters</td>
 			   <td><pre type="html">&lt;code dir="rtl" lang="ar"&gt;&#x0634;&#x0627;&#x0637; &#x0627;&#x0644;&#x062A;&#x062F;&#x0648;&#x064A;&#x0644; 100-200&lt;/code&gt;</pre></td>
-			   <td><code dir="rtl" lang="ar">&#x0634;&#x0627;&#x0637; &#x0627;&#x0644;&#x062A;&#x062F;&#x0648;&#x064A;&#x0644; 100-200</code></td>
+			</tr><tr>
+			   <td dir="rtl" class="spilloverExample"><code dir="rtl" lang="ar">&#x0634;&#x0627;&#x0637; &#x0627;&#x0644;&#x062A;&#x062F;&#x0648;&#x064A;&#x0644; 100-200</code></td>
 		   </tr>
 		   <tr>
-			   <td>Without ALM</td>
+			   <td rowspan="2">Without ALM</td>
 			   <td><pre type="html">&lt;code dir="rtl" lang="ar"&gt100-200&lt;/code&gt;</pre></td>
-			   <td><code dir="rtl" lang="ar">100-200</code></td>
+		   </tr><tr>
+			   <td dir="rtl" class="spilloverExample"><code dir="rtl" lang="ar">100-200</code></td>
 		   </tr>
 		   <tr>
-			   <td>With ALM</td>
+			   <td rowspan="2">With ALM</td>
 			   <td><pre type="html">&lt;code dir="rtl" lang="ar"&gt&amp;#x061C;100-200&lt;/code&gt;</pre></td>
-			   <td><code dir="rtl" lang="ar">&#x061C;100-200</code></td>
+		   </tr><tr>
+			   <td dir="rtl" class="spilloverExample"><code dir="rtl" lang="ar" >&#x061C;100-200</code></td>
 		   </tr>
 	   </tbody>
    </table>
