@@ -1237,10 +1237,13 @@
 
     <p>At their simplest, user-perceived characters are a single shape that can be tied one-to-one to the underlying computing representation. But a user-perceived character can be formed, in some scripts, from more than one character. And a given logical character can take many different shapes due to such influences as font selection, style, or the surrounding context (such as adjacent characters). In some cases, a single user-perceived character might be formed from a long sequence of logical characters. And some logical characters (so-called "combining marks") are always used in conjunction with another character.</p>
 
-    <p>When user-perceived characters are represented visibly (on screen or in print), they are represented by individual rendering units. This visual unit is called a <a>grapheme</a> (the word <a>glyph</a> is also used). Graphemes are the visual units found in fonts and rendering software.</p>
+    <p>When user-perceived characters are represented visibly (on screen or in print), they are represented by individual rendering units. This visual unit is called a [=grapheme cluster=] (or [=grapheme=] for short; the word [=glyph=] is also sometimes used).</p>
+    
+    <aside class=note>
+		<p>[[Unicode]] has several definitions for graphemes. Unless otherwise specified, the term [=grapheme cluster=] in this document refers to what [[UAX29]] refers to as an "extended default grapheme cluster".</p>
+    </aside>
 
-    <aside class=example>
-		<h5>Examples of user-perceived characters</h5>
+    <aside class=example title="Examples of grapheme clusters and user-perceived characters">
 		<p>Here is the word for "Unicode" in the Latin, Katakana, Arabic, and Devanagari scripts.</p>
 		<p class=bigtext>Unicode
 		   <span lang=ja>&#x30E6;&#x30CB;&#x30B3;&#x30FC;&#x30C9;</span>
@@ -1259,8 +1262,7 @@
 
     <p>The relationship between code points and graphemes can be complex. In most cases, a code point sequence that forms a single grapheme should be treated as a single textual unit. For example, when cursoring across text, an entire grapheme should select together. It shouldn't be possible to cursor into the "middle" of a grapheme or delete only a part of user-perceived character. Because the relationship is not one-to-one between code points and graphemes and because the relationship can be somewhat complex, [[Unicode]] defines a specific type of grapheme: the <a>extended grapheme cluster</a> which most closely matches the mapping of the underlying logical character sequence to a user-perceived character. When referring to 'graphemes' in this document, we mean extended grapheme clusters (unless otherwise called out).</p>
 
-    <aside class=example>
-		<h5>Hindi example showing mapping from graphemes to code points</h5>
+    <aside class=example title="Example of the difference between graphemes and code points">
 		<p>Returning to the example above, the Hindi word for Unicode is made of four graphemes:</p>
 		<p class=bigtext lang=hi>&#x092F;&#x0942;&nbsp;<span style="color:red">&#x0928;&#x093F;</span>&nbsp;&#x0915;&#x094B;&nbsp;&#x0921;</p>
 		<p>Several of these graphemes are made up of more than one Unicode character because of the way that the Devanagari script works. In Devanagari, the basic set of "letters" are syllables ending with the short 'a' vowel sound. When you want to use a different vowel, you add a combining vowel character that changes the shape of the grapheme. The red text in the example above is the syllable "ni" in "Unicode". It is made of two characters: U+0928 (the syllable "na") and U+093F (combining "short i" sound):</p>
@@ -1294,8 +1296,7 @@
 
     <p>A set of rules for converting code points to or from code units is called a <a>character encoding form</a> (or just "character encoding" for short.</p>
 
-    <aside class=example>
-       <h2>UTF-8 Character Encoding Form</h2>
+    <aside class=example title="UTF-8 Character Encoding Form">
 
        <p>The most common character encoding used on the Web is UTF-8. UTF-8 uses 8-bit bytes as its code unit. Each Unicode code point encoded into UTF-8 takes between one and four bytes to encode. ASCII characters take one byte to encode. Code points from 0x80 to 0x7FF take two bytes. Code points from 0x800 to 0xFFFF take three bytes. And code points from 0x10000 to 0x10FFFF (that is, the rest of Unicode) take four bytes each.</p>
 
