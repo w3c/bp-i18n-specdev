@@ -775,7 +775,7 @@
     <p>You would expect the phrase in the <code class="kw" translate="no">text</code> property value to be displayed as</p>
     <p><span dir="rtl">פעילות הבינאום, W3C</span></p>
     <p>however, if there is no indication that the base direction should be right-to-left the following incorrect display will be produced:</p>
-    <p>פעילות הבינאום, W3C</p>
+    <p dir="ltr">פעילות הבינאום, W3C</p><!-- Note the use of dir=ltr to ensure "bad" display -->
   </aside>
 
   <p>In this section, the word <dfn class="lint-ignore">paragraph</dfn> indicates a run of text followed by a hard line-break in plain text, but may signify different things in other situations. In CSV it equates to 'cell', so a single line of comma-separated items is actually a set of comma-separated paragraphs.&nbsp; In HTML it equates to the lowest level of block element, which is often a <code class="kw" translate="no">p</code> element, but may be things such as <code class="kw" translate="no">div</code>, <code class="kw" translate="no">li</code>, etc., if they only contain text and/or inline elements. In JSON, it often equates to a quoted string value, but if a string value uses markup then paragraphs are associated with block elements, and if the string value is multiple lines of plain text then each line is a paragraph.</p>
@@ -878,11 +878,12 @@
 <h4>Strong directional formatting characters: RLM, LRM, and ALM</h4>
 <p>A word about the Unicode characters <span class="codepoint" translate="no"><img alt="RLM" src="images/200F.png"><code class="uname">U+200F RIGHT-TO-LEFT MARK</code></span> (RLM), <span class="codepoint" translate="no"><img alt="LRM" src="images/200E.png"><code class="uname">U+200E LEFT-TO-RIGHT MARK</code></span> (LRM), and <span class="codepoint" translate="no"><img alt="ALM" src="images/061C.png"><code class="uname">U+061C ARABIC LETTER MARK</code></span> (ALM) is warranted at this point.</p>
 <p>The first point to be clear about is that these three characters do not establish the base direction for a range of text. They are simply invisible characters with strong directional properties.</p>
-<p>This means that you cannot use RLM for example, to make the text <kbd>W3C</kbd> appear to the left of the Hebrew text in the following example.</p>
-<p>The title is "<span dir="rtl" lang="he">פעילות הבינאום, W3C</span>".</p>
+<p>This means that you cannot use RLM, for example, to make the text <kbd>W3C</kbd> appear to the left of the Hebrew text in the following example:</p>
+
+<p class=example>The title is "<span translate="no" dir="ltr">פעילות הבינאום, W3C</span>".</p><!-- the dir=ltr is intentional to make the example display wrong. -->
 <p>For this you can only use metadata or the paired control characters.</p>
 <p>Of course, if you are detecting base direction using first-strong heuristics (such as <code>dir="auto"</code> in HTML), then inserting an RLM, ALM, or LRM can be useful for influencing the base direction detected where the text in question begins with something that would otherwise give the wrong result. For example:</p>
-<p>"<span dir="rtl" lang="ar">نشاط التدويل</span>" is how you say "i18n Activity" in Arabic.</p>
+<p class=example dir=auto>&#x200e;"نشاط التدويل" is how you say "i18n Activity" in Arabic.</p>
 <p>Here an LRM could be placed at the start of the text, before the strong right-to-left Arabic characters, to prevent the algorithm from assuming that the text should be right-to-left. (Remember that if metadata is used to set the base direction, the strong directional formatting character is ignored, unless the metadata specifically says that first-strong heuristics should be used.)</p>
 <p>Finally, a note about the use of <span class="codepoint" translate="no"><img alt="ALM" src="images/061C.png"><code class="uname">U+061C ARABIC LETTER MARK</code></span> (ALM). This character is used to influence the display of sequences of numbers in Arabic script text in cases where no Arabic letters occur before the number.</p>
 <aside class="example" title="Example of ALM usage">
