@@ -775,7 +775,7 @@
     <p>You would expect the phrase in the <code class="kw" translate="no">text</code> property value to be displayed as</p>
     <p><span dir="rtl">פעילות הבינאום, W3C</span></p>
     <p>however, if there is no indication that the base direction should be right-to-left the following incorrect display will be produced:</p>
-    <p>פעילות הבינאום, W3C</p>
+    <p dir="ltr">פעילות הבינאום, W3C</p><!-- Note the use of dir=ltr to ensure "bad" display -->
   </aside>
 
   <p>In this section, the word <dfn class="lint-ignore">paragraph</dfn> indicates a run of text followed by a hard line-break in plain text, but may signify different things in other situations. In CSV it equates to 'cell', so a single line of comma-separated items is actually a set of comma-separated paragraphs.&nbsp; In HTML it equates to the lowest level of block element, which is often a <code class="kw" translate="no">p</code> element, but may be things such as <code class="kw" translate="no">div</code>, <code class="kw" translate="no">li</code>, etc., if they only contain text and/or inline elements. In JSON, it often equates to a quoted string value, but if a string value uses markup then paragraphs are associated with block elements, and if the string value is multiple lines of plain text then each line is a paragraph.</p>
@@ -878,11 +878,12 @@
 <h4>Strong directional formatting characters: RLM, LRM, and ALM</h4>
 <p>A word about the Unicode characters <span class="codepoint" translate="no"><img alt="RLM" src="images/200F.png"><code class="uname">U+200F RIGHT-TO-LEFT MARK</code></span> (RLM), <span class="codepoint" translate="no"><img alt="LRM" src="images/200E.png"><code class="uname">U+200E LEFT-TO-RIGHT MARK</code></span> (LRM), and <span class="codepoint" translate="no"><img alt="ALM" src="images/061C.png"><code class="uname">U+061C ARABIC LETTER MARK</code></span> (ALM) is warranted at this point.</p>
 <p>The first point to be clear about is that these three characters do not establish the base direction for a range of text. They are simply invisible characters with strong directional properties.</p>
-<p>This means that you cannot use RLM for example, to make the text <kbd>W3C</kbd> appear to the left of the Hebrew text in the following example.</p>
-<p>The title is "<span dir="rtl" lang="he">פעילות הבינאום, W3C</span>".</p>
+<p>This means that you cannot use RLM, for example, to make the text <kbd>W3C</kbd> appear to the left of the Hebrew text in the following example:</p>
+
+<p class=example>The title is "<span translate="no" dir="ltr">פעילות הבינאום, W3C</span>".</p><!-- the dir=ltr is intentional to make the example display wrong. -->
 <p>For this you can only use metadata or the paired control characters.</p>
 <p>Of course, if you are detecting base direction using first-strong heuristics (such as <code>dir="auto"</code> in HTML), then inserting an RLM, ALM, or LRM can be useful for influencing the base direction detected where the text in question begins with something that would otherwise give the wrong result. For example:</p>
-<p>"<span dir="rtl" lang="ar">نشاط التدويل</span>" is how you say "i18n Activity" in Arabic.</p>
+<p class=example dir=auto>&#x200e;"نشاط التدويل" is how you say "i18n Activity" in Arabic.</p>
 <p>Here an LRM could be placed at the start of the text, before the strong right-to-left Arabic characters, to prevent the algorithm from assuming that the text should be right-to-left. (Remember that if metadata is used to set the base direction, the strong directional formatting character is ignored, unless the metadata specifically says that first-strong heuristics should be used.)</p>
 <p>Finally, a note about the use of <span class="codepoint" translate="no"><img alt="ALM" src="images/061C.png"><code class="uname">U+061C ARABIC LETTER MARK</code></span> (ALM). This character is used to influence the display of sequences of numbers in Arabic script text in cases where no Arabic letters occur before the number.</p>
 <aside class="example" title="Example of ALM usage">
@@ -1237,10 +1238,13 @@
 
     <p>At their simplest, user-perceived characters are a single shape that can be tied one-to-one to the underlying computing representation. But a user-perceived character can be formed, in some scripts, from more than one character. And a given logical character can take many different shapes due to such influences as font selection, style, or the surrounding context (such as adjacent characters). In some cases, a single user-perceived character might be formed from a long sequence of logical characters. And some logical characters (so-called "combining marks") are always used in conjunction with another character.</p>
 
-    <p>When user-perceived characters are represented visibly (on screen or in print), they are represented by individual rendering units. This visual unit is called a <a>grapheme</a> (the word <a>glyph</a> is also used). Graphemes are the visual units found in fonts and rendering software.</p>
+    <p>When user-perceived characters are represented visibly (on screen or in print), they are represented by individual rendering units. This visual unit is called a [=grapheme cluster=] (or [=grapheme=] for short; the word [=glyph=] is also sometimes used).</p>
+    
+    <aside class=note>
+		<p>[[Unicode]] has several definitions for graphemes. Unless otherwise specified, the term [=grapheme cluster=] in this document refers to what [[UAX29]] refers to as an "extended default grapheme cluster".</p>
+    </aside>
 
-    <aside class=example>
-		<h5>Examples of user-perceived characters</h5>
+    <aside class=example title="Examples of grapheme clusters and user-perceived characters">
 		<p>Here is the word for "Unicode" in the Latin, Katakana, Arabic, and Devanagari scripts.</p>
 		<p class=bigtext>Unicode
 		   <span lang=ja>&#x30E6;&#x30CB;&#x30B3;&#x30FC;&#x30C9;</span>
@@ -1259,8 +1263,7 @@
 
     <p>The relationship between code points and graphemes can be complex. In most cases, a code point sequence that forms a single grapheme should be treated as a single textual unit. For example, when cursoring across text, an entire grapheme should select together. It shouldn't be possible to cursor into the "middle" of a grapheme or delete only a part of user-perceived character. Because the relationship is not one-to-one between code points and graphemes and because the relationship can be somewhat complex, [[Unicode]] defines a specific type of grapheme: the <a>extended grapheme cluster</a> which most closely matches the mapping of the underlying logical character sequence to a user-perceived character. When referring to 'graphemes' in this document, we mean extended grapheme clusters (unless otherwise called out).</p>
 
-    <aside class=example>
-		<h5>Hindi example showing mapping from graphemes to code points</h5>
+    <aside class=example title="Example of the difference between graphemes and code points">
 		<p>Returning to the example above, the Hindi word for Unicode is made of four graphemes:</p>
 		<p class=bigtext lang=hi>&#x092F;&#x0942;&nbsp;<span style="color:red">&#x0928;&#x093F;</span>&nbsp;&#x0915;&#x094B;&nbsp;&#x0921;</p>
 		<p>Several of these graphemes are made up of more than one Unicode character because of the way that the Devanagari script works. In Devanagari, the basic set of "letters" are syllables ending with the short 'a' vowel sound. When you want to use a different vowel, you add a combining vowel character that changes the shape of the grapheme. The red text in the example above is the syllable "ni" in "Unicode". It is made of two characters: U+0928 (the syllable "na") and U+093F (combining "short i" sound):</p>
@@ -1294,8 +1297,7 @@
 
     <p>A set of rules for converting code points to or from code units is called a <a>character encoding form</a> (or just "character encoding" for short.</p>
 
-    <aside class=example>
-       <h2>UTF-8 Character Encoding Form</h2>
+    <aside class=example title="UTF-8 Character Encoding Form">
 
        <p>The most common character encoding used on the Web is UTF-8. UTF-8 uses 8-bit bytes as its code unit. Each Unicode code point encoded into UTF-8 takes between one and four bytes to encode. ASCII characters take one byte to encode. Code points from 0x80 to 0x7FF take two bytes. Code points from 0x800 to 0xFFFF take three bytes. And code points from 0x10000 to 0x10FFFF (that is, the rest of Unicode) take four bytes each.</p>
 
