@@ -883,7 +883,7 @@
 <p class=example>The title is "<span translate="no" dir="ltr">פעילות הבינאום, W3C</span>".</p><!-- the dir=ltr is intentional to make the example display wrong. -->
 <p>For this you can only use metadata or the paired control characters.</p>
 <p>Of course, if you are detecting base direction using first-strong heuristics (such as <code>dir="auto"</code> in HTML), then inserting an RLM, ALM, or LRM can be useful for influencing the base direction detected where the text in question begins with something that would otherwise give the wrong result. For example:</p>
-<p class=example dir=auto>&#x200e;"نشاط التدويل" is how you say "i18n Activity" in Arabic.</p>
+<p class=example dir=auto>&#x200e;"&#x0646;&#x0634;&#x0627;&#x0637; &#x0627;&#x0644;&#x062a;&#x062f;&#x0648;&#x064a;&#x0644;" is how you say "i18n Activity" in Arabic.</p>
 <p>Here an LRM could be placed at the start of the text, before the strong right-to-left Arabic characters, to prevent the algorithm from assuming that the text should be right-to-left. (Remember that if metadata is used to set the base direction, the strong directional formatting character is ignored, unless the metadata specifically says that first-strong heuristics should be used.)</p>
 <p>Finally, a note about the use of <span class="codepoint" translate="no"><img alt="ALM" src="images/061C.png"><code class="uname">U+061C ARABIC LETTER MARK</code></span> (ALM). This character is used to influence the display of sequences of numbers in Arabic script text in cases where no Arabic letters occur before the number.</p>
 <aside class="example" title="Example of ALM usage">
@@ -895,7 +895,7 @@
 	   <tbody>
 		   	<tr>
 			   <td rowspan="2">Preceded by Arabic letters</td>
-			   <td><pre class="html">&lt;code dir="rtl" lang="ar"&gt;&#x0634;&#x0627;&#x0637; &#x0627;&#x0644;&#x062A;&#x062F;&#x0648;&#x064A;&#x0644; 100-200&lt;/code&gt;</pre></td>
+			   <td><pre class="html">&lt;code dir="rtl" lang="ar"&gt;&#x0646;&#x0634;&#x0627;&#x0637; &#x0627;&#x0644;&#x062A;&#x062F;&#x0648;&#x064A;&#x0644; 100-200&lt;/code&gt;</pre></td>
 			</tr><tr>
 			   <td dir="rtl" class="spilloverExample"><code dir="rtl" lang="ar">&#x0634;&#x0627;&#x0637; &#x0627;&#x0644;&#x062A;&#x062F;&#x0648;&#x064A;&#x0644; 100-200</code></td>
 		   </tr>
