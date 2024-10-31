@@ -1237,13 +1237,14 @@
 
     <p>At their simplest, user-perceived characters are a single shape that can be tied one-to-one to the underlying computing representation. But a user-perceived character can be formed, in some scripts, from more than one character. And a given logical character can take many different shapes due to such influences as font selection, style, or the surrounding context (such as adjacent characters). In some cases, a single user-perceived character might be formed from a long sequence of logical characters. And some logical characters (so-called "combining marks") are always used in conjunction with another character.</p>
 
-    <p>When user-perceived characters are represented visibly (on screen or in print), they are represented by individual rendering units. This visual unit is called a [=grapheme cluster=] (or [=grapheme=] for short; the word [=glyph=] is also sometimes used).</p>
+    <p>When user-perceived characters are represented visibly (on screen or in print), they are represented by individual rendering units. This visual unit is called a [=grapheme=] (the word [=glyph=] is also used). Graphemes are the visual units found in fonts and rendering software.</p>
     
     <aside class=note>
-		<p>[[Unicode]] has several definitions for graphemes. Unless otherwise specified, the term [=grapheme cluster=] in this document refers to what [[UAX29]] refers to as an "extended default grapheme cluster".</p>
+		<p>[[Unicode]] provides several definitions for approximately computing [=grapheme=] boundaries. The boundaries defined by [[Unicode]] are called [=grapheme clusters=]. Unless otherwise specified, the term [=grapheme cluster=] in this document refers to what [[UAX29]] refers to as an "extended default grapheme cluster".</p>
+		<p>For many languages and scripts, there is little difference between a [=grapheme=] and a [=grapheme cluster=]. However, for a number of languages and scripts, particularly those found in South Asia, the difference can be important. For example, the Bangla user-perceived character <em></em> (ক্ষী) is composed of four characters. Unicode splits these into two grapheme clusters, unless language-specific tailoring is applied. For more information, see our article <a href="https://www.w3.org/International/articles/definitions-characters/index.en.html#characters">Character encodings: Essential concepts</a>.</p>
     </aside>
 
-    <aside class=example title="Examples of grapheme clusters and user-perceived characters">
+    <aside class=example title="Examples of graphemes and user-perceived characters">
 		<p>Here is the word for "Unicode" in the Latin, Katakana, Arabic, and Devanagari scripts.</p>
 		<p class=bigtext>Unicode
 		   <span lang=ja>&#x30E6;&#x30CB;&#x30B3;&#x30FC;&#x30C9;</span>
