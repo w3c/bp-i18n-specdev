@@ -455,9 +455,36 @@ td.exampleChar {
   font-size: 140%;
 }
 
+.spilloverExample :lang(ar) {
+  font-family: Noto Sans Arabic, Tahoma, sans-serif;
+  }
+
 .localdef {
     background-color:white;
     border: 1px solid brown; 
     margin:0.5em; 
     padding:0.5em;
+}
+
+table.bidi-example-table {
+    background-color: white;
+    border-collapse: collapse;
+    padding: 0;
+    width: 98%;
+}
+
+table.bidi-example-table td {
+    padding: 0;
+}
+
+table.bidi-example-table th {
+    text-align: center;
+}
+
+table.bidi-example-table tr {
+    border-bottom: 1px solid #ddd;
+}
+
+table.bidi-example-table tr td:last-child {
+    white-space: nowrap;
 }
