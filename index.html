@@ -895,7 +895,7 @@
 <p>The first point to be clear about is that these three characters do not establish the base direction for a range of text. They are simply invisible characters with strong directional properties.</p>
 <p>Recalling an <a href="#sec-dir-example">earlier example</a>, this means that you cannot use RLM, for example, to make the text <kbd>W3C</kbd> appear to the left of the Hebrew text. Only using metadata or paired control characters results in the correct display.</p>
 
-<aside class="example">
+<aside class="example" id="rlm-not-working" title="Use metadata instead of strongly directional formatting characters">
 	
 	<table dir="ltr" class="bidi-example-table">
 	   <thead>
@@ -916,9 +916,19 @@
    </table>
 </aside>
 
-<p>Of course, if you are detecting base direction using first-strong heuristics (such as <code>dir="auto"</code> in HTML), then inserting an RLM, ALM, or LRM can be useful for influencing the base direction detected where the text in question begins with something that would otherwise give the wrong result. For example:</p>
-<p class=example dir=auto>&#x200e;"&#x0646;&#x0634;&#x0627;&#x0637; &#x0627;&#x0644;&#x062a;&#x062f;&#x0648;&#x064a;&#x0644;" is how you say "i18n Activity" in Arabic.</p>
-<p>Here an LRM could be placed at the start of the text, before the strong right-to-left Arabic characters, to prevent the algorithm from assuming that the text should be right-to-left. (Remember that if metadata is used to set the base direction, the strong directional formatting character is ignored, unless the metadata specifically says that first-strong heuristics should be used.)</p>
+<p>Of course, if you are detecting base direction using first-strong heuristics (such as <code>dir="auto"</code> in HTML), then inserting an RLM, ALM, or LRM can be useful for influencing the base direction detected where the text in question begins with something that would otherwise give the wrong result.</p>
+<aside class="example" title="Using a strong directional formatting character to assist first-strong heuristics">
+	<p>This HTML has strongly right-to-left Arabic characters near the start, where they will be picked up by a first-strong heuristic. Notice that there is a neutral character right at the start:</p>
+	<p><pre class="html">&ltp dir="auto"&gt;"نشاط التدويل" is how you say "i18n activity" in Arabic.&lt;/p&gt;</pre></p>
+	<p>This produces the wrong result:</p>
+	<p dir="auto" class="spilloverExample">"&#x0646;&#x0634;&#x0627;&#x0637; &#x0627;&#x0644;&#x062a;&#x062f;&#x0648;&#x064a;&#x0644;" is how you say "i18n Activity" in Arabic.</p>
+	
+	<p>Here an LRM could be placed at the start of the text to prevent the algorithm from assuming that the text should be right-to-left.</p>
+	<p><pre class="html">&ltp dir="auto"&gt;&amp;lrm;"نشاط التدويل" is how you say "i18n activity" in Arabic.&lt;/p&gt;</pre></p>
+	<p dir="auto" class="spilloverExample">&lrm;"&#x0646;&#x0634;&#x0627;&#x0637; &#x0627;&#x0644;&#x062a;&#x062f;&#x0648;&#x064a;&#x0644;" is how you say "i18n Activity" in Arabic.</p>
+	
+</aside>
+<p>Remember that if metadata is used to set the base direction, the strong directional formatting character is ignored, unless the metadata specifically says that first-strong heuristics should be used.</p>
 <p>Finally, a note about the use of <span class="codepoint" translate="no"><img alt="ALM" src="images/061C.png"><code class="uname">U+061C ARABIC LETTER MARK</code></span> (ALM). This character is used to influence the display of sequences of numbers in Arabic script text in cases where no Arabic letters occur before the number.</p>
 <aside class="example" title="Example of ALM usage">
    <p>In some Arabic-script languages the range <code dir="rtl">100-200</code> should appear as <code dir="rtl">&#x061c;100-200</code>. If no Arabic letters appear before the numbers, the [=Unicode Bidirectional Algorithm=] will not perform this reordering. Note that the character sequences in both cases is "100-200" and that both have a <kbd>code</kbd> element with a <code>dir="rtl"</code> around them.  In the third example, an ALM is used to provide the necessary hint, like so:</p>
