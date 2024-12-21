@@ -2009,24 +2009,33 @@ just as characters are the basic unit of organization of encoded text.</p>
 </div>
 
 <aside class="note">
-    <p>The best practices found in this section are intended to be mutually consistent with those in [[DESIGN-PRINCIPLES]]. The definitions in this section use terms found in the <cite>Internationalization Glossary</cite> [[I18N-GLOSSARY]]. Some of these definitions are themselves taken from [[WEBIDL]], [[INFRA]], or the Unicode glossary; in which case the definitions are quoted verbatim and include links to their source. Please refer to instructions in the Internationalization Glossary for how to import and link definitions in your own specification.</p>
+    <p>The best practices found in this section are intended to be mutually consistent with those in [[DESIGN-PRINCIPLES]]. The definitions in this section use terms found in the <cite>Internationalization Glossary</cite> [[I18N-GLOSSARY]], in [[WEBIDL]], in [[INFRA]], or the Unicode glossary. Please refer to instructions in the Internationalization Glossary for how to import and link definitions in your own specification.</p>
 </aside>
 
 <div class="issue">
-	<p>Notwithstanding the note just above, I18N's best practices appear to be exactly opposite those in [[DESIGN-PRINCIPLES]] at the moment. The details turn out to be the same, but we need to resolve differences in guidance and wording. The issue <a href="https://github.com/w3ctag/design-principles/issues/454">design-principles#454</a> tracks this.</p>
+	<p><del>Notwithstanding the note just above, I18N's best practices appear to be exactly opposite those in [[DESIGN-PRINCIPLES]] at the moment. The details turn out to be the same, but we need to resolve differences in guidance and wording.</del> The issue <a href="https://github.com/w3ctag/design-principles/issues/454">design-principles#454</a> tracks this.</p>
 </div>
 
 <div class="req" id="char_string_default">
-	<p class="advisement">Unless you have a reason not to, use a string definition consistent with {{USVString}}.</p>
+	<p class="advisement">Unless you have a reason not to, use a string definition consistent with {{DOMString}}.</p>
 </div>
 
 <div class="req" id="char_string_dom">
-	<p class="advisement">Use a string definition consistent with {{DOMString}} if your specification does not process the internal value of strings and is not required to check for unpaired surrogate code points, or if your specification pertains to the [[DOM]], defines a JavaScript API or data format, or defines strings as opaque values that are not processed.</p>
+	<p class="advisement">Use a {{DOMString}} when defining document formats or the wire format of a protocol, or for any process pertaining to the [[DOM]], or which defines strings as opaque values whose individual character contents are not meant to be evaluated. (This list of uses is not exhaustive.)</p>
+
 	<details class="links"><summary>explanations &amp; examples</summary>
 	   <p><a href="https://infra.spec.whatwg.org/#scalar-value-string">Scalar value string</a> definition in [[INFRA]]</p>
 	   <p><a href="https://www.w3.org/TR/design-principles/#idl-string-types">IDL String Types</a> in <cite>Web Platform Design Principles</cite> [[DESIGN-PRINCIPLES]]</p>
 	   <p><a href="https://www.w3.org/TR/charmod/#sec-Strings">String concepts, C012</a>, in <cite>Character Model for the World Wide Web: Fundamentals</cite>.</p>
 	</details>
+</div>
+
+<div class="note">
+	<p>The use of {{DOMString}} in document formats and protocols is preferred because it is best to be consistent. Mixing {{DOMString}} and {{USVString}} in a single document or protocol operation requires extra processing for very little benefit or gain.</p>
+</div>
+
+<div class="req" id="char_string_usv">
+	<p class="advisement">Use a {{USVString}} when defining an algorithm that iterates over the <a>code points</a> in a string. Use {{USVString}} for any process which involves <a>UTF-8 encode</a> or for anywhere in which an unpaired <a>surrogate</a> <a>code point</a> would produce an error.</p>
 </div>
 
 <p>A string is a sequence of characters. Because [[UNICODE]] is fundamental to understanding and working with text, including text that uses <a>legacy character encodings</a>, the basic definition of a string depends on Unicode and its concept of a encoded character. Specifically:</p> 
