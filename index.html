@@ -2047,18 +2047,15 @@ just as characters are the basic unit of organization of encoded text.</p>
 <p>A {{ByteString}} depends on the <a>character encoding form</a> used to encode characters into bytes. <a>Legacy character encodings</a> do not have a concept of "surrogates", so there is generally no way to encode a surrogate code point. Valid <a>UTF-8</a> does not permit surrogate code points: these are replaced by <span class="codepoint" translate="no"><bdi lang="und">&#xFFFD;</bdi><code class="uname">U+FFFD REPLACEMENT CHARACTER</code></span> when encoding text to or decoding text from <a>UTF-8</a>. When converting <a href="https://www.w3.org/TR/i18n-glossary/#dfn-utf-16">UTF-16</a> to <a>UTF-8</a>, any <a>surrogate pairs</a> are transformed into the proper UTF-8 byte sequence encoding the specific <a>scalar value</a>.</p>
 
 
-<div class="req" id="char_string_default">
-	<p class="advisement">Unless you have a reason not to, use a string definition consistent with {{DOMString}}.</p>
+<div class="req" id="char_string_dom">
+	<p class="advisement">Use a {{DOMString}} when defining document formats or the wire format of a protocol, or for any process pertaining to the [[DOM]], or which defines strings as opaque values whose individual character contents are not meant to be evaluated. (This list of uses is not exhaustive.)</p>
 	
-	<details class="links"><summary>explanations &amp; examples</summary>
+	<!-- Ed: the id char_string_default is kept for historical reasons. -->
+	<details class="links" id="char_string_default"><summary>explanations &amp; examples</summary>
 	   <p>Definition of <a href="https://infra.spec.whatwg.org/#string">string</a> in [[INFRA]]</p>
 	   <p><a href="https://www.w3.org/TR/design-principles/#idl-string-types">IDL String Types</a> in <cite>Web Platform Design Principles</cite> [[DESIGN-PRINCIPLES]]</p>
 	   <p><a href="https://www.w3.org/TR/charmod/#sec-Strings">String concepts, C012</a>, in <cite>Character Model for the World Wide Web: Fundamentals</cite>.</p>
 	</details>
-</div>
-
-<div class="req" id="char_string_dom">
-	<p class="advisement">Use a {{DOMString}} when defining document formats or the wire format of a protocol, or for any process pertaining to the [[DOM]], or which defines strings as opaque values whose individual character contents are not meant to be evaluated. (This list of uses is not exhaustive.)</p>
 </div>
 
 <div class="req" id="char_string_usv">
@@ -2071,7 +2068,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 
 
 <div class="req" id="char-string-avoid-mixing">
-	<p class="advisement">Avoid mixing {{DOMString}} and {{USVString}} in a single document or protocol operation. A {{USVString}} requires extra processing, which for most document formats or protocols provides very little benefit or gain.</p>
+	<p class="advisement">Avoid mixing {{DOMString}} and {{USVString}} in a single document or protocol operation. Often you will choose a {{DOMString}} over a {{USVString}}, since the latter requires extra processing that does not benefit most document formats or protocols.</p>
 </div>
 
 <div class="req" id="char_string_byte">
