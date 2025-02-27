@@ -1275,29 +1275,39 @@
 
     <p>The term <em>character</em> is often used to mean different things in different contexts: it can variously refer to the visual, logical, or byte-level representation of a given piece of text. This makes the term too imprecise to use when specifying algorithms, protocols, or document formats. Understanding how characters are defined and encoded in computing systems, along with the associated terminology used to make such specification unambiguous, is thus a necessary prerequisite to discussing the processing of string data.</p>
 
-    <p>The visual manifestation of a "character"&mdash;the shape most people mean when they say "character"&mdash;is what we call a <dfn class="lint-ignore">user-perceived character</dfn>. These visual building blocks are usually perceived to be a single unit of the visible text.</p>
+    <p>The visual manifestation of a "character"&mdash;the shape most people mean when they say "character"&mdash;is what we call a <dfn class="lint-ignore">typographical unit</dfn>. Sometimes a typographic unit is said to be a <dfn class="lint-ignore">user-perceived character</dfn>, although this name can be misleading, as some users in certain scripts will "perceive" (read) a single typographic unit as separate "characters" (such as when certain South Asian scripts use "stacks"). The visual building blocks of a typographic unit are usually perceived to be a single unit of the visible text.</p>
 
-    <p>At their simplest, user-perceived characters are a single shape that can be tied one-to-one to the underlying computing representation. But a user-perceived character can be formed, in some scripts, from more than one character. And a given logical character can take many different shapes due to such influences as font selection, style, or the surrounding context (such as adjacent characters). In some cases, a single user-perceived character might be formed from a long sequence of logical characters. And some logical characters (so-called "combining marks") are always used in conjunction with another character.</p>
+    <p>At their simplest, typographic units are a single shape that can be tied one-to-one to the underlying computing representation. But a typographic unit can be formed, in some scripts, from more than one character. And a given logical character can take many different shapes due to such influences as font selection, style, or the surrounding context (such as adjacent characters). In some cases, a single typographic unit might be formed from a long sequence of logical characters. And some logical characters (so-called "combining marks") are always used in conjunction with another character to form a typographic unit.</p>
 
-    <p>When user-perceived characters are represented visibly (on screen or in print), they are represented by individual rendering units. This visual unit is called a [=grapheme=] (the word [=glyph=] is also used). Graphemes are the visual units found in fonts and rendering software.</p>
+    <p>When typographic units are represented visibly (on screen or in print), they are represented by individual rendering units. This visual unit is called a [=grapheme=] (the word [=glyph=] is also used). Graphemes are the visual units found in fonts and rendering software.</p>
     
-    <aside class=note>
-		<p>[[Unicode]] provides a definition for approximately computing [=grapheme=] boundaries. The boundaries defined by [[Unicode]] are called [=grapheme clusters=]. Unless otherwise specified, the term [=grapheme cluster=] in this document refers to what [[UAX29]] refers to as an "extended default grapheme cluster".</p>
-		<p>For many languages and scripts, there is little difference between a [=grapheme=] and a [=grapheme cluster=]. However, for a number of languages and scripts, particularly those found in South Asia, the difference can be important.</p>
-		<p>For example, the Bangla user-perceived character <em>kshī</em> <span class="codepoint" translate="no"><bdi lang="bn">ক্ষী</bdi></span> is composed of four characters: <span class="codepoint" translate="no"><code class="uname">U+0995 BENGALI LETTER KA</code> + <code class="uname">U+09CD BENGALI SIGN VIRAMA</code> + <code class="uname">U+09B7 BENGALI LETTER SSA</code> + <code class="uname">U+09C0 BENGALI VOWEL SIGN II</code>.
-		<p>Unicode splits these into two grapheme clusters, unless language-specific tailoring is applied. For more information, see our article <a href="https://www.w3.org/International/articles/definitions-characters/index.en.html#characters">Character encodings: Essential concepts</a>.</p>
-    </aside>
-
-    <aside class=example title="Examples of graphemes and user-perceived characters">
-		<p>Here is the word for "Unicode" in the Latin, Katakana, Arabic, and Devanagari scripts.</p>
-		<p class=bigtext>Unicode
-		   <span lang=ja>&#x30E6;&#x30CB;&#x30B3;&#x30FC;&#x30C9;</span>
-		   <span lang=ar dir=rtl>&#x064A;&#x0648;&#x0646;&#x064A;&#x0643;&#x0648;</span>
+    <aside class=example title="Examples of graphemes and typographic units">
+		<p>Here is the word for "Unicode" in the English (which uses the Latin script) and Hindi (which uses the Devanagari script).</p>
+		<p class=bigtext>Unicode<br>
 		   <span lang=hi>&#x092F;&#x0942;&#x0928;&#x093F;&#x0915;&#x094B;&#x0921;</span>
 		</p>
-		<p>The last example, in the Devanagari script (which is used to write Hindi, among other languages) is made up of four graphemes:</p>
+		<p>The Hindi word is made up of four graphemes:</p>
 		<p class=bigtext lang=hi>&#x092F;&#x0942;&nbsp;&#x0928;&#x093F;&nbsp;&#x0915;&#x094B;&nbsp;&#x0921;</p>
     </aside>
+    
+	<p>[[Unicode]] provides a definition for approximately computing [=grapheme=] boundaries. The boundaries defined by [[Unicode]] are called [=grapheme clusters=]. Unless otherwise specified, the term [=grapheme cluster=] in this document refers to what [[UAX29]] refers to as an "extended default grapheme cluster".</p>
+	
+    <p>For many languages and scripts, there is little difference between a [=grapheme=] and a [=grapheme cluster=]. However, for some languages and scripts, particularly those found in South Asia, the difference can be important. Work is on-going at Unicode to narrow or eliminate gaps between grapheme and grapheme cluster definitions. For example, this section previously used an example in Bangla, but the Bengali script was corrected in Unicode 15.1.</p>
+
+	<aside class="example" title="Difference between Unicode grapheme cluster and a typographic unit">
+	<p>In Balinese, the word "ᬅᬲ᭄ᬢ", which means "to be", is composed of this character sequence: 
+	<span class="codepoint" translate="no"><bdi lang="ban">&#x1B05;</bdi><code class="uname">U+1B05 BALINESE LETTER AKARA</code></span>
+	<span class="codepoint" translate="no"><bdi lang="ban">&#x1B32;</bdi><code class="uname">U+1B05 BALINESE LETTER SA</code></span>
+	<span class="codepoint" translate="no"><bdi lang="ban">&#x1B44;</bdi><code class="uname">U+1B05 BALINESE ADEG ADEG</code></span>
+	<span class="codepoint" translate="no"><bdi lang="ban">&#x1B22;</bdi><code class="uname">U+1B05 BALINESE LETTER TA</code></span>.
+	Currently, the rules in [[UAX29]] break this into three extended default grapheme clusters, like this:</p>
+	<img src="images/balinese-gc.png">
+		
+	<p>However, the <em>adeg adeg</em> (which functions similar to a [=virama=]) should result in the just two typographic units, like this:</p>
+	<img src="images/balinese-ortho-syllab.png">
+	</aside>
+		
+	<p>For more information, see our article <a href="https://www.w3.org/International/articles/definitions-characters/index.en.html#characters">Character encodings: Essential concepts</a>.</p>
 
     <p>Graphemes are encoded into computer systems using "logical characters". A <a>character set</a> is a set of logical characters: a specific collection of characters that can be used together to encode text. The most important character set is the <a>Universal Character Set</a>, also known as [[Unicode]]. This character set includes all of the characters used to encode text, including historical or extinct writing systems as well as modern usage, private use, typesetting symbols, and other things, such as the emoji. Other character sets are defined subsets of Unicode. In Unicode, a 'character' is a single abstract logical unit of text. Each character in Unicode is assigned a unique integer number between <code>0x0000</code> and <code>0x10FFFF</code>, which is called its <a>code point</a>. The term <a>code point</a> therefore unambiguously refers to a single logical character and its integer representation.</p>
 
