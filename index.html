@@ -1303,7 +1303,7 @@
 	   <p class="advisement">Specifications SHOULD use the term [=code point=] instead of the term 'character'. If the term 'character' is used, it MUST be explicitly defined to mean a Unicode [=code point=]. The term [=Unicode Scalar Value=] MAY also be used.</p>
 	</div>
 
-    <p>The relationship between code points and typographic units can be complex. In most cases, a code point sequence that forms a single grapheme cluster should be treated as a single textual unit. For example, when cursoring across text, the cursor should "jump across" or select the entire typographic unit (and its underlying code points) together. It shouldn't be possible to cursor into the "middle" of a typographic unit.</p>
+    <p>The relationship between code points and typographic units can be complex. In most cases, a code point sequence that forms a single typographic unit should be treated as a single textual unit. For example, when cursoring across text, the cursor should "jump across" or select the entire typographic unit (and its underlying code points) together. It shouldn't be possible to cursor into the "middle" of a typographic unit.</p>
     
 	<p>[[Unicode]] provides a definition for approximately computing the boundaries in a sequence of characters between typographic units. The boundaries defined by [[Unicode]] are called [=grapheme clusters=]. Unless otherwise specified, the term [=grapheme cluster=] in this document refers to what [[UAX29]] refers to as an "extended default grapheme cluster".</p>
 	
