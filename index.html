@@ -3018,7 +3018,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 
     <p>When truncating strings, it's necessary to decide what units to use when counting the size of the string. In many cases this is beyond the control of the specification, since the truncation is occuring for some preordained reason. However, when the choice is available, some general guidelines can be applied.</p>
 
-    <p>If the limitation is related to the number of display positions, the grapheme count usually corresponds most closely to the expected limit. Note that proportional width fonts, combining marks, complex scripts, and many other factors complicate counting "screen positions". In Web pages, for example, the CSS <kbd>text-overflow</kbd> property provides visual truncation without disturbing the content of the text. Attempts to estimate the size of a given piece of text based on the number of Unicode code points or even the number of grapheme clusters is mostly futile.</p>
+    <p>If the limitation is related to the number of display positions, the number of typographic units will correspond more closely to the expected limit than the number of [=code points=] or [=code units=]. Note that proportional width fonts, combining marks, complex scripts, and many other factors complicate counting "screen positions". In Web pages, for example, the CSS <kbd>text-overflow</kbd> property provides visual truncation without disturbing the content of the text. Attempts to estimate the size of a given piece of text based on the number of Unicode [=code points=] or even the number of [=grapheme clusters=] is mostly futile.</p>
 
     <p>Otherwise most limits are expressed in terms of code points in Unicode or code units (such as bytes) in a specific character encoding. Code points provides the best user experience, since all Unicode code points are treated identically: if text is truncated after 40 code points, all languages and scripts get the same number of code points to work with. By contrast, when the size limit is expressed in code units such as bytes in UTF-8, users who write in a language that mostly uses ASCII letters get many more characters (code points) for a given size limit than user's whose language is mostly made up of characters that take 2-, 3-, or 4-bytes per code point.</p>
 
@@ -3076,7 +3076,12 @@ just as characters are the basic unit of organization of encoded text.</p>
 
 
 	<div class="req" id="char_trunc_units">
-	<p class="advisement">Specifications that limit the length of a string MUST specify which type of unit (extended grapheme clusters, Unicode code points, or code units) the length limit uses.</p>
+	<p class="advisement">Specifications that limit the length of a string MUST specify which type of unit the length limit uses. These might be:
+	   <ul>
+		   <li>typographic units (usually approximated as [=grapheme clusters=])</li>
+		   <li>Unicode [=code points=]</li>
+		   <li>[=code units=] (such as bytes) in a given [=character encoding=]</li>
+	   </ul></p>
 	</div>
 
 	<div class="req" id="char_trunc_unit_rec">
@@ -3089,16 +3094,16 @@ just as characters are the basic unit of organization of encoded text.</p>
 
 	
 	<p>Note that this best practice applies equally to specifications based on UTF-16, which uses 16-bit code units, not just to multibyte encodings such as UTF-8.</p>
-    	<p>Specifications or APIs that interact with the [[DOM]] need to contend with the fact that character data, including operations such as <kbd>length</kbd>, <kbd>substringData</kbd>, <kbd>insertData</kbd>, <kbd>deleteData</kbd>, and so forth, is specified using UTF-16 code units, not Unicode code points. This can lead to inappropriate mid-character (code point) truncation. Specifications that reference DOM should specify that string operations not occur inside code points, and, where appropriate avoid starting or ending inside grapheme boundaries. Specifications should also include a health warning for implementers and users.</p>
+    	<p>Specifications or APIs that interact with the [[DOM]] need to contend with the fact that character data, including operations such as <kbd>length</kbd>, <kbd>substringData</kbd>, <kbd>insertData</kbd>, <kbd>deleteData</kbd>, and so forth, is specified using UTF-16 code units, not Unicode code points. This can lead to inappropriate mid-character (code point) truncation. Specifications that reference DOM should specify that string operations not occur inside code points, and, where appropriate avoid starting or ending inside typographic unit boundaries. Specifications should also include a health warning for implementers and users.</p>
     	<div class=example>
 		<p>Example warning. Modify this health warning as appropriate for your specification:</p>
 		<div class="example_div">
-		<p class="warning">Arbitrary index values in the DOM may not fall on character or grapheme boundaries. Implementations and users should avoid incorrectly starting or ending operations in the middle of a user-perceived character sequence.</p>
+		<p class="warning">Arbitrary index values in the DOM may not fall on character or typographic unit boundaries. Implementations and users should avoid incorrectly starting or ending operations in the middle of a user-perceived character sequence.</p>
 		</div>
     	</div>
 
 	<div class="req" id="char_trunc_grapheme_boundary">
-	<p class="advisement">Specifications that limit the length of a string SHOULD require truncation on grapheme boundaries, as truncation in the midst of a <a>grapheme</a> or <a>combining character sequence</a> can alter the meaning of the string.</p>
+	<p class="advisement">Specifications that limit the length of a string SHOULD require truncation on typographic unit boundaries (usually as approximated by [=grapheme cluster=] boundaries), as truncation in the midst of a typographic unit such as a <a>combining character sequence</a> can alter the meaning of the string.</p>
 	</div>
 
 	<div class="req" id="char_trunc_indicator">
@@ -3751,7 +3756,7 @@ transactionResult: [ SUCCESS, NOT_AUTHORIZED, INTERNAL_ERROR, UNKNOWN_ERROR ]
 	</div>
 
 	<div class="req" id="vertical_upright">
-	<p class="advisement">By default, glyphs of scripts that are normally horizontal should run along a line in vertical text such that the top of the character is toward the right side of the vertical line, but there should also be a mechanism to allow them to progress down the line in upright orientation. Such a mechanism should use grapheme clusters as a minimum text unit, but where necessary allow syllabic clusters to be treated as a unit when they involve more than one grapheme cluster.</p>
+	<p class="advisement">By default, glyphs of scripts that are normally horizontal should run along a line in vertical text such that the top of the character is toward the right side of the vertical line, but there should also be a mechanism to allow them to progress down the line in upright orientation. Such a mechanism should use typographic units (such as [=grapheme clusters=]) as a minimum text unit, but where necessary allow syllabic clusters to be treated as a unit when they involve more than one grapheme cluster.</p>
 	</div>
 
   	<div class="req" id="vertical_upright_arabic">
@@ -3921,7 +3926,7 @@ transactionResult: [ SUCCESS, NOT_AUTHORIZED, INTERNAL_ERROR, UNKNOWN_ERROR ]
 	<li>Chinese, Japanese and Korean wrap after characters, but don't put certain characters at the start/end of a line.</li>
 	<li>Thai and other SE Asian scripts wrap at word boundaries, but words are not delimited by spaces – spaces are instead used to separate phrases.</li>
 	<li>Tibetan wraps after the tsek character that follows a syllable – words are not separated by spaces, and lines can break within a word.</li>
-	<li>Indic and other complex scripts break at orthographic syllable boundaries, which are often two or more grapheme clusters.</li>
+	<li>Indic and other complex scripts break at orthographic syllable boundaries; in some cases these are comprised of two or more [=grapheme clusters=].</li>
 	</ul>
 <p>See the <a href="https://www.w3.org/TR/css-text-3/#line-breaking">CSS Text Level 3 specification</a> for additional background. (<a href="https://r12a.github.io/scripts/tutorial/part5">This tutorial</a> provides additional examples, if needed.)</p>
 
