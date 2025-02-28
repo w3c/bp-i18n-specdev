@@ -1288,7 +1288,7 @@
     <aside class="example" title="Examples of typographic units">
 		<p>Here is the word for "Unicode" in the English language (which uses the Latin script). It is made up of seven characters that form seven typographic units:</p>
 		<p class="bigtext" style="margin-block-start: 12px; margin-block-end: 12px">Unicode</p>
-		<p>THere is the word for "Unicode" in the Hindi language (which uses the Devanagari script). It is also made up of seven characters, but these characters form only four typographic units:</p>
+		<p>Here is the word for "Unicode" in the Hindi language (which uses the Devanagari script). It is also made up of seven characters, but these characters form only four typographic units:</p>
 		<p><span class="bigtext" lang="hi">&#x092F;&#x0942;&#x0928;&#x093F;&#x0915;&#x094B;&#x0921;</span> ⇒
 		<span class="bigtext" lang="hi">&#x092F;&#x0942;&nbsp;&#x0928;&#x093F;&nbsp;&#x0915;&#x094B;&nbsp;&#x0921;</p>
     </aside>
@@ -1303,7 +1303,7 @@
 	   <p class="advisement">Specifications SHOULD use the term [=code point=] instead of the term 'character'. If the term 'character' is used, it MUST be explicitly defined to mean a Unicode [=code point=]. The term [=Unicode Scalar Value=] MAY also be used.</p>
 	</div>
 
-    <p>The relationship between code points and typographic units can be complex. In most cases, a code point sequence that forms a single grapheme cluster should be treated as a single textual unit. For example, when cursoring across text, the cursor should "jump across" or select the entire typographic unit (and its underlying code points) together. It shouldn't be possible to cursor into the "middle" of a grapheme cluster.</p>
+    <p>The relationship between code points and typographic units can be complex. In most cases, a code point sequence that forms a single grapheme cluster should be treated as a single textual unit. For example, when cursoring across text, the cursor should "jump across" or select the entire typographic unit (and its underlying code points) together. It shouldn't be possible to cursor into the "middle" of a typographic unit.</p>
     
 	<p>[[Unicode]] provides a definition for approximately computing the boundaries in a sequence of characters between typographic units. The boundaries defined by [[Unicode]] are called [=grapheme clusters=]. Unless otherwise specified, the term [=grapheme cluster=] in this document refers to what [[UAX29]] refers to as an "extended default grapheme cluster".</p>
 	
@@ -1362,10 +1362,10 @@
 
 
     <p>Another example of the complex relationship between code points and grapheme clusters are certain emoji. The emoji character for "family" has a code point in Unicode: <span class="codepoint" translate="no"><bdi lang="en">&#x1F46A;</bdi><code class="uname">U+1F46A FAMILY</code></span>. It can also be formed by using using a sequence of code points: <code class="uname">U+1F468 U+200D U+1F469 U+200D U+1F466</code>. Altering or adding other emoji characters can alter the composition of the family. For example the sequence <span class="codepoint" translate="no"><bdi translate="no">&#x1f468;&#x200d;&#x1f469;&#x200d;&#x1f467;&#x200d;&#x1f467;</bdi><code class="uname" translate="no">U+1F468 U+200D U+1F469 U+200D U+1F467 U+200D U+1F467</code></span> results in a composed emoji character for a "family: man, woman, girl, girl" on systems that support this kind of composition. Many common emoji can <em>only</em> be formed using sequences of code points, but should be treated as a single typographic unit when displaying or processing the text. You wouldn't want to put a line-break in the middle of the family!</p>
-
-    <p>Unicode code points are just abstract integer values: they are not the values actually present in the memory of the computer or serialized on the wire. When processing text, computers use an array of fixed-size integer units. One such common unit is the <dfn class="lint-ignore">byte</dfn> (or <em>octet</em>, since bytes have 8 bits per unit). There are also 16-bit, 32-bit, or other size units. In many programming languages, the unit is called a <code>char</code>, which suggests that strings are made of "characters". We use the term <a>code unit</a> to refer unambiguously to the programming and serialized representation of characters. For example, in C, a <code>char</code> is generally an 8-bit byte: each <code>char</code> is a 8-bit code unit. In Java or Javascript, a <code>char</code> is a 16-bit value.</p>
-
-    <p>A set of rules for converting [=code points=] to or from [=code units=] is called a <a>character encoding form</a> (or just "character encoding" for short. (Non-Unicode character encoding forms are called [=legacy character encodings=].)</p>
+    
+    <p>Unicode [=code points=] are not the values actually used when processing or serializing text in a computing system. Text processing instead depends on sequences of fixed-size integer units called [=code units=]. There are different sizes of [=code unit=]. The most familiar of these is called a <dfn class="lint-ignore">byte</dfn> or <em>octet</em>, consisting of 8 bits. Other [=code units=] might use 16 or 32 bits.</p>
+    
+    <p>We need a set of rules to convert between [=code points=] in a [=character set=] and [=code units=] in storage. These rules are called a [=character encoding form=] (or [=character encoding=] for short). Non-Unicode character encoding forms are called [=legacy character encodings=]. For information on choosing a character encoding, see: [[[#char_choosing]]].</p>
 
     <aside class="example" title="UTF-8 Character Encoding Form">
 
