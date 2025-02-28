@@ -237,9 +237,11 @@ h4 { 	color: #005a9c; margin-top: 2em;  }
 .subtopic, .topic { clear: both; }
 
 .bigtext {
-    font-size: 36pt;
+    font-size: 30pt;
     color: blue;
     text-align: left;
+    margin-block-start: 12px;
+    margin-block-end: 12px;
     }
 
 aside h2 {
