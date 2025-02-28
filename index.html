@@ -1283,19 +1283,17 @@
 
     <p>Sometimes a typographic unit is said to be a <dfn class="lint-ignore">user-perceived character</dfn>, although this name can be misleading, as some users in certain scripts will "perceive" (read) a single typographic unit as separate "characters", such as when certain South Asian scripts use "stacks".</p>
     
-    <p>At their simplest, typographic units are a single shape ([=glyph=]) that can be tied one-to-one to a "character" in the computer's memory. But a typographic unit can also be formed from a sequences of characters.</p>
+    <p>At their simplest, typographic units are a single shape ([=glyph=]) that can be tied one-to-one to a "character" in the computer's memory. But a typographic unit can also be formed from a sequence of characters.</p>
     
     <aside class="example" title="Examples of typographic units">
-		<p>Here is the word for "Unicode" in the English (which uses the Latin script). It is made up of seven characters that form seven typographic units:</p>
+		<p>Here is the word for "Unicode" in the English language (which uses the Latin script). It is made up of seven characters that form seven typographic units:</p>
 		<p class="bigtext" style="margin-block-start: 12px; margin-block-end: 12px">Unicode</p>
-		<p>THere is the word for "Unicode" in the Hindi language, which uses the Devanagari script. It is also made up of seven characters, but these characters form only four typographic units:</p>
+		<p>THere is the word for "Unicode" in the Hindi language (which uses the Devanagari script). It is also made up of seven characters, but these characters form only four typographic units:</p>
 		<p><span class="bigtext" lang="hi">&#x092F;&#x0942;&#x0928;&#x093F;&#x0915;&#x094B;&#x0921;</span> ⇒
 		<span class="bigtext" lang="hi">&#x092F;&#x0942;&nbsp;&#x0928;&#x093F;&nbsp;&#x0915;&#x094B;&nbsp;&#x0921;</p>
     </aside>
-
-	<p>[[Unicode]] provides a definition for approximately computing the boundaries between typographic units. The boundaries defined by [[Unicode]] are called [=grapheme clusters=]. Unless otherwise specified, the term [=grapheme cluster=] in this document refers to what [[UAX29]] refers to as an "extended default grapheme cluster".</p>
 	
-    <p>Typographic units are the visual representation of an underlying character sequence encoded in the computer's memory. Encoding characters for use by software we have to start by agreeing on what is being encoded.</p>
+    <p>Typographic units are the visual representation of an underlying character sequence encoded in the computer's memory. In order to encode characters for use by software, we have to start by agreeing on what is being encoded.</p>
     
     <p>A <a>character set</a> is quite literally a set: a specific collection of characters that can be used together to encode text, where a "character" means a single abstract unit of text. The most important character set is the <a>Universal Character Set</a>, also known as [[Unicode]]. This character set includes all of the characters used to encode text, including historical or extinct writing systems as well as modern usage, private use, typesetting symbols, and other things, such as the emoji. All other character sets are defined subsets of Unicode.</p>
     
@@ -1305,19 +1303,21 @@
 	   <p class="advisement">Specifications SHOULD use the term [=code point=] instead of the term 'character'. If the term 'character' is used, it MUST be explicitly defined to mean a Unicode [=code point=]. The term [=Unicode Scalar Value=] MAY also be used.</p>
 	</div>
 
-    <p>The relationship between code points and typographic units can be complex. In most cases, a code point sequence that forms a single grapheme cluster should be treated as a single textual unit. For example, when cursoring across text, the cursor should "jump across" or select the entire typographic unit (and its underlying code points) together. It shouldn't be possible to cursor into the "middle" of a grapheme cluster. Because the relationship is not one-to-one between code points and grapheme clusters and because the relationship can be somewhat complex, [[Unicode]] defines a specific type of grapheme: the <a>extended grapheme cluster</a> which most closely matches the mapping of the underlying logical character sequence to a user-perceived character. When referring to 'graphemes' in this document, we mean extended grapheme clusters (unless otherwise called out).</p>
-
+    <p>The relationship between code points and typographic units can be complex. In most cases, a code point sequence that forms a single grapheme cluster should be treated as a single textual unit. For example, when cursoring across text, the cursor should "jump across" or select the entire typographic unit (and its underlying code points) together. It shouldn't be possible to cursor into the "middle" of a grapheme cluster.</p>
+    
+	<p>[[Unicode]] provides a definition for approximately computing the boundaries in a sequence of characters between typographic units. The boundaries defined by [[Unicode]] are called [=grapheme clusters=]. Unless otherwise specified, the term [=grapheme cluster=] in this document refers to what [[UAX29]] refers to as an "extended default grapheme cluster".</p>
+	
     <aside class="example" title="Example of the difference between grapheme clusters and code points">
-		<p>Returning to the example above, the Hindi word for Unicode is made of four graphemes:</p>
-		<p class="bigtext" lang="hi">&#x092F;&#x0942;&nbsp;<span style="color:red">&#x0928;&#x093F;</span>&nbsp;&#x0915;&#x094B;&nbsp;&#x0921;</p>
-		<p>Several of these graphemes are made up of more than one Unicode character because of the way that the Devanagari script works. In Devanagari, the basic set of "letters" are syllables ending with the short 'a' vowel sound. When you want to use a different vowel, you add a combining vowel character that changes the shape of the grapheme. The red text in the example above is the syllable "ni" in "Unicode". It is made of two characters: U+0928 (the syllable "na") and U+093F (combining "short i" sound):</p>
+		<p>Returning to the example above, the Hindi word for "Unicode" is made of four typographical units:</p>
+		<p class="bigtext" lang="hi">&#x092F;&#x0942;&nbsp;<span style="color:red"><strong>&#x0928;&#x093F;</strong></span>&nbsp;&#x0915;&#x094B;&nbsp;&#x0921;</p>
+		<p>Several of these typographical units are made up of more than one Unicode character because of the way that the Devanagari script works. In Devanagari, the basic set of "letters" are syllables ending with the short 'a' vowel sound. When you want to use a different vowel, you add a combining vowel character that changes the shape of the grapheme. The red text in the example above is the syllable "ni" in "Unicode". It is made of two characters: U+0928 (the syllable "na") and U+093F (combining "short i" sound):</p>
 
 		<table>
 			<tr>
 				<td class="bigtext">&#x092f;</td>
 				<td class="bigtext">&#x0942;</td>
-				<td class="bigtext" style="color:red">&#x0928;</td>
-				<td class="bigtext" style="color:red">&#x093f;</td>
+				<td class="bigtext" style="color:red"><strong>&#x0928;</strong></td>
+				<td class="bigtext" style="color:red"><strong>&#x093f;</strong></td>
 				<td class="bigtext">&#x0915;</td>
 				<td class="bigtext">&#x094b;</td>
 				<td class="bigtext">&#x0921;</td>
