@@ -1361,7 +1361,9 @@
 	</p>
 
 
-    <p>Another example of the complex relationship between code points and grapheme clusters are certain emoji. The emoji character for "family" has a code point in Unicode: <span class="codepoint" translate="no"><bdi lang="en">&#x1F46A;</bdi><code class="uname">U+1F46A FAMILY</code></span>. It can also be formed by using using a sequence of code points: <code class="uname">U+1F468 U+200D U+1F469 U+200D U+1F466</code>. Altering or adding other emoji characters can alter the composition of the family. For example the sequence <span class="codepoint" translate="no"><bdi translate="no">&#x1f468;&#x200d;&#x1f469;&#x200d;&#x1f467;&#x200d;&#x1f467;</bdi><code class="uname" translate="no">U+1F468 U+200D U+1F469 U+200D U+1F467 U+200D U+1F467</code></span> results in a composed emoji character for a "family: man, woman, girl, girl" on systems that support this kind of composition. Many common emoji can <em>only</em> be formed using sequences of code points, but should be treated as a single typographic unit when displaying or processing the text. You wouldn't want to put a line-break in the middle of the family!</p>
+    <aside class="example" id="family_example" title="Composing Emoji Sequences">
+        <p>Another example of the complex relationship between code points and grapheme clusters are certain emoji. The emoji character for "family" has a code point in Unicode: <span class="codepoint" translate="no"><bdi lang="en">&#x1F46A;</bdi><code class="uname">U+1F46A FAMILY</code></span>. It can also be formed by using using a sequence of code points: <code class="uname">U+1F468 U+200D U+1F469 U+200D U+1F466</code>. Altering or adding other emoji characters can alter the composition of the family. For example the sequence <span class="codepoint" translate="no"><bdi translate="no">&#x1f468;&#x200d;&#x1f469;&#x200d;&#x1f467;&#x200d;&#x1f467;</bdi><code class="uname" translate="no">U+1F468 U+200D U+1F469 U+200D U+1F467 U+200D U+1F467</code></span> results in a composed emoji character for a "family: man, woman, girl, girl" on systems that support this kind of composition. Many common emoji can <em>only</em> be formed using sequences of code points, but should be treated as a single typographic unit when displaying or processing the text. You wouldn't want to put a line-break in the middle of the family!</p>
+    </aside>
     
     <p>Unicode [=code points=] are not the values actually used when processing or serializing text in a computing system. Text processing instead depends on sequences of fixed-size integer units called [=code units=]. There are different sizes of [=code unit=]. The most familiar of these is called a <dfn class="lint-ignore">byte</dfn> or <em>octet</em>, consisting of 8 bits. Other [=code units=] might use 16 or 32 bits.</p>
     
@@ -3020,65 +3022,114 @@ just as characters are the basic unit of organization of encoded text.</p>
 
     <p>If the limitation is related to the number of display positions, the number of typographic units will correspond more closely to the expected limit than the number of [=code points=] or [=code units=]. Note that proportional width fonts, combining marks, complex scripts, and many other factors complicate counting "screen positions". In Web pages, for example, the CSS <kbd>text-overflow</kbd> property provides visual truncation without disturbing the content of the text. Attempts to estimate the size of a given piece of text based on the number of Unicode [=code points=] or even the number of [=grapheme clusters=] is mostly futile.</p>
 
-    <p>Otherwise most limits are expressed in terms of code points in Unicode or code units (such as bytes) in a specific character encoding. Code points provides the best user experience, since all Unicode code points are treated identically: if text is truncated after 40 code points, all languages and scripts get the same number of code points to work with. By contrast, when the size limit is expressed in code units such as bytes in UTF-8, users who write in a language that mostly uses ASCII letters get many more characters (code points) for a given size limit than user's whose language is mostly made up of characters that take 2-, 3-, or 4-bytes per code point.</p>
+    <p>Otherwise most limits are expressed in terms of [=code points=] in Unicode or [=code units=] (such as bytes) in a specific [=character encoding=]. Code points provides the best user experience, since all Unicode code points are treated identically: if text is truncated after 40 code points, all languages and scripts get the same number of code points to work with. By contrast, when the size limit is expressed in code units such as bytes in UTF-8, users who write in a language that mostly uses ASCII letters get many more characters (code points) for a given size limit than user's whose language is mostly made up of characters that take 2-, 3-, or 4-bytes per code point.</p>
 
-    <aside class="example" title="Text truncation in UTF-8">
+    <aside class="example" title="Grapheme clusters vs. code points vs. code units in UTF-8">
 		
 		<p>When truncating text, care needs to be taken to not corrupt the string value. Truncation based on Unicode [=code points=] alone might cause a [=grapheme cluster=] to be truncated. This could result in a different glyph, potentially changing the meaning of the string. For example, figure shows the end of a UTF-8 encoded string whose encoding is 65 bytes long. If truncating to 64 bytes then the final 0x88 byte is removed first to satisfy the size limit. Since that leaves a partial UTF-8 code point, the remainder of that code point must also be removed. Since that leaves a partial grapheme cluster, the remainder of that cluster should also be removed:</p>
 		
 		<img src="images/string-truncation.svg">
-
-        <p>Below you can see the effect of truncating a given string of text encoded in UTF-8 on a 40-byte boundary. There are several things to notice here.</p>
-		<p>First, the number of characters in the truncated string decreases as the number of bytes required per character goes up. So the Cyrillic string has half the number of characters as the ASCII string. The Chinese string has about 1/3 the number. And the emoji string has 1/4.</p>
-		<p>Second, in two of the three examples, the text is truncated on a byte boundary in the middle of a character. The resulting "dangling byte" is rendered as U+FFFD and the byte sequence itself is not valid UTF-8. This can interfere with the validity of a given text file. Unlike many legacy character encodings, UTF-8 is highly patterned, so the the longest broken character sequence that can result from mid-character truncation is one character. By contrast, in many legacy encodings, a file or document containing a mid-character truncated string can be wholly changed or rendered unintelligible after that point.</p>
-		<table class="truncExample">
-		<tr>
-			<th>Script</th>
-			<th>Truncated Length<br>(code points)</th>
-			<th>Avg. Bytes/Code Point</th>
-			<th>Truncated Text<br>Byte Values</th>
-		</tr>
-		<tr>
-			<td rowspan=2>ASCII
-			<td rowspan=2>40</td>
-			<td rowspan=2>1</td>
-			<td><kbd>In the loveliest town of all, where the </kbd></td>
-		</tr>
-		<tr>
-			<td><code>49 6E 20 74 68 65 20 6C 6F 76 65 6C 69 65 73 74 20 74 6F 77 6E 20 6F 66 20 61 6C 6C 2C 20 77 68 65 72 65 20 74 68 65 20</code></td>
-		</tr>
-		<tr>
-			<td rowspan=2>Cyrillic</td>
-			<td rowspan=2>22</td>
-			<td rowspan=2>2</td>
-			<td><kbd>В самом прекрасном го�</kbd></td>
-	    </tr>
-	    <tr>
-			<td><code>D0 92 20 D1 81 D0 B0 D0 BC D0 BE D0 BC 20 D0 BF D1 80 D0 B5 D0 BA D1 80 D0 B0 D1 81 D0 BD D0 BE D0 BC 20 D0 B3 D0 BE <span style="color:red">D0</span></code></td>
-	    </tr>
-		<tr>
-			<td rowspan=2>Han</td>
-			<td rowspan=2>14</td>
-			<td rowspan=2>3</td>
-			<td><kbd lang="zh">在最美丽的城镇，那里的房屋�</kbd></td>
-		</tr>
-		<tr>
-			<td><code>E5 9C A8 E6 9C 80 E7 BE 8E E4 B8 BD E7 9A 84 E5 9F 8E E9 95 87 EF BC 8C E9 82 A3 E9 87 8C E7 9A 84 E6 88 BF E5 B1 8B <span style="color:red">E5</span></code></td>
-	    </tr>
-		<tr>
-			<td rowspan=2>Emoji</td>
-			<td rowspan=2>10
-			<td rowspan=2>4</td>
-			<td><kbd>🙊🙁😢😠😧😎😽😉😄😮</kbd></td>
-		</tr>
-		<tr>
-			<td><code>F0 9F 99 8A F0 9F 99 81 F0 9F 98 A2 F0 9F 98 A0 F0 9F 98 A7 F0 9F 98 8E F0 9F 98 BD F0 9F 98 89 F0 9F 98 84 F0 9F 98 AE</code></td>
-		</tr>
+	</aside>
+	
+	<p>If a text size limit is set in terms of [=code units=] (such as a byte-length limit) in a given [=character encoding=], the limit needs to consider the relative efficiency of the character encoding for different scripts. In particular, [=UTF-8=] is the multibyte character encoding of [[Unicode]]. UTF-8 uses between one and four bytes per [=code point=], depending on what the [=Unicode Scalar Value=] of the character is.</p>
+		
+	<p>When the limit placed on a text field is counted in bytes, the number of characters that can be stored in that field depends on which characters are being stored. To ensure that users who speak various languages are not at a disadvantage, the limit needs to allow for a reasonable number of charactes as encoded in that language.</p>
+	
+	<aside class="example" title="Impact of code unit limits on text size">
+		<p>Here is the <a href="https://en.wikipedia.org/wiki/I_Can_Eat_Glass" target="_blank">famous sentence</a> <q>I can eat glass, it does not hurt me</q> in several languages:</p>
+		
+		<table>
+			<tr>
+				<th>Language</th>
+				<th>Phrase</th>
+                <th style="width:10%">Avg. Bytes/Code Point</th>
+				<th style="width:10%">Length (code points)</th>
+				<th style="width:10%">Length (UTF-8 bytes)</th>
+			</tr>
+			<tr>
+                <td>English</td>
+                <td>I can eat glass, it does not hurt me.</td>
+                <td>1</td>
+                <td>37</td>
+                <td>37</td>
+			</tr>
+			<tr>
+                <td>Macedonian</td>
+                <td>Можам да јадам стакло, а не ме штета.</td>
+                <td>2</td>
+                <td>37</td>
+                <td>65</td>
+			</tr>
+			<tr>
+                <td>Simplified Chinese</td>
+                <td>我能吞下玻璃而不伤身体</td>
+                <td>3</td>
+                <td>11</td>
+                <td>33</td>
+			</tr>
+			<tr>
+                <td>Marathi</td>
+                <td>मी काच खाऊ शकतो, मला ते दुखत नाही.</td>
+                <td>3</td>
+                <td>34</td>
+                <td>84</td>
+			</tr>
+			<tr>
+                <td>Emoji</td>
+                <td>👁🥫🍽️🥛, it does ❌️🤕👤⬅️.</td>
+                <td>4</td>
+                <td>22</td>
+                <td>50</td>
+			</tr>
 		</table>
+        
+        <p>Suppose a limit of 15 "characters" (as counted in <em>bytes</em>) were put on the text field meant to contain each of these sentences. The resulting truncation allows fewer actual characters (as counted in [=code points=] or in typographic units) to be stored:</p>
+        
+        <table>
+            <tr>
+                <th>Language</th>
+                <th>Truncated Message</th>
+                <th>Code Points</th>
+                <th>Grapheme Clusters</th>
+            </tr>
+            <tr>
+                <td>English</td>
+                <td>I can eat glass</td>
+                <td style="text-align:center">15</td>
+                <td style="text-align:center">15</td>
+            </tr>
+            <tr>
+                <td>Macedonian</td>
+                <td>Можам да</td>
+                <td style="text-align:center">8</td>
+                <td style="text-align:center">8</td>
+            </tr>
+            <tr>
+                <td>Simplified Chinese</td>
+                <td>我能吞下玻</td>
+                <td style="text-align:center">5</td>
+                <td style="text-align:center">5</td>
+            </tr>
+            <tr>
+                <td>Marathi</td>
+                <td>मी का</td>
+                <td style="text-align:center">5</td>
+                <td style="text-align:center">3</td>
+            </tr>
+            <tr>
+                <td>Emoji</td>
+                <td>👁🥫🍽️</td>
+                <td style="text-align:center">3</td>
+                <td style="text-align:center">3</td>
+            </tr>
+        </table>
+        
+        <p>While a limit of "15" might sound reasonable for some data values, in fact this limit allows many fewer characters depending on the characters used. Languages that customarily use combining sequences (such as the Marahthi example) might have even fewer grapheme clusters. Or it might not be able to store anything at all.</p>
+        
+        <p>In an earlier example ([[[#family_example]]]), the composed "family" emoji sequence "👨‍👩‍👧‍👧" consists of 7 code points. The byte limit of 15 truncates after the second family member: "👨‍👩‍".</p>
     </aside>
 
-
-	<div class="req" id="char_trunc_units">
+ 	<div class="req" id="char_trunc_units">
 	<div class="advisement"><p>Specifications that limit the length of a string MUST specify which type of unit the length limit uses. These might be:
 	   <ul>
 		   <li>typographic units (usually approximated as [=grapheme clusters=])</li>
