@@ -1361,7 +1361,7 @@
 	</p>
 
 
-    <aside class="example" id="family_example" title="Composing Emoji Sequences">
+    <aside class="example" id="family-example" title="Composing Emoji Sequences">
         <p>Another example of the complex relationship between code points and grapheme clusters are certain emoji. The emoji character for "family" has a code point in Unicode: <span class="codepoint" translate="no"><bdi lang="en">&#x1F46A;</bdi><code class="uname">U+1F46A FAMILY</code></span>. It can also be formed by using using a sequence of code points: <code class="uname">U+1F468 U+200D U+1F469 U+200D U+1F466</code>. Altering or adding other emoji characters can alter the composition of the family. For example the sequence <span class="codepoint" translate="no"><bdi translate="no">&#x1f468;&#x200d;&#x1f469;&#x200d;&#x1f467;&#x200d;&#x1f467;</bdi><code class="uname" translate="no">U+1F468 U+200D U+1F469 U+200D U+1F467 U+200D U+1F467</code></span> results in a composed emoji character for a "family: man, woman, girl, girl" on systems that support this kind of composition. Many common emoji can <em>only</em> be formed using sequences of code points, but should be treated as a single typographic unit when displaying or processing the text. You wouldn't want to put a line-break in the middle of the family!</p>
     </aside>
     
@@ -2565,7 +2565,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 
 </aside>
 
-<p>There are cases where including the character name and additional markup is overly pedantic and detracts from usability, but be cautious about being so informal as to impair meaning. In particular, long sequences will sometimes just list the code points, although the character names should be retained where possible for clarity. An example can be found in this document in the <a href="#family_emoji">discussion of the composed "family" emoji</a>: <span class="codepoint"><bdi lang="en">👨‍👩‍👧‍👧</bdi><code class="uname">U+1F468 U+200D U+1F469 U+200D U+1F467 U+200D U+1F467</code></span></p>
+<p>There are cases where including the character name and additional markup is overly pedantic and detracts from usability, but be cautious about being so informal as to impair meaning. In particular, long sequences will sometimes just list the code points, although the character names should be retained where possible for clarity. An example can be found in this document in the <a href="#family-example">discussion of the composed "family" emoji</a>: <span class="codepoint"><bdi lang="en">👨‍👩‍👧‍👧</bdi><code class="uname">U+1F468 U+200D U+1F469 U+200D U+1F467 U+200D U+1F467</code></span></p>
 
 </section>
 </section>
@@ -3126,7 +3126,7 @@ just as characters are the basic unit of organization of encoded text.</p>
         
         <p>While a limit of "15" might sound reasonable for some data values, in fact this limit allows many fewer characters depending on the characters used. Languages that customarily use combining sequences (such as the Marahthi example) might have even fewer grapheme clusters. Or it might not be able to store anything at all.</p>
         
-        <p>In an earlier example ([[[#family_example]]]), the composed "family" emoji sequence "👨‍👩‍👧‍👧" consists of 7 code points. The byte limit of 15 truncates after the second family member: "👨‍👩‍".</p>
+        <p>In an earlier example ([[[#family-example]]]), the composed "family" emoji sequence "👨‍👩‍👧‍👧" consists of 7 code points. The byte limit of 15 truncates after the second family member: "👨‍👩‍".</p>
     </aside>
 
  	<div class="req" id="char_trunc_units">
