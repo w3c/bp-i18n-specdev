@@ -1277,23 +1277,21 @@
 
     <p>The term <em>character</em> means different things in different contexts: it can variously refer to the visual, logical, or byte-level representation of a given unit of text. This makes the term too imprecise to use casually in specifications. Understanding how text is defined and encoded in computing systems, along with the associated terminology used to make such specification unambiguous, is thus a necessary prerequisite to discussing the processing of string data.</p>
     
-    <p>Starting with the visual appearance of "characters" in the output (on screen or on other media, such as printed on paper), a single visual unit of text is called a <dfn class="lint-ignore">typographical unit</dfn>. A typographical unit generally shouldn't be broken apart by operations such as line-breaking or hyphenation.</p>
+    <p>A <dfn class="lint-ignore">visual text unit</dfn> is a single visible "character" of text. This can be on a screen or in other media, such as printed on paper or written on the back of a napkin. Such units are a matter of perception and the term is necessarily imprecise, particularly when it comes to writing systems that use a combination of combining marks, complex positioning, or complex shaping based on context. A [=visual text unit=] generally shouldn't be broken apart by operations such as line-breaking or hyphenation.</p>
     
-    <p>There are some other terms with similar meanings. The term [=grapheme=] is sometimes used by linguists (and others) to refer to what a typical user would perceive as a single unit. The term [=glyph=] is used by typographers (and others) to refer to an individual rendering unit.</p>
-
-    <p>Sometimes a typographic unit is said to be a <dfn class="lint-ignore">user-perceived character</dfn>, although this name can be misleading, as some users in certain scripts will "perceive" (read) a single typographic unit as separate "characters", such as when certain South Asian scripts use "stacks".</p>
+    <p>There are some other terms with similar meanings. The term [=grapheme=] is sometimes used by linguists (and others) to refer to what a typical user would perceive as a single unit. The term [=glyph=] is used by typographers (and others) to refer to an individual rendering unit. Sometimes a [=visual text unit=] is said to be a <dfn class="lint-ignore">user-perceived character</dfn>, although this name can be misleading, as some users in certain scripts will "perceive" (read) a particular shape in the text as separate "characters", such as when certain South Asian scripts use "stacks".</p>
     
-    <p>At their simplest, typographic units are a single shape ([=glyph=]) that can be tied one-to-one to a "character" in the computer's memory. But a typographic unit can also be formed from a sequence of characters.</p>
+    <p>At their simplest, [=visual text units=] are a single shape ([=glyph=]) that can be tied one-to-one to a "character" in the computer's memory. But a visual text unit can also be formed from a sequence of characters.</p>
     
-    <aside class="example" title="Examples of typographic units">
-		<p>Here is the word for "Unicode" in the English language (which uses the Latin script). It is made up of seven characters that form seven typographic units:</p>
+    <aside class="example" title="Examples of visual text units" id="visual-text-unit-example">
+		<p>Here is the word for "Unicode" in the English language (which uses the Latin script). It is made up of seven Unicode characters that form seven visual text units:</p>
 		<p class="bigtext" style="margin-block-start: 12px; margin-block-end: 12px">Unicode</p>
-		<p>Here is the word for "Unicode" in the Hindi language (which uses the Devanagari script). It is also made up of seven characters, but these characters form only four typographic units:</p>
+		<p>Here is the word for "Unicode" in the Hindi language (which uses the Devanagari script). It is also made up of seven Unicode characters, but these characters form only four visual text units (indicated here with color):</p>
 		<p><span class="bigtext" lang="hi">&#x092F;&#x0942;&#x0928;&#x093F;&#x0915;&#x094B;&#x0921;</span> ⇒
-		<span class="bigtext" lang="hi">&#x092F;&#x0942;&nbsp;&#x0928;&#x093F;&nbsp;&#x0915;&#x094B;&nbsp;&#x0921;</p>
+		<span class="bigtext" lang="hi">&#x092F;&#x0942;&nbsp;<span style="color:red">&#x0928;&#x093F;</span>&nbsp;<span style="color:black">&#x0915;&#x094B;</span>&nbsp;<span style="color:magenta">&#x0921;</span></p>
     </aside>
 	
-    <p>Typographic units are the visual representation of an underlying character sequence encoded in the computer's memory. In order to encode characters for use by software, we have to start by agreeing on what is being encoded.</p>
+    <p>[=Visual text units=] are the visual representation of an underlying character sequence encoded in the computer's memory. In order to encode characters for use by software, we have to start by agreeing on what is being encoded.</p>
     
     <p>A <a>character set</a> is quite literally a set: a specific collection of characters that can be used together to encode text, where a "character" means a single abstract unit of text. The most important character set is the <a>Universal Character Set</a>, also known as [[Unicode]]. This character set includes all of the characters used to encode text, including historical or extinct writing systems as well as modern usage, private use, typesetting symbols, and other things, such as the emoji. All other character sets are defined subsets of Unicode.</p>
     
@@ -1303,14 +1301,14 @@
 	   <p class="advisement">Specifications SHOULD use the term [=code point=] instead of the term 'character'. If the term 'character' is used, it MUST be explicitly defined to mean a Unicode [=code point=]. The term [=Unicode Scalar Value=] MAY also be used.</p>
 	</div>
 
-    <p>The relationship between code points and typographic units can be complex. In most cases, a code point sequence that forms a single typographic unit should be treated as a single textual unit. For example, when cursoring across text, the cursor should "jump across" or select the entire typographic unit (and its underlying code points) together. It shouldn't be possible to cursor into the "middle" of a typographic unit.</p>
+    <p>The relationship between code points and [=visual text units=] can be complex. In most cases, a code point sequence that forms a single visual text unit should be processed as a single, indivisible textual unit. For example, when cursoring across text, the cursor should "jump across" or select the entire visual text unit (and its underlying code points) together. It shouldn't be possible to cursor into the "middle" of a visual text unit.</p>
     
-	<p>[[Unicode]] provides a definition for approximately computing the boundaries in a sequence of characters between typographic units. The boundaries defined by [[Unicode]] are called [=grapheme clusters=]. Unless otherwise specified, the term [=grapheme cluster=] in this document refers to what [[UAX29]] refers to as an "extended default grapheme cluster".</p>
+	<p>[[Unicode]] provides a definition for approximately computing the boundaries in a sequence of characters between visual text units. The boundaries defined by [[Unicode]] are called [=grapheme clusters=]. Unless otherwise specified, the term [=grapheme cluster=] in this document refers to what [[UAX29]] refers to as an "extended default grapheme cluster".</p>
 	
     <aside class="example" title="Example of the difference between grapheme clusters and code points">
-		<p>Returning to the example above, the Hindi word for "Unicode" is made of four typographical units:</p>
+		<p>Returning to [[[#visual-text-unit-example]]] above, the Hindi word for "Unicode" is made of four visual text units:</p>
 		<p class="bigtext" lang="hi">&#x092F;&#x0942;&nbsp;<span style="color:red"><strong>&#x0928;&#x093F;</strong></span>&nbsp;&#x0915;&#x094B;&nbsp;&#x0921;</p>
-		<p>Several of these typographical units are made up of more than one Unicode character because of the way that the Devanagari script works. In Devanagari, the basic set of "letters" are syllables ending with the short 'a' vowel sound. When you want to use a different vowel, you add a combining vowel character that changes the shape of the grapheme. The red text in the example above is the syllable "ni" in "Unicode". It is made of two characters: U+0928 (the syllable "na") and U+093F (combining "short i" sound):</p>
+		<p>Several of these visual text units are made up of more than one Unicode character because of the way that the Devanagari script works. In Devanagari, the basic set of "letters" are syllables ending with the short 'a' vowel sound. When you want to use a different vowel, you add a combining vowel character that changes the shape of the grapheme. The red text in the example above is the syllable "ni" in the transliterated word "Unicode". It is made of two characters: U+0928 (the syllable "na") and U+093F (combining "short i" sound):</p>
 
 		<table>
 			<tr>
@@ -1335,9 +1333,9 @@
 
     </aside>
     
-   <p>For most languages and scripts, there is little difference between a typographic unit and a [=grapheme cluster=]. However, for some languages and scripts, particularly those found in South Asia, the difference can be important. Work is on-going at Unicode to narrow or eliminate gaps between the computed grapheme cluster boundaries and the expected typographic units. For example, this section previously used an example in Bangla, but the Bengali script was corrected in Unicode 15.1.</p>
+   <p>For most languages and scripts, there is little difference between a visual text unit and a [=grapheme cluster=]. However, for some languages and scripts, particularly those found in South Asia, the difference can be important. Work is on-going at Unicode to narrow or eliminate gaps between the computed grapheme cluster boundaries and the expected visual text units. For example, this section previously used an example in Bangla, but the Bengali script was corrected in Unicode 15.1.</p>
 
-	<aside class="example" title="Difference between Unicode grapheme cluster and a typographic unit">
+	<aside class="example" title="Difference between Unicode grapheme cluster and a visual text unit">
 	<p>In Balinese, the word "ᬅᬲ᭄ᬢ", which means "to be", is composed of this character sequence:
 	<ul style="list-style-type:none">
 	   <li><span class="codepoint" translate="no"><bdi lang="ban">&#x1B05;</bdi><code class="uname">U+1B05 BALINESE LETTER AKARA</code></span>
@@ -1349,7 +1347,7 @@
 	<p>Currently, the rules in [[UAX29]] break this by default into three grapheme clusters, like this:</p>
 	<img src="images/balinese-gc.png">
 		
-	<p>However, the <em>adeg adeg</em> (which functions similar to a [=virama=]) should result in just two typographic units, like this:</p>
+	<p>However, the <em>adeg adeg</em> (which functions similar to a [=virama=]) should result in just two visual text units, like this:</p>
 	<img src="images/balinese-ortho-syllab.png">
 	</aside>
 		
@@ -1362,7 +1360,36 @@
 
 
     <aside class="example" id="family-example" title="Composing Emoji Sequences">
-        <p>Another example of the complex relationship between code points and grapheme clusters are certain emoji. The emoji character for "family" has a code point in Unicode: <span class="codepoint" translate="no"><bdi lang="en">&#x1F46A;</bdi><code class="uname">U+1F46A FAMILY</code></span>. It can also be formed by using using a sequence of code points: <code class="uname">U+1F468 U+200D U+1F469 U+200D U+1F466</code>. Altering or adding other emoji characters can alter the composition of the family. For example the sequence <span class="codepoint" translate="no"><bdi translate="no">&#x1f468;&#x200d;&#x1f469;&#x200d;&#x1f467;&#x200d;&#x1f467;</bdi><code class="uname" translate="no">U+1F468 U+200D U+1F469 U+200D U+1F467 U+200D U+1F467</code></span> results in a composed emoji character for a "family: man, woman, girl, girl" on systems that support this kind of composition. Many common emoji can <em>only</em> be formed using sequences of code points, but should be treated as a single typographic unit when displaying or processing the text. You wouldn't want to put a line-break in the middle of the family!</p>
+        <p>Another example of the complex relationship between code points and grapheme clusters are certain emoji. The emoji character for "family" has a code point in Unicode: <span class="codepoint" translate="no"><bdi lang="en">&#x1F46A;</bdi><code class="uname">U+1F46A FAMILY</code></span>. It can also be formed by using using a sequence of code points: <code class="uname">U+1F468 U+200D U+1F469 U+200D U+1F466</code>.</p>
+
+        
+        <table class="cpExample">
+            <tr>
+                <th style="width:10%">Emoji</th>
+                <th>Code Point Sequence</th>
+            </tr>
+            <tr>
+                <td class="bigtext">&#x1F46A;</td>
+                <td><code class="uname">U+1F46A FAMILY</code></td>
+            </tr>
+            <tr>
+                <td class="bigtext">&#x1F468;&#x200d;&#x1f469;&#x200d;&#x1f466;</td>
+                <td><code class="uname">U+1F468 U+200D U+1F469 U+200D U+1F466</code></td>
+            </tr>
+             <tr>
+                <td class="bigtext">&#x1F468;&#x200d;&#x1f469;&#x200d;&#x1f467;&#x200d;&#x1f466;</td>
+                <td><code class="uname">U+1F468 U+200D U+1F469 U+200D U+1F467 U+200D U+1F466</code></td>
+            </tr>  
+            <tr>
+                <td class="bigtext">&#x1F468;&#x1f3ff;&#x200d;&#x1f469;&#x1f3fe;&#x200d;&#x1f467;&#x1f3fc;&#x200d;&#x1f466;</td>
+                <td><code class="uname">U+1F468 U+1F3FF U+200D U+1F469 U+1F3FE U+200D U+1F467 U+1F3FC U+200D U+1F466</code></td>
+            </tr>
+        </table>
+        
+        
+        <p>Altering or adding other emoji characters can alter the composition of the family. For example the sequence <span class="codepoint" translate="no"><bdi translate="no">&#x1f468;&#x200d;&#x1f469;&#x200d;&#x1f467;&#x200d;&#x1f466;</bdi><code class="uname" translate="no">U+1F468 U+200D U+1F469 U+200D U+1F467 U+200D U+1F466</code></span> results in a composed emoji character for a "family: man, woman, girl, boy" on systems that support this kind of composition. The addition of skin tone modifiers further extends the grapheme cluster.</p>
+        
+        <p>Many common emoji can <em>only</em> be formed using sequences of code points, but should be treated as a single visual text unit when displaying or processing the text. You wouldn't want to put a line-break in the middle of the family!</p>
     </aside>
     
     <p>Unicode [=code points=] are not the values actually used when processing or serializing text in a computing system. Text processing instead depends on sequences of fixed-size integer units called [=code units=]. There are different sizes of [=code unit=]. The most familiar of these is called a <dfn class="lint-ignore">byte</dfn> or <em>octet</em>, consisting of 8 bits. Other [=code units=] might use 16 or 32 bits.</p>
@@ -3020,7 +3047,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 
     <p>When truncating strings, it's necessary to decide what units to use when counting the size of the string. In many cases this is beyond the control of the specification, since the truncation is occuring for some preordained reason. However, when the choice is available, some general guidelines can be applied.</p>
 
-    <p>If the limitation is related to the number of display positions, the number of typographic units will correspond more closely to the expected limit than the number of [=code points=] or [=code units=]. Note that proportional width fonts, combining marks, complex scripts, and many other factors complicate counting "screen positions". In Web pages, for example, the CSS <kbd>text-overflow</kbd> property provides visual truncation without disturbing the content of the text. Attempts to estimate the size of a given piece of text based on the number of Unicode [=code points=] or even the number of [=grapheme clusters=] is mostly futile.</p>
+    <p>If the limitation is related to the number of display positions, the number of [=visual text units=] will correspond more closely to the expected limit than the number of [=code points=] or [=code units=]. Note that proportional width fonts, combining marks, complex scripts, and many other factors complicate counting "screen positions". In Web pages, for example, the CSS <kbd>text-overflow</kbd> property provides visual truncation without disturbing the content of the text. Attempts to estimate the size of a given piece of text based on the number of Unicode [=code points=] or even the number of [=grapheme clusters=] is mostly futile.</p>
 
     <p>Otherwise most limits are expressed in terms of [=code points=] in Unicode or [=code units=] (such as bytes) in a specific [=character encoding=]. Code points provides the best user experience, since all Unicode code points are treated identically: if text is truncated after 40 code points, all languages and scripts get the same number of code points to work with. By contrast, when the size limit is expressed in code units such as bytes in UTF-8, users who write in a language that mostly uses ASCII letters get many more characters (code points) for a given size limit than user's whose language is mostly made up of characters that take 2-, 3-, or 4-bytes per code point.</p>
 
@@ -3083,7 +3110,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 			</tr>
 		</table>
         
-        <p>Suppose a limit of 15 "characters" (as counted in <em>bytes</em>) were put on the text field meant to contain each of these sentences. The resulting truncation allows fewer actual characters (as counted in [=code points=] or in typographic units) to be stored:</p>
+        <p>Suppose a limit of 15 "characters" (as counted in <em>bytes</em>) were put on the text field meant to contain each of these sentences. The resulting truncation allows fewer actual characters (as counted in [=code points=] or in [=visual text units=]) to be stored:</p>
         
         <table>
             <tr>
@@ -3132,7 +3159,7 @@ just as characters are the basic unit of organization of encoded text.</p>
  	<div class="req" id="char_trunc_units">
 	<div class="advisement"><p>Specifications that limit the length of a string MUST specify which type of unit the length limit uses. These might be:
 	   <ul>
-		   <li>typographic units (usually approximated as [=grapheme clusters=])</li>
+		   <li>visual text units (usually approximated as [=grapheme clusters=])</li>
 		   <li>Unicode [=code points=]</li>
 		   <li>[=code units=] (such as bytes) in a given [=character encoding=]</li>
 	   </ul>
@@ -3149,16 +3176,16 @@ just as characters are the basic unit of organization of encoded text.</p>
 
 	
 	<p>Note that this best practice applies equally to specifications based on UTF-16, which uses 16-bit code units, not just to multibyte encodings such as UTF-8.</p>
-    	<p>Specifications or APIs that interact with the [[DOM]] need to contend with the fact that character data, including operations such as <kbd>length</kbd>, <kbd>substringData</kbd>, <kbd>insertData</kbd>, <kbd>deleteData</kbd>, and so forth, is specified using UTF-16 code units, not Unicode code points. This can lead to inappropriate mid-character (code point) truncation. Specifications that reference DOM should specify that string operations not occur inside code points, and, where appropriate avoid starting or ending inside typographic unit boundaries. Specifications should also include a health warning for implementers and users.</p>
+    	<p>Specifications or APIs that interact with the [[DOM]] need to contend with the fact that character data, including operations such as <kbd>length</kbd>, <kbd>substringData</kbd>, <kbd>insertData</kbd>, <kbd>deleteData</kbd>, and so forth, is specified using UTF-16 code units, not Unicode code points. This can lead to inappropriate mid-character (code point) truncation. Specifications that reference DOM should specify that string operations not occur inside code points, and, where appropriate avoid starting or ending inside [=visual text unit=] or [=grapheme cluster=] boundaries. Specifications should also include a health warning for implementers and users.</p>
     	<div class=example>
 		<p>Example warning. Modify this health warning as appropriate for your specification:</p>
 		<div class="example_div">
-		<p class="warning">Arbitrary index values in the DOM may not fall on character or typographic unit boundaries. Implementations and users should avoid incorrectly starting or ending operations in the middle of a user-perceived character sequence.</p>
+		<p class="warning">Arbitrary index values in the DOM may not fall on character or [=visual text unit=] boundaries. Implementations and users should avoid incorrectly starting or ending operations in the middle of a [=grapheme cluster=].</p>
 		</div>
     	</div>
 
 	<div class="req" id="char_trunc_grapheme_boundary">
-	<p class="advisement">Specifications that limit the length of a string SHOULD require truncation on typographic unit boundaries (usually as approximated by [=grapheme cluster=] boundaries), as truncation in the midst of a typographic unit such as a <a>combining character sequence</a> can alter the meaning of the string.</p>
+	<p class="advisement">Specifications that limit the length of a string SHOULD require truncation on [=visual text unit=] boundaries (usually as approximated by [=grapheme cluster=] boundaries), as truncation in the midst of a visual text unit such as a <a>combining character sequence</a> can alter the meaning of the string.</p>
 	</div>
 
 	<div class="req" id="char_trunc_indicator">
@@ -3811,7 +3838,7 @@ transactionResult: [ SUCCESS, NOT_AUTHORIZED, INTERNAL_ERROR, UNKNOWN_ERROR ]
 	</div>
 
 	<div class="req" id="vertical_upright">
-	<p class="advisement">By default, glyphs of scripts that are normally horizontal should run along a line in vertical text such that the top of the character is toward the right side of the vertical line, but there should also be a mechanism to allow them to progress down the line in upright orientation. Such a mechanism should use typographic units (such as [=grapheme clusters=]) as a minimum text unit, but where necessary allow syllabic clusters to be treated as a unit when they involve more than one grapheme cluster.</p>
+	<p class="advisement">By default, glyphs of scripts that are normally horizontal should run along a line in vertical text such that the top of the character is toward the right side of the vertical line, but there should also be a mechanism to allow them to progress down the line in upright orientation. Such a mechanism should use visual text units (such as [=grapheme clusters=]) as a minimum text unit, but where necessary allow syllabic clusters to be treated as a unit when they involve more than one grapheme cluster.</p>
 	</div>
 
   	<div class="req" id="vertical_upright_arabic">
