@@ -3051,7 +3051,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 
     <p>Otherwise most limits are expressed in terms of [=code points=] in Unicode or [=code units=] (such as bytes) in a specific [=character encoding=]. Code points provides the best user experience, since all Unicode code points are treated identically: if text is truncated after 40 code points, all languages and scripts get the same number of code points to work with. By contrast, when the size limit is expressed in code units such as bytes in UTF-8, users who write in a language that mostly uses ASCII letters get many more characters (code points) for a given size limit than user's whose language is mostly made up of characters that take 2-, 3-, or 4-bytes per code point.</p>
 
-    <aside class="example" title="Grapheme clusters vs. code points vs. code units in UTF-8">
+    <aside class="example" title="Grapheme clusters vs. code points vs. code units in UTF-8" id="example-gc-cp-cu-trunc">
 		
 		<p>When truncating text, care needs to be taken to not corrupt the string value. Truncation based on Unicode [=code points=] alone might cause a [=grapheme cluster=] to be truncated. This could result in a different glyph, potentially changing the meaning of the string. For example, figure shows the end of a UTF-8 encoded string whose encoding is 65 bytes long. If truncating to 64 bytes then the final 0x88 byte is removed first to satisfy the size limit. Since that leaves a partial UTF-8 code point, the remainder of that code point must also be removed. Since that leaves a partial grapheme cluster, the remainder of that cluster should also be removed:</p>
 		
@@ -3063,7 +3063,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 	<p>When the limit placed on a text field is counted in bytes, the number of characters that can be stored in that field depends on which characters are being stored. To ensure that users who speak various languages are not at a disadvantage, the limit needs to allow for a reasonable number of charactes as encoded in that language.</p>
 	
 	<aside class="example" title="Impact of code unit limits on text size">
-		<p>Here is the <a href="https://en.wikipedia.org/wiki/I_Can_Eat_Glass" target="_blank">famous sentence</a> <q>I can eat glass, it does not hurt me</q> in several languages:</p>
+		<p>Here is the <a href="https://en.wikipedia.org/wiki/I_Can_Eat_Glass" target="_blank">famous sentence</a> <q>I can eat glass, it does not hurt me</q> in several languages or scripts:</p>
 		
 		<table>
 			<tr>
@@ -3088,13 +3088,6 @@ just as characters are the basic unit of organization of encoded text.</p>
                 <td>65</td>
 			</tr>
 			<tr>
-                <td>Simplified Chinese</td>
-                <td>我能吞下玻璃而不伤身体</td>
-                <td>3</td>
-                <td>11</td>
-                <td>33</td>
-			</tr>
-			<tr>
                 <td>Marathi</td>
                 <td>मी काच खाऊ शकतो, मला ते दुखत नाही.</td>
                 <td>3</td>
@@ -3108,9 +3101,37 @@ just as characters are the basic unit of organization of encoded text.</p>
                 <td>22</td>
                 <td>50</td>
 			</tr>
+            <tr>
+                <td>Cuneiform (transliteration)</td>
+                <td>𒀭𒊭𒀭𒈾𒉿𒄑𒊮𒊭𒌅𒍑𒋼𒋢𒁲𒋾𒈾𒌈𒊑𒉿𒁕𒈪𒌍</td>
+                <td>4</td>
+                <td>21</td>
+                <td>84</td>
+                
+            </tr>
 		</table>
         
-        <p>Suppose a limit of 15 "characters" (as counted in <em>bytes</em>) were put on the text field meant to contain each of these sentences. The resulting truncation allows fewer actual characters (as counted in [=code points=] or in [=visual text units=]) to be stored:</p>
+        <p>Suppose a limit of 15 "characters" (as counted in <em>bytes</em>) were put on the text field meant to contain each of these sentences. The resulting truncation allows fewer actual characters (as counted in [=code points=] or in [=visual text units=]) to be stored.</p>
+        
+        <p>If the truncation is done naively at the 15th byte (as described in [[[#example-gc-cp-cu-trunc]]]), the resulting string might contain only a partial character. For example the Marathi has this problem:</p>
+        
+        <table>
+            <tr>
+                <td>Truncated</td>
+                <td>मी का�</td>
+            </tr>
+            <tr>
+                <td>Code Points</td>
+                <td>U+092E U+0940 U+0020 U+0915 U+093E U+FFFD</td>
+            </tr>
+            <tr>
+                <td>UTF-8 Bytes</td>
+                <td><code>E0 A4 AE <strong>|</strong> E0 A5 80 <strong>|</strong> 20 <strong>|</strong> E0 A4 95 <strong>|</strong> E0 A4 BE <strong>|</strong> E0 A4 <span style="color:red">9A <strong>|</strong> 20 <strong>|</strong> E0 A4 96</span></code> ...</td>
+            </tr>
+        </table>
+        
+                
+        <p>A limit of "15 characters" might sound reasonable for a given data value in a given application, if the limit is expressed in bytes the number of characters permitted might greatly disadvantage languages that use more bytes-per-code point in UTF-8. Languages that customarily use combining sequences (such as the Marahthi example) might experience even greater restriction, if the truncation respects grapheme cluster boundaries.</p>
         
         <table>
             <tr>
@@ -3131,12 +3152,7 @@ just as characters are the basic unit of organization of encoded text.</p>
                 <td style="text-align:center">8</td>
                 <td style="text-align:center">8</td>
             </tr>
-            <tr>
-                <td>Simplified Chinese</td>
-                <td>我能吞下玻</td>
-                <td style="text-align:center">5</td>
-                <td style="text-align:center">5</td>
-            </tr>
+
             <tr>
                 <td>Marathi</td>
                 <td>मी का</td>
@@ -3149,11 +3165,15 @@ just as characters are the basic unit of organization of encoded text.</p>
                 <td style="text-align:center">3</td>
                 <td style="text-align:center">3</td>
             </tr>
+            <tr>
+                <td>Cuneiform</td>
+                <td>𒀭𒊭𒀭</td>
+                <td style="text-align:center">3</td>
+                <td style="text-align:center">3</td>               
+            </tr>
         </table>
         
-        <p>While a limit of "15" might sound reasonable for some data values, in fact this limit allows many fewer characters depending on the characters used. Languages that customarily use combining sequences (such as the Marahthi example) might have even fewer grapheme clusters. Or it might not be able to store anything at all.</p>
-        
-        <p>In an earlier example ([[[#family-example]]]), the composed "family" emoji sequence "👨‍👩‍👧‍👧" consists of 7 code points. The byte limit of 15 truncates after the second family member: "👨‍👩‍".</p>
+        <p>In an earlier example ([[[#family-example]]]), the simplest composed "family" emoji sequence "👨‍👩‍👦" consists of 5 code points. The byte limit of 15 truncates in the middle of child family member: "👨‍👩‍�‍".</p>
     </aside>
 
  	<div class="req" id="char_trunc_units">
