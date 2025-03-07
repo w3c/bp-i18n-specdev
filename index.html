@@ -3161,9 +3161,7 @@ just as characters are the basic unit of organization of encoded text.</p>
             </tr>
 		</table>
         
-        <p>Suppose a limit of 15 "characters" (as counted in <em>bytes</em>) were put on the text field meant to contain each of these sentences. The more bytes on average required to encode a [=code point=], the fewer the actual characters (as counted in [=code points=] or in [=visual text units=]) can be stored within a given limit.</p>
-                
-        <p>A limit of "15 characters" might sound reasonable for a given data value in a given application, if the limit is expressed in bytes the number of characters permitted might greatly disadvantage languages that use more bytes-per-code point in UTF-8. Languages that customarily use combining sequences (such as the Marahthi example) might experience even greater restriction, if the truncation respects grapheme cluster boundaries.</p>
+        <p>Suppose a specification wanted to choose a limit of 15 "characters" for the text field to store the given phrases. If the unit of truncation chosen were [=code units=] (in this case <em>bytes</em> in the UTF-8 character encoding), the limit would result in fewer actual [=code points=] for languages and scripts that require more bytes-per-character. The truncation boundary chosen might further disadvantage languages that require combing marks.</p>
         
         <table>
             <tr>
