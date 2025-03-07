@@ -3098,7 +3098,7 @@ just as characters are the basic unit of organization of encoded text.</p>
             <tr><td class="bigtext">யூனிக்<span style="color:red">க</span>...</td></tr>
         </table>
         
-        <p>If, instead, we arbitrarily truncate this text at the 22nd byte, we not only divide a grapheme cluster, but also a code point. The resulting damaged character is replaced in a UTF-8 decoder with the <span class="codepoint"><bdi lang="en">&#xfffd;</bdi><code class="uname">U+FFFD REPLACEMENT CHARACTER</code></span>. In other [=character encodings=], the dangling bytes of the partial code point might combine with other, adjacent data to form undesirable combinations.</p>
+        <p>If, instead, we arbitrarily truncate this text at the 22nd byte, we not only divide a grapheme cluster, but also one of the code points. The resulting damaged character is replaced in a UTF-8 decoder with the <span class="codepoint"><bdi lang="en">&#xfffd;</bdi><code class="uname">U+FFFD REPLACEMENT CHARACTER</code></span>. In other [=character encodings=], the dangling bytes of the partial code point might combine with other, adjacent bytes to form undesirable combinations or garbling all of the subsequent text (an effect sometimes called [=mojibake=]).</p>
         
                 <table>
             <tr><td class="bigtext">யூனிக்கோடு</td></tr>
@@ -3206,33 +3206,7 @@ just as characters are the basic unit of organization of encoded text.</p>
         </table>
         
                 
-        <p>Don't forget [[[#example-gc-cp-cu-trunc]]]: if the truncation is done naively at the 15th byte, the resulting string might contain only a partial character. For example, the Marathi has this problem:</p>
-        
-        <table>
-            <tr>
-                <td>Truncated</td>
-                <td>मी का�...</td>
-            </tr>
-            <tr>
-                <td>Code Points</td>
-                <td class="uname">U+092E U+0940 U+0020 U+0915 U+093E U+FFFD</td>
-            </tr>
-            <tr>
-                <td>UTF-8 Bytes</td>
-                <td><code>E0 A4 AE <strong style="color:green;font-size:115%">|</strong>
-                          E0 A5 80 <strong style="color:green;font-size:115%">|</strong>
-                          20 <strong  style="color:green;font-size:115%">|</strong> 
-                          E0 A4 95 <strong style="color:green;font-size:115%">|</strong> 
-                          E0 A4 BE <strong style="color:green;font-size:115%">|</strong> 
-                          E0 A4 <span style="color:red">9A <strong style="color:green;font-size:115%">|</strong> 
-                          20 <strong style="color:green;font-size:115%">|</strong> 
-                          E0 A4 96</span></code> ...</td>
-            </tr>
-        </table>
-        
-        
-        
-        <p>In ([[[#family-example]]]), the simplest composed "family" emoji sequence "👨‍👩‍👦" consists of 5 code points. The byte limit of 15 truncates in the middle of the child family member: "👨‍👩‍�‍".</p>
+        <p>Don't forget that the limit will also interact with the truncation boundary chosen (as shown in [[[#example-gc-cp-cu-trunc]]]): if the truncation is done naively at the 15th byte, the resulting string might contain only a partial character. For example, the Marathi could experience this problem: <span class="codepoint"><bdi lang="ma">मी का�...</bdi></span>. In [[[#family-example]]], the simplest composed "family" emoji sequence "👨‍👩‍👦" consists of 5 code points. The byte limit of 15 truncates in the middle of the child family member: "👨‍👩‍�‍". If the truncation is done on the [=grapheme cluster=] boundary, the entire family is removed.</p>
     </aside>
 
  	<div class="req" id="char_trunc_units">
