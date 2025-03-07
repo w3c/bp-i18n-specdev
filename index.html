@@ -3046,24 +3046,74 @@ just as characters are the basic unit of organization of encoded text.</p>
     <p>There are many reasons why a length limit might be needed in a specification or format. Generally length limits correspond to underlying limits in the implementation, such as the use of fixed-size fields in a database or data store, the desire to fit into practical boundaries such as packet size, or some other implementation detail related to storage allocation or efficiency.</p>
 
     <p>When truncating strings, it's necessary to decide what units to use when counting the size of the string. In many cases this is beyond the control of the specification, since the truncation is occuring for some preordained reason. However, when the choice is available, some general guidelines can be applied.</p>
+    
+    <div class="req" id="char-trunc-avoid-visual-units">
+        <p class="advisement">Avoid specifying data field length limits in terms of [=visual text units=] (such as [=grapheme clusters=]). Use mechanisms such as CSS <code>text-overflow</code> that depend on font metrics instead.</p>
+    </div>
+    
+    <p>If a text size limitation is related to the number of "display positions", it is tempting to want to use the number of [=visual text units=], since these generally correspond more closely to some arbitrary limit than the number of [=code points=] or [=code units=]. However, limits expressed in such units rarely accomplish their goal effectively because of the nature of text display. Proportional width fonts, complex scripts, styling, accessibility features, and many other factors complicate this. In nearly all cases, a visual text unit limit is really attempting to approximate pixel widths. The limiting measurement requires font metrics in the display context. In Web pages, the CSS <kbd>text-overflow</kbd> property provides visual truncation without disturbing the content of the text. Attempts to estimate the size of a given piece of text based on the number of Unicode [=code points=] or even the number of [=grapheme clusters=] is mostly futile.</p>
+    
+    <aside class="example" title="Grapheme clusters &#x2260; pixels">
+        <p>Size limits based on the number of characters mostly have to do with "text fit" on the screen or in a page. However, the nature of text makes the truncation and limitation of text dependent on font metrics at the time the text is rendered, which won't correspond to some arbitrary integer limit.</p>
+        
+        <p>Consider the words <em>indivisible</em> and <em>memorable</em>. The first has 11 letters, the second only 9 letters. However, <em>indivisible</em> consumes fewer pixels in most proportional fonts (it has a number of letters ‘I’ and ‘L’, which are narrow, versus the ‘M’ in <em>memorable</em>):</p>
+        
+        <img src="images/indivisible-memorable.jpg">
+        
+        <p>Some scripts make the difference between visual text units and pixel size even more obvious. For example, here is the word for "Unicode" in Tamil:</p>
+        
+        <p class="bigtext">யூனிக்கோடு</p>
+        
+        <p>Part of this word is the syllable pronounced 'ko': <span class="codepoint"><bdi lang="ta">கோ</bdi></span>, which is composed of two code points, <span class="codepoint" translate="no"><bdi lang="ta">&#xb95;</bdi><code class="uname">U+0B95 TAMIL LETTER KA</code></span> ‎followed by <span class="codepoint" translate="no"><bdi lang="ta">&#xbcb;</bdi><code class="uname">U+0BCB TAMIL VOWEL SIGN OO</code></span>. This is a <em>single</em> grapheme cluster that appears to take three screen positions.‎</p>
+        
+    </aside>
+    
+    <p>Most limits are actually related to storage limitations, such as the size of a database field or a length limit in a protocol. Such limits are expressed in terms of [=code points=] in Unicode or [=code units=] (such as bytes) in a specific [=character encoding=]. Code points provides the best user experience, since all Unicode code points are treated identically: if text is truncated after 40 code points, all languages and scripts get the same number of code points to work with. By contrast, when the size limit is expressed in code units such as bytes in UTF-8, users who write in a language that mostly uses ASCII letters get many more characters (code points) for a given size limit than user's whose language is mostly made up of characters that take 2-, 3-, or 4-bytes per code point.</p>
+    
+    <p>In addition to choosing how the length limit is expressed (code points vs. bytes), there is also the question of choosing the truncation boundary. Text must never be divided in the middle of a code point, because this results in corrupted characters. Text should never be divided in the middle of a [=grapheme cluster=] because this changes the appearance and meaning of the characters displayed.</p>
 
-    <p>If the limitation is related to the number of display positions, the number of [=visual text units=] will correspond more closely to the expected limit than the number of [=code points=] or [=code units=]. Note that proportional width fonts, combining marks, complex scripts, and many other factors complicate counting "screen positions". In Web pages, for example, the CSS <kbd>text-overflow</kbd> property provides visual truncation without disturbing the content of the text. Attempts to estimate the size of a given piece of text based on the number of Unicode [=code points=] or even the number of [=grapheme clusters=] is mostly futile.</p>
-
-    <p>Otherwise most limits are expressed in terms of [=code points=] in Unicode or [=code units=] (such as bytes) in a specific [=character encoding=]. Code points provides the best user experience, since all Unicode code points are treated identically: if text is truncated after 40 code points, all languages and scripts get the same number of code points to work with. By contrast, when the size limit is expressed in code units such as bytes in UTF-8, users who write in a language that mostly uses ASCII letters get many more characters (code points) for a given size limit than user's whose language is mostly made up of characters that take 2-, 3-, or 4-bytes per code point.</p>
-
-    <aside class="example" title="Grapheme clusters vs. code points vs. code units in UTF-8" id="example-gc-cp-cu-trunc">
+    <aside class="example" title="Choosing the truncation boundary" id="example-gc-cp-cu-trunc">
 		
-		<p>When truncating text, care needs to be taken to not corrupt the string value. Truncation based on Unicode [=code points=] alone might cause a [=grapheme cluster=] to be truncated. This could result in a different glyph, potentially changing the meaning of the string. For example, figure shows the end of a UTF-8 encoded string whose encoding is 65 bytes long. If truncating to 64 bytes then the final 0x88 byte is removed first to satisfy the size limit. Since that leaves a partial UTF-8 code point, the remainder of that code point must also be removed. Since that leaves a partial grapheme cluster, the remainder of that cluster should also be removed:</p>
-		
-		<img src="images/string-truncation.svg">
+		<p>Returning to our example in Tamil, the word for Unicode is encoded like this:</p>
+        
+        <table>
+            <tr>
+               <td>Grapheme clusters</td>
+               <td><span style="color:blue">யூ</span><span style="color:red">னி</span><span style="color:blue">க்</span><span style="color:red">கோ</span><span style="color:blue">டு</span></td>
+            </tr>
+            <tr>
+               <td>Code Points</td>
+               <td class="uname">U+0BAF U+0BC2 U+0BA9 U+0BBF U+0B95 U+0BCD U+0B95 U+0BCB U+0B9F U+0BC1</td>
+            </tr><tr>
+               <td>UTF-8 Code Units (bytes)</td>
+               <td class="uname">E0 AE AF <strong style="color:green;font-size:115%">|</strong> E0 AF 82 <strong style="color:green;font-size:115%">|</strong> E0 AE A9 <strong style="color:green;font-size:115%">|</strong> E0 AE BF <strong style="color:green;font-size:115%">|</strong> E0 AE 95 <strong style="color:green;font-size:115%">|</strong> E0 AF 8D <strong style="color:green;font-size:115%">|</strong> E0 AE 95 <strong style="color:green;font-size:115%">|</strong> E0 AF 8B <strong style="color:green;font-size:115%">|</strong> E0 AE 9F <strong style="color:green;font-size:115%">|</strong> E0 AF 81</td>
+            </tr>
+        </table>
+        
+        <p>Suppose we arbitrarily truncate this text at the seventh code point. This divides one of the grapheme clusters (the syllable <span class="codepoint"><bdi lang="ta">கோ</bdi></span> that we met in the previous example). This changes the fundamental meaning of the text:</p>
+        
+        <table>
+            <tr><td class="bigtext">யூனிக்<span style="color:red">கோ</span>டு</td></tr>
+            <tr><td class="uname">U+0BAF U+0BC2 U+0BA9 U+0BBF U+0B95 U+0BCD U+0B95 <span style="color:red">U+0BCB U+0B9F U+0BC1</span></td></tr>
+            <tr><td class="bigtext">யூனிக்<span style="color:red">க</span>...</td></tr>
+        </table>
+        
+        <p>If, instead, we arbitrarily truncate this text at the 22nd byte, we not only divide a grapheme cluster, but also a code point. The resulting damaged character is replaced in a UTF-8 decoder with the <span class="codepoint"><bdi lang="en">&#xfffd;</bdi><code class="uname">U+FFFD REPLACEMENT CHARACTER</code></span>. In other [=character encodings=], the dangling bytes of the partial code point might combine with other, adjacent data to form undesirable combinations.</p>
+        
+                <table>
+            <tr><td class="bigtext">யூனிக்கோடு</td></tr>
+            <tr><td class="uname">E0 AE AF <strong style="color:green;font-size:115%">|</strong>
+                    E0 AF 82 <strong style="color:green;font-size:115%">|</strong> E0 AE A9 <strong style="color:green;font-size:115%">|</strong> E0 AE BF <strong style="color:green;font-size:115%">|</strong> E0 AE 95 <strong style="color:green;font-size:115%">|</strong> E0 AF 8D <strong style="color:green;font-size:115%">|</strong> E0 AE 95 <strong style="color:green;font-size:115%">|</strong> E0 <span style="color:red">AF 8B <strong style="color:green;font-size:115%">|</strong> E0 AE 9F <strong style="color:green;font-size:115%">|</strong> E0 AF 81</span></td></tr>
+            <tr><td class="bigtext">யூனிக்க�...</td></tr>
+        </table>
 	</aside>
-	
-	<p>If a text size limit is set in terms of [=code units=] (such as a byte-length limit) in a given [=character encoding=], the limit needs to consider the relative efficiency of the character encoding for different scripts. In particular, UTF-8 is the multibyte character encoding of [[Unicode]]. UTF-8 uses between one and four bytes per [=code point=], depending on what the [=Unicode Scalar Value=] of the character is.</p>
+    
+	<p>When choosing a length limit, bear in mind the needs of different scripts and languages in Unicode. If a text size limit is set in terms of [=code units=] (such as a byte-length limit) in a given [=character encoding=], the limit needs to consider the relative efficiency of the character encoding for different scripts. In particular, UTF-8 is the multibyte character encoding of [[Unicode]]. UTF-8 uses between one and four bytes per [=code point=], depending on what the [=Unicode Scalar Value=] of the character is.</p>
 		
 	<p>When the limit placed on a text field is counted in bytes, the number of characters that can be stored in that field depends on which characters are being stored. To ensure that users who speak various languages are not at a disadvantage, the limit needs to allow for a reasonable number of charactes as encoded in that language.</p>
 	
 	<aside class="example" title="Impact of code unit limits on text size">
-		<p>Here is the <a href="https://en.wikipedia.org/wiki/I_Can_Eat_Glass" target="_blank">famous sentence</a> <q>I can eat glass, it does not hurt me</q> in several languages or scripts:</p>
+		<p>Here is the <a href="https://en.wikipedia.org/wiki/I_Can_Eat_Glass" target="_blank">famous sentence</a> <q>I can eat glass, it does not hurt me</q> in several languages or scripts. Notice that the first three examples have about the same number of [=code points=], while the emoji and cuneiform examples start with significantly fewer:</p>
 		
 		<table>
 			<tr>
@@ -3111,25 +3161,7 @@ just as characters are the basic unit of organization of encoded text.</p>
             </tr>
 		</table>
         
-        <p>Suppose a limit of 15 "characters" (as counted in <em>bytes</em>) were put on the text field meant to contain each of these sentences. The resulting truncation allows fewer actual characters (as counted in [=code points=] or in [=visual text units=]) to be stored.</p>
-        
-        <p>If the truncation is done naively at the 15th byte (as described in [[[#example-gc-cp-cu-trunc]]]), the resulting string might contain only a partial character. For example, the Marathi has this problem:</p>
-        
-        <table>
-            <tr>
-                <td>Truncated</td>
-                <td>मी का�</td>
-            </tr>
-            <tr>
-                <td>Code Points</td>
-                <td>U+092E U+0940 U+0020 U+0915 U+093E U+FFFD</td>
-            </tr>
-            <tr>
-                <td>UTF-8 Bytes</td>
-                <td><code>E0 A4 AE <strong>|</strong> E0 A5 80 <strong>|</strong> 20 <strong>|</strong> E0 A4 95 <strong>|</strong> E0 A4 BE <strong>|</strong> E0 A4 <span style="color:red">9A <strong>|</strong> 20 <strong>|</strong> E0 A4 96</span></code> ...</td>
-            </tr>
-        </table>
-        
+        <p>Suppose a limit of 15 "characters" (as counted in <em>bytes</em>) were put on the text field meant to contain each of these sentences. The more bytes on average required to encode a [=code point=], the fewer the actual characters (as counted in [=code points=] or in [=visual text units=]) can be stored within a given limit.</p>
                 
         <p>A limit of "15 characters" might sound reasonable for a given data value in a given application, if the limit is expressed in bytes the number of characters permitted might greatly disadvantage languages that use more bytes-per-code point in UTF-8. Languages that customarily use combining sequences (such as the Marahthi example) might experience even greater restriction, if the truncation respects grapheme cluster boundaries.</p>
         
@@ -3172,6 +3204,33 @@ just as characters are the basic unit of organization of encoded text.</p>
                 <td style="text-align:center">3</td>               
             </tr>
         </table>
+        
+                
+        <p>Don't forget [[[#example-gc-cp-cu-trunc]]]: if the truncation is done naively at the 15th byte, the resulting string might contain only a partial character. For example, the Marathi has this problem:</p>
+        
+        <table>
+            <tr>
+                <td>Truncated</td>
+                <td>मी का�...</td>
+            </tr>
+            <tr>
+                <td>Code Points</td>
+                <td class="uname">U+092E U+0940 U+0020 U+0915 U+093E U+FFFD</td>
+            </tr>
+            <tr>
+                <td>UTF-8 Bytes</td>
+                <td><code>E0 A4 AE <strong style="color:green;font-size:115%">|</strong>
+                          E0 A5 80 <strong style="color:green;font-size:115%">|</strong>
+                          20 <strong  style="color:green;font-size:115%">|</strong> 
+                          E0 A4 95 <strong style="color:green;font-size:115%">|</strong> 
+                          E0 A4 BE <strong style="color:green;font-size:115%">|</strong> 
+                          E0 A4 <span style="color:red">9A <strong style="color:green;font-size:115%">|</strong> 
+                          20 <strong style="color:green;font-size:115%">|</strong> 
+                          E0 A4 96</span></code> ...</td>
+            </tr>
+        </table>
+        
+        
         
         <p>In ([[[#family-example]]]), the simplest composed "family" emoji sequence "👨‍👩‍👦" consists of 5 code points. The byte limit of 15 truncates in the middle of the child family member: "👨‍👩‍�‍".</p>
     </aside>
