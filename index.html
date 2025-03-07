@@ -3098,7 +3098,7 @@ just as characters are the basic unit of organization of encoded text.</p>
             <tr><td class="bigtext">யூனிக்<span style="color:red">க</span>...</td></tr>
         </table>
         
-        <p>If, instead, we arbitrarily truncate this text at the 22nd byte, we not only divide a grapheme cluster, but also one of the code points. The resulting damaged character is replaced in a UTF-8 decoder with the <span class="codepoint"><bdi lang="en">&#xfffd;</bdi><code class="uname">U+FFFD REPLACEMENT CHARACTER</code></span>. In other [=character encodings=], the dangling bytes of the partial code point might combine with other, adjacent bytes to form undesirable combinations or garbling all of the subsequent text (an effect sometimes called [=mojibake=]).</p>
+        <p>If, instead, we arbitrarily truncate this text at the 22nd byte, we not only divide a grapheme cluster, but also one of the code points. The resulting damaged character is replaced in a UTF-8 decoder with the <span class="codepoint"><bdi lang="en">&#xfffd;</bdi><code class="uname">U+FFFD REPLACEMENT CHARACTER</code></span>. In [=legacy character encodings=], the dangling bytes of the partial code point might combine with other, adjacent bytes to form undesirable combinations or garbling all of the subsequent text (an effect sometimes called [=mojibake=]).</p>
         
                 <table>
             <tr><td class="bigtext">யூனிக்கோடு</td></tr>
