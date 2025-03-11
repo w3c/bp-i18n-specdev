@@ -3064,8 +3064,9 @@ just as characters are the basic unit of organization of encoded text.</p>
         
         <p class="bigtext">யூனிக்கோடு</p>
         
-        <p>Part of this word is the syllable pronounced 'ko': <span class="codepoint"><bdi lang="ta">கோ</bdi></span>, which is composed of two code points, <span class="codepoint" translate="no"><bdi lang="ta">&#xb95;</bdi><code class="uname">U+0B95 TAMIL LETTER KA</code></span> ‎followed by <span class="codepoint" translate="no"><bdi lang="ta">&#xbcb;</bdi><code class="uname">U+0BCB TAMIL VOWEL SIGN OO</code></span>. This is a <em>single</em> grapheme cluster that appears to take three screen positions.‎</p>
+        <p>Tamil, like many South Asian scripts, is written in syllables, with each syllable treated as a [=visual text unit=]. If we divide up the word for "Unicode" (which is simply a transliteration of the English word) we'll find that one of the syllables&mdash;the one pronounced 'ko' (shown here in red)&mdash;appears to take three screen positions:</p>
         
+        <p class="bigtext"><span style="color:blue">யூ</span><span style="color:brown">னி</span><span style="color:blue">க்</span><span style="color:red">கோ</span><span style="color:blue">டு</span></p>
     </aside>
     
     <p>Most limits are actually related to storage limitations, such as the size of a database field or a length limit in a protocol. Such limits are expressed in terms of [=code points=] in Unicode or [=code units=] (such as bytes) in a specific [=character encoding=]. Code points provides the best user experience, since all Unicode code points are treated identically: if text is truncated after 40 code points, all languages and scripts get the same number of code points to work with. By contrast, when the size limit is expressed in code units such as bytes in UTF-8, users who write in a language that mostly uses ASCII letters get many more characters (code points) for a given size limit than user's whose language is mostly made up of characters that take 2-, 3-, or 4-bytes per code point.</p>
@@ -3074,36 +3075,84 @@ just as characters are the basic unit of organization of encoded text.</p>
 
     <aside class="example" title="Choosing the truncation boundary" id="example-gc-cp-cu-trunc">
 		
-		<p>Returning to our example in Tamil, the word for Unicode is encoded like this:</p>
+		<p>Returning to our Tamil example, here's the word for Unicode with the [=grapheme clusters=] highlighted in different colors:</p>
+        
+        <p class="bigtext"><span style="color:blue">யூ</span><span style="color:brown">னி</span><span style="color:blue">க்</span><span style="color:brown">கோ</span><span style="color:blue">டு</span></p> 
+         
+        <p>This word is composed of the following Unicode [=code points=]:</p> 
         
         <table>
             <tr>
-               <td>Grapheme clusters</td>
-               <td><span style="color:blue">யூ</span><span style="color:red">னி</span><span style="color:blue">க்</span><span style="color:red">கோ</span><span style="color:blue">டு</span></td>
+                <th>Syllable</th>
+                <th colspan="2">Code Points</th>
             </tr>
             <tr>
-               <td>Code Points</td>
-               <td class="uname">U+0BAF U+0BC2 U+0BA9 U+0BBF U+0B95 U+0BCD U+0B95 U+0BCB U+0B9F U+0BC1</td>
-            </tr><tr>
-               <td>UTF-8 Code Units (bytes)</td>
-               <td class="uname">E0 AE AF <strong style="color:green;font-size:115%">|</strong> E0 AF 82 <strong style="color:green;font-size:115%">|</strong> E0 AE A9 <strong style="color:green;font-size:115%">|</strong> E0 AE BF <strong style="color:green;font-size:115%">|</strong> E0 AE 95 <strong style="color:green;font-size:115%">|</strong> E0 AF 8D <strong style="color:green;font-size:115%">|</strong> E0 AE 95 <strong style="color:green;font-size:115%">|</strong> E0 AF 8B <strong style="color:green;font-size:115%">|</strong> E0 AE 9F <strong style="color:green;font-size:115%">|</strong> E0 AF 81</td>
+                <td rowspan="2" class="bigtext" lang="ta">யூ</td>
+                <td><span translate="no" class="codepoint"><bdi lang="ta">&#xbaf;</bdi></span></td>
+                <td><code class="uname">U+‎0BAF TAMIL LETTER YA</code></td>
             </tr>
+            <tr>
+                <td><span translate="no" class="codepoint"><bdi lang="ta">&#xbc2;</bdi></td>
+                <td><code class="uname">U+‎0BC2 TAMIL VOWEL SIGN UU</code></td>
+            </tr>
+            <tr>
+                <td rowspan="2" class="bigtext" lang="ta">னி</td>
+                <td><span translate="no" class="codepoint"><bdi lang="ta">&#xba9;</bdi></td>
+                <td><code class="uname">U+0BA9 TAMIL LETTER NNNA</code></td>
+            </tr>
+            <tr>
+                <td><span translate="no" class="codepoint"><bdi lang="ta">&#xbbf;</bdi></td>
+                <td><code class="uname">U+0BBF TAMIL VOWEL SIGN I</code></td>
+            </tr>
+            <tr>
+                <td rowspan="2" class="bigtext" lang="ta">க்</td>
+                <td><span translate="no" class="codepoint"><bdi lang="ta">&#xb95;</bdi></td>
+                <td><code class="uname">U+0B95 TAMIL LETTER KA</code></td>
+            </tr>
+            <tr>
+                <td><span translate="no" class="codepoint"><bdi lang="ta">&#xbcd;</bdi></td>
+                <td><code class="uname">U+0BCD TAMIL SIGN VIRAMA</code></td>
+            </tr>
+            <tr>
+                <td rowspan="2" class="bigtext" lang="ta">கோ</td>
+                <td><span translate="no" class="codepoint"><bdi lang="ta">&#xb95;</bdi></td>
+                <td><code class="uname">U+0B95 TAMIL LETTER KA</code></td>
+            </tr>
+            <tr>
+                <td><span translate="no" class="codepoint"><bdi lang="ta">&#xbcb;</bdi></td>
+                <td><code class="uname">U+0BCB TAMIL VOWEL SIGN OO</code></td>
+            </tr>
+            <tr>
+                <td rowspan="2" class="bigtext" lang="ta">டு</td>
+                <td><span translate="no" class="codepoint"><bdi lang="ta">&#xb9f;</bdi></td>
+                <td><code class="uname">U+0B9F TAMIL LETTER TTA</code></td>
+            </tr>
+            <tr>
+                <td><span translate="no" class="codepoint"><bdi lang="ta">&#xbc1;</bdi></td>
+                <td><code class="uname">U+0BC1 TAMIL VOWEL SIGN U</code></td>
+            </tr>
+            
         </table>
         
+        <p>(Note that, while this particular word requires two [=code points=] in each of its [=visual text units=], this is not always the case in Tamil. Some syllables require only a single code point, while others can require three or more.)</p>  
+
         <p>Suppose we arbitrarily truncate this text at the seventh code point. This divides one of the grapheme clusters (the syllable <span class="codepoint"><bdi lang="ta">கோ</bdi></span> that we met in the previous example). This changes the fundamental meaning of the text:</p>
         
         <table>
             <tr><td class="bigtext">யூனிக்<span style="color:red">கோ</span>டு</td></tr>
-            <tr><td class="uname">U+0BAF U+0BC2 U+0BA9 U+0BBF U+0B95 U+0BCD U+0B95 <span style="color:red">U+0BCB U+0B9F U+0BC1</span></td></tr>
+            <tr><td class="uname">U+0BAF U+0BC2 U+0BA9 U+0BBF U+0B95 U+0BCD U+0B95 <strong style="color:red;font-size:140%">|</strong><em> <span style="color:red">U+0BCB U+0B9F U+0BC1</span></em></td></tr>
             <tr><td class="bigtext">யூனிக்<span style="color:red">க</span>...</td></tr>
         </table>
         
-        <p>If, instead, we arbitrarily truncate this text at the 22nd byte, we not only divide a grapheme cluster, but also one of the code points. The resulting damaged character is replaced in a UTF-8 decoder with the <span class="codepoint"><bdi lang="en">&#xfffd;</bdi><code class="uname">U+FFFD REPLACEMENT CHARACTER</code></span>. In [=legacy character encodings=], the dangling bytes of the partial code point might combine with other, adjacent bytes to form undesirable combinations or garbling all of the subsequent text (an effect sometimes called [=mojibake=]).</p>
+        <p>The above word, when encoded into the UTF-8 [=character encoding=], has the following byte sequence. (The green bars show where the code point boundaries are. Each code point in the Tamil script requires three bytes.)</p>
+        
+        <p class="uname">E0 AE AF <strong style="color:green;font-size:115%">|</strong> E0 AF 82 <strong style="color:green;font-size:115%">|</strong> E0 AE A9 <strong style="color:green;font-size:115%">|</strong> E0 AE BF <strong style="color:green;font-size:115%">|</strong> E0 AE 95 <strong style="color:green;font-size:115%">|</strong> E0 AF 8D <strong style="color:green;font-size:115%">|</strong> E0 AE 95 <strong style="color:green;font-size:115%">|</strong> E0 AF 8B <strong style="color:green;font-size:115%">|</strong> E0 AE 9F <strong style="color:green;font-size:115%">|</strong> E0 AF 81</p>
+        
+        <p>If we arbitrarily truncate this text at the 22nd byte, we not only divide a grapheme cluster, but also one of the code points. The resulting damaged character is replaced in a UTF-8 decoder with the <span class="codepoint"><bdi lang="en">&#xfffd;</bdi><code class="uname">U+FFFD REPLACEMENT CHARACTER</code></span>. In [=legacy character encodings=], the dangling bytes of the partial code point might combine with other, adjacent bytes to form undesirable combinations or garbling all of the subsequent text (an effect sometimes called [=mojibake=]).</p>
         
                 <table>
-            <tr><td class="bigtext">யூனிக்கோடு</td></tr>
             <tr><td class="uname">E0 AE AF <strong style="color:green;font-size:115%">|</strong>
-                    E0 AF 82 <strong style="color:green;font-size:115%">|</strong> E0 AE A9 <strong style="color:green;font-size:115%">|</strong> E0 AE BF <strong style="color:green;font-size:115%">|</strong> E0 AE 95 <strong style="color:green;font-size:115%">|</strong> E0 AF 8D <strong style="color:green;font-size:115%">|</strong> E0 AE 95 <strong style="color:green;font-size:115%">|</strong> E0 <span style="color:red">AF 8B <strong style="color:green;font-size:115%">|</strong> E0 AE 9F <strong style="color:green;font-size:115%">|</strong> E0 AF 81</span></td></tr>
+                    E0 AF 82 <strong style="color:green;font-size:115%">|</strong> E0 AE A9 <strong style="color:green;font-size:115%">|</strong> E0 AE BF <strong style="color:green;font-size:115%">|</strong> E0 AE 95 <strong style="color:green;font-size:115%">|</strong> E0 AF 8D <strong style="color:green;font-size:115%">|</strong> E0 AE 95 <strong style="color:green;font-size:115%">|</strong> E0 <strong style="color:red;font-size:140%">|</strong> <span style="color:red"><em>AF 8B <strong style="color:green;font-size:115%">|</strong> E0 AE 9F <strong style="color:green;font-size:115%">|</strong> E0 AF 81</em></span></td></tr>
             <tr><td class="bigtext">யூனிக்க�...</td></tr>
         </table>
 	</aside>
