@@ -1261,8 +1261,13 @@
 <div id="char_checklist"></div>
 </details-->
 
+<section id="char_def" class="subtopic">
+<h3>Choosing a definition of 'character'</h3>
 
-<aside class="links" id="links_lang_mixed">
+<p class="reviewComments"><a href="https://github.com/w3c/i18n-activity/labels/t%3Achar_def" target="_blank">See related review comments.</a></p>
+
+
+<aside class="links" id="links_char_def">
 <p class="links_title">Useful background and overviews for this section</p>
 <ul>
 <li class="w3"><p class="link"><a href="https://www.w3.org/TR/charmod/">Character Model for the World Wide Web: Fundamentals</a> — basic guidelines related to the use of characters and encodings.</p></li>
@@ -1270,10 +1275,9 @@
 <li class="w3"><p class="link"><a href="https://www.w3.org/TR/charmod-norm/">Character Model for the World Wide Web: String Matching</a> — issues that arise when you try to compare two strings, be it identifiers or authored content.</p></li>
 <li class="w3"><p class="link"><a href="https://www.w3.org/International/articles/definitions-characters/index.en.html#characters">Character encodings: Essential concepts</a></p></li>
 <li class="w3"><p class="link"><a href="https://www.w3.org/International/questions/qa-indic-graphemes">Typographic character units in complex scripts</a></p></li>
+<li class="w3"><p class="link"><a href="https://www.w3.org/TR/charmod/#sec-Perceptions">Perceptions of Characters</a>, in <cite>Character Model for the World Wide Web: Fundamentals</cite>.</p></li>
 </ul>
 </aside>
-
-
 
     <p>The term <em>character</em> means different things in different contexts: it can variously refer to the visual, logical, or byte-level representation of a given unit of text. This makes the term too imprecise to use casually in specifications. Understanding how text is defined and encoded in computing systems, along with the associated terminology used to make such specification unambiguous, is thus a necessary prerequisite to discussing the processing of string data.</p>
     
@@ -1286,22 +1290,22 @@
     <aside class="example" title="Examples of visual text units" id="visual-text-unit-example">
 		<p>Here is the word for "Unicode" in the English language (which uses the Latin script). It is made up of seven Unicode characters that form seven visual text units:</p>
 		<p class="bigtext" style="margin-block-start: 12px; margin-block-end: 12px">Unicode</p>
-		<p>Here is the word for "Unicode" in the Hindi language (which uses the Devanagari script). It is also made up of seven Unicode characters, but these characters form only four visual text units (indicated here with color):</p>
-		<p><span class="bigtext" lang="hi">&#x092F;&#x0942;&#x0928;&#x093F;&#x0915;&#x094B;&#x0921;</span> ⇒
-		<span class="bigtext" lang="hi">&#x092F;&#x0942;&nbsp;<span style="color:red">&#x0928;&#x093F;</span>&nbsp;<span style="color:black">&#x0915;&#x094B;</span>&nbsp;<span style="color:magenta">&#x0921;</span></p>
+		<p>Here is the word for "Unicode" in the Hindi language (which uses the Devanagari script):</p>
+        <p><span class="bigtext" lang="hi">&#x092F;&#x0942;&#x0928;&#x093F;&#x0915;&#x094B;&#x0921;</span></p>
+        <p>This word also happens to be made up of seven Unicode characters, but these characters form only four visual text units (indicated here with color):</p>
+		<p><span class="bigtext" lang="hi">&#x092F;&#x0942;&nbsp;<span style="color:red">&#x0928;&#x093F;</span>&nbsp;<span style="color:black">&#x0915;&#x094B;</span>&nbsp;<span style="color:magenta">&#x0921;</span></p>
     </aside>
 	
     <p>[=Visual text units=] are the visual representation of an underlying character sequence encoded in the computer's memory. In order to encode characters for use by software, we have to start by agreeing on what is being encoded.</p>
     
-    <p>A <a>character set</a> is quite literally a set: a specific collection of characters that can be used together to encode text, where a "character" means a single abstract unit of text. The most important character set is the <a>Universal Character Set</a>, also known as [[Unicode]]. This character set includes all of the characters used to encode text, including historical or extinct writing systems as well as modern usage, private use, typesetting symbols, and other things, such as the emoji. All other character sets are defined subsets of Unicode.</p>
+    <p>A <a>character set</a> is quite literally a set: a specific collection of characters that can be used together to encode text, where a "character" means a single abstract unit of text. The collection of characters in a [=character set=] is sometimes called its <em>repertoire</em>.</p>
     
-    <p>To be useful, a character set needs to be organized so that one can unambiguously find each character. This is done by assigning each character a unique identifier called a [=code point=]. In Unicode, code points are integers between <code>0x0000</code> and <code>0x10FFFF</code> inclusive and are written in hexadecimal notation (see [[[#char_ref]]]). A Unicode code point is sometimes called a [=Unicode Scalar Value=].</p>
+    <p>The most important [=character set=] is the <a>Universal Character Set</a>, which is the character set that is defined by [[Unicode]]. Unicode's character set includes all of the characters used to encode text, including historical or extinct writing systems as well as modern usage, private use, typesetting symbols, and other things, such as the emoji. All other character sets are defined subsets of Unicode. The Unicode Standard is revised, typically annually, to encode additional characters.</p>
+    
+    <p>To be useful, a [=character set=] needs to be organized so that one can unambiguously find each character. This is done by assigning each character a unique identifier called a [=code point=]. A [=character set=] in which each character has been assigned a [=code point=] is called a [=coded character set=]. In Unicode, code points are integers between <code>0x0000</code> and <code>0x10FFFF</code> inclusive and are written in hexadecimal notation (see [[[#char_ref]]]). A Unicode code point is sometimes called a [=Unicode Scalar Value=]. </p>
+    
 
-	<div class="req" id="char_term_def">
-	   <p class="advisement">Specifications SHOULD use the term [=code point=] instead of the term 'character'. If the term 'character' is used, it MUST be explicitly defined to mean a Unicode [=code point=]. The term [=Unicode Scalar Value=] MAY also be used.</p>
-	</div>
-
-    <p>The relationship between code points and [=visual text units=] can be complex. In most cases, a code point sequence that forms a single visual text unit should be processed as a single, indivisible textual unit. For example, when cursoring across text, the cursor should "jump across" or select the entire visual text unit (and its underlying code points) together. It shouldn't be possible to cursor into the "middle" of a visual text unit.</p>
+    <p>The relationship between [=code points=] and [=visual text units=] can be complex. In most cases, a sequence of [=code points=] that forms a single [=visual text unit=] should be processed as a single, indivisible textual unit. For example, when cursoring across text, the cursor should "jump across" or select the entire visual text unit (and its underlying code points) together. It shouldn't be possible to cursor into the "middle" of a visual text unit.</p>
     
 	<p>[[Unicode]] provides a definition for approximately computing the boundaries in a sequence of characters between visual text units. The boundaries defined by [[Unicode]] are called [=grapheme clusters=]. Unless otherwise specified, the term [=grapheme cluster=] in this document refers to what [[UAX29]] refers to as an "extended default grapheme cluster".</p>
 	
@@ -1333,7 +1337,7 @@
 
     </aside>
     
-   <p>For most languages and scripts, there is little difference between a visual text unit and a [=grapheme cluster=]. However, for some languages and scripts, particularly those found in South Asia, the difference can be important. Work is on-going at Unicode to narrow or eliminate gaps between the computed grapheme cluster boundaries and the expected visual text units. For example, this section previously used an example in Bangla, but the Bengali script was corrected in Unicode 15.1.</p>
+   <p>For most languages and scripts, there is little difference between a [=visual text unit=] and a [=grapheme cluster=]. However, for some languages and scripts, particularly those found in South Asia, the difference can be important. Work is on-going at Unicode to narrow or eliminate gaps between the computed grapheme cluster boundaries and the expected visual text units. For example, this section previously used an example in Bangla, but the Bengali script was corrected in Unicode 15.1.</p>
 
 	<aside class="example" title="Difference between Unicode grapheme cluster and a visual text unit">
 	<p>In Balinese, the word "ᬅᬲ᭄ᬢ", which means "to be", is composed of this character sequence:
@@ -1362,7 +1366,7 @@
     <aside class="example" id="family-example" title="Composing Emoji Sequences">
         <p>Another example of the complex relationship between code points and grapheme clusters are certain emoji. The emoji character for "family" has a code point in Unicode: <span class="codepoint" translate="no"><bdi lang="en">&#x1F46A;</bdi><code class="uname">U+1F46A FAMILY</code></span>. It can also be formed by using using a sequence of code points: <code class="uname">U+1F468 U+200D U+1F469 U+200D U+1F466</code>.</p>
         
-        <p>This compositional mechanism can be used to create other family variations. For example the sequence <span class="codepoint" translate="no"><bdi translate="no">&#x1f468;&#x200d;&#x1f469;&#x200d;&#x1f467;&#x200d;&#x1f466;</bdi><code class="uname" translate="no">U+1F468 U+200D U+1F469 U+200D U+1F467 U+200D U+1F466</code></span> results in a composed emoji character for a "family: man, woman, girl, boy" on systems that support this kind of composition. The addition of skin tone modifiers further extends the grapheme cluster.</p>
+        <p>This compositional mechanism can be used to create other family variations. For example, the sequence <span class="codepoint" translate="no"><bdi translate="no">&#x1f468;&#x200d;&#x1f469;&#x200d;&#x1f467;&#x200d;&#x1f466;</bdi><code class="uname" translate="no">U+1F468 U+200D U+1F469 U+200D U+1F467 U+200D U+1F466</code></span> results in a composed emoji character for a "family: man, woman, girl, boy" on systems that support this kind of composition. That long character sequence still represents just a single [=visual text unit=]. Other characters, such as skin tone modifiers, can further extend the [=grapheme cluster=]:</p>
 
         
         <table class="cpExample">
@@ -1389,20 +1393,22 @@
         </table>
         
         
-        <p>Many common emoji can <em>only</em> be formed using sequences of code points, but should be treated as a single visual text unit when displaying or processing the text. You wouldn't want to put a line-break in the middle of the family!</p>
+        <p>Many common emoji can <em>only</em> be formed using sequences of code points, but should be treated as a single [=visual text unit=] when displaying or processing the text. You wouldn't want to put a line-break in the middle of the family!</p>
     </aside>
     
-    <p>Unicode [=code points=] are not the values actually used when processing or serializing text in a computing system. Text processing instead depends on sequences of fixed-size integer units called [=code units=]. There are different sizes of [=code unit=]. The most familiar of these is called a <dfn class="lint-ignore">byte</dfn> or <em>octet</em>, consisting of 8 bits. Other [=code units=] might use 16 or 32 bits.</p>
+    <p>Unicode [=code points=] are not the values actually used when processing or serializing text in a computing system. Text processing instead depends on sequences of fixed-size integer units called [=code units=]. There are different sizes of [=code unit=]. The most familiar of these is called a <dfn class="lint-ignore">byte</dfn> or <em>octet</em>, consisting of 8 bits.</p>
     
-    <p>We need a set of rules to convert between [=code points=] in a [=character set=] and [=code units=] in storage. These rules are called a [=character encoding form=] (or [=character encoding=] for short). Non-Unicode character encoding forms are called [=legacy character encodings=]. For information on choosing a character encoding, see: [[[#char_choosing]]].</p>
+    <p>There are different sized [=code units=] used by different runtime environments. Other common sizes include 16- or 32-bit units. On the Web, the most familiar of these are the 16-bit units used by the [[DOM]], JavaScript, and the various string types in [[INFRA]]. These use 16-bit code units processed according to the rules of the UTF-16 [=character encoding=] of [[Unicode]]. (See [[[#char_string]]].)</p>
+    
+    <p>A [=character encoding form=] (or [=character encoding=] for short) are the rules for converting between [=code points=] in a [=character set=] and the [=code units=] used to store and process text. Non-Unicode character encoding forms are called [=legacy character encodings=]. For information on choosing a character encoding, see: [[[#char_choosing]]].</p>
 
     <aside class="example" title="UTF-8 Character Encoding Form">
 
-       <p>The most common character encoding used on the Web is UTF-8. UTF-8 uses 8-bit bytes as its code unit. Each Unicode code point encoded into UTF-8 takes between one and four bytes to encode. ASCII characters take one byte to encode. Code points from 0x80 to 0x7FF take two bytes. Code points from 0x800 to 0xFFFF take three bytes. And code points from 0x10000 to 0x10FFFF (that is, the rest of Unicode) take four bytes each.</p>
+       <p>The most common [=character encoding=] used on the Web is UTF-8. UTF-8 uses 8-bit bytes as its [=code unit=]. UTF-8 is a variable width encoding, in that it uses different numbers of code units depending on the [=code point=] being encoded. The familiar 7-bit ASCII characters (the code points from <code>U+0000</code> to <code>U+007F</code>) take one byte to encode in UTF-8. Code points from <code>U+0080</code> and <code>U+07FF</code> require two bytes. Code points from <code>U+0800</code> through <code>U+FFFF</code> take three bytes. And, finally, code points from <code>U+10000</code> through <code>U+10FFFF</code> take four bytes.</p>
 
        <table class="cpExample">
 		   <tr>
-			   <td>Glyph</td>
+			   <td>Character</td>
 			   <td class="bigtext">A</td>
 			   <td class="bigtext">&#xc0;</td>
 		   </tr>
@@ -1417,7 +1423,7 @@
 			   <td><code>0xC3 0x80</code></td>
 		   </tr>
 		   <tr>
-			   <td>Glyph</td>
+			   <td>Character</td>
 			   <td class="bigtext">&#x928;</td>
 			   <td class="bigtext">&#x1F46A;</td>
 		   </tr>
@@ -1436,60 +1442,30 @@
 
 
 
+<!-- moo -->
 
 
 
-<section id="char_def" class="subtopic">
-<h3>Choosing a definition of 'character'</h3>
-
-<p class="reviewComments"><a href="https://github.com/w3c/i18n-activity/labels/t%3Achar_def" target="_blank">See related review comments.</a></p>
-
-<p>The term character is used differently in a variety of contexts and often leads to confusion when used outside of these contexts. In the context of the digital representations of text, a character can be defined as a small logical unit of text. Text is then defined as sequences of characters. While such an informal definition is sufficient to create or capture a common understanding in many cases, it is also sufficiently open to create misunderstandings as soon as details start to matter. In order to write effective specifications, protocol implementations, and software for end users, it is very important to understand that these misunderstandings can occur.</p>
-
-<p>This section examines some of these contexts, meanings and confusions.</p>
-
-
-<div class="xref"><span class="seealso">See also</span>
-<p>[[[#char_string]]].</p>
-</div>
-
-<aside class="links" id="links_char_def">
-<p class="links_title">Useful background and overviews for this section</p>
-<ul>
-<li class="w3"><p class="link"><a href="https://www.w3.org/TR/charmod/#sec-Perceptions">Perceptions of Characters</a>, in <cite>Character Model for the World Wide Web: Fundamentals</cite>.</p></li>
-</ul>
-</aside>
-
-
-	<div class="req" id="char_specific">
-	<p class="advisement">Specifications SHOULD use specific terms, when available, instead of the general term 'character'.</p>
-	<details class="links"><summary>source</summary>
+	<div class="req" id="char_term_def">
+	   <p class="advisement">Specifications SHOULD use the term [=code point=] instead of the term 'character'. If the term 'character' is used, it MUST be explicitly defined to mean a Unicode [=code point=]. The term [=Unicode Scalar Value=] MAY also be used.</p>
+    <!-- the id 'char_specific' was formerly that of a separate requirement that duplicated this one -->
+	<details class="links" id="char_specific"><summary>source</summary>
 	<p><a href="https://www.w3.org/TR/charmod/#sec-PerceptionsOutro">Perceptions of Characters, Summary C067</a>, in <cite>Character Model for the World Wide Web 1.0: Fundamentals</cite>.</p>
 	</details>
 	</div>
 
 
-<p>Specific terms could include [=code point=], [=grapheme cluster=], <a href="https://www.w3.org/TR/css-text-3/#typographic-character-unit">typographic character unit</a>, [=code unit=], and [=glyph=].</p>
+    <p>Specific terms could include [=code point=], [=grapheme cluster=], <a href="https://www.w3.org/TR/css-text-3/#typographic-character-unit">typographic character unit</a>, [=code unit=], and [=glyph=].</p>
 
 
-<div class="req" id="char_define">
-	<p class="advisement">When specifications use the term 'character' the specifications MUST define which meaning they intend, and  SHOULD explicitly define the term 'character' to mean a Unicode code point.</p>
-	<details class="links"><summary>source</summary>
-	<p><a href="https://www.w3.org/TR/charmod/#sec-PerceptionsOutro">Perceptions of Characters, Summary C010</a>, in <cite>Character Model for the World Wide Web 1.0: Fundamentals</cite></p>
-	</details>
-  </div>
-
-<p>The developers of specifications, and the developers of software based on those specifications, are likely to be more familiar with usages of the term 'character' they have experienced and less familiar with the wide variety of usages in an international context. Furthermore, within a computing context, characters are often confused with related concepts, resulting in incomplete or inappropriate specifications and software.</p>
+    <p>The developers of specifications, and the developers of software based on those specifications, are likely to be more familiar with usages of the term 'character' they have experienced and less familiar with the wide variety of usages in an international context. Furthermore, within a computing context, characters are often confused with related concepts, resulting in incomplete or inappropriate specifications and software.</p>
 
 	<div class="req" id="char_physical_storage">
-	<p class="advisement">Specifications, software and content MUST NOT require or depend on a one-to-one relationship between characters and units of physical storage.</p>
+	<p class="advisement">Specifications, software and content MUST NOT require or depend on a one-to-one relationship between characters ([=code points=]) and units of physical storage ([=code units=]).</p>
 	<details class="links"><summary>source</summary>
 	<p><a href="https://www.w3.org/TR/charmod/#sec-Storage">Units of storage C009</a>, in <cite>Character Model for the World Wide Web 1.0: Fundamentals</cite></p>
 	</details>
 	</div>
-
-<p>Computer storage and communication rely on units of physical storage and information interchange, such as bits and bytes (8-bit units, also called octets). A frequent error in specifications and implementations is the equating of characters with units of physical storage. The mapping between characters and such units of storage is actually quite complex.</p>
-
 
 <div class="req" id="char_sounds">
 	<p class="advisement">Specifications, software and content MUST NOT require or depend on a one-to-one correspondence between characters and the sounds of a language.</p>
@@ -1504,19 +1480,18 @@
 <p>The following are examples of mismatches between the term character and units of sound:</p>
 
 <ul>
-<li>In the English sentence, "<span class="quote">They were too close to the door to close it.</span>" the same character '<span class="qchar">s</span>' is used to represent both /s/ and /z/ phonemes.</li>
+<li>In the English sentence, <em class="quote" lang="en" translate="no">They were too close to the door to close it.</em> the same character <span class="qchar">s</span> is used to represent both /s/ and /z/ phonemes.</li>
 
-<li>In the English language the phoneme /k/ of "<span class="quote">cool</span>" is like the phoneme /k/ of "<span class="quote">keel</span>".</li>
+<li>In the English language the phoneme /k/ of <span class="quote">cool</span> is like the phoneme /k/ of <span class="quote">keel</span>.</li>
 
-<li>In many scripts a single character may represent a sequence of
-phonemes, such as the syllabic characters of Japanese hiragana.</li>
+<li>In many scripts a single character may represent a sequence of phonemes, such as the syllabic characters of Japanese hiragana.</li>
 
-<li>In many writing systems a sequence of characters may represent a single phoneme, for example '<span class="qchar">th</span>' and '<span class="qchar">ng</span>' in "<span class="quote">thing</span>".</li>
+<li>In many writing systems a sequence of characters may represent a single phoneme, for example <span class="qchar">th</span> and <span class="qchar">ng</span> in <span class="quote">thing</span>.</li>
 </ul>
 </div>
 
 	<div class="req" id="char_display">
-	<p class="advisement">Specifications, software and content MUST NOT require or depend on a one-to-one mapping between characters and units of displayed text.</p>
+	<p class="advisement">Specifications, software and content MUST NOT require or depend on a one-to-one mapping between characters and [=visual text units=].</p>
 	<details class="links"><summary>source</summary>
 	<p><a href="https://www.w3.org/TR/charmod/#sec-VisualRenderingUnits">Units of visual rendering C002</a>, in <cite>Character Model for the World Wide Web 1.0: Fundamentals</cite>.</p>
 	</details>
@@ -1524,26 +1499,6 @@ phonemes, such as the syllabic characters of Japanese hiragana.</li>
 	<p><a href="https://www.w3.org/TR/charmod/#sec-CharExamples">Examples of Characters, Keystrokes and Glyphs</a>, in <cite>Character Model for the World Wide Web 1.0: Fundamentals</cite>.</p>
 	</details>
 </div>
-
-<p>Visual rendering introduces the notion of a <a href="https://www.w3.org/TR/i18n-glossary/#def_glyph">glyph</a>. Glyphs are defined by ISO/IEC 9541-1 as <q>a recognizable abstract graphic symbol which is independent of a specific design</q>. There is <em>not</em> a one-to-one correspondence between characters and glyphs:</p>
-<ul>
-<li>A single character can be represented by multiple glyphs
-(each glyph is then part of the representation of that character). These glyphs
-may be physically separated from one another. </li>
-
-<li>A single glyph may represent a sequence of characters (this
-is the case with ligatures, among others).</li><li>A character may be rendered with very different glyphs depending on the context.</li>
-
-<li>A single glyph may represent different characters (e.g.
-capital Latin A, capital Greek A and capital Cyrillic A).</li>
-</ul>
-
-<p>A set of glyphs makes up a <span class="new-term">font</span>. Glyphs can be
-construed as the basic units of organization of the visual rendering of text,
-just as characters are the basic unit of organization of encoded text.</p>
-
-<p>See <a href="https://www.w3.org/TR/charmod/#sec-CharExamples">Examples of Characters, Keystrokes and Glyphs</a> for examples of the complexities of character to glyph mapping.</p>
-
 
 <div class="req" id="char_keystroke">
 	<p class="advisement">Specifications and software MUST NOT require nor depend on a single keystroke resulting in a single character, nor that a single character be input with a single keystroke (even with modifiers), nor that keyboards are the same all over the world.</p>
@@ -1555,7 +1510,7 @@ just as characters are the basic unit of organization of encoded text.</p>
 	</details>
   </div>
 
-<p>In keyboard input, it is not always the case that keystrokes and input characters correspond one-to-one. A limited number of keys can fit on a keyboard. Some keyboards will generate multiple characters from a single keypress. In other cases ('<span class="qterm">dead keys</span>') a key will generate no characters, but affect the results of subsequent keypresses. Many writing systems have far too many characters to fit on a keyboard and must rely on more complex <span class="new-term">input methods</span>, which transform keystroke sequences into character sequences. Other languages may make it necessary to input some characters with special modifier keys.</p>
+<p>In keyboard input, it is not always the case that keystrokes and input characters correspond one-to-one. A limited number of keys can fit on a keyboard. Some keyboards will generate multiple [=code points=] from a single keypress. In other cases ('<span class="qterm">dead keys</span>') a key will generate no characters, but affect the results of subsequent keypresses. Many writing systems have far too many characters to fit on a keyboard and must rely on more complex <em>input methods</em>, which transform keystroke sequences into character sequences. Other languages may make it necessary to input some characters with special modifier keys.</p>
 <p>See <a href="https://www.w3.org/TR/charmod/#sec-CharExamples">Examples of Characters, Keystrokes and Glyphs</a> for examples of non-trivial input.</p>
 </section>
 
