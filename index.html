@@ -1270,20 +1270,24 @@
 <aside class="links" id="links_char_def">
 <p class="links_title">Useful background and overviews for this section</p>
 <ul>
-<li class="w3"><p class="link"><a href="https://www.w3.org/TR/charmod/">Character Model for the World Wide Web: Fundamentals</a> — basic guidelines related to the use of characters and encodings.</p></li>
-<li class="notw3"><p class="link"><a href="https://encoding.spec.whatwg.org/">Encoding</a> — specification with further guidelines related to use of character encodings.</p></li>
-<li class="w3"><p class="link"><a href="https://www.w3.org/TR/charmod-norm/">Character Model for the World Wide Web: String Matching</a> — issues that arise when you try to compare two strings, be it identifiers or authored content.</p></li>
-<li class="w3"><p class="link"><a href="https://www.w3.org/International/articles/definitions-characters/index.en.html#characters">Character encodings: Essential concepts</a></p></li>
-<li class="w3"><p class="link"><a href="https://www.w3.org/International/questions/qa-indic-graphemes">Typographic character units in complex scripts</a></p></li>
-<li class="w3"><p class="link"><a href="https://www.w3.org/TR/charmod/#sec-Perceptions">Perceptions of Characters</a>, in <cite>Character Model for the World Wide Web: Fundamentals</cite>.</p></li>
+    <li class="w3"><p class="link"><a href="https://www.w3.org/International/articles/definitions-characters/index.en.html#characters">Character encodings: Essential concepts</a> &mdash; <strong>Start here!</strong> This article contains the fundamental explanations of all of the terminology in this section.</p></li>
+    
+    <li class="w3"><p class="link"><a href="https://www.w3.org/TR/charmod/">Character Model for the World Wide Web: Fundamentals</a> — basic guidelines related to the use of characters and encodings. Most of the relevant content in this document has been imported into this section or explained in the "Essential concepts" article.</p></li>
+    
+    <li class="notw3"><p class="link"><a href="https://encoding.spec.whatwg.org/">Encoding</a> — specification with further guidelines related to use of character encodings.</p></li>
+    
+    <li class="w3"><p class="link"><a href="https://www.w3.org/TR/charmod-norm/">Character Model for the World Wide Web: String Matching</a> — issues that arise when you try to compare two strings, be it identifiers or authored content.</p></li>
+
+    <li class="w3"><p class="link"><a href="https://www.w3.org/International/questions/qa-indic-graphemes">Typographic character units in complex scripts</a> &mdash; Article explaining more complex typographic unit issues.</p></li>
+
 </ul>
 </aside>
 
     <p>The term <em>character</em> means different things in different contexts: it can variously refer to the visual, logical, or byte-level representation of a given unit of text. This makes the term too imprecise to use casually in specifications. Understanding how text is defined and encoded in computing systems, along with the associated terminology used to make such specification unambiguous, is thus a necessary prerequisite to discussing the processing of string data.</p>
     
-    <p>A <dfn class="lint-ignore">visual text unit</dfn> is a single visible "character" of text. This can be on a screen or in other media, such as printed on paper or written on the back of a napkin. Such units are a matter of perception and the term is necessarily imprecise, particularly when it comes to writing systems that use a combination of combining marks, complex positioning, or complex shaping based on context. A [=visual text unit=] generally shouldn't be broken apart by operations such as line-breaking or hyphenation.</p>
+    <p>A <dfn class="lint-ignore">visual text unit</dfn> is a single unit of the visible text as perceived by a user. This can be on a screen or in other media, such as printed on paper or written on the back of a napkin. This term is necessarily imprecise, as user perception frequently depends on familiarity with the script and writing system, particularly when it comes to writing systems that use a combination of combining marks, complex positioning, or complex shaping based on context. A [=visual text unit=] generally shouldn't be broken apart by operations such as line-breaking or hyphenation.</p>
     
-    <p>There are some other terms with similar meanings. The term [=grapheme=] is sometimes used by linguists (and others) to refer to what a typical user would perceive as a single unit. The term [=glyph=] is used by typographers (and others) to refer to an individual rendering unit. Sometimes a [=visual text unit=] is said to be a <dfn class="lint-ignore">user-perceived character</dfn>, although this name can be misleading, as some users in certain scripts will "perceive" (read) a particular shape in the text as separate "characters", such as when certain South Asian scripts use "stacks".</p>
+    <p>Other terms are sometimes used that have similar meanings. The term [=grapheme=] is sometimes used by linguists (and others) to refer to what a typical user would perceive as a single unit. The term [=glyph=] is used by typographers (and others) to refer to an individual rendering unit. Sometimes a [=visual text unit=] is said to be a <dfn class="lint-ignore">user-perceived character</dfn>, although this name can be misleading. For example, some users of Brahmi-derived scripts will perceive (read) components in a stacked consonant cluster as separate visual text units, whereas others will see the whole stack as one visual text unit.</p>
     
     <p>At their simplest, [=visual text units=] are a single shape ([=glyph=]) that can be tied one-to-one to a "character" in the computer's memory. But a visual text unit can also be formed from a sequence of characters.</p>
     
@@ -1296,7 +1300,7 @@
 		<p><span class="bigtext" lang="hi">&#x092F;&#x0942;&nbsp;<span style="color:red">&#x0928;&#x093F;</span>&nbsp;<span style="color:black">&#x0915;&#x094B;</span>&nbsp;<span style="color:magenta">&#x0921;</span></p>
     </aside>
 	
-    <p>[=Visual text units=] are the visual representation of an underlying character sequence encoded in the computer's memory. In order to encode characters for use by software, we have to start by agreeing on what is being encoded.</p>
+    <p>In order to encode [=visual text units=] for use by software, we have to start by agreeing on what is being encoded.</p>
     
     <p>A <a>character set</a> is quite literally a set: a specific collection of characters that can be used together to encode text, where a "character" means a single abstract unit of text. The collection of characters in a [=character set=] is sometimes called its <em>repertoire</em>.</p>
     
@@ -1305,7 +1309,7 @@
     <p>To be useful, a [=character set=] needs to be organized so that one can unambiguously find each character. This is done by assigning each character a unique identifier called a [=code point=]. A [=character set=] in which each character has been assigned a [=code point=] is called a [=coded character set=]. In Unicode, code points are integers between <code>0x0000</code> and <code>0x10FFFF</code> inclusive and are written in hexadecimal notation (see [[[#char_ref]]]). A Unicode code point is sometimes called a [=Unicode Scalar Value=]. </p>
     
 
-    <p>The relationship between [=code points=] and [=visual text units=] can be complex. In most cases, a sequence of [=code points=] that forms a single [=visual text unit=] should be processed as a single, indivisible textual unit. For example, when cursoring across text, the cursor should "jump across" or select the entire visual text unit (and its underlying code points) together. It shouldn't be possible to cursor into the "middle" of a visual text unit.</p>
+    <p>The relationship between [=code points=] and [=visual text units=] can be complex. In most cases, a sequence of [=code points=] that forms a single [=visual text unit=] should be processed as a single, indivisible textual unit. For example, when cursoring across text, the cursor should "jump across" or select the entire visual text unit (and its underlying code points) together. It shouldn't be possible to cursor into the "middle" of a visual text unit. By contrast, it is sometimes possible, when performing "backward deletion" (using the backspace key, for example) to progressively delete characters from the end of a [=visual text unit=].</p>
     
 	<p>[[Unicode]] provides a definition for approximately computing the boundaries in a sequence of characters between visual text units. The boundaries defined by [[Unicode]] are called [=grapheme clusters=]. Unless otherwise specified, the term [=grapheme cluster=] in this document refers to what [[UAX29]] refers to as an "extended default grapheme cluster".</p>
 	
@@ -1396,11 +1400,18 @@
         <p>Many common emoji can <em>only</em> be formed using sequences of code points, but should be treated as a single [=visual text unit=] when displaying or processing the text. You wouldn't want to put a line-break in the middle of the family!</p>
     </aside>
     
-    <p>Unicode [=code points=] are not the values actually used when processing or serializing text in a computing system. Text processing instead depends on sequences of fixed-size integer units called [=code units=]. There are different sizes of [=code unit=]. The most familiar of these is called a <dfn class="lint-ignore">byte</dfn> or <em>octet</em>, consisting of 8 bits.</p>
+    <p>Computer processing, storage, and communication relies on units of physical storage and information interchange. A unit of physical storage is called a [=code unit=]. A frequent error in specifications and implementations is the equating of "characters" with a particular unit of physical storage. The most familiar [=code unit=] is called a <dfn class="lint-ignore">byte</dfn> or <em>octet</em>, and consists of 8 bits. </p>
     
-    <p>There are different sized [=code units=] used by different runtime environments. Other common sizes include 16- or 32-bit units. On the Web, the most familiar of these are the 16-bit units used by the [[DOM]], JavaScript, and the various string types in [[INFRA]]. These use 16-bit code units processed according to the rules of the UTF-16 [=character encoding=] of [[Unicode]]. (See [[[#char_string]]].)</p>
+    <p>Different sized [=code units=] are used by different runtime environments. Other common sizes include 16- or 32-bit units. On the Web, the most familiar of these are the 16-bit units used by the [[DOM]], JavaScript, and the various string types in [[INFRA]]. These use 16-bit code units processed according to the rules of the UTF-16 [=character encoding=] of [[Unicode]]. (See [[[#char_string]]].)</p>
     
-    <p>A [=character encoding form=] (or [=character encoding=] for short) are the rules for converting between [=code points=] in a [=character set=] and the [=code units=] used to store and process text. Non-Unicode character encoding forms are called [=legacy character encodings=]. For information on choosing a character encoding, see: [[[#char_choosing]]].</p>
+    <p>The mapping between [=code points=] and [=code units=] is actually quite complex. A [=character encoding form=] (or [=character encoding=] for short) is the set of rules for converting between [=code points=] in a [=character set=] and the [=code units=] used to store and process text. Non-Unicode character encoding forms are called [=legacy character encodings=].</p>
+    
+    <div class="xref"><span class="seealso">See also</span>
+    <p>[[[#char_choosing]]]</p>
+    <p>[[[#char_string]]]</p>
+    <p>[[Encoding]] &mdash; the specification for [=character encodings=] used on the Web</p>
+    </div>
+    
 
     <aside class="example" title="UTF-8 Character Encoding Form">
 
