@@ -1402,14 +1402,12 @@
     
     <p>Computer processing, storage, and communication relies on units of physical storage and information interchange. A unit of physical storage is called a [=code unit=]. A frequent error in specifications and implementations is the equating of "characters" with a particular unit of physical storage. The most familiar [=code unit=] is called a <dfn class="lint-ignore">byte</dfn> or <em>octet</em>, and consists of 8 bits. </p>
     
-    <p>Different sized [=code units=] are used by different runtime environments. Other common sizes include 16- or 32-bit units. On the Web, the most familiar of these are the 16-bit units used by the [[DOM]], JavaScript, and the various string types in [[INFRA]]. These use 16-bit code units processed according to the rules of the UTF-16 [=character encoding=] of [[Unicode]]. (See [[[#char_string]]].)</p>
+    <p>Different sized [=code units=] are used by different runtime environments. Other common sizes include 16- or 32-bit units. On the Web, for example, 16-bit code units are used by the [[DOM]], JavaScript, and the various string types in [[INFRA]]. These specifications use 16-bit code units processed according to the rules of the UTF-16 [=character encoding=] of [[Unicode]]. (See [[[#char_string]]].)</p>
     
     <p>The mapping between [=code points=] and [=code units=] is actually quite complex. A [=character encoding form=] (or [=character encoding=] for short) is the set of rules for converting between [=code points=] in a [=character set=] and the [=code units=] used to store and process text. Non-Unicode character encoding forms are called [=legacy character encodings=].</p>
     
     <div class="xref"><span class="seealso">See also</span>
     <p>[[[#char_choosing]]]</p>
-    <p>[[[#char_string]]]</p>
-    <p>[[Encoding]] &mdash; the specification for [=character encodings=] used on the Web</p>
     </div>
     
 
