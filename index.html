@@ -2988,8 +2988,8 @@ just as characters are the basic unit of organization of encoded text.</p>
 	<p class="advisement">Specifications SHOULD NOT limit the size of data fields unless there is a specific practical or technical limitation.</p>
 	</div>
 
-    <p>There are many reasons why a length limit might be needed in a specification or format. Generally length limits correspond to underlying limits in the implementation, such as the use of fixed-size fields in a database or data store, the desire to fit into practical boundaries such as packet size, or some other implementation detail related to storage allocation or efficiency.</p>
-
+    <p>There are many reasons why a length limit might be needed in a specification or format. The most common reason is because there is an underlying limit for storage or interchange, such as the use of a fixed-sized field in a database, the desire to fit into practical boundaries such as packet size, or some other implementation detail related to storage allocation or efficiency. The other common reason is that there might be a limit on the size of the display or in the visible output.</p>
+    
     <p>When truncating strings, it's necessary to decide what units to use when counting the size of the string. In many cases this is beyond the control of the specification, since the truncation is occuring for some preordained reason. However, when the choice is available, some general guidelines can be applied.</p>
     
     <div class="req" id="char-trunc-avoid-visual-units">
@@ -2999,7 +2999,7 @@ just as characters are the basic unit of organization of encoded text.</p>
     <p>If a text size limitation is related to the number of "display positions", it is tempting to want to use the number of [=visual text units=], since these generally correspond more closely to some arbitrary limit than the number of [=code points=] or [=code units=]. However, limits expressed in such units rarely accomplish their goal effectively because of the nature of text display. Proportional width fonts, complex scripts, styling, accessibility features, and many other factors complicate this. In nearly all cases, a visual text unit limit is really attempting to approximate pixel widths. The limiting measurement requires font metrics in the display context. In Web pages, the CSS <kbd>text-overflow</kbd> property provides visual truncation without disturbing the content of the text. Attempts to estimate the size of a given piece of text based on the number of Unicode [=code points=] or even the number of [=grapheme clusters=] is mostly futile.</p>
     
     <aside class="example" title="Grapheme clusters &#x2260; pixels">
-        <p>Size limits based on the number of characters mostly have to do with "text fit" on the screen or in a page. However, the nature of text makes the truncation and limitation of text dependent on font metrics at the time the text is rendered, which won't correspond to some arbitrary integer limit.</p>
+        <p>When a size limit is based on the number of characters displayed, it is usually due to the need to "fit" the text into a specifically sized region of the screen or on a page. However, the nature of text makes the truncation and limitation of text dependent on font metrics at the time the text is rendered, which won't correspond to some arbitrary integer limit.</p>
         
         <p>Consider the words <em>indivisible</em> and <em>memorable</em>. The first has 11 letters, the second only 9 letters. However, <em>indivisible</em> consumes fewer pixels in most proportional fonts (it has a number of letters ‘I’ and ‘L’, which are narrow, versus the ‘M’ in <em>memorable</em>):</p>
         
@@ -3009,7 +3009,7 @@ just as characters are the basic unit of organization of encoded text.</p>
         
         <p class="bigtext">யூனிக்கோடு</p>
         
-        <p>Tamil, like many South Asian scripts, is written in syllables, with each syllable treated as a [=visual text unit=]. If we divide up the word for "Unicode" (which is simply a transliteration of the English word) we'll find that one of the syllables&mdash;the one pronounced 'ko' (shown here in red)&mdash;appears to take three screen positions:</p>
+        <p>Tamil, like many South Asian scripts, is written in syllables, with each syllable treated as a [=visual text unit=]. If we divide up the word for "Unicode" (which is simply a transliteration of the English word) we'll find that one of the syllables&mdash;the one pronounced 'ko' (shown here in red)&mdash;takes far more space than adjacent syllables, yet is still perceived by speakers of Tamil as a single text unit:</p>
         
         <p class="bigtext"><span style="color:blue">யூ</span><span style="color:brown">னி</span><span style="color:blue">க்</span><span style="color:red">கோ</span><span style="color:blue">டு</span></p>
     </aside>
@@ -3197,8 +3197,9 @@ just as characters are the basic unit of organization of encoded text.</p>
             </tr>
         </table>
         
+        <p>Keep in mind that, while the examples chosen here are roughly the same length, other languages might require more characters to convey the same concepts. For example, the Scottish Gaelic translation would be <q lang="gd">Is urrainn dhomh glainne ithe, chan eil e gam ghoirteachadh</q>, which is significantly longer than the English. Many languages have different grammatical structure as well, so that key information (such as the verb) appearing at the end of the sentence (as is common in Hindi or Japanese).</p>
                 
-        <p>Don't forget that the limit will also interact with the truncation boundary chosen (as shown in [[[#example-gc-cp-cu-trunc]]]): if the truncation is done naively at the 15th byte, the resulting string might contain only a partial character. For example, the Marathi could experience this problem: <span class="codepoint"><bdi lang="ma">मी का�...</bdi></span>. In [[[#family-example]]], the simplest composed "family" emoji sequence "👨‍👩‍👦" consists of 5 code points. The byte limit of 15 truncates in the middle of the child family member: "👨‍👩‍�‍". If the truncation is done on the [=grapheme cluster=] boundary, the entire family is removed.</p>
+        <p>Finally, don't forget that the limit will also interact with the truncation boundary chosen (as shown in [[[#example-gc-cp-cu-trunc]]]): if the truncation is done naively at the 15th byte, the resulting string might contain only a partial character. For example, the Marathi could experience this problem: <span class="codepoint"><bdi lang="ma">मी का�...</bdi></span>. In [[[#family-example]]], the simplest composed "family" emoji sequence "👨‍👩‍👦" consists of 5 code points. The byte limit of 15 truncates in the middle of the child family member: "👨‍👩‍�‍". If the truncation is done on the [=grapheme cluster=] boundary, the entire family is removed.</p>
     </aside>
 
  	<div class="req" id="char_trunc_units">
