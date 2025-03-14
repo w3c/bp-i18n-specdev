@@ -1240,6 +1240,7 @@
 
 <!--p>In this section:</p>
 	<ul class="summary">
+    <li>[[[#char_basics]]]</li>
 	<li>[[[#char_def]]]</li>
 	<li>[[[#char_referencemodel]]]</li>
 	<li>[[[#char_ranges]]]</li>
@@ -1265,15 +1266,18 @@
     <h3>Characters and character encoding basics</h3>
 
 
-<aside class="note" id="char-start-here" title="Start Here">
+<div id="char-start-here" style="border:5px solid green; padding: 10px;">
+    <h3>Start Here</h3>
     <p>The relationship between text and its storage and processing in computers is complicated, involving many terms and concepts that may be new to you. Understanding this terminology is important to understanding the guidance in the internationalization guidelines and best practices. We've created this article to explain and illustrate what you need to know:</p>
     
-    <h3 class="link"><a href="https://www.w3.org/International/articles/definitions-characters/index.en.html#characters">Character encodings: Essential concepts</a></h3>
-</aside>
+    <p style="text-align:center;font-family:sans-serif;font-size:larger"><a href="https://www.w3.org/International/articles/definitions-characters/index.en.html#characters">Character encodings: Essential concepts</a></p>
+    
+</div>
 
 
 <aside class="links" id="links_char_def">
 <p class="links_title">Useful background and overviews for this section</p>
+<details class="links"><summary>further reading</summary>
 <ul>
     <li class="w3"><p class="link"><a href="https://www.w3.org/TR/charmod/">Character Model for the World Wide Web: Fundamentals</a> — basic guidelines related to the use of characters and encodings. Most of the relevant content in this document has been imported into this section or explained in the "Essential concepts" article.</p></li>
     
@@ -1283,6 +1287,7 @@
 
     <li class="w3"><p class="link"><a href="https://www.w3.org/International/questions/qa-indic-graphemes">Typographic character units in complex scripts</a> &mdash; Article explaining more complex typographic unit issues.</p></li>
 </ul>
+</details>
 </aside>
 
     <div class="req" id="char_specific">
@@ -1292,130 +1297,35 @@
     <p>The term <em>character</em> means different things in different contexts: it can variously refer to the visual, logical, or byte-level representation of a given unit of text. This makes the term too imprecise to use casually in specifications. Understanding how text is defined and encoded in computing systems, along with the associated terminology used to make such specification unambiguous, is thus a necessary prerequisite to discussing the processing of string data.</p>
     
     <p>The developers of specifications, and the developers of software based on those specifications, are likely to be more familiar with usages of the term 'character' they have experienced and less familiar with the wide variety of usages in an international context. Furthermore, within a computing context, characters are often confused with related concepts, resulting in incomplete or inappropriate specifications and software.</p>
+    
+    <aside class="note">
+    <p>This section provides some definitions and examples necessary to understanding best practices and guidelines found in this document. These are not a complete exploration of the necessary concepts. They are included to reduce the need to reference the <a href="#char-start-here">essential concepts</a> linked above.</p>
+    </aside>
 
-
-    <p>A <dfn class="lint-ignore">visual text unit</dfn> is a single unit of the visible text as perceived by a user. This can be on a screen or in other media, such as printed on paper or written on the back of a napkin. This term is necessarily imprecise, as user perception frequently depends on familiarity with the script and writing system, particularly when it comes to writing systems that use a combination of combining marks, complex positioning, or complex shaping based on context. A [=visual text unit=] generally shouldn't be broken apart by operations such as line-breaking or hyphenation.</p>
+    <p>In this document, a <dfn class="lint-ignore">visual text unit</dfn> refers to a single unit of the visible text as perceived by a user. This can be on a screen or in other media, such as printed on paper or written on the back of a napkin. This term is necessarily imprecise, as user perception frequently depends on familiarity with the script and writing system, particularly when it comes to writing systems that use a combination of combining marks, complex positioning, or complex shaping based on context.</p>
     
-    <p>Other terms are sometimes used that have similar meanings. The term [=grapheme=] is sometimes used by linguists (and others) to refer to what a typical user would perceive as a single unit. The term [=glyph=] is used by typographers (and others) to refer to an individual rendering unit. Sometimes a [=visual text unit=] is said to be a <dfn class="lint-ignore">user-perceived character</dfn>, although this name can be misleading. For example, some users of Brahmi-derived scripts will perceive (read) components in a stacked consonant cluster as separate visual text units, whereas others will see the whole stack as one visual text unit.</p>
+    <p>An <dfn>abstract character</dfn> is a fundamental abstract unit of text. In this section, when we say 'character' we mean an [=abstract character=].</p>
     
-    <p>At their simplest, [=visual text units=] are a single shape ([=glyph=]) that can be tied one-to-one to a "character" in the computer's memory. But a visual text unit can also be formed from a sequence of characters.</p>
+    <p>A <strong><a>character set</a></strong> is unordered collection of [=abstract characters=] that can be used together to encode a specific range of text. The collection of characters in a [=character set=] is sometimes called its <a href="https://www.w3.org/TR/i18n-glossary#dfn-character-set">repertoire</a>.</p>
     
-	<p>Here is the word for "Unicode" in the English language (which uses the Latin script). It is made up of seven Unicode characters that form seven visual text units:</p>
+    <p>The <strong>[=Universal Character Set=]</strong>, which is the character set that is defined by [[Unicode]], is the most important. The Universal Character Set includes all of the characters currently used to encode text in computer systems, including historical or extinct writing systems as well as modern usage, private use, typesetting symbols, and other things, such as the emoji. All other character sets are defined subsets of Unicode. The Unicode Standard is revised, typically annually, to encode additional characters.</p>
     
-	<p class="bigtext" style="margin-block-start: 12px; margin-block-end: 12px">Unicode</p>
-    
-	<p>Here is the word for "Unicode" in the Hindi language (which uses the Devanagari script):</p>
-    
-    <p class="bigtext" lang="hi">&#x092F;&#x0942;&#x0928;&#x093F;&#x0915;&#x094B;&#x0921;</p>
-    
-    <p>This word also happens to be made up of seven Unicode characters, but these characters form only four visual text units:</p>
-    
-	<p><span class="bigtext" lang="hi">&#x092F;&#x0942;&nbsp;<span>&#x0928;&#x093F;</span>&nbsp;<span>&#x0915;&#x094B;</span>&nbsp;<span>&#x0921;</span></p>
-        
-    <p>Several of these visual text units are made up of more than one Unicode character because of the way that the Devanagari script works. Devanagari is an example of a script that uses combining characters. In fact, use of such characters is required to write text in this script.</p>
-        
-    <p>Devanagari is a syllabic writing system. That is, each [=visual text unit=] represents a syllable of text. Syllables are formed from a base character, which represents a syllable ending with the short 'a' vowel sound. When you want to use a different vowel, you add a combining vowel character that changes the shape of the grapheme. Or, the vowel can be suppressed with a "vowel killer", known in this case as a [=virama=]. (There are some additional complexities, which we won't go into here.)</p>
-        
-    <p>In the word for "Unicode" above, the second syllable represents the "ni" in the transliterated word "Unicode". It is made of two characters: <span class="codepoint" translate="no"><bdi lang="ml">&#x0928;</bdi> <span class="uname">U+0928 DEVANAGARI LETTER NA</span></span> (the syllable "na") and <span class="codepoint" translate="no"><bdi lang="ml">&#x093F;</bdi> <span class="uname">U+093F DEVANAGARI VOWEL SIGN I​</span></span>:</p>
-
-    <table>
-        <tr>
-            <td class="bigtext">&#x092f;</td>
-            <td class="bigtext">&#x0942;</td>
-            <td class="bigtext"><strong>&#x0928;</strong></td>
-            <td class="bigtext"><strong>&#x093f;</strong></td>
-            <td class="bigtext">&#x0915;</td>
-            <td class="bigtext">&#x094b;</td>
-            <td class="bigtext">&#x0921;</td>
-        </tr>
-        <tr>
-            <td><code>U+092F</code></td>
-            <td><code>U+0942</code></td>
-            <td><code>U+0928</code></td>
-            <td><code>U+093F</code></td>
-            <td><code>U+0915</code></td>
-            <td><code>U+094B</code></td>
-            <td><code>U+0921</code></td>
-        </tr>
-    </table>
-    
-    <p>Another example of the complex relationship between [=visual text units=] and [=code points=] are certain emoji. The emoji character for "family" has a code point in Unicode: <span class="codepoint" translate="no"><bdi lang="en">&#x1F46A;</bdi><code class="uname">U+1F46A FAMILY</code></span>. It can also be formed by using using a sequence of [=code points=]: <code class="uname">U+1F468 U+200D U+1F469 U+200D U+1F466</code>.</p>
-    
-    <p>The character <span class="codepoint" translate="no"><img alt="ZWJ" src="./images/200D.png"><span class="uname" translate="no">U+200D ZERO WIDTH JOINER</span></span> is used to "join" separate emoji characters together (it also has a role in joining characters in various writing systems of the world). This compositional mechanism can be used to create other family variations. For example, the sequence <span class="codepoint" translate="no"><bdi translate="no">&#x1f468;&#x200d;&#x1f469;&#x200d;&#x1f467;&#x200d;&#x1f466;</bdi><code class="uname" translate="no">U+1F468 U+200D U+1F469 U+200D U+1F467 U+200D U+1F466</code></span> results in a composed emoji character for a "family: man, woman, girl, boy" on systems that support this kind of composition. That long character sequence still represents just a single [=visual text unit=]. Other characters, such as skin tone modifiers, can further extend the [=grapheme cluster=]:</p>
-
-        
-        <table class="cpExample" style="width:95%">
-            <tr>
-                <th style="text-align:center;width:15%">Emoji</th>
-                <th>Code Point Sequence</th>
-            </tr>
-            <tr>
-                <td><img src="./images/emoji-image-1.png" class="emoji-image" alt="&#x1F46A;"></td>
-                <td><code class="uname">U+1F46A FAMILY</code></td>
-            </tr>
-            <tr>
-                <td><img src="./images/emoji-image-2.png" class="emoji-image" alt=">&#x1F468;&#x200d;&#x1f469;&#x200d;&#x1f466;"></td>
-                <td><code class="uname">U+1F468 U+200D U+1F469 U+200D U+1F466</code></td>
-            </tr>
-             <tr>
-                <td><img src="./images/emoji-image-3.png" class="emoji-image" alt="&#x1F468;&#x200d;&#x1f469;&#x200d;&#x1f467;&#x200d;&#x1f466;"></td>
-                <td><code class="uname">U+1F468 U+200D U+1F469 U+200D U+1F467 U+200D U+1F466</code></td>
-            </tr>  
-            <tr>
-                <td><img src="./images/emoji-image-4.png" class="emoji-image" alt="&#x1F468;&#x1f3ff;&#x200d;&#x1f469;&#x1f3fe;&#x200d;&#x1f467;&#x1f3fc;&#x200d;&#x1f466;"></td>
-                <td><code class="uname">U+1F468 U+1F3FF U+200D U+1F469 U+1F3FE U+200D U+1F467 U+1F3FC U+200D U+1F466</code></td>
-            </tr>
-        </table>
-        
-    <p>Many common emoji can <em>only</em> be formed using sequences of code points, but should be treated as a single [=visual text unit=] when displaying or processing the text. You wouldn't want to put a line-break in the middle of the family!</p>
-    
-	<p>[[Unicode]] provides a definition for approximately computing the boundaries in a sequence of characters between visual text units. The boundaries defined by [[Unicode]] are called [=grapheme clusters=]. (Unless otherwise specified, the term [=grapheme cluster=] in this document refers to what [[UAX29]] refers to as an "extended default grapheme cluster".)</p>
-    
-    In most cases, a sequence of [=code points=] that forms a single [=visual text unit=] should be processed as a single, indivisible textual unit. For example, when cursoring across text, the cursor should "jump across" or select the entire visual text unit (and its underlying code points) together. It shouldn't be possible to cursor into the "middle" of a visual text unit.</p>
-    
-    <p>Note that some text operations <em>do</em> allow users to interact with individual [=code points=] within a [=grapheme cluster=]. For example, some editing functions, such as backspacing, progressively delete characters from the end of a [=visual text unit=] (to allow users to correct misspellings without having the erase the entire cluster, for example).</p>
-    
-    <p>For most languages and scripts, there is little difference between a [=visual text unit=] and a [=grapheme cluster=]. However, for some languages and scripts, particularly those found in South Asia, the difference can be important. Work is on-going at Unicode to narrow or eliminate gaps between the computed grapheme cluster boundaries and the expected visual text units. For example, this section previously used an example in Bangla, but the Bengali script was corrected in Unicode 15.1.</p>
-
-	<p>A language for which work is on-going is Balinese. In Balinese, the word "ᬅᬲ᭄ᬢ", which means "to be", is composed of this character sequence:
-	<ul style="list-style-type:none">
-	   <li><span class="codepoint" translate="no"><bdi lang="ban">&#x1B05;</bdi><code class="uname">U+1B05 BALINESE LETTER AKARA</code></span>
-	   <li><span class="codepoint" translate="no"><bdi lang="ban">&#x1B32;</bdi><code class="uname">U+1B05 BALINESE LETTER SA</code></span>
-	   <li><span class="codepoint" translate="no"><bdi lang="ban">&#x1B44;</bdi><code class="uname">U+1B05 BALINESE ADEG ADEG</code></span>
-	   <li><span class="codepoint" translate="no"><bdi lang="ban">&#x1B22;</bdi><code class="uname">U+1B05 BALINESE LETTER TA</code></span>
-	</ul></p>
-	
-	<p>Currently, the rules in [[UAX29]] break this by default into three [=grapheme clusters=], like this:</p>
-	<img src="images/balinese-gc.png" alt="Balinese grapheme cluster, showing three units">
-		
-	<p>However, this text uses the <em>adeg adeg</em> (which functions similar to a [=virama=]) to create a stack. This should result in just two visual text units, like this:</p>
-	<img src="images/balinese-ortho-syllab.png" alt="Balinese word properly segmented into two units">
-
-
-    <p>In order to encode [=visual text units=] for use by software, we have to start by agreeing on what is being encoded.</p>
-    
-    <p>An <dfn class="lint-ignore">abstract character</dfn> is a fundamental abstract unit of text. In this section, when we say 'character' we mean an [=abstract character=].</p>
-    
-    <p>A <a>character set</a> is quite literally a set: a specific collection of [=abstract characters=] that can be used together to encode text. The collection of characters in a [=character set=] is sometimes called its <a href="https://www.w3.org/TR/i18n-glossary#dfn-character-set">repertoire</a>.</p>
-    
-    <p>The most important [=character set=] is the [=Universal Character Set=], which is the character set that is defined by [[Unicode]]. Unicode's character set includes all of the characters used to encode text, including historical or extinct writing systems as well as modern usage, private use, typesetting symbols, and other things, such as the emoji. All other character sets are defined subsets of Unicode. The Unicode Standard is revised, typically annually, to encode additional characters.</p>
-    
-    <p>To be useful, a [=character set=] needs to be organized so that one can unambiguously find each character. This is done by assigning each character a unique identifier called a [=code point=]. A [=character set=] in which each character has been assigned a [=code point=] is called a [=coded character set=].</p>
+    <p>A <strong>[=code point=]</strong> is a unique identifier for an [=abstract character=] in a [=character set=]. For a [=character set=] to be useful, it needs to be organized so that one can unambiguously find each character. This is done by assigning each character a [=code point=]. A [=character set=] in which each character has been assigned a [=code point=] is called a [=coded character set=], although in practice, you'll rarely need this term.</p>
     
     <p>In Unicode, [=code points=] are integers between <code>0x0000</code> and <code>0x10FFFF</code> inclusive and are written in hexadecimal notation (see [[[#char_ref]]]). A [=Unicode code point=] is sometimes called a [=Unicode Scalar Value=]. </p>
     
-    <p>Computer processing, storage, and communication relies on units of physical storage and information interchange. A unit of physical storage is called a [=code unit=]. A frequent error in specifications and implementations is the equating of "characters" with a particular unit of physical storage. The most familiar [=code unit=] is called a <em>byte</em> or <em>octet</em>, and consists of 8 bits. </p>
+    <p>A <strong>[=code unit=]</strong> is a unit of physical storage and information interchange, forming the basis for computer processing, storage, and communication. The most familiar [=code unit=] is called a <em>byte</em> or <em>octet</em>, and consists of 8 bits. A frequent error in specifications and implementations is the equating of "characters" with a particular unit of physical storage. </p>
     
     <p>Different sized [=code units=] are used by different runtime environments. Other common sizes include 16- or 32-bit units. On the Web, for example, 16-bit code units are used by the [[DOM]], JavaScript, and the various string types in [[INFRA]]. These specifications use 16-bit code units processed according to the rules of the UTF-16 [=character encoding=] of [[Unicode]]. (See [[[#char_string]]].)</p>
     
-    <p>The mapping between [=code points=] and [=code units=] is actually quite complex. A [=character encoding form=] (or [=character encoding=] for short) is the set of rules for converting between [=code points=] in a [=character set=] and the [=code units=] used to store and process text. Non-Unicode character encoding forms are called [=legacy character encodings=].</p>
+    <p>A <strong>[=character encoding form=]</strong> (usually just referred to as a <strong>[=character encoding=]</strong>) is the set of rules for converting between [=code points=] in a [=character set=] and the [=code units=] used to store and process text. Non-Unicode character encoding forms are referred to collectively as <strong>[=legacy character encodings=]</strong>.</p>
     
     <div class="xref"><span class="seealso">See also</span>
     <p>[[[#char_choosing]]]</p>
     </div>
-    
-
-    <p>The most common [=character encoding=] used on the Web is UTF-8. UTF-8 uses 8-bit bytes as its [=code unit=]. UTF-8 is a variable width encoding, in that it uses different numbers of code units depending on the [=code point=] being encoded. The familiar 7-bit ASCII characters (the code points from <code>U+0000</code> to <code>U+007F</code>) take one byte to encode in UTF-8. Code points from <code>U+0080</code> and <code>U+07FF</code> require two bytes. Code points from <code>U+0800</code> through <code>U+FFFF</code> take three bytes. And, finally, code points from <code>U+10000</code> through <code>U+10FFFF</code> take four bytes.</p>
+        
+ 
+    <p><strong>UTF-8</strong> is a multibyte [=character encoding form=] of [[Unicode]]. It is the most common [=character encoding=] used on the Web. UTF-8 uses 8-bit bytes as its [=code unit=]. UTF-8 is a variable width encoding, in that it uses different numbers of code units depending on the [=code point=] being encoded. The familiar 7-bit ASCII characters (the code points from <code>U+0000</code> to <code>U+007F</code>) take one byte to encode in UTF-8. Code points from <code>U+0080</code> and <code>U+07FF</code> require two bytes. Code points from <code>U+0800</code> through <code>U+FFFF</code> take three bytes. And, finally, code points from <code>U+10000</code> through <code>U+10FFFF</code> take four bytes.</p>
 
        <table class="cpExample">
 		   <tr>
@@ -1448,8 +1358,55 @@
 			   <td><code>0xE0 0xA4 0xA8</code></td>
 			   <td><code>0xF0 0x9F 0x91 0xAA</code></td>
 		   </tr>
-       </table>
+       </table>   
+       
+       
+	<p>A <strong>[=grapheme cluster=]</strong> is the computed approximation of a [=visual text unit=] in encoded text, that is, it is a sequence of [=code points=] that are expected to form a single [=visual text unit=] from the user's point of view. [[Unicode]] provides a way to compute these boundaries to assist in processing text, since, in most cases, such a sequence should be processed as a single, indivisible textual unit. For example, when cursoring across text, the cursor should "jump across" or select the entire visual text unit (and its underlying code points) together. It shouldn't be possible to cursor into the "middle" of a visual text unit. (Unless otherwise specified, the term [=grapheme cluster=] in this document refers to what [[UAX29]] refers to as an "extended default grapheme cluster".)</p>
+    
+    <p>Note that some text operations <em>do</em> allow users to interact with individual [=code points=] within a [=grapheme cluster=]. For example, some editing functions, such as backspacing, progressively delete characters from the end of a [=visual text unit=] (to allow users to correct misspellings without having the erase the entire cluster, for example).</p>
+    
 
+    <aside class="example" title="Encoding terminology illustrated">
+    
+	<p>Here is the word for "Unicode" in the English language (which uses the Latin script). It is made up of seven [=grapheme clusters=], each of which consists of a single <em>character</em> encoded as a Unicode [=code point=]:</p>
+    
+	<p class="bigtext" style="margin-block-start: 12px; margin-block-end: 12px">Unicode</p>
+    
+	<p>Here is the word for "Unicode" in the Hindi language (which uses the Devanagari script):</p>
+    
+    <p class="bigtext" lang="hi">&#x092F;&#x0942;&#x0928;&#x093F;&#x0915;&#x094B;&#x0921;</p>
+    
+    <p>This word also happens to be made up of seven Unicode [=code points=], but these characters form only four [=grapheme clusters=]:</p>
+    
+	<p><span class="bigtext" lang="hi">&#x092F;&#x0942;&nbsp;<span>&#x0928;&#x093F;</span>&nbsp;<span>&#x0915;&#x094B;</span>&nbsp;<span>&#x0921;</span></p>
+        
+    <p>Several of these [=visual text units=] are made up of more than one Unicode [=code point=] because of the way that the Devanagari script works. Devanagari is an example of a script that uses combining characters. In fact, use of such characters is required to write text in this script.</p>
+    
+    <p>Each of the [=abstract characters=] is assigned a [=Unicode Scalar Value=] to serve as its [=code point=]:</p>
+    
+    <table>
+        <tr>
+            <td class="bigtext">&#x092f;</td>
+            <td class="bigtext">&#x0942;</td>
+            <td class="bigtext"><strong>&#x0928;</strong></td>
+            <td class="bigtext"><strong>&#x093f;</strong></td>
+            <td class="bigtext">&#x0915;</td>
+            <td class="bigtext">&#x094b;</td>
+            <td class="bigtext">&#x0921;</td>
+        </tr>
+        <tr>
+            <td><code>U+092F</code></td>
+            <td><code>U+0942</code></td>
+            <td><code>U+0928</code></td>
+            <td><code>U+093F</code></td>
+            <td><code>U+0915</code></td>
+            <td><code>U+094B</code></td>
+            <td><code>U+0921</code></td>
+        </tr>
+    </table>
+
+    </aside>
+    
 </section>
 
 <section id="char_def" class="subtopic">
