@@ -1276,7 +1276,6 @@
 
 
 <aside class="links" id="links_char_def">
-<p class="links_title">Useful background and overviews for this section</p>
 <details class="links"><summary>further reading</summary>
 <ul>
     <li class="w3"><p class="link"><a href="https://www.w3.org/TR/charmod/">Character Model for the World Wide Web: Fundamentals</a> — basic guidelines related to the use of characters and encodings. Most of the relevant content in this document has been imported into this section or explained in the "Essential concepts" article.</p></li>
@@ -1291,75 +1290,87 @@
 </aside>
 
     <div class="req" id="char_specific">
-        <p class="advisement">Specifications SHOULD avoid using the term 'character'. Instead use the specific term prescribed in this section or appropriate to your context.</p>
+        <p class="advisement">Specifications SHOULD avoid using the term 'character'.</p>
     </div>
 
     <p>The term <em>character</em> means different things in different contexts: it can variously refer to the visual, logical, or byte-level representation of a given unit of text. This makes the term too imprecise to use casually in specifications. Understanding how text is defined and encoded in computing systems, along with the associated terminology used to make such specification unambiguous, is thus a necessary prerequisite to discussing the processing of string data.</p>
     
     <p>The developers of specifications, and the developers of software based on those specifications, are likely to be more familiar with usages of the term 'character' they have experienced and less familiar with the wide variety of usages in an international context. Furthermore, within a computing context, characters are often confused with related concepts, resulting in incomplete or inappropriate specifications and software.</p>
     
-    <aside class="note">
-    <p>This section provides some definitions and examples necessary to understanding best practices and guidelines found in this document. These are not a complete exploration of the necessary concepts. They are included to reduce the need to reference the <a href="#char-start-here">essential concepts</a> linked above.</p>
-    </aside>
-
-    <p>In this document, a <dfn class="lint-ignore">visual text unit</dfn> refers to a single unit of the visible text as perceived by a user. This can be on a screen or in other media, such as printed on paper or written on the back of a napkin. This term is necessarily imprecise, as user perception frequently depends on familiarity with the script and writing system, particularly when it comes to writing systems that use a combination of combining marks, complex positioning, or complex shaping based on context.</p>
+    <p>Here is a brief glossary of core terminology:</p>
     
     <p>An <dfn>abstract character</dfn> is a fundamental abstract unit of text. In this section, when we say 'character' we mean an [=abstract character=].</p>
     
-    <p>A <strong><a>character set</a></strong> is unordered collection of [=abstract characters=] that can be used together to encode a specific range of text. The collection of characters in a [=character set=] is sometimes called its <a href="https://www.w3.org/TR/i18n-glossary#dfn-character-set">repertoire</a>.</p>
+    <p>A <strong><a>character set</a></strong> is unordered collection of [=abstract characters=] (in other words, it is a <em>set</em>) that can be used together to encode text. The collection of characters in a [=character set=] is sometimes called its <a href="https://www.w3.org/TR/i18n-glossary#dfn-character-set">repertoire</a>. Most [=character sets=] support only a specific language or script.</p>
     
-    <p>The <strong>[=Universal Character Set=]</strong>, which is the character set that is defined by [[Unicode]], is the most important. The Universal Character Set includes all of the characters currently used to encode text in computer systems, including historical or extinct writing systems as well as modern usage, private use, typesetting symbols, and other things, such as the emoji. All other character sets are defined subsets of Unicode. The Unicode Standard is revised, typically annually, to encode additional characters.</p>
+    <p>The <strong>[=Universal Character Set=]</strong> or <em>[[Unicode]]</em> includes all of the characters currently used to encode text in computer systems, including historical or extinct writing systems as well as modern usage, private use, typesetting symbols, and other things, such as the emoji. All other character sets are defined subsets of Unicode. Annual revisions extend the set of characters encoded.</p>
     
-    <p>A <strong>[=code point=]</strong> is a unique identifier for an [=abstract character=] in a [=character set=]. For a [=character set=] to be useful, it needs to be organized so that one can unambiguously find each character. This is done by assigning each character a [=code point=]. A [=character set=] in which each character has been assigned a [=code point=] is called a [=coded character set=], although in practice, you'll rarely need this term.</p>
+    <p>The [[Unicode]] Standard defines much more than just a [=character set=]. It also defines many of the properties, algorithms, and other details for the processing and presentation of text.</p>
     
-    <p>In Unicode, [=code points=] are integers between <code>0x0000</code> and <code>0x10FFFF</code> inclusive and are written in hexadecimal notation (see [[[#char_ref]]]). A [=Unicode code point=] is sometimes called a [=Unicode Scalar Value=]. </p>
+    <p>A <strong>[=code point=]</strong> is a unique identifier for an [=abstract character=] in a [=character set=]. For a [=character set=] to be useful, it needs unambiguously identify each character. This is done by assigning each character a [=code point=] as an identifier.</p>
     
-    <p>A <strong>[=code unit=]</strong> is a unit of physical storage and information interchange, forming the basis for computer processing, storage, and communication. The most familiar [=code unit=] is called a <em>byte</em> or <em>octet</em>, and consists of 8 bits. A frequent error in specifications and implementations is the equating of "characters" with a particular unit of physical storage. </p>
+    <p>In [[Unicode]], a [=code point=] is an integer between <code>0x0000</code> and <code>0x10FFFF</code> inclusive. It is written in hexadecimal notation (see [[[#char_ref]]]). A [=Unicode code point=] is sometimes called a [=Unicode Scalar Value=]. </p>
+    
+    <p>A <strong>[=code unit=]</strong> is a unit of physical storage and information interchange, forming the basis for computer processing, storage, and communication. The most familiar [=code unit=] is called a <em>byte</em> or <em>octet</em>, and consists of 8 bits.</p>
     
     <p>Different sized [=code units=] are used by different runtime environments. Other common sizes include 16- or 32-bit units. On the Web, for example, 16-bit code units are used by the [[DOM]], JavaScript, and the various string types in [[INFRA]]. These specifications use 16-bit code units processed according to the rules of the UTF-16 [=character encoding=] of [[Unicode]]. (See [[[#char_string]]].)</p>
     
-    <p>A <strong>[=character encoding form=]</strong> (usually just referred to as a <strong>[=character encoding=]</strong>) is the set of rules for converting between [=code points=] in a [=character set=] and the [=code units=] used to store and process text. Non-Unicode character encoding forms are referred to collectively as <strong>[=legacy character encodings=]</strong>.</p>
+    <p>A <strong>[=character encoding form=]</strong> (sometimes just referred to as a <strong>[=character encoding=]</strong>) is the set of rules for encoding from [=code points=] in a [=character set=] to the [=code units=] used to store and process text or for decoding from [=code units=] to [=code points=]. Non-Unicode character encoding forms are referred to collectively as <strong>[=legacy character encodings=]</strong>. (See [[Encoding]].)</p>
     
     <div class="xref"><span class="seealso">See also</span>
     <p>[[[#char_choosing]]]</p>
     </div>
         
  
-    <p><strong>UTF-8</strong> is a multibyte [=character encoding form=] of [[Unicode]]. It is the most common [=character encoding=] used on the Web. UTF-8 uses 8-bit bytes as its [=code unit=]. UTF-8 is a variable width encoding, in that it uses different numbers of code units depending on the [=code point=] being encoded. The familiar 7-bit ASCII characters (the code points from <code>U+0000</code> to <code>U+007F</code>) take one byte to encode in UTF-8. Code points from <code>U+0080</code> and <code>U+07FF</code> require two bytes. Code points from <code>U+0800</code> through <code>U+FFFF</code> take three bytes. And, finally, code points from <code>U+10000</code> through <code>U+10FFFF</code> take four bytes.</p>
+    <p><strong>UTF-8</strong> is a multibyte [=character encoding form=] of [[Unicode]]. It is the most common [=character encoding=] used on the Web. UTF-8 uses 8-bit bytes as its [=code unit=]. UTF-8 is a variable width encoding, in that it uses different numbers of code units depending on the [=code point=] being encoded.</p>
+    
+    <p>The familiar 7-bit ASCII characters (the code points from <code>U+0000</code> to <code>U+007F</code>) take one byte to encode in UTF-8.</p>
+    
+    <table class="cpExample">
+         <tr>
+            <th style="width:15%">Character</th>
+            <th style="width:15%">Code Point</th>
+            <th>UTF-8 Code Units (bytes)</th>
+        </tr> 
+        <tr>
+            <td class="bigtext">A</td>
+            <td><code>U+0041</code></td>
+            <td><code>0x41</code></td>
+        </tr>
+    </table>
+    
+    <p>Code points from <code>U+0080</code> and <code>U+07FF</code> require two bytes.</p>
+    <table class="cpExample">
+        <tr>
+            <td class="bigtext" style="width:15%">&#xc0;</td>
+            <td style="width:15%"><code>U+00C0</code></td>
+            <td><code>0xC3 0x80</code></td>
+        </tr>
+    </table>
+    <table>
+        
+    <p>Code points from <code>U+0800</code> through <code>U+FFFF</code> take three bytes.</p>
+    <table class="cpExample">
+        <tr>
+            <td class="bigtext" style="width:15%">&#x928;</td>
+            <td style="width:15%"><code>U+0928</code></td>
+            <td><code>0xE0 0xA4 0xA8</code></td>
+        </tr>
+    </table>
+        
+    <p>And, finally, code points from <code>U+10000</code> through <code>U+10FFFF</code> take four bytes.</p>
+    <table class="cpExample">
+        <tr>
+            <td class="bigtext" style="width:15%">&#x1f46a;</td>
+            <td style="width:15%"><code>U+1F46A</code></td>
+            <td><code>0xF0 0x9F 0x91 0xAA</code></td>
+        </tr>
+    </table>
+     
+     
 
-       <table class="cpExample">
-		   <tr>
-			   <td>Character</td>
-			   <td class="bigtext">A</td>
-			   <td class="bigtext">&#xc0;</td>
-		   </tr>
-		   <tr>
-			   <td>Code Point</td>
-			   <td><code>U+0041</code></td>
-			   <td><code>U+00C0</code></td>
-		   </tr>
-		   <tr>
-			   <td>Code Units (bytes)</td>
-			   <td><code>0x41</code></td>
-			   <td><code>0xC3 0x80</code></td>
-		   </tr>
-		   <tr>
-			   <td>Character</td>
-			   <td class="bigtext">&#x928;</td>
-			   <td class="bigtext">&#x1F46A;</td>
-		   </tr>
-		   <tr>
-			   <td>Code Point</td>
-			   <td><code>U+0928</code></td>
-			   <td><code>U+1F46A</code></td>
-		   </tr>
-		   <tr>
-			   <td>Code Units (bytes)</td>
-			   <td><code>0xE0 0xA4 0xA8</code></td>
-			   <td><code>0xF0 0x9F 0x91 0xAA</code></td>
-		   </tr>
-       </table>   
-       
+
+    <p>In this document, a <dfn class="lint-ignore">visual text unit</dfn> refers to a single unit of the visible text as perceived by a user. This can be on a screen or in other media, such as printed on paper or written on the back of a napkin. This term is necessarily imprecise, as user perception frequently depends on familiarity with the script and writing system, particularly when it comes to writing systems that use a combination of combining marks, complex positioning, or complex shaping based on context.</p>
        
 	<p>A <strong>[=grapheme cluster=]</strong> is the computed approximation of a [=visual text unit=] in encoded text, that is, it is a sequence of [=code points=] that are expected to form a single [=visual text unit=] from the user's point of view. [[Unicode]] provides a way to compute these boundaries to assist in processing text, since, in most cases, such a sequence should be processed as a single, indivisible textual unit. For example, when cursoring across text, the cursor should "jump across" or select the entire visual text unit (and its underlying code points) together. It shouldn't be possible to cursor into the "middle" of a visual text unit. (Unless otherwise specified, the term [=grapheme cluster=] in this document refers to what [[UAX29]] refers to as an "extended default grapheme cluster".)</p>
     
@@ -1388,8 +1399,8 @@
         <tr>
             <td class="bigtext">&#x092f;</td>
             <td class="bigtext">&#x0942;</td>
-            <td class="bigtext"><strong>&#x0928;</strong></td>
-            <td class="bigtext"><strong>&#x093f;</strong></td>
+            <td class="bigtext">&#x0928;</td>
+            <td class="bigtext">&#x093f;</td>
             <td class="bigtext">&#x0915;</td>
             <td class="bigtext">&#x094b;</td>
             <td class="bigtext">&#x0921;</td>
@@ -1404,6 +1415,8 @@
             <td><code>U+0921</code></td>
         </tr>
     </table>
+    
+    <p>This sequence of [=code points=] can be encoded into a byte sequence using the UTF-8 [=character encoding=].</p>
 
     </aside>
     
