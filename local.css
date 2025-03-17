@@ -498,3 +498,20 @@ img.emoji-image {
     max-width:60px;
     height:auto
 }
+
+.start-here {
+    border:5px solid green; 
+    background-color: rgb(233, 251, 233);
+    padding: 10px;
+}
+
+aside.start-here legend {
+    color: rgb(3, 69, 117);
+    font-size:large;
+    font-family:sans-serif;
+    font-weight:bold;
+    text-align:center;
+    background-color:ivory;
+    margins:0;
+    padding:0
+}

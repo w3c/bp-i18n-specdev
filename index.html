@@ -1266,25 +1266,26 @@
     <h3>Characters and character encoding basics</h3>
 
 
-<div id="char-start-here" style="border:5px solid green; padding: 10px;">
-    <h3>Start Here</h3>
+<aside id="char-start-here" class="start-here">
+    <legend>Start Here</legend>
     <p>The relationship between text and its storage and processing in computers is complicated, involving many terms and concepts that may be new to you. Understanding this terminology is important to understanding the guidance in the internationalization guidelines and best practices. We've created this article to explain and illustrate what you need to know:</p>
     
     <p style="text-align:center;font-family:sans-serif;font-size:larger"><a href="https://www.w3.org/International/articles/definitions-characters/index.en.html#characters">Character encodings: Essential concepts</a></p>
     
-</div>
+</aside>
 
 
 <aside class="links" id="links_char_def">
 <details class="links"><summary>further reading</summary>
+<p>These other documents provide additional information that may be helpful in understanding this section:</p>
 <ul>
-    <li class="w3"><p class="link"><a href="https://www.w3.org/TR/charmod/">Character Model for the World Wide Web: Fundamentals</a> — basic guidelines related to the use of characters and encodings. Most of the relevant content in this document has been imported into this section or explained in the "Essential concepts" article.</p></li>
-    
-    <li class="notw3"><p class="link"><a href="https://encoding.spec.whatwg.org/">Encoding</a> — specification with further guidelines related to use of character encodings.</p></li>
-    
     <li class="w3"><p class="link"><a href="https://www.w3.org/TR/charmod-norm/">Character Model for the World Wide Web: String Matching</a> — issues that arise when you try to compare two strings, be it identifiers or authored content.</p></li>
 
-    <li class="w3"><p class="link"><a href="https://www.w3.org/International/questions/qa-indic-graphemes">Typographic character units in complex scripts</a> &mdash; Article explaining more complex typographic unit issues.</p></li>
+    <li class="notw3"><p class="link"><a href="https://encoding.spec.whatwg.org/">Encoding</a> — specification with further guidelines related to use of character encodings.</p></li>
+        
+    <li class="w3"><p class="link"><a href="https://www.w3.org/International/questions/qa-indic-graphemes">Typographic character units in complex scripts</a> &mdash; Article explaining more complex issues related to [=visual text units=].</p></li>
+    
+    <li class="w3"><p class="link"><a href="https://www.w3.org/TR/charmod/">Character Model for the World Wide Web: Fundamentals</a> — basic guidelines related to the use of characters and encodings. The relevant content in this document has been imported into this document or is explained in the "Essential concepts" article at the top of this list.</p></li>
 </ul>
 </details>
 </aside>
@@ -1414,8 +1415,29 @@
         </tr>
     </table>
     
-    <p>This sequence of [=code points=] can be encoded into a byte sequence using the UTF-8 [=character encoding=].</p>
+    <p>This sequence of [=code points=] can be encoded into a byte sequence using the UTF-8 [=character encoding=]:</p>
 
+    <table>
+        <tr>
+            <td style="border-right:1px solid purple; text-align:center"><code>U+092F</code></td>
+            <td style="border-right:1px solid purple; text-align:center"><code>U+0942</code></td>
+            <td style="border-right:1px solid purple; text-align:center"><code>U+0928</code></td>
+            <td style="border-right:1px solid purple; text-align:center"><code>U+093F</code></td>
+            <td style="border-right:1px solid purple; text-align:center"><code>U+0915</code></td>
+            <td style="border-right:1px solid purple; text-align:center"><code>U+094B</code></td>
+            <td style="border-right:1px solid purple; text-align:center"><code>U+0921</code></td>
+        </tr>
+        <tr>
+            <td style="border-right:1px solid purple"><code>E0 A4 AF</code></td>
+            <td style="border-right:1px solid purple"><code>E0 A5 82</code></td>
+            <td style="border-right:1px solid purple"><code>E0 A4 A8</code></td>
+            <td style="border-right:1px solid purple"><code>E0 A4 BF</code></td>
+            <td style="border-right:1px solid purple"><code>E0 A4 95</code></td>
+            <td style="border-right:1px solid purple"><code>E0 A5 8B</code></td>
+            <td style="border-right:1px solid purple"><code>E0 A4 A1</code></td>
+        </tr>
+    </table>
+     
     </aside>
     
 </section>
