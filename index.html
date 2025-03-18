@@ -1302,15 +1302,17 @@
     
     <p>An <dfn>abstract character</dfn> is a fundamental abstract unit of text. In this section, when we say 'character' we mean an [=abstract character=].</p>
     
-    <p>A <strong><a>character set</a></strong> is an unordered collection of [=abstract characters=] (in other words, it is a <em>set</em>) that can be used together to encode text. The collection of characters in a [=character set=] is sometimes called its <a href="https://www.w3.org/TR/i18n-glossary#dfn-character-set">repertoire</a>. Most [=character sets=] support only a specific language or script.</p>
+    <p>A <strong><a>character set</a></strong> is an unordered collection of [=abstract characters=] (in other words, it is a <em>set</em>) that can be used together to encode text. The collection of characters in a [=character set=] is sometimes called its <a href="https://www.w3.org/TR/i18n-glossary#dfn-character-set">repertoire</a>. Most [=character sets=] support only a specific range of languages or scripts.</p>
     
     <p>The <strong>[=Universal Character Set=]</strong> or <em>[[Unicode]]</em> includes all of the characters currently used to encode text in computer systems, including historical or extinct writing systems as well as modern usage, private use, typesetting symbols, and other things, such as the emoji. All other character sets are defined subsets of Unicode. Annual revisions extend the set of characters encoded.</p>
     
     <p>The [[Unicode]] Standard defines much more than just a [=character set=]. It also defines many of the properties, algorithms, and other details for the processing and presentation of text.</p>
     
-    <p>A <strong>[=code point=]</strong> is a unique identifier for an [=abstract character=] in a [=character set=]. For a [=character set=] to be useful, it needs to unambiguously identify each character. This is done by assigning each character a [=code point=] as an identifier.</p>
+    <p>A <strong>[=code point=]</strong> is a unique identifier for an [=abstract character=] in a [=character set=]. For a [=character set=] to be useful, it needs to unambiguously identify each character. In most [=character sets=], the [=code point=] is a number or numbers that describe the location of the character in the table or chart of characters in the set.</p>
     
-    <p>In [[Unicode]], a [=code point=] is an integer between <code>0x0000</code> and <code>0x10FFFF</code> inclusive. It is written in hexadecimal notation (see [[[#char_ref]]]). A [=Unicode code point=] is sometimes called a [=Unicode Scalar Value=]. </p>
+    <p>In [[Unicode]], a [=code point=] is an integer between <code>0x0000</code> and <code>0x10FFFF</code> inclusive. It is written in hexadecimal notation (see [[[#char_ref]]]). A [=Unicode code point=] is sometimes called a [=Unicode Scalar Value=]. Each code point that has been assigned to a character in Unicode is also given a unique, immutable name. Unicode also associates various properties with each assigned character. Many of these properties appear in the <dfn class="lint-ignore">Unicode Character Database</dfn> (or <em>UCD</em>]) [[UAX44]], while others are assigned in ancillary files or tables.</p>
+    
+    <p>[=Code points=] are not used directly in the storage and interchange of characters in software. Instead, there exist various schemes for encoding and processing characters or for converting characters from one representation to another.</p>
     
     <p>A <strong>[=code unit=]</strong> is a unit of physical storage and information interchange, forming the basis for computer processing, storage, and communication. The most familiar [=code unit=] is called a <em>byte</em> or <em>octet</em>, and consists of 8 bits.</p>
     
@@ -1419,22 +1421,22 @@
 
     <table>
         <tr>
-            <td style="border-right:1px solid purple; text-align:center"><code>U+092F</code></td>
-            <td style="border-right:1px solid purple; text-align:center"><code>U+0942</code></td>
-            <td style="border-right:1px solid purple; text-align:center"><code>U+0928</code></td>
-            <td style="border-right:1px solid purple; text-align:center"><code>U+093F</code></td>
-            <td style="border-right:1px solid purple; text-align:center"><code>U+0915</code></td>
-            <td style="border-right:1px solid purple; text-align:center"><code>U+094B</code></td>
-            <td style="border-right:1px solid purple; text-align:center"><code>U+0921</code></td>
+            <td style="border-right:1px solid black; text-align:center"><code>U+092F</code></td>
+            <td style="border-right:1px solid black; text-align:center"><code>U+0942</code></td>
+            <td style="border-right:1px solid black; text-align:center"><code>U+0928</code></td>
+            <td style="border-right:1px solid black; text-align:center"><code>U+093F</code></td>
+            <td style="border-right:1px solid black; text-align:center"><code>U+0915</code></td>
+            <td style="border-right:1px solid black; text-align:center"><code>U+094B</code></td>
+            <td style="border-right:1px solid black; text-align:center"><code>U+0921</code></td>
         </tr>
         <tr>
-            <td style="border-right:1px solid purple"><code>E0 A4 AF</code></td>
-            <td style="border-right:1px solid purple"><code>E0 A5 82</code></td>
-            <td style="border-right:1px solid purple"><code>E0 A4 A8</code></td>
-            <td style="border-right:1px solid purple"><code>E0 A4 BF</code></td>
-            <td style="border-right:1px solid purple"><code>E0 A4 95</code></td>
-            <td style="border-right:1px solid purple"><code>E0 A5 8B</code></td>
-            <td style="border-right:1px solid purple"><code>E0 A4 A1</code></td>
+            <td style="border-right:1px solid black"><code>E0 A4 AF</code></td>
+            <td style="border-right:1px solid black"><code>E0 A5 82</code></td>
+            <td style="border-right:1px solid black"><code>E0 A4 A8</code></td>
+            <td style="border-right:1px solid black"><code>E0 A4 BF</code></td>
+            <td style="border-right:1px solid black"><code>E0 A4 95</code></td>
+            <td style="border-right:1px solid black"><code>E0 A5 8B</code></td>
+            <td style="border-right:1px solid black"><code>E0 A4 A1</code></td>
         </tr>
     </table>
      
