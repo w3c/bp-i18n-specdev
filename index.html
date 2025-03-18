@@ -1394,33 +1394,21 @@
     
 	<p><span class="bigtext" lang="hi">&#x092F;&#x0942;&nbsp;<span>&#x0928;&#x093F;</span>&nbsp;<span>&#x0915;&#x094B;</span>&nbsp;<span>&#x0921;</span></p>
         
-    <p>Several of these [=grapheme clusters=] are made up of more than one Unicode [=code point=] because of the way that the Devanagari script works. Devanagari is an example of a script that uses combining characters. In fact, use of such characters is required to write text in this script. In this case, the four [=grapheme clusters=] are composed from seven [=abstract characters=], each of which is assigned a [=Unicode Scalar Value=] to serve as its [=code point=]:</p>
+    <p>Several of these [=grapheme clusters=] are made up of more than one Unicode [=code point=] because of the way that the Devanagari script works. Devanagari is an example of a script that uses combining characters. In fact, use of such characters is required to write text in this script. In this case, the four [=grapheme clusters=] are composed from seven [=abstract characters=], each of which is assigned a [=Unicode Scalar Value=] to serve as its [=code point=]. This sequence of [=code points=] can be encoded into a byte sequence using the UTF-8 [=character encoding=]:</p>
     
     <table>
         <tr>
-            <td class="bigtext">&#x092f;</td>
-            <td class="bigtext">&#x0942;</td>
-            <td class="bigtext">&#x0928;</td>
-            <td class="bigtext">&#x093f;</td>
-            <td class="bigtext">&#x0915;</td>
-            <td class="bigtext">&#x094b;</td>
-            <td class="bigtext">&#x0921;</td>
+            <th style="width:25%">Character</th>
+            <td class="bigtext" style="border-right:1px solid black; text-align:center">&#x092f;</td>
+            <td class="bigtext" style="border-right:1px solid black; text-align:center">&#x0942;</td>
+            <td class="bigtext" style="border-right:1px solid black; text-align:center">&#x0928;</td>
+            <td class="bigtext" style="border-right:1px solid black; text-align:center">&#x093f;</td>
+            <td class="bigtext" style="border-right:1px solid black; text-align:center">&#x0915;</td>
+            <td class="bigtext" style="border-right:1px solid black; text-align:center">&#x094b;</td>
+            <td class="bigtext" style="border-right:1px solid black; text-align:center">&#x0921;</td>
         </tr>
         <tr>
-            <td><code>U+092F</code></td>
-            <td><code>U+0942</code></td>
-            <td><code>U+0928</code></td>
-            <td><code>U+093F</code></td>
-            <td><code>U+0915</code></td>
-            <td><code>U+094B</code></td>
-            <td><code>U+0921</code></td>
-        </tr>
-    </table>
-    
-    <p>This sequence of [=code points=] can be encoded into a byte sequence using the UTF-8 [=character encoding=]:</p>
-
-    <table>
-        <tr>
+            <th>Code Point</th>
             <td style="border-right:1px solid black; text-align:center"><code>U+092F</code></td>
             <td style="border-right:1px solid black; text-align:center"><code>U+0942</code></td>
             <td style="border-right:1px solid black; text-align:center"><code>U+0928</code></td>
@@ -1430,6 +1418,7 @@
             <td style="border-right:1px solid black; text-align:center"><code>U+0921</code></td>
         </tr>
         <tr>
+            <th>UTF-8 Code Units</th>
             <td style="border-right:1px solid black"><code>E0 A4 AF</code></td>
             <td style="border-right:1px solid black"><code>E0 A5 82</code></td>
             <td style="border-right:1px solid black"><code>E0 A4 A8</code></td>
@@ -1439,7 +1428,9 @@
             <td style="border-right:1px solid black"><code>E0 A4 A1</code></td>
         </tr>
     </table>
-     
+    
+    <p></p>
+
     </aside>
     
 </section>
