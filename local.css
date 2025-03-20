@@ -512,6 +512,16 @@ aside.start-here legend {
     font-weight:bold;
     text-align:center;
     background-color:ivory;
-    margins:0;
+    margin:0;
     padding:0
+}
+
+table.charTermExample {
+    border-collapse: collapse;
+}
+
+table.charTermExample td {
+   border-right: 1px dotted gray; 
+   text-align: center;
+   padding: 5px;
 }
