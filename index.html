@@ -1344,7 +1344,7 @@
 
     <p>Here is a brief glossary of core terminology:</p>
     
-    <p>[[Unicode]] [D7] defines an <a href="https://www.unicode.org/glossary/#abstract_character"><dfn>abstract character</dfn></a> as: <q>A unit of information used for the organization, control, or representation of textual data.</q> This definition is necessarily vague and goes on to note that an abstract character does not have a specific concrete form (and thus not to be confused with a [=glyph=] in a font) nor what a user might think of as a "character" (and thus not to be confused with a [=grapheme=]). <em>Avoid using this term in your own specification.</em></p>
+    <p>[[Unicode]] <code>[D7]</code> defines an <a href="https://www.unicode.org/glossary/#abstract_character"><dfn>abstract character</dfn></a> as: <q>A unit of information used for the organization, control, or representation of textual data.</q> This definition is necessarily vague and goes on to note that an abstract character does not have a specific concrete form (and thus not to be confused with a [=glyph=] in a font) nor what a user might think of as a "character" (and thus not to be confused with a [=grapheme=]). <em>Avoid using this term in your own specification.</em></p>
     
     <p>A <strong><a>character set</a></strong> is an unordered collection of [=abstract characters=] (in other words, it is a <em>set</em>) which can be used together to encode text. The collection of characters in a [=character set=] is sometimes called its <a href="https://www.w3.org/TR/i18n-glossary#dfn-character-set">repertoire</a>. Most [=character sets=] support only a specific range of languages or scripts.</p>
     
@@ -1355,6 +1355,8 @@
     <p>A <strong>[=code point=]</strong> is a unique identifier for an [=abstract character=] in a [=character set=]. For a [=character set=] to be useful, it needs to unambiguously identify each character. In most [=character sets=], the [=code point=] is a number (or set of numbers) that describe the location of the character in the table or chart of characters in the set.</p>
     
     <p>In [[Unicode]], a [=code point=] is an integer between <code>0x0000</code> and <code>0x10FFFF</code> inclusive. It is written in hexadecimal notation (see [[[#char_ref]]]). A [=Unicode code point=] is sometimes called a [=Unicode Scalar Value=]. Each code point that has been assigned to an abstract character in Unicode is also given a unique, immutable name. Unicode also associates various properties with each assigned character. Many of these properties appear in the <dfn class="lint-ignore">Unicode Character Database</dfn> (or <em>UCD</em>]) [[UAX44]], while others are assigned in ancillary files or tables.</p>
+    
+    <p>[[Unicode]] <code>[D11]</code> defines an <dfn>encoded character</dfn> as <q>An association (or mapping) between an [=abstract character=] and a [=code point=]</q>. The term [=code point=], or, when greater specificity is needed, [=Unicode code point=] or [=Unicode Scalar Value=], is generally preferred for specifications.</p>
     
     <div class="xref"><span class="seealso">See also</span>
     <p>[[[#char_ref]]]</p>
@@ -1370,7 +1372,7 @@
     <p>[[[#char_string]]]</p>
     </div>
     
-    <p>A <strong>[=character encoding form=]</strong> (sometimes just referred to as a <strong>[=character encoding=]</strong>) is the set of rules for encoding from [=code points=] in a [=character set=] to the [=code units=] used to store and process text or for decoding from [=code units=] to [=code points=]. Non-Unicode character encoding forms are referred to collectively as <strong>[=legacy character encodings=]</strong>.</p>
+    <p>A <strong>[=character encoding form=]</strong> (sometimes just referred to as a <strong>[=character encoding=]</strong>) is the set of rules for encoding from [=code points=] in a [=character set=] to the [=code units=] used to store and process text; or for decoding from [=code units=] back into [=code points=]. Non-Unicode character encoding forms are referred to collectively as <strong>[=legacy character encodings=]</strong>.</p>
     
     <div class="xref"><span class="seealso">See also</span>
     <ul>
@@ -1624,7 +1626,7 @@
 
 <!-- Ed.note: see: https://github.com/w3ctag/design-principles/issues/454">design-principles#454 -->
 
-<p>A string is usually understood to be a sequence of 'characters'. Because [[Unicode]] is fundamental to understanding and working with text, including text that uses <a>legacy character encodings</a>, the basic definition of a string depends on Unicode and its concept of a encoded character. Specifically:</p> 
+<p>A string is usually understood to be a sequence of 'characters'. Because [[Unicode]] is fundamental to understanding and working with text, including text that uses <a>legacy character encodings</a>, the basic definition of a string depends on Unicode and its concept of an [=encoded character=]. Specifically:</p> 
 
 <p class="localdef">A <dfn class="lint-ignore">string</dfn> is a well-formed sequence of zero or more <a>Unicode Scalar Values</a>.</p>
 
