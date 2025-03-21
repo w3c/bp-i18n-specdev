@@ -1293,18 +1293,55 @@
 </details>
 </aside>
 
+    <p>The word <em>character</em> means different things in different contexts: it can variously refer to the visual, logical, or byte-level representation of a given unit of text. This makes the term too imprecise to use casually in specifications. Understanding how text is defined and encoded in computing systems, along with the associated terminology used to make such specification unambiguous, is thus a necessary prerequisite to discussing the processing of string data.</p>
+    
+    <p>The developers of specifications, and the developers of software based on those specifications, are likely to be more familiar with usages of the term 'character' they have experienced and less familiar with the wide variety of usages in an international context. Furthermore, within a computing context, characters are often confused with related concepts, resulting in incomplete or inappropriate specifications and software.</p>
+
+
     <div class="req" id="char_specific">
-        <p class="advisement">When defining text, units of text, or data values that pertain to text, use the most appropriate terminology. In general, these will be highlighted terms found in this section. In general, and unless you have a reason not to, use the term [=code point=] instead of 'character'. Define [=code point=] to mean [=Unicode code point=] or [=Unicode Scalar Value=]. The terms [=grapheme cluster=], <a href="https://www.w3.org/TR/css-text-3/#typographic-character-unit">typographic character unit</a>, [=code unit=], and [=glyph=] might also be appropriate, depending on context.</p>
+        <p class="advisement">When specifying characters, strings, or any process that works with characters or strings, use the most specific appropriate terminology. Unless you have a reason not to, define [=code point=] to mean a [=Unicode Scalar Value=] and use that term in preference to 'character'.</p>
     </div>
+    
+    <p>Use the most appropriate terms found in this section. Here are some other recommended terms:</p>
+    
+   
+    <table class="term-guide">
+        <tr>
+            <th style="width:15%">For</th>
+            <th>instead of...</th>
+            <th>Use</th>
+            <th>Note</th>
+        </tr>
+        <tr>
+            <td>Text units</td>
+            <td>character</td>
+            <td>[=code point=], [=Unicode code point=], [=Unicode Scalar Value=]</td>
+            <td>Logical units of text, what we mostly mean by 'character'.</td>
+        </tr>
+        <tr>
+            <td>Storage, processing, serialization, encoding</td>
+            <td>character</td>
+            <td>[=code unit=]</td>
+            <td>Wire and file formats, low-level text processing. Be sure to define the [=character encoding=] used. Usually this is UTF-8 or UTF-16.</td>
+        </tr>
+        <tr>
+            <td>Visual units, user-perceived characters, selection/segmentation</td>
+            <td>character</td>
+            <td>[=grapheme cluster=], <a href="https://www.w3.org/TR/css-text-3/#typographic-character-unit">typographic character unit</a></td>
+            <td>Breaking text into visual units, most visual selection and truncation. This recommendation has the most nuance.</td>
+        </tr>
+        <tr>
+            <td>Elements of fonts</td>
+            <td>character</td>
+            <td>[=glyph=]</td>
+            <td>Individual display values. Use this term primarily when talking about the contents of a font.</td>
+        </tr>
+    </table>
     
     <div class="req" id="char_define_character">
         <p class="advisement">If you cannot avoid using the term 'character', you MUST include a clear definition of the term.</p>
     </div>
 
-    <p>The word <em>character</em> means different things in different contexts: it can variously refer to the visual, logical, or byte-level representation of a given unit of text. This makes the term too imprecise to use casually in specifications. Understanding how text is defined and encoded in computing systems, along with the associated terminology used to make such specification unambiguous, is thus a necessary prerequisite to discussing the processing of string data.</p>
-    
-    <p>The developers of specifications, and the developers of software based on those specifications, are likely to be more familiar with usages of the term 'character' they have experienced and less familiar with the wide variety of usages in an international context. Furthermore, within a computing context, characters are often confused with related concepts, resulting in incomplete or inappropriate specifications and software.</p>
-    
     <p>Here is a brief glossary of core terminology:</p>
     
     <p>[[Unicode]] [D7] defines an <a href="https://www.unicode.org/glossary/#abstract_character"><dfn>abstract character</dfn></a> as: <q>A unit of information used for the organization, control, or representation of textual data.</q> This definition is necessarily vague and goes on to note that an abstract character does not have a specific concrete form (and thus not to be confused with a [=glyph=] in a font) nor what a user might think of as a "character" (and thus not to be confused with a [=grapheme=]). <em>Avoid using this term in your own specification.</em></p>

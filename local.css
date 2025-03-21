@@ -525,3 +525,22 @@ table.charTermExample td {
    text-align: center;
    padding: 5px;
 }
+
+table.term-guide {
+   border-collapse: collapse;
+   
+}
+
+table.term-guide td {
+   vertical-align: top;
+   text-align: left;
+}
+
+table.term-guide th {
+   vertical-align: top;
+   text-align: left;
+}
+
+table.term-guide tr:hover {
+   background-color: #dfd;
+}
