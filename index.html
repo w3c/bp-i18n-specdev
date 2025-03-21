@@ -1474,7 +1474,7 @@
     
     <figure class="suisse-cows">
        <img src="./images/suisse-cows.jpg" lang="ru" alt="Я❤️🇨🇭🐄!">
-       <figcaption>As text: <q>Я❤️🇨🇭🐄!</q></figcaption>
+       <figcaption>As text: <q lang="ru" translate="no">Я❤️🇨🇭🐄!</q></figcaption>
     </figure>
     
     <p>This phrase contains five [=visual text units=] (five [=grapheme clusters=]). Some of these are simple, while others rely on a combination of [=code points=]. It turns out that this phrase contains seven [=code points=], since the emoji characters use some of the more unusual features of Unicode. Specifically, <span class="codepoint"><bdi lang="en">&#x2764;</bdi><code class="uname">U+2764 HEAVY BLACK HEART</code></span> is followed by <span class="codepoint"><img src="./images/FE0F.png" alt="U+FE0F"><code class="uname">U+FE0F VARIATION SELECTOR-16</code></span> in order to display as an emoji variant, while the flag of Switzerland is formed using a pair of emoji flag characters. These [=code points=], when converted to UTF-8, use varying number of [=code units=] (bytes):</p>
@@ -1484,7 +1484,7 @@
         <tr>
             <td class="bigtext">&#x42f;</td>
             <td class="bigtext">&#x2764;</td>
-            <td class="bigtext">&#xfe0f;</td>
+            <td class="bigtext"><span class="codepoint"><img src="./images/FE0F.png"></span></td>
             <td class="bigtext">&#x1f1e8;</td>
             <td class="bigtext">&#x1f1ed;</td>
             <td class="bigtext">&#x1f404;</td>
