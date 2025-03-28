@@ -3077,7 +3077,7 @@
 	</div>
     
     <aside style="border:1px solid green; padding: 5px" title="Important">
-        <p><q><em>Truncation on [=visual text unit=] boundaries</em></q> is not the same thing as using [=visual text units=] as the length limit.</p>
+        <p><q><em>Truncation on [=visual text unit=] boundaries</em></q> is not the same thing as using [=visual text units=] as the maximum length limit for the container.</p>
     </aside> 
     
     <p>In addition to choosing how the length limit is expressed (code points vs. bytes), there is also the question of choosing the truncation boundary. Text must never be divided in the middle of a code point, because this results in corrupted characters. Text should never be divided in the middle of a [=grapheme cluster=] because this changes the appearance and meaning of the characters displayed.</p>
