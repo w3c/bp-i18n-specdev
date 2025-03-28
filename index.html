@@ -3210,7 +3210,7 @@
 	<p>When choosing a length limit, bear in mind the needs of different scripts and languages in Unicode. If a text size limit is set in terms of [=code units=] (such as a byte-length limit) in a given [=character encoding=], the limit needs to consider the relative efficiency of the character encoding for different scripts. In particular, UTF-8 is the multibyte character encoding of [[Unicode]]. UTF-8 uses between one and four bytes per [=code point=], depending on what the [=Unicode Scalar Value=] of the character is.</p>  
     
     		
-	<p>When the limit placed on a text field is counted in bytes, the number of characters that can be stored in that field depends on which characters are being stored. To ensure that users who speak various languages are not at a disadvantage, the limit needs to allow for a reasonable number of charactes as encoded in that language.</p>
+	<p>When the limit placed on a text field is counted in bytes, the number of characters that can be stored in that field depends on which characters are being stored. To ensure that users who speak various languages are not at a disadvantage, the limit needs to allow for a reasonable number of characters as encoded in that language.</p>
 
 	<aside class="example" title="Impact of code unit limits on text size">
 		<p>Here is the <a href="https://en.wikipedia.org/wiki/I_Can_Eat_Glass" target="_blank">famous sentence</a> <q>I can eat glass, it does not hurt me</q> in several languages or scripts. Notice that the first three examples have about the same number of [=code points=], while the emoji and cuneiform examples start with significantly fewer:</p>
