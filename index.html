@@ -3006,8 +3006,23 @@
 	<div class="req" id="char_trunc_no_limit">
 	<p class="advisement">Specifications SHOULD NOT impose a limit on the length of a string unless there is a specific practical or technical limitation.</p>
 	</div>
+    
+    <div class="req" id="char_trunc_indicator">
+	   <p class="advisement">If a specification specifies a length limit, it SHOULD specify that any string that has been truncated include an indicator, such as ellipses, that the string has been altered.</p>
+	</div>
 
     <p>There are many reasons why a length limit might be needed in a specification or format. The most common reason is because there is an underlying size limit on the data. For example, there might be a fixed-sized field in a database, a practical boundary such as packet size, or some other implementation detail related to storage allocation or efficiency. The other common reason is that there might be a limit on the size of the display or in the visible output.</p>
+    
+    <div class="req" id="char_trunc_units">
+	<div class="advisement"><p>Specifications that limit the length of a string MUST specify which type of unit the length limit uses. These might be:
+	   <ul>
+		   <li>visual text units (usually approximated as [=grapheme clusters=])</li>
+		   <li>Unicode [=code points=]</li>
+		   <li>[=code units=] (such as bytes) in a given [=character encoding=]</li>
+	   </ul>
+	</div>
+	</div>
+    
     
     <p>When truncating strings, it's necessary to decide what units to use when counting the size of the string. In many cases this is beyond the control of the specification, since the truncation is occuring for some preordained reason. However, when the choice is available, some general guidelines can be applied.</p>
     
@@ -3026,59 +3041,69 @@
         
         <p>Some scripts make the difference between visual text units and pixel size even more obvious. For example, here is the word for "Unicode" in Tamil:</p>
         
-        <p class="bigtext">யூனிக்கோடு</p>
+        <p class="bigtext">யூனிகோட்</p>
         
-        <p>Tamil, like many South Asian scripts, is written in syllables. Each syllable is treated by Tamil speakers as a [=visual text unit=]. The word for "Unicode" in Tamil is a transliteration of the English word. If we divide the syllables up, as shown below, we can see that some are composed of multiple shapes and consume far more space than others:</p>
+        <p>Tamil, like many South Asian scripts, is written in syllables. Each syllable is treated by Tamil speakers as a [=visual text unit=]. The word for "Unicode" in Tamil is a transliteration of the English word. If we divide the syllables up, as shown below, we can see that some are composed of multiple shapes which consume far more space than others:</p>
         
         <table>
             <tr>
                 <th>Syllable</th>
-                <td class="bigtext" style="width:6rem;text-align:center">யூ</td>
-                <td class="bigtext" style="width:6rem;text-align:center">னி</td>
-                <td class="bigtext" style="width:6rem;text-align:center">க்</td>
-                <td class="bigtext" style="width:6rem;text-align:center">கோ</td>
-                <td class="bigtext" style="width:6rem;text-align:center">டு</td>
+                <td class="bigtext" style="width:6rem;text-align:center">&#x0BAF;&#x0BC2;</td>
+                <td class="bigtext" style="width:6rem;text-align:center">&#x0BA9;&#x0BBF;</td>
+                <td class="bigtext" style="width:6rem;text-align:center">&#x0B95;&#x0BCB;</td>
+                <td class="bigtext" style="width:6rem;text-align:center">&#x0B9F;&#x0BCD;</td>
             </tr>
             <tr>
                 <th>IPA</th>
                 <td style="width:6rem;text-align:center">juː</td>
-                <td style="width:6rem;text-align:center">ni</td>
-                <td style="width:6rem;text-align:center">k</td>
-                <td style="width:6rem;text-align:center">koː</td>
-                <td style="width:6rem;text-align:center">ʈu</td>
+                <td style="width:6rem;text-align:center">.ni</td>
+                <td style="width:6rem;text-align:center">.koː</td>
+                <td style="width:6rem;text-align:center">ɖ</td>
             </tr>
         </table>
 
     </aside>
+
+ 
+    
+	<div class="req" id="char_trunc_unit_rec">
+	<p class="advisement">Specifications that limit the length of a string SHOULD specify the length in terms of Unicode code points.</p>
+	</div>
     
     <p>Most limits are actually related to storage limitations, such as the size of a database field or a length limit in a protocol. Such limits are expressed in terms of [=code points=] in Unicode or [=code units=] (such as bytes) in a specific [=character encoding=]. Code points provides the best user experience, since all Unicode code points are treated identically: if text is truncated after 40 code points, all languages and scripts get the same number of code points to work with. By contrast, when the size limit is expressed in code units such as bytes in UTF-8, users who write in a language that mostly uses ASCII letters get many more characters (code points) for a given size limit than user's whose language is mostly made up of characters that take 2-, 3-, or 4-bytes per code point.</p>
     
+    <div class="req" id="char_trunc_grapheme_boundary">
+	   <p class="advisement">Specifications that limit the length of a string SHOULD require truncation on [=visual text unit=] boundaries (usually as approximated by [=grapheme cluster=] boundaries), as truncation in the midst of a visual text unit such as a <a>combining character sequence</a> can alter the meaning of the string.</p>
+	</div>
+    
+    <aside style="border:1px solid green; padding: 5px" title="Important">
+        <p><q><em>Truncation on [=visual text unit=] boundaries</em></q> is not the same thing as using [=visual text units=] as the length limit.</p>
+    </aside> 
+    
     <p>In addition to choosing how the length limit is expressed (code points vs. bytes), there is also the question of choosing the truncation boundary. Text must never be divided in the middle of a code point, because this results in corrupted characters. Text should never be divided in the middle of a [=grapheme cluster=] because this changes the appearance and meaning of the characters displayed.</p>
 
-    <aside class="example" title="Choosing the truncation boundary" id="example-gc-cp-cu-trunc">
+    <aside class="example" title="Interaction of truncation and grapheme cluster boundaries" id="example-gc-cp-cu-trunc">
 		
 		<p>Returning to our Tamil example, here's the word for "Unicode", broken into syllables (which, remember, are treated as [=grapheme clusters=] in the Tamil script):</p>
         
         <table>
             <tr>
                 <th>Syllable</th>
-                <td class="bigtext" style="width:6rem;text-align:center">யூ</td>
-                <td class="bigtext" style="width:6rem;text-align:center">னி</td>
-                <td class="bigtext" style="width:6rem;text-align:center">க்</td>
-                <td class="bigtext" style="width:6rem;text-align:center">கோ</td>
-                <td class="bigtext" style="width:6rem;text-align:center">டு</td>
+                <td class="bigtext" style="width:6rem;text-align:center">&#x0BAF;&#x0BC2;</td>
+                <td class="bigtext" style="width:6rem;text-align:center">&#x0BA9;&#x0BBF;</td>
+                <td class="bigtext" style="width:6rem;text-align:center">&#x0B95;&#x0BCB;</td>
+                <td class="bigtext" style="width:6rem;text-align:center">&#x0B9F;&#x0BCD;</td>
             </tr>
             <tr>
                 <th>IPA</th>
                 <td style="width:6rem;text-align:center">juː</td>
-                <td style="width:6rem;text-align:center">ni</td>
-                <td style="width:6rem;text-align:center">k</td>
-                <td style="width:6rem;text-align:center">koː</td>
-                <td style="width:6rem;text-align:center">ʈu</td>
+                <td style="width:6rem;text-align:center">.ni</td>
+                <td style="width:6rem;text-align:center">.koː</td>
+                <td style="width:6rem;text-align:center">ɖ</td>
             </tr>
         </table>
          
-        <p>It turns out that each of these [=grapheme clusters=] consists of two Unicode [=code points=]. (Note that, while this particular word requires two [=code points=] in each of its [=visual text units=], this is not always the case in Tamil. Some syllables require only a single code point, while others can require three or more.)</p> 
+        <p>It turns out that each of these [=grapheme clusters=] consists of two Unicode [=code points=]. (Note that, while this particular word requires two [=code points=] in each of its [=visual text units=], this is not always the case in Tamil. Some orthographic syllables in Tamil require only a single code point, such as when they use an [=inherent vowel=].)</p> 
         
         <table>
             <tr>
@@ -3086,49 +3111,53 @@
                 <th colspan="4" style="text-align:center">Code Points</th>
             </tr>
             <tr>
-                <td class="bigtext" lang="ta">யூ</td>
+                <td class="bigtext" style="width:6rem;text-align:center" lang="ta">&#x0BAF;&#x0BC2;</td>
                 <td><span translate="no" class="codepoint"><bdi lang="ta">&#xbaf;</bdi></span><code class="uname">U+‎0BAF TAMIL LETTER YA</code></td>
                 <td><span translate="no" class="codepoint"><bdi lang="ta">&#xbc2;</bdi><code class="uname">U+‎0BC2 TAMIL VOWEL SIGN UU</code></td>
             </tr>
             <tr>
-                <td class="bigtext" lang="ta">னி</td>
+                <td class="bigtext" style="width:6rem;text-align:center">&#x0BA9;&#x0BBF;</td>
                 <td><span translate="no" class="codepoint"><bdi lang="ta">&#xba9;</bdi><code class="uname">U+0BA9 TAMIL LETTER NNNA</code></td><td><span translate="no" class="codepoint"><bdi lang="ta">&#xbbf;</bdi><code class="uname">U+0BBF TAMIL VOWEL SIGN I</code></td>
             </tr>
             <tr>
-                <td class="bigtext" lang="ta">க்</td>
-                <td><span translate="no" class="codepoint"><bdi lang="ta">&#xb95;</bdi><code class="uname">U+0B95 TAMIL LETTER KA</code></td>
-                <td><span translate="no" class="codepoint"><bdi lang="ta">&#xbcd;</bdi><code class="uname">U+0BCD TAMIL SIGN VIRAMA</code></td>
-            </tr>
-            <tr>
-                <td class="bigtext" lang="ta">கோ</td>
+                <td class="bigtext" style="width:6rem;text-align:center">&#x0B95;&#x0BCB;</td>
                 <td><span translate="no" class="codepoint"><bdi lang="ta">&#xb95;</bdi><code class="uname">U+0B95 TAMIL LETTER KA</code></td>
                 <td><span translate="no" class="codepoint"><bdi lang="ta">&#xbcb;</bdi><code class="uname">U+0BCB TAMIL VOWEL SIGN OO</code></td>
             </tr>
             <tr>
-                <td class="bigtext" lang="ta">டு</td>
+                <td class="bigtext" style="width:6rem;text-align:center">&#x0B9F;&#x0BCD;</td>
                 <td><span translate="no" class="codepoint"><bdi lang="ta">&#xb9f;</bdi><code class="uname">U+0B9F TAMIL LETTER TTA</code></td>
-                <td><span translate="no" class="codepoint"><bdi lang="ta">&#xbc1;</bdi><code class="uname">U+0BC1 TAMIL VOWEL SIGN U</code></td>
+                <td><span translate="no" class="codepoint"><bdi lang="ta">&#xbcd;</bdi><code class="uname">U+0BCD TAMIL SIGN VIRAMA</code></td>
             </tr>
             
         </table>
         
-        <p>Suppose we arbitrarily truncate this text at the seventh code point. This divides one of the [=grapheme clusters=] (the syllable <span class="codepoint"><bdi lang="ta">கோ</bdi></span> (<em lang="und-fonipa">/koː/</em>). This changes the fundamental meaning of the text:</p>
+        <p>Suppose we arbitrarily truncate this text at the fifth code point. This divides one of the [=grapheme clusters=] (the syllable <span class="codepoint"><bdi lang="ta">கோ</bdi></span> (<em lang="und-fonipa">/koː/</em>). This changes the fundamental meaning of the text:</p>
         
         <table>
-            <tr><td class="bigtext">யூனிக்<mark style="color:red">கோ</mark>டு</td></tr>
-            <tr><td class="uname">U+0BAF U+0BC2 U+0BA9 U+0BBF U+0B95 U+0BCD U+0B95 <strong style="color:red;font-size:140%">|</strong><em> <span style="color:red">U+0BCB U+0B9F U+0BC1</span></em></td></tr>
-            <tr><td class="bigtext">யூனிக்<mark style="color:red">க</mark>...</td></tr>
+            <tr><td class="bigtext">யூனி<mark style="color:red">கோ</mark>ட்</td></tr>
+            <tr><td class="uname">U+0BAF U+0BC2 U+0BA9 U+0BBF U+0B95 <strong style="color:red;font-size:140%">|</strong><em> <span style="color:red">U+0BCB U+0B9F U+0BCD</span></em></td></tr>
+            <tr><td class="bigtext">யூனி<mark style="color:red">க</mark>...</td></tr>
         </table>
+	</aside>
+    
+    <div class="req" id="char-trunc-bytes-last-resort">
+        <p class="advisement">If a specification cannot avoid doing otherwise, it MAY specify a length limit in terms of [=code units=] (such as bytes).</p>
+    </div>
+ 
+     <p>Sometimes the length limit for a string is determined by some external factor, such as the size of a database field or the number of bytes allocated for a data value specified in some protocol or document format. In this cases, where the specification cannot redefine the limit, it is necessary to use a limit counted in [=code units=] or bytes. Specifications need to call out the additional complexity that this imposes, including the considerations below.</p>
+ 
+     <aside class="example" title="Interaction of truncation and code point boundaries" id="example-code-unit-trunc-bad">
+        <p>Returning again to our example in Tamil, the [=code points=] in the Tamil script happen to each require three [=code units=] when encoded into the UTF-8 [=character encoding=]. (The [=code unit=] for UTF-8 is a byte.)</p>
         
-        <p>The [=code points=] in the Tamil script happen to each require three [=code units=] when encoded into the UTF-8 [=character encoding=]. (The [=code unit=] for UTF-8 is a byte.)</p>
+
         
         <table style="border-collapse:collapse">
             <tr>
-                <th colspan="2" class="bigtext" style="width:6rem;text-align:center;border-right:1px solid grey">யூ</td>
-                <th colspan="2" class="bigtext" style="width:6rem;text-align:center;border-right:1px solid grey">னி</td>
-                <th colspan="2" class="bigtext" style="width:6rem;text-align:center;border-right:1px solid grey">க்</td>
-                <th colspan="2" class="bigtext" style="width:6rem;text-align:center;border-right:1px solid grey">கோ</td>
-                <th colspan="2" class="bigtext" style="width:6rem;text-align:center;border-right:1px solid grey">டு</td>
+                <td colspan="2" class="bigtext" style="width:6rem;text-align:center;border-right:1px solid grey">யூ</td>
+                <td colspan="2" class="bigtext" style="width:6rem;text-align:center;border-right:1px solid grey">னி</td>
+                <td colspan="2" class="bigtext" style="width:6rem;text-align:center;border-right:1px solid grey">கோ</td>
+                <td colspan="2" class="bigtext" style="width:6rem;text-align:center;border-right:1px solid grey">ட்</td>
             </tr>
             <tr>
                 <td style="text-align:center;border-right:1px solid grey"><code class="uname">U+0BAF</code></td>
@@ -3136,11 +3165,9 @@
                 <td style="text-align:center;border-right:1px solid grey"><code class="uname">U+0BA9</code></td>
                 <td style="text-align:center;border-right:1px solid grey"><code class="uname">U+0BBF</code></td>
                 <td style="text-align:center;border-right:1px solid grey"><code class="uname">U+0B95</code></td>
-                <td style="text-align:center;border-right:1px solid grey"><code class="uname">U+0BCD</code></td>
-                <td style="text-align:center;border-right:1px solid grey"><code class="uname">U+0B95</code></td>
                 <td style="text-align:center;border-right:1px solid grey"><code class="uname">U+0BCB</code></td>
                 <td style="text-align:center;border-right:1px solid grey"><code class="uname">U+0B9F</code></td>
-                <td style="text-align:center;border-right:1px solid grey"><code class="uname">U+0BC1</code></td>
+                <td style="text-align:center;border-right:1px solid grey"><code class="uname">U+0BCD</code></td>
             </tr>
             <tr>
                 <td style="text-align:center;border-right:1px solid grey"><code>E0 AE AF</code></td>
@@ -3148,24 +3175,43 @@
                 <td style="text-align:center;border-right:1px solid grey"><code>E0 AE A9</code></td>
                 <td style="text-align:center;border-right:1px solid grey"><code>E0 AE BF</code></td>
                 <td style="text-align:center;border-right:1px solid grey"><code>E0 AE 95</code></td>
-                <td style="text-align:center;border-right:1px solid grey"><code>E0 AF 8D</code></td>
-                <td style="text-align:center;border-right:1px solid grey"><code>E0 AE 95</code></td>
                 <td style="text-align:center;border-right:1px solid grey"><code>E0 <mark>AF 8B</mark></code></td>
                 <td style="text-align:center;border-right:1px solid grey"><code><mark>E0 AE 9F</mark></code></td>
-                <td style="text-align:center;border-right:1px solid grey"><code><mark>E0 AF 81</mark></code></td>
+                <td style="text-align:center;border-right:1px solid grey"><code><mark>E0 AF 8D</mark></code></td>
             </tr>
         </table>
       
-        <p>If we arbitrarily truncate this text at the 22nd byte (where the yellow background begins above), we not only divide a [=grapheme cluster=], but also one of the [=code points=]. The resulting damaged character is replaced in a UTF-8 decoder with the <span class="codepoint"><bdi lang="en">&#xfffd;</bdi><code class="uname">U+FFFD REPLACEMENT CHARACTER</code></span>. In [=legacy character encodings=], the dangling bytes of the partial code point might combine with other, adjacent bytes to form undesirable combinations or garbling all of the subsequent text (an effect sometimes called [=mojibake=]).</p>
-        
-        <p class="bigtext">யூனிக்க�...</p>
-        
-	</aside>
+        <p>If we arbitrarily truncate this text after the 16th byte (where the yellow background begins above), we not only divide a [=grapheme cluster=], but also one of the [=code points=]. The resulting damaged character is replaced in a UTF-8 decoder with the <span class="codepoint"><bdi lang="en">&#xfffd;</bdi><code class="uname">U+FFFD REPLACEMENT CHARACTER</code></span>. In [=legacy character encodings=], the dangling bytes of the partial code point might combine with other, adjacent bytes to form undesirable combinations or garbling all of the subsequent text (an effect sometimes called [=mojibake=]).</p>
+
+        <p class="bigtext" lang="ta">யூனிக�...</p>
+    </aside>   
     
-	<p>When choosing a length limit, bear in mind the needs of different scripts and languages in Unicode. If a text size limit is set in terms of [=code units=] (such as a byte-length limit) in a given [=character encoding=], the limit needs to consider the relative efficiency of the character encoding for different scripts. In particular, UTF-8 is the multibyte character encoding of [[Unicode]]. UTF-8 uses between one and four bytes per [=code point=], depending on what the [=Unicode Scalar Value=] of the character is.</p>
-		
-	<p>When the limit placed on a text field is counted in bytes, the number of characters that can be stored in that field depends on which characters are being stored. To ensure that users who speak various languages are not at a disadvantage, the limit needs to allow for a reasonable number of charactes as encoded in that language.</p>
+	<div class="req" id="char_trunc_byte_boundary">
+	<p class="advisement">If a specification sets a length limit in code units (such as bytes), it MUST specify that truncation can only occur on code point boundaries.</p>
+	</div>
+
 	
+	<p>Note that this best practice applies equally to specifications based on UTF-16, which uses 16-bit code units, not just to multibyte encodings such as UTF-8.</p>
+    
+    <p>Specifications or APIs that interact with the [[DOM]] need to contend with the fact that character data, including operations such as <kbd>length</kbd>, <kbd>substringData</kbd>, <kbd>insertData</kbd>, <kbd>deleteData</kbd>, and so forth, is specified using UTF-16 code units, not Unicode code points. This can lead to inappropriate mid-character (code point) truncation. Specifications that reference DOM should specify that string operations not occur inside code points, and, where appropriate avoid starting or ending inside [=visual text unit=] or [=grapheme cluster=] boundaries. Specifications should also include a health warning for implementers and users.</p>
+    
+    	<div class="example">
+		<p>Example warning. Modify this health warning as appropriate for your specification:</p>
+		<div class="example_div">
+		    <p class="warning">Arbitrary index values in the DOM may not fall on character or [=visual text unit=] boundaries. Implementations and users should avoid incorrectly starting or ending operations in the middle of a [=grapheme cluster=].</p>
+		</div>
+    	</div>
+    
+    
+	<div class="req" id="char_trunc_min_size">
+	<p class="advisement">When specifying a length limitation in code units (such as bytes), specifications SHOULD set the limit in a way that accommodates users whose language requires multibyte code unit sequences.</p>
+	</div>
+
+	<p>When choosing a length limit, bear in mind the needs of different scripts and languages in Unicode. If a text size limit is set in terms of [=code units=] (such as a byte-length limit) in a given [=character encoding=], the limit needs to consider the relative efficiency of the character encoding for different scripts. In particular, UTF-8 is the multibyte character encoding of [[Unicode]]. UTF-8 uses between one and four bytes per [=code point=], depending on what the [=Unicode Scalar Value=] of the character is.</p>  
+    
+    		
+	<p>When the limit placed on a text field is counted in bytes, the number of characters that can be stored in that field depends on which characters are being stored. To ensure that users who speak various languages are not at a disadvantage, the limit needs to allow for a reasonable number of charactes as encoded in that language.</p>
+
 	<aside class="example" title="Impact of code unit limits on text size">
 		<p>Here is the <a href="https://en.wikipedia.org/wiki/I_Can_Eat_Glass" target="_blank">famous sentence</a> <q>I can eat glass, it does not hurt me</q> in several languages or scripts. Notice that the first three examples have about the same number of [=code points=], while the emoji and cuneiform examples start with significantly fewer:</p>
 		
@@ -3259,7 +3305,7 @@
         
         <p>Keep in mind that, while the examples chosen here are roughly the same length, other languages might require more characters to convey the same concepts. For example, the Scottish Gaelic translation would be <q lang="gd">Is urrainn dhomh glainne ithe, chan eil e gam ghoirteachadh</q>, which is significantly longer than the English. Many languages have different grammatical structure as well, so that key information (such as the verb) appearing at the end of the sentence (as is common in Hindi or Japanese).</p>
         
-        <p>Finally, don't forget that the limit will also interact with the truncation boundary chosen (as shown in [[[#example-gc-cp-cu-trunc]]]): if the truncation is done naively at the 15th byte, the resulting string might contain only a partial character. For example, the Marathi could experience this problem: <span class="codepoint"><bdi lang="ma">मी का�...</bdi></span>.</p>
+        <p>Finally, don't forget that the limit will also interact with the truncation boundary chosen (as shown in [[[#example-code-unit-trunc-bad]]]): if the truncation is done naively at the 15th byte, the resulting string might contain only a partial character. For example, the Marathi could experience this problem: <span class="codepoint"><bdi lang="ma">मी का�...</bdi></span>.</p>
         
         <p>Another example of the complex relationship between [=visual text units=] and [=code points=] are certain emoji. The emoji character for "family" has a code point in Unicode: <span class="codepoint" translate="no"><bdi lang="en">&#x1F46A;</bdi><code class="uname">U+1F46A FAMILY</code></span>. It can also be formed by using using a sequence of [=code points=]: <code class="uname">U+1F468 U+200D U+1F469 U+200D U+1F466</code>.</p>
     
@@ -3289,54 +3335,16 @@
             </tr>
         </table>
         
-    <p>Many common emoji can <em>only</em> be formed using sequences of code points, but should be treated as a single [=visual text unit=] when displaying or processing the text. The simplest composed "family" emoji sequence "👨‍👩‍👦" consists of 5 code points. The byte limit of 15 truncates in the middle of the child family member: "👨‍👩‍�‍". If the truncation is done on the [=grapheme cluster=] boundary, the entire family is removed.</p>
+        <p>Many common emoji can <em>only</em> be formed using sequences of code points, but should be treated as a single [=visual text unit=] when displaying or processing the text. The simplest composed "family" emoji sequence "👨‍👩‍👦" consists of 5 code points. The byte limit of 15 truncates in the middle of the child family member: "👨‍👩‍�‍". If the truncation is done on the [=grapheme cluster=] boundary, the entire family is removed.</p>
     </aside>
 
- 	<div class="req" id="char_trunc_units">
-	<div class="advisement"><p>Specifications that limit the length of a string MUST specify which type of unit the length limit uses. These might be:
-	   <ul>
-		   <li>visual text units (usually approximated as [=grapheme clusters=])</li>
-		   <li>Unicode [=code points=]</li>
-		   <li>[=code units=] (such as bytes) in a given [=character encoding=]</li>
-	   </ul>
-	</div>
-	</div>
 
-	<div class="req" id="char_trunc_unit_rec">
-	<p class="advisement">Specifications that limit the length of a string SHOULD specify the length in terms of Unicode code points.</p>
-	</div>
 
-	<div class="req" id="char_trunc_byte_boundary">
-	<p class="advisement">If a specification sets a length limit in code units (such as bytes), it MUST specify that truncation can only occur on code point boundaries.</p>
-	</div>
-
-	
-	<p>Note that this best practice applies equally to specifications based on UTF-16, which uses 16-bit code units, not just to multibyte encodings such as UTF-8.</p>
-    	<p>Specifications or APIs that interact with the [[DOM]] need to contend with the fact that character data, including operations such as <kbd>length</kbd>, <kbd>substringData</kbd>, <kbd>insertData</kbd>, <kbd>deleteData</kbd>, and so forth, is specified using UTF-16 code units, not Unicode code points. This can lead to inappropriate mid-character (code point) truncation. Specifications that reference DOM should specify that string operations not occur inside code points, and, where appropriate avoid starting or ending inside [=visual text unit=] or [=grapheme cluster=] boundaries. Specifications should also include a health warning for implementers and users.</p>
-    	<div class=example>
-		<p>Example warning. Modify this health warning as appropriate for your specification:</p>
-		<div class="example_div">
-		<p class="warning">Arbitrary index values in the DOM may not fall on character or [=visual text unit=] boundaries. Implementations and users should avoid incorrectly starting or ending operations in the middle of a [=grapheme cluster=].</p>
-		</div>
-    	</div>
-
-	<div class="req" id="char_trunc_grapheme_boundary">
-	<p class="advisement">Specifications that limit the length of a string SHOULD require truncation on [=visual text unit=] boundaries (usually as approximated by [=grapheme cluster=] boundaries), as truncation in the midst of a visual text unit such as a <a>combining character sequence</a> can alter the meaning of the string.</p>
-	</div>
-
-	<div class="req" id="char_trunc_indicator">
-	<p class="advisement">If a specification specifies a length limit, it SHOULD specify that any string that is truncated include an indicator, such as ellipses, that the string has been altered.</p>
-	</div>
-
-	<div class="req" id="char_trunc_min_size">
-	<p class="advisement">When specifying a length limitation in code units (such as bytes), specifications SHOULD set the limit in a way that accommodates users whose language requires multibyte code unit sequences.</p>
-	</div>
-	
 	<div class="req" id="char_trunc_character_encoding">
 		<p class="advisement">If a specification specifies a length limit in code units (such as bytes), it MUST specify the <a>character encoding</a> used in measuring the limit; such a limit SHOULD NOT specify a <a>legacy character encoding</a>.</p>
 	</div>
 	
-	<p>If a specification permits or requires truncation of a field, the <a>character encoding</a> is important in knowing what the limit means. If the limit is in bytes and <a>legacy character encodings</a> are permitted, note that conversion of Unicode data to a non-Unicode encoding can also result in data loss (since most <a>legacy character encodings</a> encode only a subset of Unicode).</p>
+	<p>If a specification permits or requires truncation of a string, with the length expressed in [=code units=], the <a>character encoding</a> becomes important in knowing what the limit means. If the limit is in bytes and <a>legacy character encodings</a> are permitted, note that conversion of Unicode data to a non-Unicode encoding can result in data loss (since most <a>legacy character encodings</a> encode only a subset of Unicode).</p>
 </section>
 
 
