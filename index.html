@@ -3001,36 +3001,29 @@
 
 
 
-<p>Some specifications, formats, or protocols or their implementations need to specify limits for the size of a given data structure or text field. This could be due to many reasons, such as limits on processing, memory, data structure size, and so forth. When selecting or specifying limits on the length of a given string, specifications or implementations need to ensure that they do not cause corruption in the text.</p>
+<p>Some specifications, formats, or protocols or their implementations need to specify limits for the size of a given string. This could be due to many reasons, such as limits on processing, memory, data structure size, and so forth. Because length limits often involve truncating or limiting the size of text, specification and their implementations need to apply extra care to ensure that the text is not corrupted and that the limit chosen does not make the feature unusable for certain audiences.</p>
 
 	<div class="req" id="char_trunc_no_limit">
-	<p class="advisement">Specifications SHOULD NOT impose a limit on the length of a string unless there is a specific practical or technical limitation.</p>
+	   <p class="advisement">Specifications SHOULD NOT impose a limit on the length of a string unless there is a specific practical or technical limitation.</p>
 	</div>
     
     <div class="req" id="char_trunc_indicator">
-<p class="advisement">If a specification specifies a length limit, it SHOULD specify that any string that has been truncated includes an indicator that the string has been altered, such as an ellipsis.</p>
+       <p class="advisement">If a specification specifies a length limit, it SHOULD specify that any string that has been truncated includes an indicator that the string has been altered, such as an ellipsis.</p>
 	</div>
 
     <p>There are many reasons why a length limit might be needed in a specification or format. The most common reason is because there is an underlying size limit on the data. For example, there might be a fixed-sized field in a database, a practical boundary such as packet size, or some other implementation detail related to storage allocation or efficiency. The other common reason is that there might be a limit on the size of the display or in the visible output.</p>
     
     <div class="req" id="char_trunc_units">
-	<div class="advisement"><p>Specifications that limit the length of a string MUST specify which type of unit the length limit uses. These might be:
-	   <ul>
-		   <li>visual text units (usually approximated as [=grapheme clusters=])</li>
-		   <li>Unicode [=code points=]</li>
-		   <li>[=code units=] (such as bytes) in a given [=character encoding=]</li>
-	   </ul>
+	   <p class="advisement">Specifications that limit the length of a string MUST specify which whether the limit is counted in Unicode [=code points=] or is counted in [=code units=] (such as bytes) of a given [=character encoding=].</p>
 	</div>
-	</div>
-    
     
     <p>When truncating strings, it's necessary to decide what units to use when counting the size of the string. In many cases this is beyond the control of the specification, since the truncation is occuring for some preordained reason. However, when the choice is available, some general guidelines can be applied.</p>
     
     <div class="req" id="char-trunc-avoid-visual-units">
-        <p class="advisement">Avoid specifying string length limits in terms of [=visual text units=] (such as [=grapheme clusters=]). Use mechanisms such as CSS <code>text-overflow</code> instead.</p>
+        <p class="advisement">Avoid specifying string length limits in terms of [=visual text units=] (such as [=grapheme clusters=]). Use mechanisms such as CSS <code>text-overflow</code> [[css-overflow-4]] instead.</p>
     </div>
     
-    <p>If a string length limitation is related to the size of the available display, it is tempting to want to use the number of [=visual text units=], since these generally correspond more closely to some arbitrary limit than the number of [=code points=] or [=code units=]. However, limits expressed in such units rarely accomplish their goal effectively because of the nature of text display. Proportional width fonts, complex scripts, styling, accessibility features, and many other factors complicate this. In nearly all cases, a visual text unit limit is really attempting to approximate pixel widths. The limiting measurement requires font metrics in the display context. In Web pages, the CSS <kbd>text-overflow</kbd> property provides visual truncation without disturbing the content of the text. Attempts to estimate the size of a given piece of text based on the number of Unicode [=code points=] or even the number of [=grapheme clusters=] is mostly futile.</p>
+    <p>If a string length limitation is related to the size of the available display, it is tempting to want to use the number of [=visual text units=], since these generally correspond more closely to some arbitrary limit than the number of [=code points=] or [=code units=]. However, limits expressed in such units rarely accomplish their goal effectively because of the nature of text display. Proportional width fonts, complex scripts, styling, accessibility features, and many other factors complicate this. In nearly all cases, a visual text unit limit is really attempting to approximate pixel widths. Actually measuring the limit requires font metrics in the display context. It might also be affected by local settings, such as accessibility settings. In Web pages, the CSS <kbd>text-overflow</kbd> property provides visual truncation without disturbing the content of the text. Attempts to estimate the size of a given piece of text based on the number of Unicode [=code points=] or even the number of [=grapheme clusters=] is mostly futile.</p>
     
     <aside class="example" title="Grapheme clusters &#x2260; pixels">
         <p>When a size limit is based on the number of characters displayed, it is usually due to the need to "fit" the text into a specifically sized region of the screen or on a page. However, the nature of text makes the truncation and limitation of text dependent on font metrics at the time the text is rendered. Such limits frequently do not correspond to some arbitrary limit on the number of [=code points=] or [=grapheme clusters=] in the text.</p>
@@ -3055,36 +3048,40 @@
             </tr>
             <tr>
                 <th>IPA</th>
-                <td style="width:6rem;text-align:center">juː</td>
-                <td style="width:6rem;text-align:center">.ni</td>
-                <td style="width:6rem;text-align:center">.koː</td>
+                <td style="width:6rem;text-align:center">juː.</td>
+                <td style="width:6rem;text-align:center">ni.</td>
+                <td style="width:6rem;text-align:center">koː</td>
                 <td style="width:6rem;text-align:center">ɖ</td>
             </tr>
         </table>
 
+        <p>Finally, notice that the Tamil word takes more room with four [=visual text units=] than an English word with nine:</p>
+        
+       <p class="bigtext">யூனிகோட்</p>
+       <p class="bigtext">Memorable</p>
     </aside>
 
  
     
 	<div class="req" id="char_trunc_unit_rec">
-	<p class="advisement">Specifications that limit the maximum allowable length of a string SHOULD specify the length in terms of Unicode code points.</p>
+	<p class="advisement">Specifications that limit the maximum allowable length of a string SHOULD specify the length in terms of [=Unicode code points=].</p>
 	</div>
     
-    <p>Most limits are actually related to storage limitations, such as the size of a database field or a length limit in a protocol. Such limits are expressed in terms of [=code points=] in Unicode or [=code units=] (such as bytes) in a specific [=character encoding=]. Code points provides the best user experience, since all Unicode code points are treated identically: if text is truncated after 40 code points, all languages and scripts get the same number of code points to work with. By contrast, when the size limit is expressed in code units such as bytes in UTF-8, users who write in a language that mostly uses ASCII letters get many more characters (code points) for a given size limit than user's whose language is mostly made up of characters that take 2-, 3-, or 4-bytes per code point.</p>
+    <p>Most limits are actually related to storage limitations, such as the size of a database field or a length limit in a protocol. Such limits are expressed either in terms of [=code points=] in Unicode or in terms of [=code units=] (such as bytes) in a specific [=character encoding=]. [=Code points=] provides the best user experience, since all Unicode code points are treated identically: if text is truncated after 40 code points, all languages and scripts get the same number of code points to work with. By contrast, when the size limit is expressed in [=code units=], such as bytes in UTF-8, users who write in a language that mostly uses ASCII letters get many more characters (code points) for a given size limit than user's whose language is mostly made up of characters that take 2-, 3-, or 4-bytes per code point.</p>
     
     <div class="req" id="char_trunc_grapheme_boundary">
-	   <p class="advisement">Specifications that limit the length of a string SHOULD require truncation on [=visual text unit=] boundaries (usually as approximated by [=grapheme cluster=] boundaries), as truncation in the midst of a visual text unit such as a <a>combining character sequence</a> can alter the meaning of the string.</p>
+	   <p class="advisement">Specifications that limit the length of a string SHOULD require truncation on [=visual text unit=] boundaries (usually as approximated by [=grapheme cluster=] boundaries). Truncation in the middle of a visual text unit such as a <a>combining character sequence</a> can alter the meaning of the string.</p>
 	</div>
     
-    <aside style="border:1px solid green; padding: 5px" title="Important">
-        <p><q><em>Truncation on [=visual text unit=] boundaries</em></q> is not the same thing as using [=visual text units=] as the maximum length limit for the container.</p>
+    <aside class="localdef" title="Important">
+        <p><q><em>Truncation on [=visual text unit=] boundaries</em></q> is not the same thing as using [=visual text units=] as the maximum length limit for a string.</p>
     </aside> 
     
-    <p>In addition to choosing how the length limit is expressed (code points vs. bytes), there is also the question of choosing the truncation boundary. Text must never be divided in the middle of a code point, because this results in corrupted characters. Text should never be divided in the middle of a [=grapheme cluster=] because this changes the appearance and meaning of the characters displayed.</p>
+    <p>In addition to choosing how the length limit is expressed (code points vs. bytes), there is also the question of choosing the truncation boundary. Text must never be divided in the middle of a [=code point=], because this results in corrupted characters. Text should never be divided in the middle of a [=grapheme cluster=] because this changes the appearance and meaning of the characters displayed. This might mean removing additional code points in order to ensure that the meaning is not affected.</p>
 
     <aside class="example" title="Interaction of truncation and grapheme cluster boundaries" id="example-gc-cp-cu-trunc">
 		
-		<p>Returning to our Tamil example, here's the word for "Unicode", broken into syllables (which, remember, are treated as [=grapheme clusters=] in the Tamil script):</p>
+		<p>Returning to our Tamil example, here again is the word for "Unicode", broken into syllables (which, remember, are treated as [=grapheme clusters=] in the Tamil script):</p>
         
         <table>
             <tr>
@@ -3096,9 +3093,9 @@
             </tr>
             <tr>
                 <th>IPA</th>
-                <td style="width:6rem;text-align:center">juː</td>
-                <td style="width:6rem;text-align:center">.ni</td>
-                <td style="width:6rem;text-align:center">.koː</td>
+                <td style="width:6rem;text-align:center">juː.</td>
+                <td style="width:6rem;text-align:center">ni.</td>
+                <td style="width:6rem;text-align:center">koː</td>
                 <td style="width:6rem;text-align:center">ɖ</td>
             </tr>
         </table>
@@ -3145,12 +3142,16 @@
         <p class="advisement">If a specification cannot avoid doing otherwise, it MAY specify a length limit in terms of [=code units=] (such as bytes).</p>
     </div>
  
-     <p>Sometimes the length limit for a string is determined by some external factor, such as the size of a database field or the number of bytes allocated for a data value specified in some protocol or document format. In this cases, where the specification cannot redefine the limit, it is necessary to use a limit counted in [=code units=] or bytes. Specifications need to call out the additional complexity that this imposes, including the considerations below.</p>
+    <p>Sometimes the length limit for a string is determined by some external factor, such as the size of a database field or the number of bytes allocated for a data value specified elsewhere. Or the length limit might need to be specified in [=code units=] because of some practical design reason (such as describing a fixed-length byte-oriented wire protocol). Such specifications and their implementations will need to call out the additional complexity that this imposes, including the considerations below.</p>
+    
+   	<div class="req" id="char_trunc_byte_boundary">
+	    <p class="advisement">If a specification sets a length limit in [=code units=] (such as bytes), it MUST specify that truncation can only occur on [=code point=] boundaries.</p>
+	</div>
+	
+	<p class="localdef">This best practice applies equally to UTF-16, which uses 16-bit code units, not just to multibyte encodings such as UTF-8. A UTF-16 [=surrogate pair=], used to encode [=Unicode code points=] between <code>U+10000</code> and <code>U+10FFFF</code>, requires <em>two</em> [=code units=]. Arbitrary truncation in the middle of a surrogate pair results in corruption of the encoded character.</p>
  
-     <aside class="example" title="Interaction of truncation and code point boundaries" id="example-code-unit-trunc-bad">
+    <aside class="example" title="Interaction of truncation and code point boundaries" id="example-code-unit-trunc-bad">
         <p>Returning again to our example in Tamil, the [=code points=] in the Tamil script happen to each require three [=code units=] when encoded into the UTF-8 [=character encoding=]. (The [=code unit=] for UTF-8 is a byte.)</p>
-        
-
         
         <table style="border-collapse:collapse">
             <tr>
@@ -3185,26 +3186,34 @@
 
         <p class="bigtext" lang="ta">யூனிக�...</p>
     </aside>   
-    
-	<div class="req" id="char_trunc_byte_boundary">
-	<p class="advisement">If a specification sets a length limit in code units (such as bytes), it MUST specify that truncation can only occur on code point boundaries.</p>
-	</div>
 
-	
-	<p>Note that this best practice applies equally to specifications based on UTF-16, which uses 16-bit code units, not just to multibyte encodings such as UTF-8.</p>
+
+    <div class="req" id="char-trunc-dom-boundary">
+        <p class="advisement">Specifications that reference the [[DOM]] SHOULD specify that string operations be restricted to [=code point=] boundaries, and, where appropriate avoid starting or ending inside of a [=visual text unit=] or [=grapheme cluster=].</p>
+    </div>
     
-    <p>Specifications or APIs that interact with the [[DOM]] need to contend with the fact that character data, including operations such as <kbd>length</kbd>, <kbd>substringData</kbd>, <kbd>insertData</kbd>, <kbd>deleteData</kbd>, and so forth, is specified using UTF-16 code units, not Unicode code points. This can lead to inappropriate mid-character (code point) truncation. Specifications that reference DOM should specify that string operations not occur inside code points, and, where appropriate avoid starting or ending inside [=visual text unit=] or [=grapheme cluster=] boundaries. Specifications should also include a health warning for implementers and users.</p>
+    <div class="req" id="char-trunc-dom-warning">
+        <p class="advisement">Specifications that reference the [[DOM]] and permit arbitrary offsets or lengths to be used in text operations SHOULD include a health warning.</p>
+    </div>
     
-    	<div class="example">
-		<p>Example warning. Modify this health warning as appropriate for your specification:</p>
+    <p>Specifications or APIs that interact with the [[DOM]] need to contend with the fact that character data, including operations such as <kbd>length</kbd>, <kbd>substringData</kbd>, <kbd>insertData</kbd>, <kbd>deleteData</kbd>, and so forth, is specified using UTF-16 [=code units=], rather than [=Unicode code points=]. This can lead to inappropriate mid-character (code point) truncation. </p>
+    
+    	<aside class="example" title="Example DOM warning">
+		<p>Modify this health warning as appropriate for your specification:</p>
 		<div class="example_div">
-		    <p class="warning">Arbitrary index values in the DOM may not fall on character or [=visual text unit=] boundaries. Implementations and users should avoid incorrectly starting or ending operations in the middle of a [=grapheme cluster=].</p>
+		    <p class="warning">Arbitrary index values in the DOM may not fall on character or [=grapheme cluster=] boundaries. Implementations and users should avoid incorrectly starting or ending operations in the middle of a [=grapheme cluster=].</p>
 		</div>
-    	</div>
+    	</aside>
     
+        
+    <div class="req" id="char-trunc-inflation-factor">
+        <p class="advisement">If a specification has to express a string length limit in [=code units=] but is free to specify the size of the string, choose a limit based on an acceptable number of [=code points=] times the relevant [=character encoding=]'s maximum encoded size.</p>
+    </div>
+    
+    <p>The number of [=code points=] that can be stored in a fixed-size buffer depends on the [=character encoding form=] and its [=code unit=]. For example, UTF-8 encodes [=Unicode code points=] using between 1 and 4 bytes per character. It's maximum encoded size is therefore <em>four</em> code units. UTF-16, by contrast, uses either 1 or 2 16-bit code units. It's maximum encoded size is therefore <em>two</em> code units. If a given string should store at least 50 [=code points=], the length limit in UTF-8 bytes would be <code>50 * 4</code> or 200 bytes. The length limit in UTF-16 would be <code>50 * 2</code> or 100 16-bit code units (which is the same as 200 bytes). Such a limit guarantees that the string can always store <em>at least</em> 50 code points, although, depending on the characters used, it might be able to store many more characters in certain languages.</p>
     
 	<div class="req" id="char_trunc_min_size">
-	<p class="advisement">When specifying a length limitation in code units (such as bytes), specifications SHOULD set the limit in a way that accommodates users whose language requires multibyte code unit sequences.</p>
+	   <p class="advisement">When specifying a length limitation in [=code units=] (such as bytes), specifications SHOULD set the limit in a way that accommodates users whose language requires multibyte code unit sequences.</p>
 	</div>
 
 	<p>When choosing a length limit, bear in mind the needs of different scripts and languages in Unicode. If a text size limit is set in terms of [=code units=] (such as a byte-length limit) in a given [=character encoding=], the limit needs to consider the relative efficiency of the character encoding for different scripts. In particular, UTF-8 is the multibyte character encoding of [[Unicode]]. UTF-8 uses between one and four bytes per [=code point=], depending on what the [=Unicode Scalar Value=] of the character is.</p>  
