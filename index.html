@@ -3067,7 +3067,7 @@
  
     
 	<div class="req" id="char_trunc_unit_rec">
-	<p class="advisement">Specifications that limit the length of a string SHOULD specify the length in terms of Unicode code points.</p>
+	<p class="advisement">Specifications that limit the maximum allowable length of a string SHOULD specify the length in terms of Unicode code points.</p>
 	</div>
     
     <p>Most limits are actually related to storage limitations, such as the size of a database field or a length limit in a protocol. Such limits are expressed in terms of [=code points=] in Unicode or [=code units=] (such as bytes) in a specific [=character encoding=]. Code points provides the best user experience, since all Unicode code points are treated identically: if text is truncated after 40 code points, all languages and scripts get the same number of code points to work with. By contrast, when the size limit is expressed in code units such as bytes in UTF-8, users who write in a language that mostly uses ASCII letters get many more characters (code points) for a given size limit than user's whose language is mostly made up of characters that take 2-, 3-, or 4-bytes per code point.</p>
