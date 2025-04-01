@@ -1315,20 +1315,20 @@
         <tr>
             <td>Text units</td>
             <td>character</td>
-            <td>[=code point=], [=Unicode code point=], [=Unicode Scalar Value=]</td>
-            <td>Logical units of text, what we mostly mean by 'character'.</td>
+            <td>[=code point=],<br>[=Unicode code point=],<br>[=Unicode Scalar Value=]</td>
+            <td>Logical units of text, with regard for [=character encoding form=] or any particular serialization.</td>
         </tr>
         <tr>
             <td>Storage, processing, serialization, encoding</td>
             <td>character</td>
             <td>[=code unit=]</td>
-            <td>Wire and file formats, low-level text processing. Be sure to define the [=character encoding=] used. Usually this is UTF-8 or UTF-16.</td>
+            <td>Units of encoding and serialization. [=Code units=] are typically specified in wire and file formats, low-level text processing. Depends on the [=character encoding=] used (preferably UTF-8 or UTF-16).</td>
         </tr>
         <tr>
             <td>Visual units, user-perceived characters, selection/segmentation</td>
             <td>character</td>
-            <td>[=grapheme cluster=], <a href="https://www.w3.org/TR/css-text-3/#typographic-character-unit">typographic character unit</a></td>
-            <td>Breaking text into visual units, most visual selection and truncation. This recommendation has the most nuance.</td>
+            <td>[=grapheme cluster=],<br><a href="https://www.w3.org/TR/css-text-3/#typographic-character-unit">typographic character unit</a></td>
+            <td>Breaking text into visual units, most visual selection and <a href="#char_truncation">truncation</a>. This recommendation has the most nuance.</td>
         </tr>
         <tr>
             <td>Elements of fonts</td>
