@@ -3020,10 +3020,12 @@
     <p>When truncating strings, it's necessary to decide what units to use when counting the size of the string. In some cases this is beyond the control of the specification, since the truncation is occuring for some preordained reason. However, when the choice is available, some general guidelines can be applied.</p>
     
     <div class="req" id="char-trunc-avoid-visual-units">
-        <p class="advisement">Avoid specifying string length limits in terms of [=visual text units=] (such as [=grapheme clusters=]). Use mechanisms such as CSS <code>text-overflow</code> [[css-overflow-4]] instead.</p>
+        <p class="advisement">Avoid specifying the truncation of a stored string using some number of [=visual text units=] (such as [=grapheme clusters=]).</p>
     </div>
     
-    <p>If a string length limitation is related to the size of the available display, it is tempting to want to use the number of [=visual text units=], since these generally correspond more closely to some arbitrary limit than the number of [=code points=] or [=code units=]. However, limits expressed in such units rarely accomplish their goal effectively because of the nature of text display. Proportional width fonts, complex scripts, styling, accessibility features, and many other factors complicate this. In nearly all cases, a visual text unit limit is really attempting to approximate pixel widths. Actually measuring the limit requires font metrics in the display context. It might also be affected by local settings, such as accessibility settings. In Web pages, the CSS <kbd>text-overflow</kbd> property provides visual truncation without disturbing the content of the text. Attempts to estimate the size of a given piece of text based on the number of Unicode [=code points=] or even the number of [=grapheme clusters=] is mostly futile.</p>
+    <p>If a visual length limit is needed, specify visual truncation using text rendering or clipping mechanisms, such as CSS <code>text-overflow</code> [[css-overflow-4]], which do not change the string and which account for the complexities of text rendering.</p>
+    
+    <p>Specifications sometimes try to deal with visual limitations by trying to use the number of [=visual text units=] as a proxy for the visible space available. Such limits can take many forms, such as limiting the number of characters on a line or attempting to make all visual text units have the same rendered width. Using [=visual text units=] corresponds more closely to such arbitrary limits than the number of [=code points=] or [=code units=] in the encoded string. However, the nature of text display usually makes such efforts ineffective. Proportional width fonts, complex scripts, styling, accessibility features, and many other factors complicate this. In nearly all cases, a visual text unit limit is really attempting to approximate pixel widths. Actually measuring the limit requires font metrics in the display context. It might also be affected by local settings, such as accessibility settings. In Web pages, the CSS <kbd>text-overflow</kbd> property provides visual truncation without disturbing the content of the text. Attempts to estimate the size of a given piece of text based on the number of Unicode [=code points=] or even the number of [=grapheme clusters=] is mostly futile.</p>
     
     <aside class="example" title="Grapheme clusters &#x2260; pixels">
         <p>When a size limit is based on the number of characters displayed, it is usually due to the need to "fit" the text into a specifically sized region of the screen or on a page. However, the nature of text makes the truncation and limitation of text dependent on font metrics at the time the text is rendered. Such limits frequently do not correspond to some arbitrary limit on the number of [=code points=] or [=grapheme clusters=] in the text.</p>
@@ -3055,23 +3057,30 @@
             </tr>
         </table>
 
-        <p>Finally, notice that the Tamil word takes more room with four [=visual text units=] than an English word with nine:</p>
+        <p>Finally, notice that the Tamil word quite often takes more room with four [=visual text units=] than an English word with nine:</p>
         
-       <p class="bigtext">யூனிகோட்</p>
-       <p class="bigtext">Memorable</p>
+        <img src="./images/memorable-unicode.png" alt="comparison of யூனிகோட் and memorable">
+
     </aside>
 
  
     
 	<div class="req" id="char_trunc_unit_rec">
-	<p class="advisement">Specifications that limit the maximum allowable length of a string SHOULD specify the length in terms of [=Unicode code points=].</p>
+	<p class="advisement">Specifications that limit the maximum allowable storage length of a string SHOULD specify that length in terms of [=Unicode code points=].</p>
 	</div>
     
     <p>Most limits are actually related to storage limitations, such as the size of a database field or a length limit in a protocol. Such limits are expressed either in terms of [=code points=] in Unicode, or they are expressed in terms of [=code units=] (such as bytes) in a specific [=character encoding=]. [=Code points=] provide the best user experience, since all Unicode code points are treated identically: if text is truncated after 40 code points, all languages and scripts get the same number of code points to work with. By contrast, when the size limit is expressed in [=code units=], such as bytes in UTF-8, users who write in a language that mostly uses ASCII letters get many more characters (code points) for a given size limit than user's whose language is mostly made up of characters that take 2-, 3-, or 4-bytes per code point.</p>
     
     <div class="req" id="char_trunc_grapheme_boundary">
-	   <p class="advisement">Specifications that limit the length of a string SHOULD require truncation on [=visual text unit=] boundaries (usually as approximated by [=grapheme cluster=] boundaries). Truncation in the middle of a visual text unit such as a <a>combining character sequence</a> can alter the meaning of the string.</p>
-	</div>
+	   <p class="advisement">Specifications that permit truncation of a string to fit some length limit SHOULD require such truncation to occur on [=visual text unit=] boundaries (usually as approximated by [=grapheme cluster=] boundaries).</p>
+    </div>
+    
+    <div class="req" id="char-trunc-grapheme-boundary-impl">
+        <p class="advisement">Implementations that perform truncation of a string to fit some length limit SHOULD truncate on [=visual text unit=] boundaries (usually as approximated by [=grapheme cluster=] boundaries).</p>
+    </div>
+           
+           
+    <p>Truncation in the middle of a [=visual text unit=], such as a <a>combining character sequence</a>, can alter the meaning of the remaining string.</p>
     
     <aside class="localdef" title="Important">
         <p><q><em>Truncation on [=visual text unit=] boundaries</em></q> is not the same thing as using [=visual text units=] as the maximum length limit for a string.</p>
