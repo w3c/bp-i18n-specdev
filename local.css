@@ -534,13 +534,19 @@ table.term-guide {
 table.term-guide td {
    vertical-align: top;
    text-align: left;
+   font-size: 90%;
+   padding: 10px;
+   border-bottom: 1px dotted gray;
 }
 
 table.term-guide th {
    vertical-align: top;
    text-align: left;
+   font-size: 90%;
+   padding: 10px;
+   border-bottom: 1px dotted gray;
 }
 
-table.term-guide tr:hover {
+table.term-guide tbody tr:hover {
    background-color: #dfd;
 }

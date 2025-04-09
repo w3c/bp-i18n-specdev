@@ -1306,36 +1306,35 @@
     
    
     <table class="term-guide">
+        <thead>
         <tr>
-            <th style="width:15%">For</th>
-            <th>instead of...</th>
-            <th>Use</th>
-            <th>Note</th>
+            <th style="width:15%">Type of unit</th>
+            <th>Instead of <em>character</em> use...</th>
+            <th>Description</th>
         </tr>
+        </thead>
+        <tbody>
         <tr>
             <td>Text units</td>
-            <td>character</td>
             <td>[=code point=],<br>[=Unicode code point=],<br>[=Unicode Scalar Value=]</td>
-            <td>Logical units of text, with regard for [=character encoding form=] or any particular serialization.</td>
+            <td>Logical units of text, without regard for [=character encoding form=] or any particular serialization.</td>
         </tr>
         <tr>
             <td>Storage, processing, serialization, encoding</td>
-            <td>character</td>
             <td>[=code unit=]</td>
             <td>Units of encoding and serialization. [=Code units=] are typically specified in wire and file formats, low-level text processing. Depends on the [=character encoding=] used (preferably UTF-8 or UTF-16).</td>
         </tr>
         <tr>
             <td>Visual units, user-perceived characters, selection/segmentation</td>
-            <td>character</td>
             <td>[=grapheme cluster=],<br><a href="https://www.w3.org/TR/css-text-3/#typographic-character-unit">typographic character unit</a></td>
             <td>Breaking text into visual units, most visual selection and <a href="#char_truncation">truncation</a>. This recommendation has the most nuance.</td>
         </tr>
         <tr>
             <td>Elements of fonts</td>
-            <td>character</td>
             <td>[=glyph=]</td>
             <td>Individual display values. Use this term primarily when talking about the contents of a font.</td>
         </tr>
+        </tbody>
     </table>
     
     <div class="req" id="char_define_character">
@@ -1455,6 +1454,8 @@
     
     <p>A <strong>[=glyph=]</strong> is the visual representation of a character (or sequence of characters) when rendered by a particular [=font=]. Glyphs do not always have a 1:1 relationship to [=abstract characters=]. They can represent part of a character or a combination of several characters. Different [=glyphs=] can represent the same [=code point=]. For example, these are all different [=glyphs=] for <span class="codepoint"><bdi lang="en">A</bdi><code class="uname">U+0041 LATIN CAPITAL LETTER A</code></span>:</p>
     
+    <img src="./images/many-glyphs.png" alt="AAAAA">
+    <!--
     <table>
         <tr>
             <td style="font-size:2rem;font-family:serif">A</td>
@@ -1464,24 +1465,37 @@
             <td style="font-size:2rem;font-family:serif"><em>A</em></td>
         </tr>
     </table>
+    -->
     
     <p>A <strong><dfn>font</dfn></strong> is thus a collection of specific glyphs used to render text.</p>
     
 
     <aside class="example" title="Encoding terminology illustrated">
     
-    <p>Suppose you spoke Russian and you wanted to say "I love Swiss cows". You might express this in emoji like this:</p>
+    <p>Suppose you spoke Russian and suppose you wanted to express the sentiment <q lang="ru">Я люблю швейцарских коров!</q> (which means, approximately, "I love Swiss cows") to someone using emoji. It might look like this:</p>
     
     <figure class="suisse-cows">
        <img src="./images/suisse-cows.jpg" lang="ru" alt="Я❤️🇨🇭🐄!">
        <figcaption>As text: <q lang="ru" translate="no">Я❤️🇨🇭🐄!</q></figcaption>
     </figure>
     
-    <p>This phrase contains five [=visual text units=] (five [=grapheme clusters=]). Some of these are simple, while others rely on a combination of [=code points=]. It turns out that this phrase contains seven [=code points=], since the emoji characters use some of the more unusual features of Unicode. Specifically, <span class="codepoint"><bdi lang="en">&#x2764;</bdi><code class="uname">U+2764 HEAVY BLACK HEART</code></span> is followed by <span class="codepoint"><img src="./images/FE0F.png" alt="U+FE0F"><code class="uname">U+FE0F VARIATION SELECTOR-16</code></span> in order to display as an emoji variant, while the flag of Switzerland is formed using a pair of emoji flag characters. These [=code points=], when converted to UTF-8, use varying number of [=code units=] (bytes):</p>
+        <p>This phrase contains five [=visual text units=] ([=grapheme clusters=]).</p>
     
-        
     <table class="charTermExample">
         <tr>
+            <th width="15%">[=grapheme cluster=]</th>
+            <td class="bigtext">&#x42f;</td>
+            <td class="bigtext" colspan="2">&#x2764;&#xfe0f;</td>
+            <td class="bigtext" colspan="2">&#x1f1e8;&#x1f1ed;</td>
+            <td class="bigtext">&#x1f404;</td>
+            <td class="bigtext">!</td>
+        </tr>
+
+    
+    <tr><td colspan="8" style="text-align:left">Some of the [=visual text units=] require more than one character. This phrase consists of seven characters. The emoji characters use some of the more unusual features of Unicode. Specifically, <span class="codepoint"><bdi lang="en">&#x2764;</bdi><code class="uname">U+2764 HEAVY BLACK HEART</code></span> is followed by <span class="codepoint"><img src="./images/FE0F.png" alt="U+FE0F"><code class="uname">U+FE0F VARIATION SELECTOR-16</code></span> in order to display as an emoji variant, while the flag of Switzerland is formed using a pair of emoji flag characters.</td></tr>
+
+        <tr>
+            <th width="15%">[=Encoded character=]</th>
             <td class="bigtext">&#x42f;</td>
             <td class="bigtext">&#x2764;</td>
             <td class="bigtext"><span class="codepoint"><img src="./images/FE0F.png"></span></td>
@@ -1490,7 +1504,13 @@
             <td class="bigtext">&#x1f404;</td>
             <td class="bigtext">!</td>
         </tr>
+
+    
+    <tr><td colspan="8" style="text-align:left">Each [=encoded character=] is assigned a [=Unicode code point=] (it's [=Unicode Scalar Value=]), a unique integer that identifies which character we mean:</td></tr>
+
+
         <tr>
+            <th>[=code points=]</th>
             <td><code>U+042F</code></td>
             <td><code>U+2764</code></td>
             <td><code>U+FE0F</code></td>
@@ -1499,7 +1519,13 @@
             <td><code>U+1F404</code></td>
             <td><code>U+0021</code></td>
         </tr>
+
+    
+    <tr><td colspan="8" style="text-align:left">Each [=code point=] is encoded into the UTF-8 [=character encoding form=] using a varying number of [=code units=]. In UTF-8, the code units are bytes, while in UTF-16 they are 16-bit integers:</td></tr>
+    
+
         <tr>
+            <th>UTF-8 [=code units=]</th>
             <td><code>D0 AF</code></td>
             <td><code>E2 9D A4</code></td>
             <td><code>EF B8 8F</code></td>
@@ -1507,6 +1533,16 @@
             <td><code>F0 9F 87 AD</code></td>
             <td><code>F0 9F 90 84</code></td>
             <td><code>21</code></td>
+        </tr>
+        <tr>
+            <th>UTF-16 [=code units=]</th>
+            <td><code>042F</code></td>
+            <td><code>2764</code></td>
+            <td><code>FE0F</code></td>
+            <td><code>D83C DDE8</code></td>
+            <td><code>D83C D8ED</code></td>
+            <td><code>D83D DC04</code></td>
+            <td><code>0021</code></td>
         </tr>
     </table>
     
