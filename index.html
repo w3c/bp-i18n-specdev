@@ -1546,59 +1546,6 @@
         </tr>
     </table>
     
-    <!--
-	<p>Here is the word for "Unicode" in the Hindi language (which uses the Devanagari script):</p>
-    
-    <p class="bigtext" lang="hi">&#x092F;&#x0942;&#x0928;&#x093F;&#x0915;&#x094B;&#x0921;</p>
-    
-    <p>This word contains four [=visual text units=] (four [=grapheme clusters=]):</p>
-    
-	<p><span class="bigtext" lang="hi">&#x092F;&#x0942;&nbsp;<span>&#x0928;&#x093F;</span>&nbsp;<span>&#x0915;&#x094B;</span>&nbsp;<span>&#x0921;</span></p>
-        
-    <p>Several of these [=grapheme clusters=] are made up of more than one Unicode [=code point=] because of the way that the Devanagari script works. Devanagari is an example of a script that uses combining characters. In fact, use of such characters is required to write text in this script. In this case, the four [=grapheme clusters=] are composed from seven [=abstract characters=], each of which is assigned a [=Unicode Scalar Value=] to serve as its [=code point=]. This sequence of [=code points=] can be encoded into a byte sequence using the UTF-8 [=character encoding=]:</p>
-    
-    <table class="charTermExample">
-        <tr>
-            <th style="width:25%">Character</th>
-            <td class="bigtext">&#x092f;</td>
-            <td class="bigtext">&#x0942;</td>
-            <td class="bigtext">&#x0928;</td>
-            <td class="bigtext">&#x093f;</td>
-            <td class="bigtext">&#x0915;</td>
-            <td class="bigtext">&#x094b;</td>
-            <td class="bigtext">&#x0921;</td>
-        </tr>
-        <tr>
-            <th>Code Point</th>
-            <td><code>U+092F</code></td>
-            <td><code>U+0942</code></td>
-            <td><code>U+0928</code></td>
-            <td><code>U+093F</code></td>
-            <td><code>U+0915</code></td>
-            <td><code>U+094B</code></td>
-            <td><code>U+0921</code></td>
-        </tr>
-        <tr>
-            <th>UTF-8 Code Units</th>
-            <td><code>E0 A4 AF</code></td>
-            <td><code>E0 A5 82</code></td>
-            <td><code>E0 A4 A8</code></td>
-            <td><code>E0 A4 BF</code></td>
-            <td><code>E0 A4 95</code></td>
-            <td><code>E0 A5 8B</code></td>
-            <td><code>E0 A4 A1</code></td>
-        </tr>
-        
-        <p>Я❤️🇨🇭🐄!</p>
-        
-        
-        
-    </table>
-    
-    <p></p>
-    
-    -->
-
     </aside>
     
 <div class="req" id="char_sounds">
@@ -3442,11 +3389,16 @@
         
         <p>Keep in mind that, while the examples chosen here are roughly the same length, other languages might require more characters to convey the same concepts. For example, the Scottish Gaelic translation would be <q lang="gd">Is urrainn dhomh glainne ithe, chan eil e gam ghoirteachadh</q>, which is significantly longer than the English. Many languages have different grammatical structure as well, so that key information (such as the verb) appearing at the end of the sentence (as is common in Hindi or Japanese).</p>
         
-        <p>Finally, don't forget that the limit will also interact with the truncation boundary chosen (as shown in [[[#example-code-unit-trunc-bad]]]): if the truncation is done naively at the 15th byte, the resulting string might contain only a partial character. For example, the Marathi could experience this problem: <span class="codepoint"><bdi lang="ma">मी का�...</bdi></span>.</p>
+        <p>Finally, don't forget that the limit will also interact with the truncation boundary chosen (as shown in [[[#example-code-unit-trunc-bad]]]): if the truncation is done naively at the 15th byte, the resulting string might contain only a partial character. For example, the Marathi could experience this problem:</p>
+        
+        <p class="bigtext" lang="ma">मी का�...</p>
+        
+        </aside>
+        <aside class="example" id="family-example" title="Emoji sequences as an example of grapheme clusters">
         
         <p>Another example of the complex relationship between [=visual text units=] and [=code points=] are certain emoji. The emoji character for "family" has a code point in Unicode: <span class="codepoint" translate="no"><bdi lang="en">&#x1F46A;</bdi><code class="uname">U+1F46A FAMILY</code></span>. It can also be formed by using using a sequence of [=code points=]: <code class="uname">U+1F468 U+200D U+1F469 U+200D U+1F466</code>.</p>
     
-        <p>The character <span class="codepoint" translate="no"><img alt="ZWJ" src="./images/200D.png"><span class="uname" translate="no">U+200D ZERO WIDTH JOINER</span></span> is used to "join" separate emoji characters together (it also has a role in joining characters in various writing systems of the world). This compositional mechanism can be used to create other family variations. For example, the sequence <span class="codepoint" translate="no"><bdi translate="no">&#x1f468;&#x200d;&#x1f469;&#x200d;&#x1f467;&#x200d;&#x1f466;</bdi><code class="uname" translate="no">U+1F468 U+200D U+1F469 U+200D U+1F467 U+200D U+1F466</code></span> results in a composed emoji character for a "family: man, woman, girl, boy" on systems that support this kind of composition. That long character sequence still represents just a single [=visual text unit=]. Other characters, such as skin tone modifiers, can further extend the [=grapheme cluster=]:</p>
+        <p>The character <span class="codepoint" translate="no"><img alt="ZWJ" src="./images/200D.png"><span class="uname" translate="no">U+200D ZERO WIDTH JOINER</span></span> is used to "join" separate emoji characters together (it also has a role in joining characters in various writing systems of the world). This compositional mechanism can be used to create other family variations. For example, the sequence <span class="codepoint" translate="no"><bdi translate="no">&#x1f468;&#x200d;&#x1f469;&#x200d;&#x1f467;&#x200d;&#x1f466;</bdi><code class="uname" translate="no">U+1F468 U+200D U+1F469 U+200D U+1F467 U+200D U+1F466</code></span> results in a composed emoji character for a "family: man, woman, girl, boy" on systems that support this kind of composition. That long character sequence still represents just a single [=visual text unit=]. Other characters, such as skin tone modifiers, can further extend the [=grapheme cluster=]. Here are just a few of the possible emoji sequences possible for representing a family:</p>
 
         
         <table class="cpExample" style="width:95%">
@@ -3472,7 +3424,20 @@
             </tr>
         </table>
         
-        <p>Many common emoji can <em>only</em> be formed using sequences of code points, but should be treated as a single [=visual text unit=] when displaying or processing the text. The simplest composed "family" emoji sequence "👨‍👩‍👦" consists of 5 code points. The byte limit of 15 truncates in the middle of the child family member: "👨‍👩‍�‍". If the truncation is done on the [=grapheme cluster=] boundary, the entire family is removed.</p>
+        <p>Many common emoji can <em>only</em> be formed using sequences of code points, but should be treated as a single [=visual text unit=] when displaying or processing the text. The simplest composed family emoji sequence consists of 5 code points:</p>
+        
+        <table class="cpExample" style="width:95%">
+           <tr>
+               <td style="text-align:center;width:15%"><img src="./images/emoji-image-2.png" class="emoji-image" alt=">&#x1F468;&#x200d;&#x1f469;&#x200d;&#x1f466;"></td>
+               <td><code class="uname">U+1F468 U+200D U+1F469 U+200D U+1F466</code></td>
+           </tr>
+        </table>
+        
+        <p>A limit of 15 bytes (UTF-8 [=code units=]) would truncate this sequence in the middle of the child family member: </p>
+        
+        <p class="bigtext">👨‍👩‍�‍</p>
+        
+        <p>If the truncation were done on the [=grapheme cluster=] boundary instead, the entire family would be removed.</p>
     </aside>
 
 
