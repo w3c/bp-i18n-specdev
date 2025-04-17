@@ -2,7 +2,11 @@
 index.html?specStatus=NOTE&shortName=international-specs respec
 make_checklist.js
 local.css
-
+images/000D.png
+images/0020.png
+images/007F.png
+images/0085.png
+images/00A0.png
 images/061C.png
 images/061C.png
 images/1680.png
@@ -17,19 +21,17 @@ images/2007.png
 images/2008.png
 images/2009.png
 images/200A.png
-imaged/200D.png
+imaged/200B.png
+images/200C.png
+images/200D.png
 images/200E.png
-images/200E.png
-images/200E.png
-images/200F.png
-images/200F.png
 images/200F.png
 images/2028.png
 images/2029.png
 images/202F.png
 images/205F.png
 images/3000.png
-imaged/FE0F.png
+images/FE0F.png
 images/FEFF.png
 images/many-glyphs.png
 images/indivisible-memorable.jpg
