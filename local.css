@@ -505,7 +505,7 @@ img.emoji-image {
     padding: 10px;
 }
 
-aside.start-here legend {
+aside.start-here p.title {
     color: rgb(3, 69, 117);
     font-size:large;
     font-family:sans-serif;
@@ -518,6 +518,10 @@ aside.start-here legend {
 
 table.charTermExample {
     border-collapse: collapse;
+}
+
+table.charTermExample th {
+    width: 15%;
 }
 
 table.charTermExample td {

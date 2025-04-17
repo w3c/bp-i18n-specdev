@@ -1269,8 +1269,8 @@
 
 <p class="reviewComments"><a href="https://github.com/w3c/i18n-activity/labels/t%3Achar_def" target="_blank">See related review comments.</a></p>
 
-<aside id="char-start-here" class="start-here">
-    <legend>Start Here</legend>
+<aside id="char-start-here" class="start-here" title="&#x27a4;&#x27a4;&#x27a4;Start Here">
+    <p class="title">&#x27a4;&#x27a4;&#x27a4;Start Here</p>
     <p>The relationship between text and its storage and processing in computers is complicated, involving many terms and concepts that may be new to you. Understanding this terminology is important to understanding the guidance in the internationalization guidelines and best practices. We've created this article to explain and illustrate what you need to know:</p>
     
     <p style="text-align:center;font-family:sans-serif;font-size:larger"><a href="https://www.w3.org/International/articles/definitions-characters/index.en.html">Character encodings: Essential concepts</a></p>
@@ -1483,7 +1483,7 @@
     
     <table class="charTermExample">
         <tr>
-            <th width="15%">[=grapheme cluster=]</th>
+            <th>[=grapheme cluster=]</th>
             <td class="bigtext">&#x42f;</td>
             <td class="bigtext" colspan="2">&#x2764;&#xfe0f;</td>
             <td class="bigtext" colspan="2">&#x1f1e8;&#x1f1ed;</td>
@@ -1495,10 +1495,10 @@
     <tr><td colspan="8" style="text-align:left">Some of the [=visual text units=] require more than one character. This particular phrase consists of seven characters because these emoji characters use some of the more unusual features of Unicode. <span class="codepoint"><bdi lang="en">&#x2764;</bdi><code class="uname">U+2764 HEAVY BLACK HEART</code></span> is followed by <span class="codepoint"><img src="./images/FE0F.png" alt="U+FE0F"><code class="uname">U+FE0F VARIATION SELECTOR-16</code></span> in order to display as an emoji variant, while the flag of Switzerland is formed using a pair of emoji flag characters. (Note: on some browsers, the "flag" might display as a grapheme cluster with the letters <kbd>CH</kbd>. These are still treated by the browser as a single grapheme cluster!)</td></tr>
 
         <tr>
-            <th width="15%">[=Encoded character=]</th>
+            <th>[=Encoded character=]</th>
             <td class="bigtext">&#x42f;</td>
             <td class="bigtext">&#x2764;</td>
-            <td class="bigtext"><span class="codepoint"><img src="./images/FE0F.png"></span></td>
+            <td class="bigtext"><span class="codepoint"><img src="./images/FE0F.png" alt="U+FE0F"></span></td>
             <td class="bigtext">&#x1f1e8;</td>
             <td class="bigtext">&#x1f1ed;</td>
             <td class="bigtext">&#x1f404;</td>
@@ -3098,7 +3098,7 @@
         
         <p>Consider the words <em>indivisible</em> and <em>memorable</em>. The first has 11 letters, the second only 9 letters. However, <em>indivisible</em> consumes fewer pixels in many proportional fonts (it has a number of letters ‘I’ and ‘L’, which are narrow, versus the letters ‘M’ in <em>memorable</em>):</p>
         
-        <img src="images/indivisible-memorable.jpg">
+        <img src="images/indivisible-memorable.jpg" alt="the words indivisible and memorable showing how one is longer than the other">
         
         <p>Some scripts make the difference between visual text units and pixel size even more obvious. For example, here is the word for "Unicode" in Tamil:</p>
         
@@ -3125,7 +3125,7 @@
 
         <p>Finally, notice that the Tamil word quite often takes more room with four [=visual text units=] than an English word with nine:</p>
         
-        <img src="./images/memorable-unicode.png" alt="comparison of யூனிகோட் and memorable">
+        <img src="images/memorable-unicode.png" alt="comparison of யூனிகோட் and memorable">
 
     </aside>
 
@@ -3180,7 +3180,7 @@
         <table>
             <tr>
                 <th>Syllable</th>
-                <th colspan="4" style="text-align:center">Code Points</th>
+                <th colspan="2" style="text-align:center">Code Points</th>
             </tr>
             <tr>
                 <td class="bigtext" style="width:6rem;text-align:center" lang="ta">&#x0BAF;&#x0BC2;</td>
@@ -3391,7 +3391,7 @@
         
         <p>Finally, don't forget that the limit will also interact with the truncation boundary chosen (as shown in [[[#example-code-unit-trunc-bad]]]): if the truncation is done naively at the 15th byte, the resulting string might contain only a partial character. For example, the Marathi could experience this problem:</p>
         
-        <p class="bigtext" lang="ma">मी का�...</p>
+        <p class="bigtext" lang="mr">मी का�...</p>
         
         </aside>
         <aside class="example" id="family-example" title="Emoji sequences as an example of grapheme clusters">
