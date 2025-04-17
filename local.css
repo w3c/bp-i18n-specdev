@@ -498,3 +498,55 @@ img.emoji-image {
     max-width:60px;
     height:auto
 }
+
+.start-here {
+    border:5px solid green; 
+    background-color: rgb(233, 251, 233);
+    padding: 10px;
+}
+
+aside.start-here legend {
+    color: rgb(3, 69, 117);
+    font-size:large;
+    font-family:sans-serif;
+    font-weight:bold;
+    text-align:center;
+    background-color:ivory;
+    margin:0;
+    padding:0
+}
+
+table.charTermExample {
+    border-collapse: collapse;
+}
+
+table.charTermExample td {
+   border-right: 1px dotted gray; 
+   text-align: center;
+   padding: 5px;
+}
+
+table.term-guide {
+   border-collapse: collapse;
+   
+}
+
+table.term-guide td {
+   vertical-align: top;
+   text-align: left;
+   font-size: 90%;
+   padding: 10px;
+   border-bottom: 1px dotted gray;
+}
+
+table.term-guide th {
+   vertical-align: top;
+   text-align: left;
+   font-size: 90%;
+   padding: 10px;
+   border-bottom: 1px dotted gray;
+}
+
+table.term-guide tbody tr:hover {
+   background-color: #dfd;
+}

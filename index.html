@@ -1240,6 +1240,7 @@
 
 <!--p>In this section:</p>
 	<ul class="summary">
+    <li>[[[#char_basics]]]</li>
 	<li>[[[#char_def]]]</li>
 	<li>[[[#char_referencemodel]]]</li>
 	<li>[[[#char_ranges]]]</li>
@@ -1261,223 +1262,294 @@
 <div id="char_checklist"></div>
 </details-->
 
-<section id="char_def" class="subtopic">
-<h3>Choosing a definition of 'character'</h3>
+<section id="char_basics">
+    <!-- the id 'char_def' on this header reflects the previous structure of this document -->
+    <h3 id="char_def">Characters and character encoding basics</h3>
+
 
 <p class="reviewComments"><a href="https://github.com/w3c/i18n-activity/labels/t%3Achar_def" target="_blank">See related review comments.</a></p>
 
-
-<aside class="links" id="links_char_def">
-<p class="links_title">Useful background and overviews for this section</p>
-<ul>
-    <li class="w3"><p class="link"><a href="https://www.w3.org/International/articles/definitions-characters/index.en.html#characters">Character encodings: Essential concepts</a> &mdash; <strong>Start here!</strong> This article contains the fundamental explanations of all of the terminology in this section.</p></li>
+<aside id="char-start-here" class="start-here">
+    <legend>Start Here</legend>
+    <p>The relationship between text and its storage and processing in computers is complicated, involving many terms and concepts that may be new to you. Understanding this terminology is important to understanding the guidance in the internationalization guidelines and best practices. We've created this article to explain and illustrate what you need to know:</p>
     
-    <li class="w3"><p class="link"><a href="https://www.w3.org/TR/charmod/">Character Model for the World Wide Web: Fundamentals</a> — basic guidelines related to the use of characters and encodings. Most of the relevant content in this document has been imported into this section or explained in the "Essential concepts" article.</p></li>
+    <p style="text-align:center;font-family:sans-serif;font-size:larger"><a href="https://www.w3.org/International/articles/definitions-characters/index.en.html">Character encodings: Essential concepts</a></p>
     
-    <li class="notw3"><p class="link"><a href="https://encoding.spec.whatwg.org/">Encoding</a> — specification with further guidelines related to use of character encodings.</p></li>
-    
-    <li class="w3"><p class="link"><a href="https://www.w3.org/TR/charmod-norm/">Character Model for the World Wide Web: String Matching</a> — issues that arise when you try to compare two strings, be it identifiers or authored content.</p></li>
-
-    <li class="w3"><p class="link"><a href="https://www.w3.org/International/questions/qa-indic-graphemes">Typographic character units in complex scripts</a> &mdash; Article explaining more complex typographic unit issues.</p></li>
-
-</ul>
 </aside>
 
-    <p>The term <em>character</em> means different things in different contexts: it can variously refer to the visual, logical, or byte-level representation of a given unit of text. This makes the term too imprecise to use casually in specifications. Understanding how text is defined and encoded in computing systems, along with the associated terminology used to make such specification unambiguous, is thus a necessary prerequisite to discussing the processing of string data.</p>
-    
-    <p>A <dfn class="lint-ignore">visual text unit</dfn> is a single unit of the visible text as perceived by a user. This can be on a screen or in other media, such as printed on paper or written on the back of a napkin. This term is necessarily imprecise, as user perception frequently depends on familiarity with the script and writing system, particularly when it comes to writing systems that use a combination of combining marks, complex positioning, or complex shaping based on context. A [=visual text unit=] generally shouldn't be broken apart by operations such as line-breaking or hyphenation.</p>
-    
-    <p>Other terms are sometimes used that have similar meanings. The term [=grapheme=] is sometimes used by linguists (and others) to refer to what a typical user would perceive as a single unit. The term [=glyph=] is used by typographers (and others) to refer to an individual rendering unit. Sometimes a [=visual text unit=] is said to be a <dfn class="lint-ignore">user-perceived character</dfn>, although this name can be misleading. For example, some users of Brahmi-derived scripts will perceive (read) components in a stacked consonant cluster as separate visual text units, whereas others will see the whole stack as one visual text unit.</p>
-    
-    <p>At their simplest, [=visual text units=] are a single shape ([=glyph=]) that can be tied one-to-one to a "character" in the computer's memory. But a visual text unit can also be formed from a sequence of characters.</p>
-    
-    <aside class="example" title="Examples of visual text units" id="visual-text-unit-example">
-		<p>Here is the word for "Unicode" in the English language (which uses the Latin script). It is made up of seven Unicode characters that form seven visual text units:</p>
-		<p class="bigtext" style="margin-block-start: 12px; margin-block-end: 12px">Unicode</p>
-		<p>Here is the word for "Unicode" in the Hindi language (which uses the Devanagari script):</p>
-        <p><span class="bigtext" lang="hi">&#x092F;&#x0942;&#x0928;&#x093F;&#x0915;&#x094B;&#x0921;</span></p>
-        <p>This word also happens to be made up of seven Unicode characters, but these characters form only four visual text units (indicated here with color):</p>
-		<p><span class="bigtext" lang="hi">&#x092F;&#x0942;&nbsp;<span style="color:red">&#x0928;&#x093F;</span>&nbsp;<span style="color:black">&#x0915;&#x094B;</span>&nbsp;<span style="color:magenta">&#x0921;</span></p>
-    </aside>
-	
-    <p>In order to encode [=visual text units=] for use by software, we have to start by agreeing on what is being encoded.</p>
-    
-    <p>A <a>character set</a> is quite literally a set: a specific collection of characters that can be used together to encode text, where a "character" means a single abstract unit of text. The collection of characters in a [=character set=] is sometimes called its <em>repertoire</em>.</p>
-    
-    <p>The most important [=character set=] is the <a>Universal Character Set</a>, which is the character set that is defined by [[Unicode]]. Unicode's character set includes all of the characters used to encode text, including historical or extinct writing systems as well as modern usage, private use, typesetting symbols, and other things, such as the emoji. All other character sets are defined subsets of Unicode. The Unicode Standard is revised, typically annually, to encode additional characters.</p>
-    
-    <p>To be useful, a [=character set=] needs to be organized so that one can unambiguously find each character. This is done by assigning each character a unique identifier called a [=code point=]. A [=character set=] in which each character has been assigned a [=code point=] is called a [=coded character set=]. In Unicode, code points are integers between <code>0x0000</code> and <code>0x10FFFF</code> inclusive and are written in hexadecimal notation (see [[[#char_ref]]]). A Unicode code point is sometimes called a [=Unicode Scalar Value=]. </p>
-    
 
-    <p>The relationship between [=code points=] and [=visual text units=] can be complex. In most cases, a sequence of [=code points=] that forms a single [=visual text unit=] should be processed as a single, indivisible textual unit. For example, when cursoring across text, the cursor should "jump across" or select the entire visual text unit (and its underlying code points) together. It shouldn't be possible to cursor into the "middle" of a visual text unit. By contrast, it is sometimes possible, when performing "backward deletion" (using the backspace key, for example) to progressively delete characters from the end of a [=visual text unit=].</p>
-    
-	<p>[[Unicode]] provides a definition for approximately computing the boundaries in a sequence of characters between visual text units. The boundaries defined by [[Unicode]] are called [=grapheme clusters=]. Unless otherwise specified, the term [=grapheme cluster=] in this document refers to what [[UAX29]] refers to as an "extended default grapheme cluster".</p>
-	
-    <aside class="example" title="Example of the difference between grapheme clusters and code points">
-		<p>Returning to [[[#visual-text-unit-example]]] above, the Hindi word for "Unicode" is made of four visual text units:</p>
-		<p class="bigtext" lang="hi">&#x092F;&#x0942;&nbsp;<span style="color:red"><strong>&#x0928;&#x093F;</strong></span>&nbsp;&#x0915;&#x094B;&nbsp;&#x0921;</p>
-		<p>Several of these visual text units are made up of more than one Unicode character because of the way that the Devanagari script works. In Devanagari, the basic set of "letters" are syllables ending with the short 'a' vowel sound. When you want to use a different vowel, you add a combining vowel character that changes the shape of the grapheme. The red text in the example above is the syllable "ni" in the transliterated word "Unicode". It is made of two characters: U+0928 (the syllable "na") and U+093F (combining "short i" sound):</p>
+<aside class="links" id="links_char_def">
+<details class="links"><summary>further reading</summary>
+<p>These other documents provide additional information that may be helpful in understanding this section:</p>
+<ul>
+    <li class="w3"><p class="link"><a href="https://www.w3.org/TR/charmod-norm/">Character Model for the World Wide Web: String Matching</a> — issues that arise when you try to compare two strings, be it identifiers or authored content.</p></li>
 
-		<table>
-			<tr>
-				<td class="bigtext">&#x092f;</td>
-				<td class="bigtext">&#x0942;</td>
-				<td class="bigtext" style="color:red"><strong>&#x0928;</strong></td>
-				<td class="bigtext" style="color:red"><strong>&#x093f;</strong></td>
-				<td class="bigtext">&#x0915;</td>
-				<td class="bigtext">&#x094b;</td>
-				<td class="bigtext">&#x0921;</td>
-			</tr>
-			<tr>
-				<td><code>U+092F</code></td>
-				<td><code>U+0942</code></td>
-				<td><code>U+0928</code></td>
-				<td><code>U+093F</code></td>
-				<td><code>U+0915</code></td>
-				<td><code>U+094B</code></td>
-				<td><code>U+0921</code></td>
-			</tr>
-		</table>
-
-    </aside>
-    
-   <p>For most languages and scripts, there is little difference between a [=visual text unit=] and a [=grapheme cluster=]. However, for some languages and scripts, particularly those found in South Asia, the difference can be important. Work is on-going at Unicode to narrow or eliminate gaps between the computed grapheme cluster boundaries and the expected visual text units. For example, this section previously used an example in Bangla, but the Bengali script was corrected in Unicode 15.1.</p>
-
-	<aside class="example" title="Difference between Unicode grapheme cluster and a visual text unit">
-	<p>In Balinese, the word "ᬅᬲ᭄ᬢ", which means "to be", is composed of this character sequence:
-	<ul style="list-style-type:none">
-	   <li><span class="codepoint" translate="no"><bdi lang="ban">&#x1B05;</bdi><code class="uname">U+1B05 BALINESE LETTER AKARA</code></span>
-	   <li><span class="codepoint" translate="no"><bdi lang="ban">&#x1B32;</bdi><code class="uname">U+1B05 BALINESE LETTER SA</code></span>
-	   <li><span class="codepoint" translate="no"><bdi lang="ban">&#x1B44;</bdi><code class="uname">U+1B05 BALINESE ADEG ADEG</code></span>
-	   <li><span class="codepoint" translate="no"><bdi lang="ban">&#x1B22;</bdi><code class="uname">U+1B05 BALINESE LETTER TA</code></span>
-	</ul></p>
-	
-	<p>Currently, the rules in [[UAX29]] break this by default into three grapheme clusters, like this:</p>
-	<img src="images/balinese-gc.png">
-		
-	<p>However, the <em>adeg adeg</em> (which functions similar to a [=virama=]) should result in just two visual text units, like this:</p>
-	<img src="images/balinese-ortho-syllab.png">
-	</aside>
-		
-	<p>For more information, see:
-	   <ul>
-		   <li><a href="https://www.w3.org/International/articles/definitions-characters/index.en.html#characters">Character encodings: Essential concepts</a></li>
-		   <li><a href="https://www.w3.org/International/questions/qa-indic-graphemes">Typographic character units in complex scripts</a></li>
-	   </ul>
-	</p>
-
-
-    <aside class="example" id="family-example" title="Composing Emoji Sequences">
-        <p>Another example of the complex relationship between code points and grapheme clusters are certain emoji. The emoji character for "family" has a code point in Unicode: <span class="codepoint" translate="no"><bdi lang="en">&#x1F46A;</bdi><code class="uname">U+1F46A FAMILY</code></span>. It can also be formed by using using a sequence of code points: <code class="uname">U+1F468 U+200D U+1F469 U+200D U+1F466</code>.</p>
+    <li class="notw3"><p class="link"><a href="https://encoding.spec.whatwg.org/">Encoding</a> — specification with further guidelines related to use of character encodings.</p></li>
         
-        <p>This compositional mechanism can be used to create other family variations. For example, the sequence <span class="codepoint" translate="no"><bdi translate="no">&#x1f468;&#x200d;&#x1f469;&#x200d;&#x1f467;&#x200d;&#x1f466;</bdi><code class="uname" translate="no">U+1F468 U+200D U+1F469 U+200D U+1F467 U+200D U+1F466</code></span> results in a composed emoji character for a "family: man, woman, girl, boy" on systems that support this kind of composition. That long character sequence still represents just a single [=visual text unit=]. Other characters, such as skin tone modifiers, can further extend the [=grapheme cluster=]:</p>
-
-        
-        <table class="cpExample" style="width:95%">
-            <tr>
-                <th style="text-align:center;width:15%">Emoji</th>
-                <th>Code Point Sequence</th>
-            </tr>
-            <tr>
-                <td><img src="./images/emoji-image-1.png" class="emoji-image" alt="&#x1F46A;"></td>
-                <td><code class="uname">U+1F46A FAMILY</code></td>
-            </tr>
-            <tr>
-                <td><img src="./images/emoji-image-2.png" class="emoji-image" alt=">&#x1F468;&#x200d;&#x1f469;&#x200d;&#x1f466;"></td>
-                <td><code class="uname">U+1F468 U+200D U+1F469 U+200D U+1F466</code></td>
-            </tr>
-             <tr>
-                <td><img src="./images/emoji-image-3.png" class="emoji-image" alt="&#x1F468;&#x200d;&#x1f469;&#x200d;&#x1f467;&#x200d;&#x1f466;"></td>
-                <td><code class="uname">U+1F468 U+200D U+1F469 U+200D U+1F467 U+200D U+1F466</code></td>
-            </tr>  
-            <tr>
-                <td><img src="./images/emoji-image-4.png" class="emoji-image" alt="&#x1F468;&#x1f3ff;&#x200d;&#x1f469;&#x1f3fe;&#x200d;&#x1f467;&#x1f3fc;&#x200d;&#x1f466;"></td>
-                <td><code class="uname">U+1F468 U+1F3FF U+200D U+1F469 U+1F3FE U+200D U+1F467 U+1F3FC U+200D U+1F466</code></td>
-            </tr>
-        </table>
-        
-        
-        <p>Many common emoji can <em>only</em> be formed using sequences of code points, but should be treated as a single [=visual text unit=] when displaying or processing the text. You wouldn't want to put a line-break in the middle of the family!</p>
-    </aside>
+    <li class="w3"><p class="link"><a href="https://www.w3.org/International/questions/qa-indic-graphemes">Typographic character units in complex scripts</a> &mdash; Article explaining more complex issues related to [=visual text units=].</p></li>
     
-    <p>Computer processing, storage, and communication relies on units of physical storage and information interchange. A unit of physical storage is called a [=code unit=]. A frequent error in specifications and implementations is the equating of "characters" with a particular unit of physical storage. The most familiar [=code unit=] is called a <dfn class="lint-ignore">byte</dfn> or <em>octet</em>, and consists of 8 bits. </p>
+    <li class="w3"><p class="link"><a href="https://www.w3.org/TR/charmod/">Character Model for the World Wide Web: Fundamentals</a> — basic guidelines related to the use of characters and encodings. The relevant content in this document has been imported into this document or is explained in the "Essential concepts" article at the top of this list.</p></li>
+</ul>
+</details>
+</aside>
+
+    <p>The word <em>character</em> means different things in different contexts: it can variously refer to the visual, logical, or byte-level representation of a given unit of text. This makes the term too imprecise to use casually in specifications. Understanding how text is defined and encoded in computing systems, along with the associated terminology used to make such specification unambiguous, is thus a necessary prerequisite to discussing the processing of string data.</p>
     
-    <p>Different sized [=code units=] are used by different runtime environments. Other common sizes include 16- or 32-bit units. On the Web, for example, 16-bit code units are used by the [[DOM]], JavaScript, and the various string types in [[INFRA]]. These specifications use 16-bit code units processed according to the rules of the UTF-16 [=character encoding=] of [[Unicode]]. (See [[[#char_string]]].)</p>
-    
-    <p>The mapping between [=code points=] and [=code units=] is actually quite complex. A [=character encoding form=] (or [=character encoding=] for short) is the set of rules for converting between [=code points=] in a [=character set=] and the [=code units=] used to store and process text. Non-Unicode character encoding forms are called [=legacy character encodings=].</p>
-    
-    <div class="xref"><span class="seealso">See also</span>
-    <p>[[[#char_choosing]]]</p>
-    </div>
-    
-
-    <aside class="example" title="UTF-8 Character Encoding Form">
-
-       <p>The most common [=character encoding=] used on the Web is UTF-8. UTF-8 uses 8-bit bytes as its [=code unit=]. UTF-8 is a variable width encoding, in that it uses different numbers of code units depending on the [=code point=] being encoded. The familiar 7-bit ASCII characters (the code points from <code>U+0000</code> to <code>U+007F</code>) take one byte to encode in UTF-8. Code points from <code>U+0080</code> and <code>U+07FF</code> require two bytes. Code points from <code>U+0800</code> through <code>U+FFFF</code> take three bytes. And, finally, code points from <code>U+10000</code> through <code>U+10FFFF</code> take four bytes.</p>
-
-       <table class="cpExample">
-		   <tr>
-			   <td>Character</td>
-			   <td class="bigtext">A</td>
-			   <td class="bigtext">&#xc0;</td>
-		   </tr>
-		   <tr>
-			   <td>Code Point</td>
-			   <td><code>U+0041</code></td>
-			   <td><code>U+00C0</code></td>
-		   </tr>
-		   <tr>
-			   <td>Code Units (bytes)</td>
-			   <td><code>0x41</code></td>
-			   <td><code>0xC3 0x80</code></td>
-		   </tr>
-		   <tr>
-			   <td>Character</td>
-			   <td class="bigtext">&#x928;</td>
-			   <td class="bigtext">&#x1F46A;</td>
-		   </tr>
-		   <tr>
-			   <td>Code Point</td>
-			   <td><code>U+0928</code></td>
-			   <td><code>U+1F46A</code></td>
-		   </tr>
-		   <tr>
-			   <td>Code Units (bytes)</td>
-			   <td><code>0xE0 0xA4 0xA8</code></td>
-			   <td><code>0xF0 0x9F 0x91 0xAA</code></td>
-		   </tr>
-       </table>
-    </aside>
-
-
-
-<!-- moo -->
-
-
-
-	<div class="req" id="char_term_def">
-	   <p class="advisement">Specifications SHOULD use the term [=code point=] instead of the term 'character'. If the term 'character' is used, it MUST be explicitly defined to mean a Unicode [=code point=]. The term [=Unicode Scalar Value=] MAY also be used.</p>
-    <!-- the id 'char_specific' was formerly that of a separate requirement that duplicated this one -->
-	<details class="links" id="char_specific"><summary>source</summary>
-	<p><a href="https://www.w3.org/TR/charmod/#sec-PerceptionsOutro">Perceptions of Characters, Summary C067</a>, in <cite>Character Model for the World Wide Web 1.0: Fundamentals</cite>.</p>
-	</details>
-	</div>
-
-
-    <p>Specific terms could include [=code point=], [=grapheme cluster=], <a href="https://www.w3.org/TR/css-text-3/#typographic-character-unit">typographic character unit</a>, [=code unit=], and [=glyph=].</p>
-
-
     <p>The developers of specifications, and the developers of software based on those specifications, are likely to be more familiar with usages of the term 'character' they have experienced and less familiar with the wide variety of usages in an international context. Furthermore, within a computing context, characters are often confused with related concepts, resulting in incomplete or inappropriate specifications and software.</p>
 
+
+    <div class="req" id="char_specific">
+        <p class="advisement">When specifying characters, strings, or any process that works with characters or strings, use the most specific appropriate terminology. Unless you have a reason not to, define [=code point=] to mean a [=Unicode Scalar Value=] and use that term in preference to 'character'.</p>
+    </div>
+    
+    <p>Use the most appropriate terms found in this section. Here are some other recommended terms:</p>
+    
+   
+    <table class="term-guide">
+        <thead>
+        <tr>
+            <th style="width:15%">Type of unit</th>
+            <th>Instead of <em>character</em> use...</th>
+            <th>Description</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Text units</td>
+            <td>[=code point=],<br>[=Unicode code point=],<br>[=Unicode Scalar Value=]</td>
+            <td>Logical units of text, without regard for [=character encoding form=] or any particular serialization.</td>
+        </tr>
+        <tr>
+            <td>Storage, processing, serialization, encoding</td>
+            <td>[=code unit=]</td>
+            <td>Units of encoding and serialization. [=Code units=] are typically specified in wire and file formats, low-level text processing. Depends on the [=character encoding=] used (preferably UTF-8 or UTF-16).</td>
+        </tr>
+        <tr>
+            <td>Visual units, user-perceived characters, selection/segmentation</td>
+            <td>[=grapheme cluster=],<br><a href="https://www.w3.org/TR/css-text-3/#typographic-character-unit">typographic character unit</a></td>
+            <td>Breaking text into visual units, most visual selection and <a href="#char_truncation">truncation</a>. This recommendation has the most nuance.</td>
+        </tr>
+        <tr>
+            <td>Elements of fonts</td>
+            <td>[=glyph=]</td>
+            <td>Individual display values. Use this term primarily when talking about the contents of a font.</td>
+        </tr>
+        </tbody>
+    </table>
+    
+    <div class="req" id="char_define_character">
+        <p class="advisement">If you cannot avoid using the term 'character', you MUST include a clear definition of the term.</p>
+    </div>
+
+    <p>Here is a brief glossary of core terminology:</p>
+    
+    <p>[[Unicode]] <code>[D7]</code> defines an <a href="https://www.unicode.org/glossary/#abstract_character"><dfn>abstract character</dfn></a> as: <q>A unit of information used for the organization, control, or representation of textual data.</q> This definition is necessarily vague and goes on to note that an abstract character does not have a specific concrete form (and thus not to be confused with a [=glyph=] in a font) nor what a user might think of as a "character" (and thus not to be confused with a [=grapheme=]). <em>Avoid using this term in your own specification.</em></p>
+    
+    <p>A <strong><a>character set</a></strong> is an unordered collection of [=abstract characters=] (in other words, it is a <em>set</em>) which can be used together to encode text. The collection of characters in a [=character set=] is sometimes called its <a href="https://www.w3.org/TR/i18n-glossary#dfn-character-set">repertoire</a>. Most [=character sets=] support only a specific range of languages or scripts.</p>
+    
+    <p><strong>[[Unicode]]</strong>, sometimes called the [=Universal Character Set=], includes all of the characters currently used to encode text in computer systems, including historical or extinct writing systems as well as modern usage, private use, typesetting symbols, and other things, such as the emoji. All other character sets are defined subsets of Unicode. Annual revisions extend the set of characters encoded.</p>
+    
+    <p>The [[Unicode]] Standard defines much more than just a [=character set=]. It also defines many of the properties, algorithms, and other details for the processing and presentation of text.</p>
+    
+    <p>A <strong>[=code point=]</strong> is a unique identifier for an [=abstract character=] in a [=character set=]. For a [=character set=] to be useful, it needs to unambiguously identify each character. In most [=character sets=], the [=code point=] is a number (or set of numbers) that describe the location of the character in the table or chart of characters in the set.</p>
+    
+    <p>In [[Unicode]], a [=code point=] is an integer between <code>0x0000</code> and <code>0x10FFFF</code> inclusive. It is written in hexadecimal notation (see [[[#char_ref]]]). A [=Unicode code point=] is sometimes called a [=Unicode Scalar Value=]. Each code point that has been assigned to an abstract character in Unicode is also given a unique, immutable name. Unicode also associates various properties with each assigned character. Many of these properties appear in the <dfn class="lint-ignore">Unicode Character Database</dfn> (or <em>UCD</em>]) [[UAX44]], while others are assigned in ancillary files or tables.</p>
+    
+    <p>[[Unicode]] <code>[D11]</code> defines an <dfn>encoded character</dfn> as <q>An association (or mapping) between an [=abstract character=] and a [=code point=]</q>. The term [=code point=], or, when greater specificity is needed, [=Unicode code point=] or [=Unicode Scalar Value=], is generally preferred for specifications.</p>
+    
+    <div class="xref"><span class="seealso">See also</span>
+    <p>[[[#char_ref]]]</p>
+    </div>
+    
+    <p>[=Code points=] are not used directly in the storage and interchange of characters in software. Instead, there exist various schemes for encoding and processing the characters they represent or for converting from one representation to another.</p>
+    
+    <p>A <strong>[=code unit=]</strong> is a unit of physical storage and information interchange, forming the basis for computer processing, storage, and communication. The most familiar [=code unit=] is called a <em>byte</em> or <em>octet</em>, and consists of 8 bits.</p>
+    
+    <p>Different sized [=code units=] are used by different runtime environments. Other common sizes include 16- or 32-bit units. On the Web, for example, 16-bit code units are used by the [[DOM]], JavaScript, and the various string types in [[INFRA]]. These specifications use 16-bit code units processed according to the rules of the UTF-16 [=character encoding=] of [[Unicode]].</p>
+    
+    <div class="xref"><span class="seealso">See also</span>
+    <p>[[[#char_string]]]</p>
+    </div>
+    
+    <p>A <strong>[=character encoding form=]</strong> (sometimes just referred to as a <strong>[=character encoding=]</strong>) is the set of rules for encoding from [=code points=] in a [=character set=] to the [=code units=] used to store and process text; or for decoding from [=code units=] back into [=code points=]. Non-Unicode character encoding forms are referred to collectively as <strong>[=legacy character encodings=]</strong>.</p>
+    
+    <div class="xref"><span class="seealso">See also</span>
+    <ul>
+    <li>The [[Encoding]] Specification</li>
+    <li>[[[#char_choosing]]]</li>
+    </div>
+        
+ 
+    <p><strong>UTF-8</strong> is a multibyte [=character encoding form=] of [[Unicode]]. It is the most common [=character encoding=] used on the Web. UTF-8 uses 8-bit bytes as its [=code unit=]. UTF-8 is a variable-width encoding, in that it uses different numbers of [=code units=] depending on the [=code point=] being encoded.</p>
+    
+    <p>The familiar 7-bit ASCII characters (the code points from <code>U+0000</code> to <code>U+007F</code>) take one byte to encode in UTF-8.</p>
+    
+    <table class="cpExample">
+         <tr>
+            <th style="width:15%">Character</th>
+            <th style="width:15%">Code Point</th>
+            <th>UTF-8 Code Units (bytes)</th>
+        </tr> 
+        <tr>
+            <td class="bigtext">A</td>
+            <td><code>U+0041</code></td>
+            <td><code>0x41</code></td>
+        </tr>
+    </table>
+    
+    <p>Code points from <code>U+0080</code> and <code>U+07FF</code> require two bytes.</p>
+    <table class="cpExample">
+        <tr>
+            <td class="bigtext" style="width:15%">&#xc0;</td>
+            <td style="width:15%"><code>U+00C0</code></td>
+            <td><code>0xC3 0x80</code></td>
+        </tr>
+    </table>
+    <table>
+        
+    <p>Code points from <code>U+0800</code> through <code>U+FFFF</code> take three bytes.</p>
+    <table class="cpExample">
+        <tr>
+            <td class="bigtext" style="width:15%">&#x928;</td>
+            <td style="width:15%"><code>U+0928</code></td>
+            <td><code>0xE0 0xA4 0xA8</code></td>
+        </tr>
+    </table>
+        
+    <p>And, finally, code points from <code>U+10000</code> through <code>U+10FFFF</code> take four bytes.</p>
+    <table class="cpExample">
+        <tr>
+            <td class="bigtext" style="width:15%">&#x1f46a;</td>
+            <td style="width:15%"><code>U+1F46A</code></td>
+            <td><code>0xF0 0x9F 0x91 0xAA</code></td>
+        </tr>
+    </table>
+     
+ 
 	<div class="req" id="char_physical_storage">
-	<p class="advisement">Specifications, software and content MUST NOT require or depend on a one-to-one relationship between characters ([=code points=]) and units of physical storage ([=code units=]).</p>
+	<p class="advisement">Specifications, software, and content MUST NOT require or depend on a one-to-one relationship between characters ([=code points=]) and units of physical storage ([=code units=]).</p>
 	<details class="links"><summary>source</summary>
 	<p><a href="https://www.w3.org/TR/charmod/#sec-Storage">Units of storage C009</a>, in <cite>Character Model for the World Wide Web 1.0: Fundamentals</cite></p>
 	</details>
-	</div>
+	</div>    
 
+	<div class="req" id="char_display">
+	<p class="advisement">Specifications, software, and content MUST NOT require or depend on a one-to-one mapping between [=code points=] and units of presentation (such as [=grapheme clusters=], [=glyphs=], or typographic character units).</p>
+	<details class="links"><summary>source</summary>
+	    <p><a href="https://www.w3.org/TR/charmod/#sec-VisualRenderingUnits">Units of visual rendering C002</a>, in <cite>Character Model for the World Wide Web 1.0: Fundamentals</cite>.</p>
+	</details>
+	<details class="links"><summary>explanations &amp; examples</summary>
+	    <p><a href="https://www.w3.org/TR/charmod/#sec-CharExamples">Examples of Characters, Keystrokes and Glyphs</a>, in <cite>Character Model for the World Wide Web 1.0: Fundamentals</cite>.</p>
+	</details>
+    </div>
+
+
+    <p>In this document, a <dfn class="lint-ignore">visual text unit</dfn> refers to a single unit of the visible text as perceived by a user. This can be on a screen or in other media, such as printed on paper or written on the back of a napkin. This term is necessarily imprecise, as user perception frequently depends on familiarity with the script and writing system, particularly when it comes to writing systems that use a combination of combining marks, complex positioning, or complex shaping based on context. <em>Avoid using this term in your own specification.</em></p>
+       
+	<p>A <strong>[=grapheme cluster=]</strong> is the computed approximation of a [=visual text unit=] in encoded text, that is, it is a sequence of [=code points=] that are expected to form a single [=visual text unit=] from the user's point of view. [[Unicode]] provides a way to compute these boundaries to assist in processing text, since, for many text operations, such a sequence should be processed as a single, indivisible textual unit. For example, when cursoring across text, the cursor should "jump across" or select the entire visual text unit (and its underlying code points) together. It shouldn't be possible to cursor into the "middle" of a visual text unit. (Unless otherwise specified, the term [=grapheme cluster=] in this document refers to what <cite>Unicode Text Segmentation</cite> [[UAX29]] refers to as an "extended default grapheme cluster".)</p>
+    
+    <p>Note that some text operations <em>do</em> allow users to interact with individual [=code points=] within a [=grapheme cluster=]. For example, some editing functions, such as backspacing, progressively delete characters from the end of a [=visual text unit=] (to allow users to correct misspellings without having the erase the entire cluster, for example).</p>
+    
+    <p>The term <a href="https://www.w3.org/TR/i18n-glossary#dfn-typographic-character-unit">typographic character unit</a> is defined by [[CSS]], where it is used to refer to different types of [=code point=] sequences that should be treated as "unitary" for specific operations. Sometimes this aligns with the term [=grapheme cluster=], while other times it is distinct. <em>Use this term only if you understand the context and usage.</em></p>
+    
+    <p>A <strong>[=glyph=]</strong> is the visual representation of a character (or sequence of characters) when rendered by a particular [=font=]. Glyphs do not always have a 1:1 relationship to [=abstract characters=]. They can represent part of a character or a combination of several characters. Different [=glyphs=] can represent the same [=code point=]. For example, these are all different [=glyphs=] for <span class="codepoint"><bdi lang="en">A</bdi><code class="uname">U+0041 LATIN CAPITAL LETTER A</code></span>:</p>
+    
+    <img src="./images/many-glyphs.png" alt="AAAAA">
+    <!--
+    <table>
+        <tr>
+            <td style="font-size:2rem;font-family:serif">A</td>
+            <td style="font-size:2rem;font-family:sans-serif">A</td>
+            <td style="font-size:2rem;font-family:fantasy">A</td>
+            <td style="font-size:2rem;font-family:monospace">A</td>
+            <td style="font-size:2rem;font-family:serif"><em>A</em></td>
+        </tr>
+    </table>
+    -->
+    
+    <p>A <strong><dfn>font</dfn></strong> is thus a collection of specific glyphs used to render text.</p>
+    
+
+    <aside class="example" title="Encoding terminology illustrated">
+    
+    <p>Suppose you spoke Russian and suppose you wanted to express the sentiment <q lang="ru">Я люблю швейцарских коров!</q> (which means, approximately, "I love Swiss cows") to someone using emoji. It might look like this:</p>
+    
+    <figure class="suisse-cows">
+       <img src="./images/suisse-cows.jpg" lang="ru" alt="Я❤️🇨🇭🐄!">
+       <figcaption>As text: <q lang="ru" translate="no">Я❤️🇨🇭🐄!</q></figcaption>
+    </figure>
+    
+        <p>This phrase contains five [=visual text units=] ([=grapheme clusters=]).</p>
+    
+    <table class="charTermExample">
+        <tr>
+            <th width="15%">[=grapheme cluster=]</th>
+            <td class="bigtext">&#x42f;</td>
+            <td class="bigtext" colspan="2">&#x2764;&#xfe0f;</td>
+            <td class="bigtext" colspan="2">&#x1f1e8;&#x1f1ed;</td>
+            <td class="bigtext">&#x1f404;</td>
+            <td class="bigtext">!</td>
+        </tr>
+
+    
+    <tr><td colspan="8" style="text-align:left">Some of the [=visual text units=] require more than one character. This particular phrase consists of seven characters because these emoji characters use some of the more unusual features of Unicode. <span class="codepoint"><bdi lang="en">&#x2764;</bdi><code class="uname">U+2764 HEAVY BLACK HEART</code></span> is followed by <span class="codepoint"><img src="./images/FE0F.png" alt="U+FE0F"><code class="uname">U+FE0F VARIATION SELECTOR-16</code></span> in order to display as an emoji variant, while the flag of Switzerland is formed using a pair of emoji flag characters. (Note: on some browsers, the "flag" might display as a grapheme cluster with the letters <kbd>CH</kbd>. These are still treated by the browser as a single grapheme cluster!)</td></tr>
+
+        <tr>
+            <th width="15%">[=Encoded character=]</th>
+            <td class="bigtext">&#x42f;</td>
+            <td class="bigtext">&#x2764;</td>
+            <td class="bigtext"><span class="codepoint"><img src="./images/FE0F.png"></span></td>
+            <td class="bigtext">&#x1f1e8;</td>
+            <td class="bigtext">&#x1f1ed;</td>
+            <td class="bigtext">&#x1f404;</td>
+            <td class="bigtext">!</td>
+        </tr>
+
+    
+    <tr><td colspan="8" style="text-align:left">Each [=encoded character=] is assigned a [=Unicode code point=] (it's [=Unicode Scalar Value=]), a unique integer that identifies which character we mean:</td></tr>
+
+
+        <tr>
+            <th>[=code points=]</th>
+            <td><code>U+042F</code></td>
+            <td><code>U+2764</code></td>
+            <td><code>U+FE0F</code></td>
+            <td><code>U+1F1E8</code></td>
+            <td><code>U+1F1ED</code></td>
+            <td><code>U+1F404</code></td>
+            <td><code>U+0021</code></td>
+        </tr>
+
+    
+    <tr><td colspan="8" style="text-align:left">Each [=code point=] is encoded into the UTF-8 [=character encoding form=] using a varying number of [=code units=]. In UTF-8, the code units are bytes, while in UTF-16 they are 16-bit integers:</td></tr>
+    
+
+        <tr>
+            <th>UTF-8 [=code units=]</th>
+            <td><code>D0 AF</code></td>
+            <td><code>E2 9D A4</code></td>
+            <td><code>EF B8 8F</code></td>
+            <td><code>F0 9F 87 A8</code></td>
+            <td><code>F0 9F 87 AD</code></td>
+            <td><code>F0 9F 90 84</code></td>
+            <td><code>21</code></td>
+        </tr>
+        <tr>
+            <th>UTF-16 [=code units=]</th>
+            <td><code>042F</code></td>
+            <td><code>2764</code></td>
+            <td><code>FE0F</code></td>
+            <td><code>D83C DDE8</code></td>
+            <td><code>D83C D8ED</code></td>
+            <td><code>D83D DC04</code></td>
+            <td><code>0021</code></td>
+        </tr>
+    </table>
+    
+    </aside>
+    
 <div class="req" id="char_sounds">
-	<p class="advisement">Specifications, software and content MUST NOT require or depend on a one-to-one correspondence between characters and the sounds of a language.</p>
+	<p class="advisement">Specifications, software, and content MUST NOT require or depend on a one-to-one correspondence between characters and the sounds of a language.</p>
 	<details class="links"><summary>source</summary>
 	<p><a href="https://www.w3.org/TR/charmod/#sec-WritingSystem">Units of aural rendering C001</a>, in <cite>Character Model for the World Wide Web 1.0: Fundamentals</cite></p>
 	</details>
@@ -1499,15 +1571,7 @@
 </ul>
 </div>
 
-	<div class="req" id="char_display">
-	<p class="advisement">Specifications, software and content MUST NOT require or depend on a one-to-one mapping between characters and [=visual text units=].</p>
-	<details class="links"><summary>source</summary>
-	<p><a href="https://www.w3.org/TR/charmod/#sec-VisualRenderingUnits">Units of visual rendering C002</a>, in <cite>Character Model for the World Wide Web 1.0: Fundamentals</cite>.</p>
-	</details>
-	<details class="links"><summary>explanations &amp; examples</summary>
-	<p><a href="https://www.w3.org/TR/charmod/#sec-CharExamples">Examples of Characters, Keystrokes and Glyphs</a>, in <cite>Character Model for the World Wide Web 1.0: Fundamentals</cite>.</p>
-	</details>
-</div>
+
 
 <div class="req" id="char_keystroke">
 	<p class="advisement">Specifications and software MUST NOT require nor depend on a single keystroke resulting in a single character, nor that a single character be input with a single keystroke (even with modifiers), nor that keyboards are the same all over the world.</p>
@@ -1525,6 +1589,115 @@
 
 
 
+
+<section id="char_string" class="subtopic">
+<h3>Choosing a definition of 'string'</h3>
+
+
+<aside class="links" id="links_char_string">
+<p class="links_title">Useful background and overviews for this section</p>
+<ul>
+<li class="w3"><p class="link"><a href="https://www.w3.org/TR/charmod/#sec-Strings">String concepts</a>, in <cite>Character Model for the World Wide Web: Fundamentals</cite>.</p></li>
+</ul>
+</aside>
+
+<div class="xref"><span class="seealso">See also</span>
+<p>[[[#char_indexing]]].</p>
+<p>[[[#char_def]]].</p>
+</div>
+
+<aside class="note">
+    <p>The best practices found in this section are intended to be mutually consistent with those in [[DESIGN-PRINCIPLES]]. The definitions in this section use terms found in the <cite>Internationalization Glossary</cite> [[I18N-GLOSSARY]], in [[WEBIDL]], in [[INFRA]], or the Unicode glossary. Please refer to instructions in the Internationalization Glossary for how to import and link definitions in your own specification.</p>
+</aside>
+
+<!-- Ed.note: see: https://github.com/w3ctag/design-principles/issues/454">design-principles#454 -->
+
+<p>A string is usually understood to be a sequence of 'characters'. Because [[Unicode]] is fundamental to understanding and working with text, including text that uses <a>legacy character encodings</a>, the basic definition of a string depends on Unicode and its concept of an [=encoded character=]. Specifically:</p> 
+
+<p class="localdef">A <dfn class="lint-ignore">string</dfn> is a well-formed sequence of zero or more <a>Unicode Scalar Values</a>.</p>
+
+<p>Because there are multiple ways of working with strings, different definitions of "string" have evolved to support the needs of different specifications. Be sure to understand your specification's needs and use the most appropriate and precise definition.</p>
+
+<p>On the Web, there are three types of strings:
+
+<ul>
+	<li>{{USVString}}. Strings based on Unicode <a>code points</a>, also known as </a><a>Unicode Scalar Values</a></li>
+	<li>{{DOMString}}. Strings based on <a href="https://www.w3.org/TR/i18n-glossary/#dfn-utf-16">UTF-16</a> <a>code units</a></li>
+	<li>{{ByteString}}. Strings based on bytes in some <a>character encoding form</a> (preferably <a>UTF-8</a>)</li>
+</ul></p>
+
+<p>One difference between these different string types is how <a>surrogate</a> <a>code points</a> are handled. Note the difference between a <a>code point</a> (which represents a <a>Unicode Scalar Value</a>, i.e. a character) and a <a>code unit</a> (a unit of encoding in a <a>character encoding form</a>).</p>
+
+<p>The <a href="https://www.w3.org/TR/i18n-glossary/#dfn-utf-16">UTF-16</a> <a>character encoding form</a> uses 16-bit <a>code units</a>. Characters whose <a>scalar values</a> require more than 16-bits are encoded using a pair of <a>surrogate</a> <a>code units</a>: a "low surrogate" (in the range <code class="uname">U+D800-U+DBFF</code>) followed by a "high surrogate" (in the range <code class="uname">U+DC00-U+DFFF</code>). Unicode reserves the <a>code points</a> in these ranges as non-characters so that there is no confusion between the <a>code units</a> in <a href="https://www.w3.org/TR/i18n-glossary/#dfn-utf-16">UTF-16</a> and normal text.</p>
+
+<p>In a {{USVString}}, isolated <a>surrogate</a> code points are invalid and implementations are required to replace any found in a string with the Unicode replacement character (<span class="codepoint" translate="no"><bdi lang="und">&#xFFFD;</bdi><code class="uname">U+FFFD REPLACEMENT CHARACTER</code></span>). For strings whose most common algorithms operate on scalar values (such as percent-encoding), or for operations which can’t handle surrogates in input (such as APIs that pass strings through to native platform APIs), {{USVString}} should be used. Any of these references are equivalent to this:
+	<ul>
+	    <li>{{USVString}} [[WEBIDL]]</li>
+	    <li><a>scalar value string</a> [[INFRA]]</li>
+	    <li><a target="_blank" href="https://www.w3.org/TR/xmlschema11-2/#string">xsd:string</a> [[XMLSCHEMA11-2]]</li>
+    </ul>
+</p>
+
+<p>In a {{DOMString}}, unpaired <a>surrogate</a> <a>code units</a> can appear in a string. Most string operations don’t need to interpret the <a>code units</a> inside of strings. Specifying {{DOMString}} means that implementations are not required to validate the contents of the string, making this the ideal string type for most data structures, formats, or APIs. The [[DOM]] and JavaScript strings use {{DOMString}} as their string type and the [[INFRA]] standard defines the term 'string' to mean a {{DOMString}}:</p>
+
+<p class="localdef">A string is a sequence of unsigned 16-bit integers, also known as <a>code units</a>.</p>
+
+<p class="note">[[INFRA]]'s use of the term <a>code unit</a> refers specifically to the <a href="https://www.w3.org/TR/i18n-glossary/#dfn-utf-16">UTF-16</a> character encoding's code units, rather than the more general definition of a <a>code unit</a> that can refer to different size values, such as bytes, in any <a>character encoding form</a>.</p>
+
+<p>A {{ByteString}} depends on the <a>character encoding form</a> used to encode characters into bytes. <a>Legacy character encodings</a> do not have a concept of "surrogates", so there is generally no way to encode a surrogate code point. Valid <a>UTF-8</a> does not permit surrogate code points: these are replaced by <span class="codepoint" translate="no"><bdi lang="und">&#xFFFD;</bdi><code class="uname">U+FFFD REPLACEMENT CHARACTER</code></span> when encoding text to or decoding text from <a>UTF-8</a>. When converting <a href="https://www.w3.org/TR/i18n-glossary/#dfn-utf-16">UTF-16</a> to <a>UTF-8</a>, any <a>surrogate pairs</a> are transformed into the proper UTF-8 byte sequence encoding the specific <a>scalar value</a>.</p>
+
+
+<div class="req" id="char_string_dom">
+	<p class="advisement">Use a {{DOMString}} when defining document formats or the wire format of a protocol, or for any process pertaining to the [[DOM]], or which defines strings as opaque values whose individual character contents are not meant to be evaluated. (This list of uses is not exhaustive.)</p>
+	
+	<!-- Ed: the id char_string_default is kept for historical reasons. -->
+	<details class="links" id="char_string_default"><summary>explanations &amp; examples</summary>
+	   <p>Definition of <a href="https://infra.spec.whatwg.org/#string">string</a> in [[INFRA]]</p>
+	   <p><a href="https://www.w3.org/TR/design-principles/#idl-string-types">IDL String Types</a> in <cite>Web Platform Design Principles</cite> [[DESIGN-PRINCIPLES]]</p>
+	   <p><a href="https://www.w3.org/TR/charmod/#sec-Strings">String concepts, C012</a>, in <cite>Character Model for the World Wide Web: Fundamentals</cite>.</p>
+	</details>
+</div>
+
+<div class="req" id="char_string_usv">
+	<p class="advisement">Use a {{USVString}} when defining an algorithm that iterates over the <a>code points</a> in a string. Use {{USVString}} for any process which involves <a>UTF-8 encode</a> or for anywhere in which an unpaired <a>surrogate</a> <a>code point</a> would produce an error.</p>
+	
+	<details class="links"><summary>explanations &amp; examples</summary>
+	   <p><a href="https://infra.spec.whatwg.org/#scalar-value-string">Scalar value string</a> definition in [[INFRA]]</p>
+	</details>
+</div>
+
+
+<div class="req" id="char-string-avoid-mixing">
+	<p class="advisement">Avoid mixing {{DOMString}} and {{USVString}} in a single document or protocol operation. Often you will choose a {{DOMString}} over a {{USVString}}, since the latter requires extra processing that does not benefit most document formats or protocols.</p>
+</div>
+
+<div class="req" id="char_string_byte">
+	<p class="advisement">Specifications SHOULD NOT define a string as a {{ByteString}} or as a sequence of bytes ('byte string'). For binary data or sequences of bytes, use {{Uint8Array}} instead.</p>
+	<details class="links"><summary>explanations &amp; examples</summary>
+	   <p><a href="https://www.w3.org/TR/charmod/#sec-Strings">String concepts, C011</a>, in <cite>Character Model for the World Wide Web: Fundamentals</cite>.</p>
+	   <p><a href="https://www.w3.org/TR/string-meta/#protocol-strings">Strings that are part of a legacy protocol or format</a>, in <cite>Strings on the Web: Language and Direction Metadata</cite> [[STRING-META]]</p>
+	   <p><a href="https://www.w3.org/TR/design-principles/#idl-string-types">IDL String Types</a> in <cite>Web Platform Design Principles</cite> [[DESIGN-PRINCIPLES]]</p>
+	</details>
+</div>
+
+<div class="req" id="char_string_no_legacy">
+	<p class="advisement">Specifications SHOULD NOT add or define support for <a>legacy character encodings</a> unless there is a specific reason to do so.</p>
+	<details class="links"><summary>explanations &amp; examples</summary>
+	<p>See also <a href="#char_choosing"></a>.</p>
+	</details>
+</div>
+
+<p>The type {{ByteString}} defines strings as sequences of bytes (octets). Interpretation of byte strings thus requires the specification of a <a>character encoding form</a>. UTF-8 is the preferred encoding for wire and document formats [[ENCODING]], but there is generally no reason to specify strings in terms of the underlying byte values.</p>
+
+<aside class="note">
+	<p>Specifications for document formats or protocols often deal with the specific byte values used for various fields or values or with the <a>character encoding</a> used for serializing the data. It is therefore tempting to specify a text field ("string") as a {{ByteString}} which uses the <a>UTF-8</a> <a>character encoding form</a>.</p>
+	
+	<p>It is preferable, however, to specify these fields as a {{DOMString}} (or, rarely, a {{USVString}}), since the data encoded into these fields must be serialized from and deserialized into in-memory string representations, such as the [[DOM]] or JavaScript strings or your platform's native Unicode string type.</p>
+</aside>
+
+<p>See <a href="#char_choosing"></a> for additional best practices.</p>
+
+</section>
 
 
 
@@ -2010,113 +2183,6 @@
 
 
 
-
-<section id="char_string" class="subtopic">
-<h3>Defining 'string'</h3>
-
-
-<aside class="links" id="links_char_string">
-<p class="links_title">Useful background and overviews for this section</p>
-<ul>
-<li class="w3"><p class="link"><a href="https://www.w3.org/TR/charmod/#sec-Strings">String concepts</a>, in <cite>Character Model for the World Wide Web: Fundamentals</cite>.</p></li>
-</ul>
-</aside>
-
-<div class="xref"><span class="seealso">See also</span>
-<p>[[[#char_indexing]]].</p>
-<p>[[[#char_def]]].</p>
-</div>
-
-<aside class="note">
-    <p>The best practices found in this section are intended to be mutually consistent with those in [[DESIGN-PRINCIPLES]]. The definitions in this section use terms found in the <cite>Internationalization Glossary</cite> [[I18N-GLOSSARY]], in [[WEBIDL]], in [[INFRA]], or the Unicode glossary. Please refer to instructions in the Internationalization Glossary for how to import and link definitions in your own specification.</p>
-</aside>
-
-<!-- Ed.note: see: https://github.com/w3ctag/design-principles/issues/454">design-principles#454 -->
-
-<p>A string is a sequence of characters. Because [[UNICODE]] is fundamental to understanding and working with text, including text that uses <a>legacy character encodings</a>, the basic definition of a string depends on Unicode and its concept of a encoded character. Specifically:</p> 
-
-<p class="localdef">A <dfn class="lint-ignore">string</dfn> is a well-formed sequence of zero or more <a>Unicode Scalar Values</a>.</p>
-
-<p>Because there are multiple ways of working with strings, different definitions of "string" have evolved to support the needs of different specifications. Be sure to understand your specification's needs and use the most appropriate and precise definition. On the Web, there are three types of strings:
-
-<ul>
-	<li>{{USVString}}. Strings based on Unicode <a>code points</a>, also known as </a><a>Unicode Scalar Values</a></li>
-	<li>{{DOMString}}. Strings based on <a href="https://www.w3.org/TR/i18n-glossary/#dfn-utf-16">UTF-16</a> <a>code units</a></li>
-	<li>{{ByteString}}. Strings based on bytes in some <a>character encoding form</a> (preferably <a>UTF-8</a>)</li>
-</ul></p>
-
-<p>One difference between these different string types is how <a>surrogate</a> <a>code points</a> are handled. Note the difference between a <a>code point</a> (which represents a <a>Unicode Scalar Value</a>, i.e. a character) and a <a>code unit</a> (a unit of encoding in a <a>character encoding form</a>).</p>
-
-<p>The <a href="https://www.w3.org/TR/i18n-glossary/#dfn-utf-16">UTF-16</a> <a>character encoding form</a> uses 16-bit <a>code units</a>. Characters whose <a>scalar values</a> require more than 16-bits are encoded using a pair of <a>surrogate</a> <a>code units</a>: a "low surrogate" (in the range <code class="uname">U+D800-U+DBFF</code>) followed by a "high surrogate" (in the range <code class="uname">U+DC00-U+DFFF</code>). Unicode reserves the <a>code points</a> in these ranges as non-characters so that there is no confusion between the <a>code units</a> in <a href="https://www.w3.org/TR/i18n-glossary/#dfn-utf-16">UTF-16</a> and normal text.</p>
-
-<p>In a {{USVString}}, isolated <a>surrogate</a> code points are invalid and implementations are required to replace any found in a string with the Unicode replacement character (<span class="codepoint" translate="no"><bdi lang="und">&#xFFFD;</bdi><code class="uname">U+FFFD REPLACEMENT CHARACTER</code></span>). For strings whose most common algorithms operate on scalar values (such as percent-encoding), or for operations which can’t handle surrogates in input (such as APIs that pass strings through to native platform APIs), {{USVString}} should be used. Any of these references are equivalent to this:
-	<ul>
-	    <li>{{USVString}} [[WEBIDL]]</li>
-	    <li><a>scalar value string</a> [[INFRA]]</li>
-	    <li><a target="_blank" href="https://www.w3.org/TR/xmlschema11-2/#string">xsd:string</a> [[XMLSCHEMA11-2]]</li>
-    </ul>
-</p>
-
-<p>In a {{DOMString}}, unpaired <a>surrogate</a> <a>code units</a> can appear in a string. Most string operations don’t need to interpret the <a>code units</a> inside of strings. Specifying {{DOMString}} means that implementations are not required to validate the contents of the string, making this the ideal string type for most data structures, formats, or APIs. The [[DOM]] and JavaScript strings use {{DOMString}} as their string type and the [[INFRA]] standard defines the term 'string' to mean a {{DOMString}}:</p>
-
-<p class="localdef">A string is a sequence of unsigned 16-bit integers, also known as <a>code units</a>.</p>
-
-<p class="note">[[INFRA]]'s use of the term <a>code unit</a> refers specifically to the <a href="https://www.w3.org/TR/i18n-glossary/#dfn-utf-16">UTF-16</a> character encoding's code units, rather than the more general definition of a <a>code unit</a> that can refer to different size values, such as bytes, in any <a>character encoding form</a>.</p>
-
-<p>A {{ByteString}} depends on the <a>character encoding form</a> used to encode characters into bytes. <a>Legacy character encodings</a> do not have a concept of "surrogates", so there is generally no way to encode a surrogate code point. Valid <a>UTF-8</a> does not permit surrogate code points: these are replaced by <span class="codepoint" translate="no"><bdi lang="und">&#xFFFD;</bdi><code class="uname">U+FFFD REPLACEMENT CHARACTER</code></span> when encoding text to or decoding text from <a>UTF-8</a>. When converting <a href="https://www.w3.org/TR/i18n-glossary/#dfn-utf-16">UTF-16</a> to <a>UTF-8</a>, any <a>surrogate pairs</a> are transformed into the proper UTF-8 byte sequence encoding the specific <a>scalar value</a>.</p>
-
-
-<div class="req" id="char_string_dom">
-	<p class="advisement">Use a {{DOMString}} when defining document formats or the wire format of a protocol, or for any process pertaining to the [[DOM]], or which defines strings as opaque values whose individual character contents are not meant to be evaluated. (This list of uses is not exhaustive.)</p>
-	
-	<!-- Ed: the id char_string_default is kept for historical reasons. -->
-	<details class="links" id="char_string_default"><summary>explanations &amp; examples</summary>
-	   <p>Definition of <a href="https://infra.spec.whatwg.org/#string">string</a> in [[INFRA]]</p>
-	   <p><a href="https://www.w3.org/TR/design-principles/#idl-string-types">IDL String Types</a> in <cite>Web Platform Design Principles</cite> [[DESIGN-PRINCIPLES]]</p>
-	   <p><a href="https://www.w3.org/TR/charmod/#sec-Strings">String concepts, C012</a>, in <cite>Character Model for the World Wide Web: Fundamentals</cite>.</p>
-	</details>
-</div>
-
-<div class="req" id="char_string_usv">
-	<p class="advisement">Use a {{USVString}} when defining an algorithm that iterates over the <a>code points</a> in a string. Use {{USVString}} for any process which involves <a>UTF-8 encode</a> or for anywhere in which an unpaired <a>surrogate</a> <a>code point</a> would produce an error.</p>
-	
-	<details class="links"><summary>explanations &amp; examples</summary>
-	   <p><a href="https://infra.spec.whatwg.org/#scalar-value-string">Scalar value string</a> definition in [[INFRA]]</p>
-	</details>
-</div>
-
-
-<div class="req" id="char-string-avoid-mixing">
-	<p class="advisement">Avoid mixing {{DOMString}} and {{USVString}} in a single document or protocol operation. Often you will choose a {{DOMString}} over a {{USVString}}, since the latter requires extra processing that does not benefit most document formats or protocols.</p>
-</div>
-
-<div class="req" id="char_string_byte">
-	<p class="advisement">Specifications SHOULD NOT define a string as a {{ByteString}} or as a sequence of bytes ('byte string'). For binary data or sequences of bytes, use {{Uint8Array}} instead.</p>
-	<details class="links"><summary>explanations &amp; examples</summary>
-	   <p><a href="https://www.w3.org/TR/charmod/#sec-Strings">String concepts, C011</a>, in <cite>Character Model for the World Wide Web: Fundamentals</cite>.</p>
-	   <p><a href="https://www.w3.org/TR/string-meta/#protocol-strings">Strings that are part of a legacy protocol or format</a>, in <cite>Strings on the Web: Language and Direction Metadata</cite> [[STRING-META]]</p>
-	   <p><a href="https://www.w3.org/TR/design-principles/#idl-string-types">IDL String Types</a> in <cite>Web Platform Design Principles</cite> [[DESIGN-PRINCIPLES]]</p>
-	</details>
-</div>
-
-<div class="req" id="char_string_no_legacy">
-	<p class="advisement">Specifications SHOULD NOT add or define support for <a>legacy character encodings</a> unless there is a specific reason to do so.</p>
-	<details class="links"><summary>explanations &amp; examples</summary>
-	<p>See also <a href="#char_choosing"></a>.</p>
-	</details>
-</div>
-
-<p>The type {{ByteString}} defines strings as sequences of bytes (octets). Interpretation of byte strings thus requires the specification of a <a>character encoding form</a>. UTF-8 is the preferred encoding for wire and document formats [[ENCODING]], but there is generally no reason to specify strings in terms of the underlying byte values.</p>
-
-<aside class="note">
-	<p>Specifications for document formats or protocols often deal with the specific byte values used for various fields or values or with the <a>character encoding</a> used for serializing the data. It is therefore tempting to specify a text field ("string") as a {{ByteString}} which uses the <a>UTF-8</a> <a>character encoding form</a>.</p>
-	
-	<p>It is preferable, however, to specify these fields as a {{DOMString}} (or, rarely, a {{USVString}}), since the data encoded into these fields must be serialized from and deserialized into in-memory string representations, such as the [[DOM]] or JavaScript strings or your platform's native Unicode string type.</p>
-</aside>
-
-<p>See <a href="#char_choosing"></a> for additional best practices.</p>
-
-</section>
 
 <section id="char_whitespace" class="subtopic">
 	<h3>Whitespace characters</h3>
@@ -3323,11 +3389,16 @@
         
         <p>Keep in mind that, while the examples chosen here are roughly the same length, other languages might require more characters to convey the same concepts. For example, the Scottish Gaelic translation would be <q lang="gd">Is urrainn dhomh glainne ithe, chan eil e gam ghoirteachadh</q>, which is significantly longer than the English. Many languages have different grammatical structure as well, so that key information (such as the verb) appearing at the end of the sentence (as is common in Hindi or Japanese).</p>
         
-        <p>Finally, don't forget that the limit will also interact with the truncation boundary chosen (as shown in [[[#example-code-unit-trunc-bad]]]): if the truncation is done naively at the 15th byte, the resulting string might contain only a partial character. For example, the Marathi could experience this problem: <span class="codepoint"><bdi lang="ma">मी का�...</bdi></span>.</p>
+        <p>Finally, don't forget that the limit will also interact with the truncation boundary chosen (as shown in [[[#example-code-unit-trunc-bad]]]): if the truncation is done naively at the 15th byte, the resulting string might contain only a partial character. For example, the Marathi could experience this problem:</p>
+        
+        <p class="bigtext" lang="ma">मी का�...</p>
+        
+        </aside>
+        <aside class="example" id="family-example" title="Emoji sequences as an example of grapheme clusters">
         
         <p>Another example of the complex relationship between [=visual text units=] and [=code points=] are certain emoji. The emoji character for "family" has a code point in Unicode: <span class="codepoint" translate="no"><bdi lang="en">&#x1F46A;</bdi><code class="uname">U+1F46A FAMILY</code></span>. It can also be formed by using using a sequence of [=code points=]: <code class="uname">U+1F468 U+200D U+1F469 U+200D U+1F466</code>.</p>
     
-        <p>The character <span class="codepoint" translate="no"><img alt="ZWJ" src="./images/200D.png"><span class="uname" translate="no">U+200D ZERO WIDTH JOINER</span></span> is used to "join" separate emoji characters together (it also has a role in joining characters in various writing systems of the world). This compositional mechanism can be used to create other family variations. For example, the sequence <span class="codepoint" translate="no"><bdi translate="no">&#x1f468;&#x200d;&#x1f469;&#x200d;&#x1f467;&#x200d;&#x1f466;</bdi><code class="uname" translate="no">U+1F468 U+200D U+1F469 U+200D U+1F467 U+200D U+1F466</code></span> results in a composed emoji character for a "family: man, woman, girl, boy" on systems that support this kind of composition. That long character sequence still represents just a single [=visual text unit=]. Other characters, such as skin tone modifiers, can further extend the [=grapheme cluster=]:</p>
+        <p>The character <span class="codepoint" translate="no"><img alt="ZWJ" src="./images/200D.png"><span class="uname" translate="no">U+200D ZERO WIDTH JOINER</span></span> is used to "join" separate emoji characters together (it also has a role in joining characters in various writing systems of the world). This compositional mechanism can be used to create other family variations. For example, the sequence <span class="codepoint" translate="no"><bdi translate="no">&#x1f468;&#x200d;&#x1f469;&#x200d;&#x1f467;&#x200d;&#x1f466;</bdi><code class="uname" translate="no">U+1F468 U+200D U+1F469 U+200D U+1F467 U+200D U+1F466</code></span> results in a composed emoji character for a "family: man, woman, girl, boy" on systems that support this kind of composition. That long character sequence still represents just a single [=visual text unit=]. Other characters, such as skin tone modifiers, can further extend the [=grapheme cluster=]. Here are just a few of the possible emoji sequences possible for representing a family:</p>
 
         
         <table class="cpExample" style="width:95%">
@@ -3353,7 +3424,20 @@
             </tr>
         </table>
         
-        <p>Many common emoji can <em>only</em> be formed using sequences of code points, but should be treated as a single [=visual text unit=] when displaying or processing the text. The simplest composed "family" emoji sequence "👨‍👩‍👦" consists of 5 code points. The byte limit of 15 truncates in the middle of the child family member: "👨‍👩‍�‍". If the truncation is done on the [=grapheme cluster=] boundary, the entire family is removed.</p>
+        <p>Many common emoji can <em>only</em> be formed using sequences of code points, but should be treated as a single [=visual text unit=] when displaying or processing the text. The simplest composed family emoji sequence consists of 5 code points:</p>
+        
+        <table class="cpExample" style="width:95%">
+           <tr>
+               <td style="text-align:center;width:15%"><img src="./images/emoji-image-2.png" class="emoji-image" alt=">&#x1F468;&#x200d;&#x1f469;&#x200d;&#x1f466;"></td>
+               <td><code class="uname">U+1F468 U+200D U+1F469 U+200D U+1F466</code></td>
+           </tr>
+        </table>
+        
+        <p>A limit of 15 bytes (UTF-8 [=code units=]) would truncate this sequence in the middle of the child family member: </p>
+        
+        <p class="bigtext">👨‍👩‍�‍</p>
+        
+        <p>If the truncation were done on the [=grapheme cluster=] boundary instead, the entire family would be removed.</p>
     </aside>
 
 
