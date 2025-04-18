@@ -1671,32 +1671,37 @@
 	<p class="advisement">Avoid mixing {{DOMString}} and {{USVString}} in a single document or protocol operation. Often you will choose a {{DOMString}} over a {{USVString}}, since the latter requires extra processing that does not benefit most document formats or protocols.</p>
 </div>
 
+
+<section id="char-string-byte-oriented">
+    <h4>Working with Byte-oriented Formats</h4>
+    
+<div class="xref"><span class="seealso">See also</span>
+   <p>[[[#char_choosing]]] for additional best practices related to [=character encodings=].</p>
+   <p><a href="https://www.w3.org/TR/string-meta/#protocol-strings">Strings that are part of a legacy protocol or format</a>, in <cite>Strings on the Web: Language and Direction Metadata</cite> [[STRING-META]]</p>
+</div>
+    
+    <p>Sometimes specifications need to deal with byte-oriented contexts. For example, the specification might be defining a binary format or working with a byte-oriented protocol.</p>
+    
+    
+    <div class="req" id="char-string-dom-usv-bytes">
+        <p class="advisement">Specify fields in protocols that are 'string-like' as {{DOMString}} or, rarely, {{USVString}}, unless there is some reason to interact with specific bytes values or for which the UTF-8 [=character encoding=] cannot be assumed.</p>
+    </div>
+    
+    <p>If the field in question is meant to be treated as a string, working with (Unicode) characters will be more reliable than trying to work with byte values. The data encoded into these fields will be deserialized from the wire format into your local in-memory string representation, such as the [[DOM]], JavaScript strings, or your platform's native Unicode string type and later it will need to be serialized into the wire format using some [=character encoding form=] (usually UTF-8).</p>
+
 <div class="req" id="char_string_byte">
-	<p class="advisement">Specifications SHOULD NOT define a string as a {{ByteString}} or as a sequence of bytes ('byte string'). For binary data or sequences of bytes, use {{Uint8Array}} instead.</p>
+	<p class="advisement">Specify {{ByteString}} only when working with protocols (such as HTTP) or formats that don't distinguish between bytes and strings. If you need to represent a sequence of bytes, use {{Uint8Array}}.</p>
 	<details class="links"><summary>explanations &amp; examples</summary>
 	   <p><a href="https://www.w3.org/TR/charmod/#sec-Strings">String concepts, C011</a>, in <cite>Character Model for the World Wide Web: Fundamentals</cite>.</p>
-	   <p><a href="https://www.w3.org/TR/string-meta/#protocol-strings">Strings that are part of a legacy protocol or format</a>, in <cite>Strings on the Web: Language and Direction Metadata</cite> [[STRING-META]]</p>
 	   <p><a href="https://www.w3.org/TR/design-principles/#idl-string-types">IDL String Types</a> in <cite>Web Platform Design Principles</cite> [[DESIGN-PRINCIPLES]]</p>
 	</details>
 </div>
 
-<div class="req" id="char_string_no_legacy">
-	<p class="advisement">Specifications SHOULD NOT add or define support for <a>legacy character encodings</a> unless there is a specific reason to do so.</p>
-	<details class="links"><summary>explanations &amp; examples</summary>
-	<p>See also <a href="#char_choosing"></a>.</p>
-	</details>
-</div>
+<p>{{ByteString}} isn’t a general-purpose string type. The type {{ByteString}} defines strings as sequences of bytes (octets). Interpretation of byte strings thus requires the specification of a [=character encoding form=]. UTF-8 is the preferred encoding for wire and document formats on the Web [[ENCODING]] or the Internet in general [[RFC3629]]. If the field is encoded in UTF-8, there is rarely a reason to interact with it as a byte sequence.</p>
 
-<p>The type {{ByteString}} defines strings as sequences of bytes (octets). Interpretation of byte strings thus requires the specification of a <a>character encoding form</a>. UTF-8 is the preferred encoding for wire and document formats [[ENCODING]], but there is generally no reason to specify strings in terms of the underlying byte values.</p>
+<p>If a specification needs to interact with or process specific byte values, such as when working with a binary format, and does not or cannot rely on the later UTF-8 serialization of a {{DOMString}} or {{USVString}}, it might be necessary to specify the use of an [=isomorphic string=] [[INFRA]] for processing. The specification will then use an [=isomorphic encode=] to serialize the the string to bytes and an [=isomorphic decode=] when deserializing from the wire or storage format.</p>
 
-<aside class="note">
-	<p>Specifications for document formats or protocols often deal with the specific byte values used for various fields or values or with the <a>character encoding</a> used for serializing the data. It is therefore tempting to specify a text field ("string") as a {{ByteString}} which uses the <a>UTF-8</a> <a>character encoding form</a>.</p>
-	
-	<p>It is preferable, however, to specify these fields as a {{DOMString}} (or, rarely, a {{USVString}}), since the data encoded into these fields must be serialized from and deserialized into in-memory string representations, such as the [[DOM]] or JavaScript strings or your platform's native Unicode string type.</p>
-</aside>
-
-<p>See <a href="#char_choosing"></a> for additional best practices.</p>
-
+</section>
 </section>
 
 
@@ -1900,7 +1905,9 @@
 </ul>
 </aside>
 
-
+    <div class="req" id="char_string_no_legacy">
+	<p class="advisement">Specifications SHOULD NOT add or define support for <a>legacy character encodings</a> unless there is a specific reason to do so.</p>
+    </div>
 
 	<div class="req" id="char_identification">
 	<p class="advisement">Specifications MUST either specify a unique character encoding, or provide character encoding identification mechanisms such that the encoding of text can be reliably identified.</p>
