@@ -11,7 +11,7 @@
 		font-size: 1.25em;
 		padding-inline: 0.25em;
 	}
-	
+
 	.codepoint img {
 	    height: 2em;
         margin-inline: 0.25em;
@@ -20,17 +20,17 @@
 
 	.uname {
         font-family: Arial, monospace;
-		font-size: 0.75em;                    
+		font-size: 0.75em;
 		letter-spacing: 0.03em;
 		color: var(--uname-text);
 	}
 /** end of unicode styles */
 
 
-/** 
+/**
  * The remainder of the styles in this file are used locally in specdev.
  * Over time most of these should be migrated to I18N's shared stylesheet
- * (currently respec_2022.css). * 
+ * (currently respec_2022.css). *
  */
 
 :root {
@@ -53,37 +53,35 @@
 	--xref-bg: #fbf4e0;
 	}
 
-@media (prefers-color-scheme: dark) {
-	:root {
-		--blue: rgb(51 125 255);
-		--checklistGroup-li-bg: rgb(69 43 9);
-		--checklistGroup-li-input: rgb(228 132 63);
-		--checklistGroup-li: rgb(215 99 99);
-		--example-note-bg: #181a1b;
-		--exampleNamesTable-td-border: rgb(58 62 65);
-		--exampleNamesTable-tr-2n: rgb(31 34 35);
-		--exampleNamesTable-tr-hover: var(--exampleNamesTable-td-border);
-		--h4-color: rgb(110 194 255);
-		--links-bg: rgb(30 33 34);
-		--links-title-text: rgb(110 194 255);
-		--localdef-bg: rgb(24 26 27);
-		--localdef-border: rgb(154 39 39);
-		--review-comments-bg: rgb(30 33 34);
-		--summary-text: rgb(236 164 113);
-		--uname-text: rgb(215 99 99);
-		--xref-bg: rgb(53 42 11);
-		}
-	}
+body.darkmode {
+	--blue: rgb(51 125 255);
+	--checklistGroup-li-bg: rgb(69 43 9);
+	--checklistGroup-li-input: rgb(228 132 63);
+	--checklistGroup-li: rgb(215 99 99);
+	--example-note-bg: #181a1b;
+	--exampleNamesTable-td-border: rgb(58 62 65);
+	--exampleNamesTable-tr-2n: rgb(31 34 35);
+	--exampleNamesTable-tr-hover: var(--exampleNamesTable-td-border);
+	--h4-color: rgb(110 194 255);
+	--links-bg: rgb(30 33 34);
+	--links-title-text: rgb(110 194 255);
+	--localdef-bg: rgb(24 26 27);
+	--localdef-border: rgb(154 39 39);
+	--review-comments-bg: rgb(30 33 34);
+	--summary-text: rgb(236 164 113);
+	--uname-text: rgb(215 99 99);
+	--xref-bg: rgb(53 42 11);
+}
 
 
-.advisement { /*background-color:#ffffcc; border: 1px solid #ccc;*/ 
-	border-radius: 4px; 
-	position: relative;  
+.advisement { /*background-color:#ffffcc; border: 1px solid #ccc;*/
+	border-radius: 4px;
+	position: relative;
 	}
 .advisement a {
 	font-style: italic;
 	}
-.advisement a.local { 
+.advisement a.local {
 	display:none;
 	}
 
@@ -92,11 +90,11 @@ body {
 	/*counter-reset: bp;                  		  Set the section counter to 0 */
 	}
 
-.new-term { 
-	font-weight: bold 
+.new-term {
+	font-weight: bold
 	}
-code { 
-	font-family: monospace; 
+code {
+	font-family: monospace;
 	}
 section h2 {
 	margin-top: 5em;
@@ -106,32 +104,32 @@ section h2 {
 	margin-top: 0;
 	}
 
-.term { 
+.term {
 	font-weight: bold;
 	margin-top: 1em;
 	}
 a.termref:link {
 	color:#C60;
 	text-decoration:none;
-	border-bottom: 1px dotted #FC0; 
+	border-bottom: 1px dotted #FC0;
 	}
-	
+
 a.termref:hover {
 	color:#C60;
 	text-decoration:none;
-	border-bottom: 1px dotted #FC0; 
+	border-bottom: 1px dotted #FC0;
 	}
-	
+
 a.termref:visited {
 	color:#C60;
 	text-decoration:none;
-	border-bottom: 1px dotted #FC0; 
+	border-bottom: 1px dotted #FC0;
 	}
-	
+
 a.termref:active {
 	color:#C60;
 	text-decoration:none;
-	border-bottom: 1px dotted #FC0; 
+	border-bottom: 1px dotted #FC0;
 	}
 
 
@@ -147,7 +145,7 @@ a.termref:active {
 	background-color: #E2FFF0;
 	font-size: 0.8em;
 	}
-	  
+
 @media print {
  .bp { background: #ffcc99 }
 
@@ -169,23 +167,23 @@ h4 { 	color: var(--h4-color); margin-top: 2em;  }
 .desc { display: inline; margin-left: 1em;  }
 .desc:before { content: '— '; }
 
-.links { 
-	/*background-color: #a09de5; border: 1px solid #ccc; */  
-	font-size: 90%; 
+.links {
+	/*background-color: #a09de5; border: 1px solid #ccc; */
+	font-size: 90%;
 	padding: 1em;
 	background-color: var(--links-bg);
 	border-radius: 5px;
-	/*margin-bottom: 20px; 
-	float: left; width: 60%;*/  
+	/*margin-bottom: 20px;
+	float: left; width: 60%;*/
 	}
-.xref { 
-	/* background-color: #feb; border: 1px solid #fc0; border-radius: 10px;*/  
-	font-size: 80%; 
-	padding: 1em; 
+.xref {
+	/* background-color: #feb; border: 1px solid #fc0; border-radius: 10px;*/
+	font-size: 80%;
+	padding: 1em;
 	background-color: var(--xref-bg);
 	border-radius: 5px;
-	/*margin-bottom: 40px; 
-	float: right;  width: 30%;*/ 
+	/*margin-bottom: 40px;
+	float: right;  width: 30%;*/
 	padding: .25em 1em;
 	}
 .xref p {
@@ -205,17 +203,17 @@ h4 { 	color: var(--h4-color); margin-top: 2em;  }
 aside h2 {
     margin-top: 0em;
     }
-    
+
 table.cpExample {
     table-layout: fixed;
     width: 80%;
     }
-    
+
 table.truncExample th,
-table.truncExample td {	
+table.truncExample td {
     vertical-align: top;
     }
-    
+
 table.truncExample kbd,
 table.truncExample code {
     color: var(--blue);
@@ -225,7 +223,7 @@ table.truncExample code {
 .summary .secno {
 	display: none;
 	}
-	
+
 .example_div {
     margin-left: 4em;
     margin-right: 4em;
@@ -374,7 +372,7 @@ table.whitespace caption {
 	margin-block: 0;
 	font-style: italic;
 	}
-	
+
 .exampleNamesTable {
   border-collapse: collapse;
   width: 100%;
@@ -412,8 +410,8 @@ td.exampleChar {
 
 .localdef {
     background-color:var(--localdef-bg);
-    border: 1px solid var(--localdef-border); 
-    margin:0.5em; 
+    border: 1px solid var(--localdef-border);
+    margin:0.5em;
     padding:0.5em;
 }
 
