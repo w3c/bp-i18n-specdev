@@ -144,8 +144,6 @@
 
 
 
-
-
 <section class="appendix" id="ghChecklist">
 <h3>Create a github checklist</h3>
 
@@ -1680,14 +1678,19 @@
    <p><a href="https://www.w3.org/TR/string-meta/#protocol-strings">Strings that are part of a legacy protocol or format</a>, in <cite>Strings on the Web: Language and Direction Metadata</cite> [[STRING-META]]</p>
 </div>
     
-    <p>Sometimes specifications need to deal with byte-oriented contexts. For example, the specification might be defining a binary format or working with a byte-oriented protocol.</p>
+    <p>Sometimes specifications need to deal with the storage, interpretation, and manipulation of the byte values of various characters. Some (non-exhaustive) examples of this include:
+    <ul>
+        <li>Defining a binary format</li>
+        <li>Parsing HTTP headers</li>
+        <li>Describing the wire format of a protocol</li>
+    </ul></p>
     
     
     <div class="req" id="char-string-dom-usv-bytes">
-        <p class="advisement">Specify fields in protocols that are 'string-like' as {{DOMString}} or, rarely, {{USVString}}, unless there is some reason to interact with specific bytes values or for which the UTF-8 [=character encoding=] cannot be assumed.</p>
+        <p class="advisement">Specify 'string-like' fields as {{DOMString}} or, rarely, {{USVString}}, unless there is some reason to interact with specific bytes values or for which the UTF-8 [=character encoding=] cannot be assumed.</p>
     </div>
     
-    <p>If the field in question is meant to be treated as a string, working with (Unicode) characters will be more reliable than trying to work with byte values. The data encoded into these fields will be deserialized from the wire format into your local in-memory string representation, such as the [[DOM]], JavaScript strings, or your platform's native Unicode string type and later it will need to be serialized into the wire format using some [=character encoding form=] (usually UTF-8).</p>
+    <p>If the field in question is meant to be treated as a string, working with (Unicode) characters will be more reliable than trying to work with the byte values directly. The data encoded into these fields will be deserialized from the wire format into your local in-memory string representation, such as the [[DOM]], JavaScript strings, or your platform's native Unicode string type. Later it will need to be serialized into the wire format using some [=character encoding form=] (usually&mdash;and <em>preferably</em>&mdash; UTF-8).</p>
 
 <div class="req" id="char_string_byte">
 	<p class="advisement">Specify {{ByteString}} only when working with protocols (such as HTTP) or formats that don't distinguish between bytes and strings. If you need to represent a sequence of bytes, use {{Uint8Array}}.</p>
