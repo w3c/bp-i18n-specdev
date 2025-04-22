@@ -39,6 +39,8 @@
 	--checklistGroup-li-input: chocolate;
 	--checklistGroup-li: brown;
 	--example-note-bg: white;
+	--bidi-example-table-bg: white;
+	--bidi-example-table-tr-border: #ddd;
 	--exampleNamesTable-td-border: #ddd;
 	--exampleNamesTable-tr-2n: #f2f2f2;
 	--exampleNamesTable-tr-hover: var(--exampleNamesTable-td-border);
@@ -51,6 +53,10 @@
 	--summary-text: saddlebrown;
 	--uname-text: brown;
 	--xref-bg: #fbf4e0;
+	--start-here-border: green;
+	--start-here-bg: rgb(233, 251, 233);
+	--start-here-p-title-bg: ivory;
+	--term-guide-hover: #dfd;
 	}
 
 body.darkmode {
@@ -59,6 +65,8 @@ body.darkmode {
 	--checklistGroup-li-input: rgb(228 132 63);
 	--checklistGroup-li: rgb(215 99 99);
 	--example-note-bg: #181a1b;
+	--bidi-example-table-bg: black;
+	--bidi-example-table-tr-border: #3a3e41;
 	--exampleNamesTable-td-border: rgb(58 62 65);
 	--exampleNamesTable-tr-2n: rgb(31 34 35);
 	--exampleNamesTable-tr-hover: var(--exampleNamesTable-td-border);
@@ -71,6 +79,10 @@ body.darkmode {
 	--summary-text: rgb(236 164 113);
 	--uname-text: rgb(215 99 99);
 	--xref-bg: rgb(53 42 11);
+	--start-here-border: #00d900;
+	--start-here-bg: #16380a;
+	--start-here-p-title-bg: #d1d1c5;
+	--term-guide-hover: #124700;
 }
 
 
@@ -428,7 +440,7 @@ td.exampleChar {
 }
 
 table.bidi-example-table {
-    background-color: white;
+    background-color: var(--bidi-example-table-bg);
     border-collapse: collapse;
     padding: 0;
     width: 98%;
@@ -443,7 +455,7 @@ table.bidi-example-table th {
 }
 
 table.bidi-example-table tr {
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid var(--bidi-example-table-tr-border);
 }
 
 table.bidi-example-table tr td:last-child {
@@ -459,8 +471,8 @@ img.emoji-image {
 }
 
 .start-here {
-    border:5px solid green; 
-    background-color: rgb(233, 251, 233);
+    border:5px solid var(--start-here-border); 
+    background-color: var(--start-here-bg);
     padding: 10px;
 }
 
@@ -470,7 +482,7 @@ aside.start-here p.title {
     font-family:sans-serif;
     font-weight:bold;
     text-align:center;
-    background-color:ivory;
+    background-color:var(--start-here-p-title-bg);
     margin:0;
     padding:0
 }
@@ -511,5 +523,5 @@ table.term-guide th {
 }
 
 table.term-guide tbody tr:hover {
-   background-color: #dfd;
+   background-color: var(--term-guide-hover);
 }
