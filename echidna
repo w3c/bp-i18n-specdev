@@ -1,5 +1,5 @@
 # ECHIDNA configuration
-index.html?specStatus=DNOTE&shortName=international-specs respec
+index.html?specStatus=NOTE&shortName=international-specs respec
 make_checklist.js
 local.css
 images/0009.png
@@ -11,6 +11,7 @@ images/0020.png
 images/007F.png
 images/0085.png
 images/00A0.png
+images/061C.png
 images/1680.png
 images/2000.png
 images/2001.png
@@ -33,5 +34,13 @@ images/2029.png
 images/202F.png
 images/205F.png
 images/3000.png
+images/FE0F.png
 images/FEFF.png
-
+images/many-glyphs.png
+images/indivisible-memorable.jpg
+images/memorable-unicode.png
+images/suisse-cows.jpg
+images/emoji-image-1.png
+images/emoji-image-2.png
+images/emoji-image-3.png
+images/emoji-image-4.png

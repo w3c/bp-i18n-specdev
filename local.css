@@ -195,9 +195,11 @@ h4 { 	color: var(--h4-color); margin-top: 2em;  }
 .subtopic, .topic { clear: both; }
 
 .bigtext {
-    font-size: 36pt;
+    font-size: 30pt;
     color: var(--blue);
     text-align: left;
+    margin-block-start: 12px;
+    margin-block-end: 12px;
     }
 
 aside h2 {
@@ -408,6 +410,10 @@ td.exampleChar {
   font-size: 140%;
 }
 
+.spilloverExample :lang(ar) {
+  font-family: Noto Sans Arabic, Tahoma, sans-serif;
+  }
+
 .localdef {
     background-color:var(--localdef-bg);
     border: 1px solid var(--localdef-border);
@@ -419,4 +425,91 @@ td.exampleChar {
     background-color: var(--example-note-bg);
     border: 1px solid green;
     padding:10px;
+}
+
+table.bidi-example-table {
+    background-color: white;
+    border-collapse: collapse;
+    padding: 0;
+    width: 98%;
+}
+
+table.bidi-example-table td {
+    padding: 0;
+}
+
+table.bidi-example-table th {
+    text-align: center;
+}
+
+table.bidi-example-table tr {
+    border-bottom: 1px solid #ddd;
+}
+
+table.bidi-example-table tr td:last-child {
+    white-space: nowrap;
+}
+
+img.emoji-image {
+    display:block;
+    margin-left:auto;
+    margin-right:auto;
+    max-width:60px;
+    height:auto
+}
+
+.start-here {
+    border:5px solid green; 
+    background-color: rgb(233, 251, 233);
+    padding: 10px;
+}
+
+aside.start-here p.title {
+    color: rgb(3, 69, 117);
+    font-size:large;
+    font-family:sans-serif;
+    font-weight:bold;
+    text-align:center;
+    background-color:ivory;
+    margin:0;
+    padding:0
+}
+
+table.charTermExample {
+    border-collapse: collapse;
+}
+
+table.charTermExample th {
+    width: 15%;
+}
+
+table.charTermExample td {
+   border-right: 1px dotted gray; 
+   text-align: center;
+   padding: 5px;
+}
+
+table.term-guide {
+   border-collapse: collapse;
+   
+}
+
+table.term-guide td {
+   vertical-align: top;
+   text-align: left;
+   font-size: 90%;
+   padding: 10px;
+   border-bottom: 1px dotted gray;
+}
+
+table.term-guide th {
+   vertical-align: top;
+   text-align: left;
+   font-size: 90%;
+   padding: 10px;
+   border-bottom: 1px dotted gray;
+}
+
+table.term-guide tbody tr:hover {
+   background-color: #dfd;
 }
