@@ -1684,25 +1684,39 @@
         <li>Parsing HTTP headers</li>
         <li>Describing the wire format of a protocol</li>
     </ul></p>
-    
-    
+
     <div class="req" id="char-string-dom-usv-bytes">
         <p class="advisement">Specify 'string-like' fields as {{DOMString}} or, rarely, {{USVString}}, unless there is some reason to interact with specific bytes values or for which the UTF-8 [=character encoding=] cannot be assumed.</p>
     </div>
     
     <p>If the field in question is meant to be treated as a string, working with (Unicode) characters will be more reliable than trying to work with the byte values directly. The data encoded into these fields will be deserialized from the wire format into your local in-memory string representation, such as the [[DOM]], JavaScript strings, or your platform's native Unicode string type. Later it will need to be serialized into the wire format using some [=character encoding form=] (usually&mdash;and <em>preferably</em>&mdash; UTF-8).</p>
-
-<div class="req" id="char_string_byte">
-	<p class="advisement">Specify {{ByteString}} only when working with protocols (such as HTTP) or formats that don't distinguish between bytes and strings. If you need to represent a sequence of bytes, use {{Uint8Array}}.</p>
+ 
+    <div class="req" id="char-string-uint8">
+        <p class="advisement"> Specify {{Uint8Array}} when working with byte sequences, such as for data that does not contain text, or for byte sequences representing text for which processing is never required (such as when copying buffers).</p>
+    </div>
+    
+    <p>Some protocols or formats do not distinguish between bytes and strings. For example, HTTP [[RFC9112]] says:</p>
+    
+    <p class="localdef">A recipient MUST parse an HTTP message as a sequence of octets in an encoding that is a superset of US-ASCII.</p>
+    
+    <div class="req" id="char_string_byte">
+	<p class="advisement">Specify {{ByteString}} in the rare cases where the specification needs to work with strings which are encoded using bytes and for which the conversion to or from Unicode would be inappropriate.</p>
 	<details class="links"><summary>explanations &amp; examples</summary>
-	   <p><a href="https://www.w3.org/TR/charmod/#sec-Strings">String concepts, C011</a>, in <cite>Character Model for the World Wide Web: Fundamentals</cite>.</p>
 	   <p><a href="https://www.w3.org/TR/design-principles/#idl-string-types">IDL String Types</a> in <cite>Web Platform Design Principles</cite> [[DESIGN-PRINCIPLES]]</p>
 	</details>
-</div>
+    </div>
 
-<p>{{ByteString}} isn’t a general-purpose string type. The type {{ByteString}} defines strings as sequences of bytes (octets). Interpretation of byte strings thus requires the specification of a [=character encoding form=]. UTF-8 is the preferred encoding for wire and document formats on the Web [[ENCODING]] or the Internet in general [[RFC3629]]. If the field is encoded in UTF-8, there is rarely a reason to interact with it as a byte sequence.</p>
+    <p>{{ByteString}} isn’t a general-purpose string type. Frequently processing of these will be done by performing an [=isomorphic decode=] of the {{ByteString}} into an [=isomorphic string=] or by performing an [=isomorphic encode=] of such a string back into bytes [[INFRA]]. (It is also possible that the specification with work with the bytes directly.)</p>
+    
+    <p>{{ByteString}} should not be confused with the more general term [=byte string=].</p>
+    
+    <p class="localdef">A <dfn class="lint-ignore">byte string</dfn> refers to a string type defined as a sequence of bytes in a specific [=character encoding form=].</p>
+    
+    <div class="xref"><span class="seealso">See also</span>
+    <p><a href="https://www.w3.org/TR/charmod/#sec-Strings" target="_blank">String concepts</a> in [[[CHARMOD]]])</p>
+    </div>
 
-<p>If a specification needs to interact with or process specific byte values, such as when working with a binary format, and does not or cannot rely on the later UTF-8 serialization of a {{DOMString}} or {{USVString}}, it might be necessary to specify the use of an [=isomorphic string=] [[INFRA]] for processing. The specification will then use an [=isomorphic encode=] to serialize the the string to bytes and an [=isomorphic decode=] when deserializing from the wire or storage format.</p>
+    <p>Interpreting [=byte strings=] requires the specification of a [=character encoding form=]. UTF-8 is the preferred encoding for wire and document formats on the Web [[ENCODING]] or the Internet in general [[RFC3629]]. However, if the field is encoded in UTF-8, there is rarely a reason to interact with it as a byte sequence.</p>
 
 </section>
 </section>
