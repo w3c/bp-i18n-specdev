@@ -57,6 +57,9 @@
 	--start-here-bg: rgb(233, 251, 233);
 	--start-here-p-title-bg: ivory;
 	--term-guide-hover: #dfd;
+	--spillover-example-bg: #fdfdfd;
+	--spillover-example-resolution: blue;
+	--spillover-example-monitor: purple;
 	}
 
 body.darkmode {
@@ -83,6 +86,9 @@ body.darkmode {
 	--start-here-bg: #16380a;
 	--start-here-p-title-bg: #d1d1c5;
 	--term-guide-hover: #124700;
+	--spillover-example-bg: #191b1c;
+	--spillover-example-resolution: #337dff;
+	--spillover-example-monitor: #ff72ff;
 }
 
 
@@ -417,7 +423,7 @@ td.exampleChar {
 }
 
 .spilloverExample {
-  background-color: #fdfdfd;
+  background-color: var(--spillover-example-bg);
   text-indent: 10px;
   font-size: 140%;
 }
