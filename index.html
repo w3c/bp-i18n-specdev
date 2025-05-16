@@ -2,6 +2,7 @@
 <html lang="en" dir="ltr">
   <head>
 	<meta charset="utf-8"/>
+    <meta name="color-scheme" content="light dark">
     <title>Internationalization Best Practices for Spec Developers</title>
 
     <!--
@@ -552,9 +553,9 @@
 <p>[[[#bidi_strings]]].</p>
 </div>
 
-<div class="note">
+<div class="note" id="string_meta_progress">
 	<p>Work on language and direction metadata for string formats is a work in progress. Specifications might need to include a note indicating the need for future adoption of metadata. Here is a prototype:</p>
-	<p class="example_note" style="background-color:white;border:1px solid green;padding:10px">The field <code>{fieldname}</code> should follow the best practices found in <cite>Strings on the Web: Language and Direction Metadata</cite> [[STRING-META]]. This includes making use of any future standards which emerge regarding the reporting of string language and direction metadata.</p>
+	<p class="example_note">The field <code>{fieldname}</code> should follow the best practices found in <cite>Strings on the Web: Language and Direction Metadata</cite> [[STRING-META]]. This includes making use of any future standards which emerge regarding the reporting of string language and direction metadata.</p>
 </div>
 
 <div class="req" id="bp_lang_field_based_metadata">
@@ -847,18 +848,18 @@
 <p>Suppose an implementation assembled a string by concatenating various values together. For example, the description of a monitor attached to a system. This label might contain the brand name and model number (<kbd>Brand A123B</kbd>); resolution (<kbd>(1920 x 1080)</kbd>); size and type (<kbd>36" monitor</kbd>); as well as various features like a refresh rate of <kbd>75 Hz</kbd> or response time of <kbd>4 ms</kbd>. The resulting string in English might look like this (color has been added to make the effects more visible):</p>
 
 <p class="spilloverExample" dir="ltr"><code>
-<span style="color:red">Brand A123B</span> <span style="color:blue">(1920 x 1080)</span> <span style="color:green">36"</span> <span style="color:purple">monitor</span>, <span style="color:orange">75 Hz</span>, <span style="color:brown">4ms</span>
+<span style="color:red">Brand A123B</span> <span style="color: var(--spillover-example-resolution)">(1920 x 1080)</span> <span style="color:green">36"</span> <span style="color:var(--spillover-example-monitor)">monitor</span>, <span style="color:orange">75 Hz</span>, <span style="color:brown">4ms</span>
 </code></p>
 
 <p>If the same implementation assembling this string were on a system running in a locale that uses a right-to-left language (such as the Arabic examples shown below), the results of the same concatentation might look something like this:</p>
 
 <p class="spilloverExample" dir="rtl"><code>
-<span style="color:red">&#x0645;&#x0627;&#x0631;&#x0643;&#x0629; A123B</span> <span style="color:blue">(1920 x 1080)</span> <span style="color:green">36"</span> <span style="color:purple">&#x0634;&#x0627;&#x0634;&#x0629; &#x0627;&#x0644;&#x0643;&#x0645;&#x0628;&#x064A;&#x0648;&#x062A;&#x0631;</span>&#x60c; <span style="color:orange">75 Hz</span>&#x60c; <span style="color:brown">4 &#x0645;&#x0644;&#x0644;&#x064A; &#x062B;&#x0627;&#x0646;&#x064A;&#x0629;</span></code></p>
+<span style="color:red">&#x0645;&#x0627;&#x0631;&#x0643;&#x0629; A123B</span> <span style="color: var(--spillover-example-resolution)">(1920 x 1080)</span> <span style="color:green">36"</span> <span style="color:var(--spillover-example-monitor)">&#x0634;&#x0627;&#x0634;&#x0629; &#x0627;&#x0644;&#x0643;&#x0645;&#x0628;&#x064A;&#x0648;&#x062A;&#x0631;</span>&#x60c; <span style="color:orange">75 Hz</span>&#x60c; <span style="color:brown">4 &#x0645;&#x0644;&#x0644;&#x064A; &#x062B;&#x0627;&#x0646;&#x064A;&#x0629;</span></code></p>
 
 <p>The logical sequence of sub-strings remains the same, but the visual presentation is no longer intelligible. Notice how different parts of the description have become broken up and mixed together. The addition of isolating bidirectional controls (either markup or, when not available, Unicode control characters) to the above string produces better results:</p>
 
 <p class="spilloverExample" dir="rtl"><code>
-	<span style="color:red" dir="rtl">&#x0645;&#x0627;&#x0631;&#x0643;&#x0629; A123B</span> <span style="color:blue" dir="ltr">(1920 x 1080)</span> <span style="color:green" dir="ltr">36"</span> <span style="color:purple" dir="rtl">&#x0634;&#x0627;&#x0634;&#x0629; &#x0627;&#x0644;&#x0643;&#x0645;&#x0628;&#x064A;&#x0648;&#x062A;&#x0631;</span>&#x60c; <span style="color:orange" dir="rtl">75 Hz</span>&#x60c; <span style="color:brown" dir="rtl">4 &#x0645;&#x0644;&#x0644;&#x064A; &#x062B;&#x0627;&#x0646;&#x064A;&#x0629;</span>
+	<span style="color:red" dir="rtl">&#x0645;&#x0627;&#x0631;&#x0643;&#x0629; A123B</span> <span style="color: var(--spillover-example-resolution)" dir="ltr">(1920 x 1080)</span> <span style="color:green" dir="ltr">36"</span> <span style="color:var(--spillover-example-monitor)" dir="rtl">&#x0634;&#x0627;&#x0634;&#x0629; &#x0627;&#x0644;&#x0643;&#x0645;&#x0628;&#x064A;&#x0648;&#x062A;&#x0631;</span>&#x60c; <span style="color:orange" dir="rtl">75 Hz</span>&#x60c; <span style="color:brown" dir="rtl">4 &#x0645;&#x0644;&#x0644;&#x064A; &#x062B;&#x0627;&#x0646;&#x064A;&#x0629;</span>
 </code></p>
 </aside>
 

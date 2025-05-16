@@ -11,7 +11,7 @@
 		font-size: 1.25em;
 		padding-inline: 0.25em;
 	}
-	
+
 	.codepoint img {
 	    height: 2em;
         margin-inline: 0.25em;
@@ -20,45 +20,86 @@
 
 	.uname {
         font-family: Arial, monospace;
-		font-size: 0.75em;                    
+		font-size: 0.75em;
 		letter-spacing: 0.03em;
-		color: brown;
+		color: var(--uname-text);
 	}
 /** end of unicode styles */
 
 
-/** 
+/**
  * The remainder of the styles in this file are used locally in specdev.
  * Over time most of these should be migrated to I18N's shared stylesheet
- * (currently respec_2022.css). * 
+ * (currently respec_2022.css). *
  */
 
+:root {
+	--blue: blue;
+	--checklistGroup-li-bg: antiquewhite;
+	--checklistGroup-li-input: chocolate;
+	--checklistGroup-li: brown;
+	--example-note-bg: white;
+	--bidi-example-table-bg: white;
+	--bidi-example-table-tr-border: #ddd;
+	--exampleNamesTable-td-border: #ddd;
+	--exampleNamesTable-tr-2n: #f2f2f2;
+	--exampleNamesTable-tr-hover: var(--exampleNamesTable-td-border);
+	--h4-color: #005a9c;
+	--links-bg: #EFEFF9;
+	--links-title-text: #005a9c;
+	--localdef-bg: white;
+	--localdef-border: brown;
+	--review-comments-bg: #EFEFF9;
+	--summary-text: saddlebrown;
+	--uname-text: brown;
+	--xref-bg: #fbf4e0;
+	--start-here-border: green;
+	--start-here-bg: rgb(233, 251, 233);
+	--start-here-p-title-bg: ivory;
+	--term-guide-hover: #dfd;
+	--spillover-example-bg: #fdfdfd;
+	--spillover-example-resolution: blue;
+	--spillover-example-monitor: purple;
+	}
+
+body.darkmode {
+	--blue: rgb(51 125 255);
+	--checklistGroup-li-bg: rgb(69 43 9);
+	--checklistGroup-li-input: rgb(228 132 63);
+	--checklistGroup-li: rgb(215 99 99);
+	--example-note-bg: #181a1b;
+	--bidi-example-table-bg: black;
+	--bidi-example-table-tr-border: #3a3e41;
+	--exampleNamesTable-td-border: rgb(58 62 65);
+	--exampleNamesTable-tr-2n: rgb(31 34 35);
+	--exampleNamesTable-tr-hover: var(--exampleNamesTable-td-border);
+	--h4-color: rgb(110 194 255);
+	--links-bg: rgb(30 33 34);
+	--links-title-text: rgb(110 194 255);
+	--localdef-bg: rgb(24 26 27);
+	--localdef-border: rgb(154 39 39);
+	--review-comments-bg: rgb(30 33 34);
+	--summary-text: rgb(236 164 113);
+	--uname-text: rgb(215 99 99);
+	--xref-bg: rgb(53 42 11);
+	--start-here-border: #00d900;
+	--start-here-bg: #16380a;
+	--start-here-p-title-bg: #d1d1c5;
+	--term-guide-hover: #124700;
+	--spillover-example-bg: #191b1c;
+	--spillover-example-resolution: #337dff;
+	--spillover-example-monitor: #ff72ff;
+}
 
 
-.bp { /*background-color:#ffffcc; border: 1px solid #ccc;*/ 
-	background-color: #feb; 
-	border-radius: 8px; 
-	border-radius: 4px; 
-	padding: 10px; 
-	position: relative;  
-	margin: 30px; 
-	margin-right: 60px; 
-	}
-.bp a {
-	font-style: italic;
-	}
-.bp a.local { 
-	display:none;
-	}
-
-.advisement { /*background-color:#ffffcc; border: 1px solid #ccc;*/ 
-	border-radius: 4px; 
-	position: relative;  
+.advisement { /*background-color:#ffffcc; border: 1px solid #ccc;*/
+	border-radius: 4px;
+	position: relative;
 	}
 .advisement a {
 	font-style: italic;
 	}
-.advisement a.local { 
+.advisement a.local {
 	display:none;
 	}
 
@@ -66,48 +107,12 @@ body {
 	counter-reset: advisement;                  		 /* Set the section counter to 0 */
 	/*counter-reset: bp;                  		  Set the section counter to 0 */
 	}
-a.self {
-    position: absolute;
-    top: -20px;
-    border: medium none;
-    transition: opacity 0.2s ease 0s;
-    opacity: 0.5;
-	color: #999;
-	text-decoration: none;
-	}
-a.self:visited {
-	color: #999;
-	}
-a.self:hover {
-	color: red;
-	}
-a.self::after {
-	content:  attr(href); 	
-	font-weight: normal;
-	font-style: italic;
-	font-size: 80%;
-	}
 
-.editor-note { 
-	font-style: italic; 
-	color: teal;
+.new-term {
+	font-weight: bold
 	}
-.ed { 
-	font-style: italic; 
-	color: white;
-	background-color: #F90;
-	padding-left: 10px; padding-right: 10px; 
-	}
-
-.new-term { 
-	font-weight: bold 
-	}
-code { 
-	font-family: monospace; 
-	}
-del { 
-	display: inline; 
-	color: silver; 
+code {
+	font-family: monospace;
 	}
 section h2 {
 	margin-top: 5em;
@@ -117,45 +122,32 @@ section h2 {
 	margin-top: 0;
 	}
 
-ins { 
-	background-color: #99FF99; 
-	text-decoration: none; 
-	}
-.term { 
+.term {
 	font-weight: bold;
 	margin-top: 1em;
 	}
-.definition {
-    position: relative;
-    background-color: #efefef;
-    padding: 0.5em;
-    border: 0.5em;
-    border-left: 6pt solid green;
-    border-right: 6pt solid green;
-    margin: 1em auto;
-}
 a.termref:link {
 	color:#C60;
 	text-decoration:none;
-	border-bottom: 1px dotted #FC0; 
+	border-bottom: 1px dotted #FC0;
 	}
-	
+
 a.termref:hover {
 	color:#C60;
 	text-decoration:none;
-	border-bottom: 1px dotted #FC0; 
+	border-bottom: 1px dotted #FC0;
 	}
-	
+
 a.termref:visited {
 	color:#C60;
 	text-decoration:none;
-	border-bottom: 1px dotted #FC0; 
+	border-bottom: 1px dotted #FC0;
 	}
-	
+
 a.termref:active {
 	color:#C60;
 	text-decoration:none;
-	border-bottom: 1px dotted #FC0; 
+	border-bottom: 1px dotted #FC0;
 	}
 
 
@@ -171,22 +163,6 @@ a.termref:active {
 	background-color: #E2FFF0;
 	font-size: 0.8em;
 	}
-span.note-head {
-	padding: .2em;
-	color:#066;
-	border: none;
-	position:relative;
-	display: block;
-	width: 40px;
-	left: -1.5em;
-	top: -.5em;
-	background: #F2FFF1;
-	padding-left: .2em;
-	text-align: center;
-	}
-	  
-.counterstyle { margin: 20px 30px; }
-.counterstyle code { font-family: "Lucida Console", Monaco, monospace; color: black; font-size: 12px; }
 
 @media print {
  .bp { background: #ffcc99 }
@@ -198,7 +174,7 @@ body { font-size: 80%; margin: 2em; }
 
 
 
-h4 { 	color: #005a9c; margin-top: 2em;  }
+h4 { 	color: var(--h4-color); margin-top: 2em;  }
 .indent { margin-left: 3em; }
 
 .links h4, .xref h4 {
@@ -209,23 +185,23 @@ h4 { 	color: #005a9c; margin-top: 2em;  }
 .desc { display: inline; margin-left: 1em;  }
 .desc:before { content: '— '; }
 
-.links { 
-	/*background-color: #a09de5; border: 1px solid #ccc; */  
-	font-size: 90%; 
+.links {
+	/*background-color: #a09de5; border: 1px solid #ccc; */
+	font-size: 90%;
 	padding: 1em;
-	background-color: #EFEFF9; 
+	background-color: var(--links-bg);
 	border-radius: 5px;
-	/*margin-bottom: 20px; 
-	float: left; width: 60%;*/  
+	/*margin-bottom: 20px;
+	float: left; width: 60%;*/
 	}
-.xref { 
-	/* background-color: #feb; border: 1px solid #fc0; border-radius: 10px;*/  
-	font-size: 80%; 
-	padding: 1em; 
-	background-color: #fbf4e0;
+.xref {
+	/* background-color: #feb; border: 1px solid #fc0; border-radius: 10px;*/
+	font-size: 80%;
+	padding: 1em;
+	background-color: var(--xref-bg);
 	border-radius: 5px;
-	/*margin-bottom: 40px; 
-	float: right;  width: 30%;*/ 
+	/*margin-bottom: 40px;
+	float: right;  width: 30%;*/
 	padding: .25em 1em;
 	}
 .xref p {
@@ -238,7 +214,7 @@ h4 { 	color: #005a9c; margin-top: 2em;  }
 
 .bigtext {
     font-size: 30pt;
-    color: blue;
+    color: var(--blue);
     text-align: left;
     margin-block-start: 12px;
     margin-block-end: 12px;
@@ -247,32 +223,27 @@ h4 { 	color: #005a9c; margin-top: 2em;  }
 aside h2 {
     margin-top: 0em;
     }
-    
+
 table.cpExample {
     table-layout: fixed;
     width: 80%;
     }
-    
-p.sidenote {
-    color: gray;
-    font-size:60%;
-    }
-    
+
 table.truncExample th,
-table.truncExample td {	
+table.truncExample td {
     vertical-align: top;
     }
-    
+
 table.truncExample kbd,
 table.truncExample code {
-    color: blue;
+    color: var(--blue);
     font-size: larger;
     }
 
 .summary .secno {
 	display: none;
 	}
-	
+
 .example_div {
     margin-left: 4em;
     margin-right: 4em;
@@ -368,7 +339,7 @@ table.whitespace caption {
 	}
 
 
-.links_title { margin-top: 0; font-weight: bold; color: #005a9c; }
+.links_title { margin-top: 0; font-weight: bold; color: var(--links-title-text); }
 .links_subtitle { font-style: italic; margin-block-start: 1rem; margin-bottom: 0; }
 
 
@@ -379,8 +350,8 @@ table.whitespace caption {
     padding-inline: 1rem;
     padding-block: .3em;
     min-height: 2rem;
-    color: brown;
-    background-color: antiquewhite;
+    color: var(--checklistGroup-li);
+    background-color: var(--checklistGroup-li-bg);
     border-radius: 5px;
     font-size: 95%;
     }
@@ -391,7 +362,7 @@ table.whitespace caption {
     margin-inline-start: 1rem;
     }
 .checklistGroup li input {
-    accent-color: chocolate;
+    accent-color: var(--checklistGroup-li-input);
     }
 .checklist summary {
     font-weight: normal;
@@ -402,7 +373,7 @@ table.whitespace caption {
     margin-inline-start: 2rem;
     }
 .summaryC summary {
-    color: saddlebrown;
+    color: var(--summary-text);
     font-weight: normal;
     cursor: pointer;
     }
@@ -416,25 +387,25 @@ table.whitespace caption {
 .reviewComments {
 	font-size: 90%;
 	padding: 1em;
-	background-color: #EFEFF9;
+	background-color: var(--review-comments-bg);
 	border-radius: 5px;
 	margin-block: 0;
 	font-style: italic;
 	}
-	
+
 .exampleNamesTable {
   border-collapse: collapse;
   width: 100%;
 }
 
 .exampleNamesTable td, .exampleNamesTable th {
-  border: 1px solid #ddd;
+  border: 1px solid var(--exampleNamesTable-td-border);
   padding: 8px;
 }
 
-.exampleNamesTable tr:nth-child(even){background-color: #f2f2f2;}
+.exampleNamesTable tr:nth-child(even){background-color: var(--exampleNamesTable-tr-2n);}
 
-.exampleNamesTable tr:hover {background-color: #ddd;}
+.exampleNamesTable tr:hover {background-color: var(--exampleNamesTable-tr-hover);}
 
 .exampleNamesTable th {
   cursor: pointer;
@@ -452,7 +423,7 @@ td.exampleChar {
 }
 
 .spilloverExample {
-  background-color: #fdfdfd;
+  background-color: var(--spillover-example-bg);
   text-indent: 10px;
   font-size: 140%;
 }
@@ -462,14 +433,20 @@ td.exampleChar {
   }
 
 .localdef {
-    background-color:white;
-    border: 1px solid brown; 
-    margin:0.5em; 
+    background-color:var(--localdef-bg);
+    border: 1px solid var(--localdef-border);
+    margin:0.5em;
     padding:0.5em;
 }
 
+#string_meta_progress p.example_note {
+    background-color: var(--example-note-bg);
+    border: 1px solid green;
+    padding:10px;
+}
+
 table.bidi-example-table {
-    background-color: white;
+    background-color: var(--bidi-example-table-bg);
     border-collapse: collapse;
     padding: 0;
     width: 98%;
@@ -484,7 +461,7 @@ table.bidi-example-table th {
 }
 
 table.bidi-example-table tr {
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid var(--bidi-example-table-tr-border);
 }
 
 table.bidi-example-table tr td:last-child {
@@ -500,8 +477,8 @@ img.emoji-image {
 }
 
 .start-here {
-    border:5px solid green; 
-    background-color: rgb(233, 251, 233);
+    border:5px solid var(--start-here-border); 
+    background-color: var(--start-here-bg);
     padding: 10px;
 }
 
@@ -511,7 +488,7 @@ aside.start-here p.title {
     font-family:sans-serif;
     font-weight:bold;
     text-align:center;
-    background-color:ivory;
+    background-color:var(--start-here-p-title-bg);
     margin:0;
     padding:0
 }
@@ -552,5 +529,5 @@ table.term-guide th {
 }
 
 table.term-guide tbody tr:hover {
-   background-color: #dfd;
+   background-color: var(--term-guide-hover);
 }
