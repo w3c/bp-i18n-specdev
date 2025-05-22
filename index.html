@@ -1765,13 +1765,13 @@ Content-Disposition: attachment; filename="Åsa.txt"
           <td>0xC3 0x85</td><td>0x73</td><td>0x61</td><td>0x2E</td><td>0x74</td><td>0x78</td><td>0x74</td>
         </tr>
         <tr>
-          <td>Unicode Code Point</td>
+          <td>Code Point</td>
           <td>U+00C5</td><td>U+0073</td><td>U+0061</td><td>U+002E</td><td>U+0074</td><td>U+0078</td><td>U+0074</td>
         </tr>
       </tbody>
     </table>
     
-    <p>If an application wishes to process the individual bytes, specifying a {{ByteString}}, which uses an isomorphic coding, exposes the underlying bytes:</p>
+    <p>If an application wishes to process the individual bytes, specifying a {{ByteString}}, which uses an isomorphic coding, exposes the underlying bytes as code points in the converted string. An application could then do processing on the byte values as-if they were characters:</p>
     
         <table class="byte-oriented-example">
       <caption>Isomorphic coding of <code>Åsa.txt</code> with UTF-8 as the character encoding</caption>
