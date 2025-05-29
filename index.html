@@ -1678,9 +1678,9 @@
    <p><a href="https://www.w3.org/TR/string-meta/#protocol-strings">Strings that are part of a legacy protocol or format</a>, in <cite>Strings on the Web: Language and Direction Metadata</cite> [[STRING-META]]</p>
 </div>
 
-    <p>Prior to the widespread adoption of Unicode, the basic definition of a string was a sequence of bytes with an associated [=character encoding form=]. The general term <strong><em>byte string</em></strong> was sometimes used for this definition of a string.</p>
+    <p>Prior to the widespread adoption of Unicode, the basic definition of a string was a sequence of bytes in some (usually national or language-specific) [=coded character set=]. The general term <strong><em>byte string</em></strong> was sometimes used for this definition of a string.</p>
     
-    <p>A familiar manifestation of byte strings is the <code>char *</code> type in the C programming language. Interpreting such byte strings requires the specification of a [=character encoding form=], because different [=character encodings=] use the same byte values for different purposes. Many [=legacy character encodings=] are stateful: processing such encodings often requires starting at the beginning of the byte buffer, so that character state is retained and the [=abstract character=] can be decoded, processed, or modified successfully.</p>
+    <p>A familiar manifestation of byte strings is the <code>char*</code> type in the C programming language. Interpreting such byte strings requires the specification of a [=character encoding form=], because different [=character encodings=] use the same byte values for different purposes. Many [=legacy character encodings=] are stateful: processing such encodings often requires starting at the beginning of the byte buffer, so that character state is retained and the [=abstract character=] can be decoded, processed, or modified successfully.</p>
     
     <div class="xref"><span class="seealso">See also</span>
     <p><a href="https://www.w3.org/TR/charmod/#sec-Strings" target="_blank">String concepts</a> in [[[CHARMOD]]])</p>
