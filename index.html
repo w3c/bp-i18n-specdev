@@ -1692,18 +1692,12 @@
     
     <p>The prevalence of UTF-8, including as the preferred and default [=character encoding form=], diminishes the need for most specifications to access or manipulate underlying byte values. UTF-8 is designed such that 7-bit ASCII text is also valid UTF-8, which can be important when dealing with encoding or decoding formats based on ASCII.</p>
     
-    <aside class="example" title="An ASCII based protocol: HTTP 1.1">
-       <p>The HTTP [[RFC9112]] protocol is defined by a series of byte sequences separated by CRLF (carriage return/line feed). Important in the design and specification of HTTP is the fact that the byte values and characters of 7-bit US-ASCII are interchangeable. HTTP does not define or prefer any particular [=character encoding form=] for non-ASCII data; it is agnostic about such values, dealing only with octets (bytes). The specification says:</p>
-    
-       <blockquote>A recipient MUST parse an HTTP message as a sequence of octets in an encoding that is a superset of US-ASCII.</blockquote>
-       
-       <p>An HTTP request encoded in UTF-8 might contain lines that look like this:</p>
+    <aside class="example" title="Working with non-ASCII data in an HTTP header">
+       <p>HTTP requests sometimes need to transmit non-ASCII data without the use of a transfer encoding (such as Base64 [[RFC4648]]). One header that is often used in this manner is <kbd translate="no">Content-Disposition</kbd>, which is used for operations such as file uploads. (To ensure interoperability, the filename is always encoded in UTF-8.) Such a request might contain lines like:</p>
        
        <pre class="http">
 POST /file-upload HTTP/1.1
-User-Agent: Mozilla/5.0
-Host: www.example.com
-Accept-Language: fr-CH, fr;q=0.9, en;q=0.8, de;q=0.7, *;q=0.5
+...
 Content-Disposition: attachment; filename="Åsa.txt"
        </pre>
      
@@ -2021,6 +2015,8 @@ Content-Disposition: attachment; filename="Åsa.txt"
     <div class="req" id="char_string_no_legacy">
 	<p class="advisement">Specifications SHOULD NOT add or define support for <a>legacy character encodings</a> unless there is a specific reason to do so.</p>
     </div>
+    
+    <p>New protocols and formats, as well as existing formats deployed in new contexts, are required to use the UTF-8 character encoding. This policy applies to IETF and Web standards and is articulated in [[RFC2277]], [[RFC3629]], [[Encoding]], [[design-principles]], and many more. The only specifications that need <a>legacy character encodings</a> are those that work with older protocols or formats and even there UTF-8 is strongly recommended.</p>
 
 	<div class="req" id="char_identification">
 	<p class="advisement">Specifications MUST either specify a unique character encoding, or provide character encoding identification mechanisms such that the encoding of text can be reliably identified.</p>
