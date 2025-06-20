@@ -2013,91 +2013,61 @@ Content-Disposition: attachment; filename="Åsa.txt"
 </ul>
 </aside>
 
-    <div class="req" id="char_string_no_legacy">
-	<p class="advisement">Specifications SHOULD NOT add or define support for <a>legacy character encodings</a> unless there is a specific reason to do so.</p>
+    <div class="req" id="char-use-utf8">
+        <p class="advisement">Use UTF-8 unless you have a good reason not to.</p>
     </div>
     
-    <p>New protocols and formats, as well as existing formats deployed in new contexts, are required to use the UTF-8 character encoding. This policy applies to IETF and Web standards and is articulated in [[RFC2277]], [[RFC3629]], [[Encoding]], [[design-principles]], and many more. The only specifications that need <a>legacy character encodings</a> are those that work with older protocols or formats and even there UTF-8 is strongly recommended.</p>
+    <p>When specifying the serialization of text, whether it be in a file, format, or protocol, UTF-8 is the best choice for nearly all applications.</p>
+    
+    <aside class="note">
+        <p>APIs and text processing on the Web are often defined in terms of UTF-16 [=code units=], such as with the type {{DOMString}} or in terms of [=Unicode code points=], such as with the type {{USVString}}. Specifying text processing in this way is more efficient than working with UTF-8. However, UTF-16 is rarely used as a file encoding or for serialization in protocols: UTF-8 is always preferred.</p>
+    </aside>
 
-	<div class="req" id="char_identification">
-	<p class="advisement">Specifications MUST either specify a unique character encoding, or provide character encoding identification mechanisms such that the encoding of text can be reliably identified.</p>
-	<details class="links"><summary>explanations &amp; examples</summary>
-	<p><a href="https://www.w3.org/TR/charmod/#sec-Encodings">Choice and Identification of Character Encodings, C015</a>, in <cite>Character Model for the World Wide Web: Fundamentals</cite></p>
-	</details>
-	</div>
-
-	<div class="req" id="char_unique_for_new">
-	<p class="advisement">When designing a new protocol, format or API, specifications SHOULD require a unique character encoding.</p>
-	<details class="links"><summary>explanations &amp; examples</summary>
-	<p><a href="https://www.w3.org/TR/charmod/#sec-Encodings">Choice and Identification of Character Encodings, C016</a>, in <cite>Character Model for the World Wide Web: Fundamentals</cite></p>
-	</details>
-	</div>
+    <div class="req" id="char-only-utf8">
+        <p class="advisement">For all new formats or protocols or where a specification can safely do so, specifications SHOULD define UTF-8 as the only permitted [=character encoding form=].</p>
+    </div>
+    
+    <p>That is, specifications should avoid adding or defining support for <a>legacy character encodings</a> unless there is a specific reason to do so. New protocols and formats, as well as existing formats deployed in new contexts, are required to use the UTF-8 character encoding. This policy applies to IETF and Web standards and is articulated in [[RFC2277]], [[RFC3629]], [[Encoding]], [[design-principles]], and many more. The only specifications that need <a>legacy character encodings</a> are those that work with older protocols or formats and even there UTF-8 is strongly recommended.</p>
+    
+    <div class="req" id="char_identification">
+        <p class="advisement">Specifications that allow multiple [=character encoding forms=] MUST provide character encoding identification mechanisms such that the encoding of text can be reliably identified.</p>
+	    <details class="links"><summary>explanations &amp; examples</summary>
+	        <p><a href="https://www.w3.org/TR/charmod/#sec-Encodings">Choice and Identification of Character Encodings, C015</a>, in <cite>Character Model for the World Wide Web: Fundamentals</cite></p>
+	    </details>
+    </div>
 
 	<div class="req" id="char_enc_rules">
-	<p class="advisement">When basing a protocol, format, or API on a protocol, format, or API that already has rules for character encoding, specifications SHOULD use rather than change these rules.</p>
-	<details class="links"><summary>explanations &amp; examples</summary>
-	<p><a href="https://www.w3.org/TR/charmod/#sec-Encodings">Choice and Identification of Character Encodings, C017</a>, in <cite>Character Model for the World Wide Web: Fundamentals</cite></p>
-	</details>
+	    <p class="advisement">When basing a protocol, format, or API on a protocol, format, or API that already has rules for choosing, applying, or labeling the character encoding, specifications SHOULD use the existing rules rather than change these rules.</p>
+	    <details class="links"><summary>explanations &amp; examples</summary>
+	        <p><a href="https://www.w3.org/TR/charmod/#sec-Encodings">Choice and Identification of Character Encodings, C017</a>, in <cite>Character Model for the World Wide Web: Fundamentals</cite></p>
+	    </details>
 	</div>
 
-
-
-
-
-	<div class="req" id="char_use_utf8">
-	<p class="advisement">When a unique character encoding is required, the character encoding MUST be UTF-8, or UTF-16.</p>
-	<details class="links"><summary>explanations &amp; examples</summary>
-	<p><a href="https://www.w3.org/TR/charmod/#sec-UniqueEncoding">Mandating a unique character encoding, C018</a>, in <cite>Character Model for the World Wide Web: Fundamentals</cite></p>
-	</details>
-	</div>
-
-<p class="note">The above guideline needs further consideration: UTF-16 and UTF-32 are not recommended these days. UTF-8 is the recommended encoding.</p>
-	
-	
 	
  	<div class="req" id="char_charset">
-	<p class="advisement">Specifications SHOULD avoid using the terms 'character set' and 'charset' to refer to a character encoding, except when the latter is used to refer to the MIME charset parameter or its IANA-registered values. The term 'character encoding', or in specific cases the terms 'character encoding form' or 'character encoding scheme', are RECOMMENDED.</p>
+	<p class="advisement">Specifications SHOULD avoid using the terms 'character set' and 'charset' to refer to a character encoding, except when the latter is used to refer to the MIME charset parameter or its IANA-registered values. The terms [=character encoding=] or [=character encoding form=] are RECOMMENDED.</p>
 	<details class="links"><summary>explanations &amp; examples</summary>
 	<p><a href="https://www.w3.org/TR/charmod/#sec-EncodingIdent">Mandating a unique character encoding, C020</a>, in <cite>Character Model for the World Wide Web: Fundamentals</cite></p>
 	</details>
 	</div>
-
- 	<div class="req" id="char_iana">
-	<p class="advisement">If the unique encoding approach is not taken, specifications SHOULD require the use of the IANA charset registry names, and in particular the names identified in the registry as 'MIME preferred names', to designate character encodings in protocols, data formats and APIs.</p>
+    
+    <div class="req" id="char-use-encoding-std">
+        <p class="advisement">If a specification permits [=legacy character encodings=], it SHOULD restrict the set of [=character encodings=] to those listed in [[[Encoding]]] [[Encoding]] in the section "Names and Labels".</p>
 	<details class="links"><summary>explanations &amp; examples</summary>
 	<p><a href="https://www.w3.org/TR/charmod/#sec-EncodingIdent">Character encoding identification, C021</a>, in <cite>Character Model for the World Wide Web: Fundamentals</cite></p>
 	</details>
-	</div>
-	
-    <p class="note">The above guideline needs further consideration: the list of character encodings recommended for Web specifications is listed in the Encoding specification.</p>
+    </div>
 
  	<div class="req" id="char_non_iana">
-	<p class="advisement">Character encodings that are not in the IANA registry SHOULD NOT be used, except by private agreement.</p>
-	<details class="links"><summary>explanations &amp; examples</summary>
-	<p><a href="https://www.w3.org/TR/charmod/#sec-EncodingIdent">Character encoding identification, C022</a>, in <cite>Character Model for the World Wide Web: Fundamentals</cite></p>
-	</details>
+	    <p class="advisement">Character encodings that are not in the IANA registry SHOULD NOT be used, except by private agreement. In such an agreement, the convention of using 'x-' at the beginning of the name MUST be followed.</p>
+	    <details class="links"><summary>explanations &amp; examples</summary>
+	        <p><a href="https://www.w3.org/TR/charmod/#sec-EncodingIdent">Character encoding identification, C022</a>, in <cite>Character Model for the World Wide Web: Fundamentals</cite></p>
+    	    <p><a href="https://www.w3.org/TR/charmod/#sec-EncodingIdent">Character encoding identification, C023</a>, in <cite>Character Model for the World Wide Web: Fundamentals</cite></p>
+	    </details>
 	</div>
+    
+    <p class="issue">We (I18N) need to decide whether to fully embrace Encoding or keep some remnants of the IANA registry stuff around.</p> 
 
- 	<div class="req" id="char_x">
-	<p class="advisement">If an unregistered character encoding is used, the convention of using 'x-' at the beginning of the name MUST be followed.</p>
-	<details class="links"><summary>explanations &amp; examples</summary>
-	<p><a href="https://www.w3.org/TR/charmod/#sec-EncodingIdent">Character encoding identification, C023</a>, in <cite>Character Model for the World Wide Web: Fundamentals</cite></p>
-	</details>
-	</div>
-
- 	<div class="req" id="char_not_unique">
-	<p class="advisement">If the unique encoding approach is not chosen, specifications MUST designate at least one of the UTF-8 and UTF-16 encoding forms of Unicode as admissible character encodings and SHOULD choose at least one of UTF-8 or UTF-16 as required encoding forms (encoding forms that MUST be supported by implementations of the specification).</p>
-	<details class="links"><summary>explanations &amp; examples</summary>
-	<p><a href="https://www.w3.org/TR/charmod/#sec-EncodingIdent">Character encoding identification, C026</a>, in <cite>Character Model for the World Wide Web: Fundamentals</cite></p>
-	</details>
-	</div>
-
-<div class="req" id="char_default">
-	<p class="advisement">Specifications that require a default encoding MUST define either UTF-8 or UTF-16 as the default, or both if they define suitable means of distinguishing them.</p>
-	<details class="links"><summary>explanations &amp; examples</summary>
-	<p><a href="https://www.w3.org/TR/charmod/#sec-EncodingIdent">Character encoding identification, C027</a>, in <cite>Character Model for the World Wide Web: Fundamentals</cite></p>
-	</details>
-</div>
   </section>
 
 
