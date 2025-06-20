@@ -145,8 +145,6 @@
 
 
 
-
-
 <section class="appendix" id="ghChecklist">
 <h3>Create a github checklist</h3>
 
@@ -1672,32 +1670,146 @@
 	<p class="advisement">Avoid mixing {{DOMString}} and {{USVString}} in a single document or protocol operation. Often you will choose a {{DOMString}} over a {{USVString}}, since the latter requires extra processing that does not benefit most document formats or protocols.</p>
 </div>
 
-<div class="req" id="char_string_byte">
-	<p class="advisement">Specifications SHOULD NOT define a string as a {{ByteString}} or as a sequence of bytes ('byte string'). For binary data or sequences of bytes, use {{Uint8Array}} instead.</p>
+
+<section id="char-string-byte-oriented">
+    <h4>Characters stored in byte sequences</h4>
+    
+<div class="xref"><span class="seealso">See also</span>
+   <p>[[[#char_choosing]]] for additional best practices related to [=character encodings=].</p>
+   <p><a href="https://www.w3.org/TR/string-meta/#protocol-strings">Strings that are part of a legacy protocol or format</a>, in <cite>Strings on the Web: Language and Direction Metadata</cite> [[STRING-META]]</p>
+</div>
+
+    <p>Prior to the widespread adoption of Unicode, it was common to define a string as a <strong><em>byte string</em></strong>. Such a string is simply a sequence of byte values rather than a sequence of characters or [=code points=]. A familiar manifestation of byte strings is a <code lang="zxx" translate="no">char*</code> in the C programming language.</p>
+    
+    <p>Processing or interpreting a byte string depends on the [=character encoding form=]. Many [=legacy character encodings=] are stateful: processing such encodings often requires starting at the beginning of the byte buffer, so that character state is retained and the [=abstract character=] can be decoded, processed, or modified successfully. A given byte value in such an encoding might mean different things depending on the bytes adjacent to it. For example, the exact same byte value might stand alone to represent a character or, depending on the preceding bytes, be part of a multibyte sequence that represents some different character. The rules for determining how to interpret each byte or byte sequence are different for different [=legacy character encodings=]. Processing a byte string using the wrong [=character encoding=] results in malformed characters (an effect sometimes called [=mojibake=]).</p>
+    
+    <div class="xref"><span class="seealso">See also</span>
+    <p><a href="https://www.w3.org/TR/charmod/#sec-Strings" target="_blank">String concepts</a> in [[[CHARMOD]]])</p>
+    </div>
+
+    <p>UTF-8 is the preferred [=character encoding=] for wire and document formats on the Web [[ENCODING]] or the Internet in general [[RFC3629]]. When content is encoded in UTF-8, there is rarely a reason to interact with it as a byte sequence. Most Web APIs and interfaces are more concerned with the [=code point=] sequence, since that represents the characters in question, rather than the specific byte values.</p>
+    
+    <p>Sometimes specifications do need to deal with the storage, interpretation, and manipulation of byte values. In particular, many document formats and protocols were defined around the use of 7-bit [[ASCII]] bytes, while allowing the inclusion or interchange of non-ASCII data values via the use of various character or data encoding schemes. Sometimes this is done by designating a [=character encoding form=], such as with the <code>charset</code> parameter of the <code>text</code> media types. Or it might be done by encoding byte values using some special syntax, an example of which would be [=percent encoding=].</p>
+    
+    <p>The prevalence of UTF-8, including as the preferred and default [=character encoding form=], diminishes the need for most specifications to access or manipulate underlying byte values. UTF-8 is designed such that 7-bit ASCII text is also valid UTF-8, which can be important when dealing with encoding or decoding formats based on ASCII.</p>
+    
+    <aside class="example" title="Working with non-ASCII data in an HTTP header">
+       <p>HTTP requests sometimes need to transmit non-ASCII data without the use of a transfer encoding (such as Base64 [[RFC4648]]). One header that is often used in this manner is <kbd translate="no">Content-Disposition</kbd>, which is used for operations such as file uploads. (To ensure interoperability, the filename is always encoded in UTF-8.) Such a request might contain lines like:</p>
+       
+       <pre class="http">
+POST /file-upload HTTP/1.1
+...
+Content-Disposition: attachment; filename="Åsa.txt"
+       </pre>
+     
+     <p>The characteristics of UTF-8 mean that most of the byte values in the header are also their Unicode [=code points=]. For example, here is the word "filename": </p>  
+
+<table class="byte-oriented-example">
+  <thead>
+    <tr>
+      <th style="width:10rem">String</th>
+      <th style="text-align:center">f</th>
+      <th style="text-align:center">i</th>
+      <th style="text-align:center">l</th>
+      <th style="text-align:center">e</th>
+      <th style="text-align:center">n</th>
+      <th style="text-align:center">a</th>
+      <th style="text-align:center">m</th>
+      <th style="text-align:center">e</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Byte</td>
+      <td><code>0x66</code></td>
+      <td><code>0x69</code></td>
+      <td><code>0x6C</code></td>
+      <td><code>0x65</code></td>
+      <td><code>0x6E</code></td>
+      <td><code>0x61</code></td>
+      <td><code>0x6D</code></td>
+      <td><code>0x65</code></td>
+    </tr>
+    <tr>
+      <td>Code Point</td>
+      <td><code>U+0066</code></td>
+      <td><code>U+0069</code></td>
+      <td><code>U+006C</code></td>
+      <td><code>U+0065</code></td>
+      <td><code>U+006E</code></td>
+      <td><code>U+0061</code></td>
+      <td><code>U+006D</code></td>
+      <td><code>U+0065</code></td>
+    </tr>
+  </tbody>
+</table>
+
+    
+    <p>The filename itself, however, contains a non-ASCII character: <span class="codepoint"><bdi lang="sv">&#xc5;</bdi><span class="uname">U+00C5 LATIN CAPITAL LETTER A WITH RING ABOVE</span></span></span>. That character is encoded in UTF-8 as two bytes: <kbd>0xC3 0x85</kbd>.</p>
+
+    <table class="byte-oriented-example">
+      <thead>
+        <tr>
+          <th>String</th>
+          <th>Å</th><th>s</th><th>a</th><th>.</th><th>t</th><th>x</th><th>t</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Bytes</td>
+          <td>0xC3 0x85</td><td>0x73</td><td>0x61</td><td>0x2E</td><td>0x74</td><td>0x78</td><td>0x74</td>
+        </tr>
+        <tr>
+          <td>Code Point</td>
+          <td>U+00C5</td><td>U+0073</td><td>U+0061</td><td>U+002E</td><td>U+0074</td><td>U+0078</td><td>U+0074</td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <p>If an application wishes to process the individual bytes, specifying a {{ByteString}}, which uses an isomorphic coding, exposes the underlying bytes as code points in the converted string. An application could then do processing on the byte values as-if they were characters:</p>
+    
+        <table class="byte-oriented-example">
+      <caption>Isomorphic coding of <code>Åsa.txt</code> with UTF-8 as the character encoding</caption>
+      <thead>
+        <tr>
+          <th>String</th>
+          <th colspan="2">Å</th><th>s</th><th>a</th><th>.</th><th>t</th><th>x</th><th>t</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Bytes</td>
+          <td>0xC3</td><td>0x85</td><td>0x73</td><td>0x61</td><td>0x2E</td><td>0x74</td><td>0x78</td><td>0x74</td>
+        </tr>
+        <tr>
+          <td>Code Point</td>
+          <td>U+00C3</td><td>U+0085</td><td>U+0073</td><td>U+0061</td><td>U+002E</td><td>U+0074</td><td>U+0078</td><td>U+0074</td>
+        </tr>
+      </tbody>
+    </table>
+
+    </aside>
+
+    <div class="req" id="char-string-dom-usv-bytes">
+        <p class="advisement">Specify {{DOMString}} or, rarely, {{USVString}} for fields in protocols or document formats defined using bytes unless there is some reason to interact with specific bytes values or for which the UTF-8 [=character encoding=] cannot be assumed.</p>
+    </div>
+    
+    <p>If the field in question is meant to be treated as a string, working with Unicode characters will be more reliable than trying to work with the byte values directly. The data encoded into these fields will be deserialized from the wire format into your local in-memory string representation, such as the [[DOM]], JavaScript strings, or your platform's native Unicode string type. Later it will need to be serialized into the wire format using some [=character encoding form=] (usually&mdash;and <em>preferably</em>&mdash;UTF-8).</p>
+ 
+    <div class="req" id="char-string-uint8">
+        <p class="advisement"> Specify {{Uint8Array}} when working with byte sequences, such as for data that does not contain text, or for byte sequences representing text for which processing is never required (such as when copying buffers).</p>
+    </div>
+    
+    <div class="req" id="char_string_byte">
+	<p class="advisement">Specify {{ByteString}} in the rare cases where the specification needs to work with strings which are encoded using bytes and for which the conversion to or from Unicode would be inappropriate.</p>
 	<details class="links"><summary>explanations &amp; examples</summary>
-	   <p><a href="https://www.w3.org/TR/charmod/#sec-Strings">String concepts, C011</a>, in <cite>Character Model for the World Wide Web: Fundamentals</cite>.</p>
-	   <p><a href="https://www.w3.org/TR/string-meta/#protocol-strings">Strings that are part of a legacy protocol or format</a>, in <cite>Strings on the Web: Language and Direction Metadata</cite> [[STRING-META]]</p>
 	   <p><a href="https://www.w3.org/TR/design-principles/#idl-string-types">IDL String Types</a> in <cite>Web Platform Design Principles</cite> [[DESIGN-PRINCIPLES]]</p>
 	</details>
-</div>
+    </div>
 
-<div class="req" id="char_string_no_legacy">
-	<p class="advisement">Specifications SHOULD NOT add or define support for <a>legacy character encodings</a> unless there is a specific reason to do so.</p>
-	<details class="links"><summary>explanations &amp; examples</summary>
-	<p>See also <a href="#char_choosing"></a>.</p>
-	</details>
-</div>
-
-<p>The type {{ByteString}} defines strings as sequences of bytes (octets). Interpretation of byte strings thus requires the specification of a <a>character encoding form</a>. UTF-8 is the preferred encoding for wire and document formats [[ENCODING]], but there is generally no reason to specify strings in terms of the underlying byte values.</p>
-
-<aside class="note">
-	<p>Specifications for document formats or protocols often deal with the specific byte values used for various fields or values or with the <a>character encoding</a> used for serializing the data. It is therefore tempting to specify a text field ("string") as a {{ByteString}} which uses the <a>UTF-8</a> <a>character encoding form</a>.</p>
-	
-	<p>It is preferable, however, to specify these fields as a {{DOMString}} (or, rarely, a {{USVString}}), since the data encoded into these fields must be serialized from and deserialized into in-memory string representations, such as the [[DOM]] or JavaScript strings or your platform's native Unicode string type.</p>
-</aside>
-
-<p>See <a href="#char_choosing"></a> for additional best practices.</p>
-
+    <p>{{ByteString}} isn’t a general-purpose string type. Don't use it to define data structures in [[WebIDL]].</p>
+    
+</section>
 </section>
 
 
@@ -1901,7 +2013,11 @@
 </ul>
 </aside>
 
-
+    <div class="req" id="char_string_no_legacy">
+	<p class="advisement">Specifications SHOULD NOT add or define support for <a>legacy character encodings</a> unless there is a specific reason to do so.</p>
+    </div>
+    
+    <p>New protocols and formats, as well as existing formats deployed in new contexts, are required to use the UTF-8 character encoding. This policy applies to IETF and Web standards and is articulated in [[RFC2277]], [[RFC3629]], [[Encoding]], [[design-principles]], and many more. The only specifications that need <a>legacy character encodings</a> are those that work with older protocols or formats and even there UTF-8 is strongly recommended.</p>
 
 	<div class="req" id="char_identification">
 	<p class="advisement">Specifications MUST either specify a unique character encoding, or provide character encoding identification mechanisms such that the encoding of text can be reliably identified.</p>

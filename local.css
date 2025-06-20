@@ -531,3 +531,23 @@ table.term-guide th {
 table.term-guide tbody tr:hover {
    background-color: var(--term-guide-hover);
 }
+
+table.byte-oriented-example {
+    border-collapse: collapse;
+    margin: 1em 0;
+  }
+
+table.byte-oriented-example th, td {
+    border: 1px solid #ccc;
+    padding: 0.5em;
+  }
+
+table.byte-oriented-example  th:first-child,
+  td:first-child {
+    text-align: left;
+  }
+
+table.byte-oriented-example  th:not(:first-child),
+  td:not(:first-child) {
+    text-align: center;
+  }
