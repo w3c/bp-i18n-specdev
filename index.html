@@ -2014,13 +2014,14 @@ Content-Disposition: attachment; filename="Åsa.txt"
 </aside>
 
     <div class="req" id="char-use-utf8">
-        <p class="advisement">Use UTF-8 unless you have a good reason not to.</p>
+        <p class="advisement">Specify UTF-8 for all document formats, protocols, or serialization forms unless you have a good reason not to.</p>
     </div>
     
     <p>When specifying the serialization of text, whether it be in a file, format, or protocol, UTF-8 is the best choice for nearly all applications.</p>
     
     <aside class="note">
-        <p>APIs and text processing on the Web are often defined in terms of UTF-16 [=code units=], such as with the type {{DOMString}} or in terms of [=Unicode code points=], such as with the type {{USVString}}. Specifying text processing in this way is more efficient than working with UTF-8. However, UTF-16 is rarely used as a file encoding or for serialization in protocols: UTF-8 is always preferred.</p>
+        <p>APIs and text processing on the Web are often defined in terms of strings, rather than as byte sequences with some specific [=character encoding=]. As discussed in [[[#char_string]]], the definition of a 'string' will almost always be in terms of UTF-16 [=code units=] ({{DOMString}}) or in terms of [=Unicode code points=] ({{USVString}}). Specifying text processing in this way is more efficient than working with bytes in UTF-8. The conversion between UTF-16 for processing and UTF-8 for serialization is algorithmic and lossless.</p>
+        <p>As a result, UTF-8 is always preferred when specifying a [=character encoding form=] on the Web.</p>
     </aside>
 
     <div class="req" id="char-only-utf8">
