@@ -2020,7 +2020,7 @@ Content-Disposition: attachment; filename="Åsa.txt"
     <p>UTF-8 is the best choice for nearly all applications.</p>
     
     <aside class="note">
-        <p>Web APIs and text processing usually specified using strings rather than trying to grappple with the raw byte sequences in a specific [=character encoding form=]. As noted in [[[#char_string]]], these strings are typically represented using UTF-16 [=code units=] ({{DOMString}}) or, less commonly, as Unicode [=code points=] ({{USVString}}). Because the conversion between these forms and UTF-8 is algorithmic, lossless, and usually invisible to users and since UTF-16 is a comparatively poor choice for serialization, UTF-8 is the preferred [=character encoding=] for storage and transmission.</p>
+        <p>Web APIs and text processing usually specified using strings rather than trying to grappple with the raw byte sequences in a specific [=character encoding form=]. As noted in [[[#char_string]]], these strings are typically represented using UTF-16 [=code units=] ({{DOMString}}) or, less commonly, as Unicode [=code points=] ({{USVString}}). Because UTF-16 is a comparatively poor choice for serialization, and since the implicit conversion between UTF-8 and the various string representations is mostly invisible to users, UTF-8 is the preferred [=character encoding=] for storage and transmission.</p>
     </aside>
 
     <div class="req" id="char-only-utf8">
