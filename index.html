@@ -2014,10 +2014,10 @@ Content-Disposition: attachment; filename="Åsa.txt"
 </aside>
 
     <div class="req" id="char-use-utf8">
-        <p class="advisement">Specify UTF-8 for all document formats, protocols, or serialization forms unless you have a good reason not to.</p>
+        <p class="advisement">Use UTF-8 for all document formats, protocols, or serialization forms.</p>
     </div>
     
-    <p>When specifying the serialization of text, whether it be in a file, format, or protocol, UTF-8 is the best choice for nearly all applications.</p>
+    <p>UTF-8 is the best choice for nearly all applications.</p>
     
     <aside class="note">
         <p>Web APIs and text processing usually specified using strings rather than trying to grappple with the raw byte sequences in a specific [=character encoding form=]. As noted in [[[#char_string]]], these strings are typically represented using UTF-16 [=code units=] ({{DOMString}}) or, less commonly, as Unicode [=code points=] ({{USVString}}). Because the conversion between these forms and UTF-8 is algorithmic, lossless, and usually invisible to users and since UTF-16 is a comparatively poor choice for serialization, UTF-8 is the preferred [=character encoding=] for storage and transmission.</p>
@@ -2029,33 +2029,8 @@ Content-Disposition: attachment; filename="Åsa.txt"
     
     <p>New protocols and formats, as well as existing formats deployed in new contexts, are required to use the UTF-8 character encoding. This policy applies to IETF and Web standards and is articulated in [[RFC2277]], [[RFC3629]], [[Encoding]], [[design-principles]], and many more. The only specifications that need <a>legacy character encodings</a> are those that work with older protocols or formats and even there UTF-8 is strongly recommended.</p>
     
-    <div class="req" id="char_identification">
-        <p class="advisement">Specifications that allow multiple [=character encoding forms=] MUST provide character encoding identification mechanisms such that the encoding of text can be reliably identified.</p>
-	    <details class="links"><summary>explanations &amp; examples</summary>
-	        <p><a href="https://www.w3.org/TR/charmod/#sec-Encodings">Choice and Identification of Character Encodings, C015</a>, in <cite>Character Model for the World Wide Web: Fundamentals</cite></p>
-	    </details>
-    </div>
-
-	<div class="req" id="char_enc_rules">
-	    <p class="advisement">When basing a protocol, format, or API on a protocol, format, or API that already has rules for choosing, applying, or labeling the character encoding, specifications SHOULD use the existing rules rather than change these rules.</p>
-	    <details class="links"><summary>explanations &amp; examples</summary>
-	        <p><a href="https://www.w3.org/TR/charmod/#sec-Encodings">Choice and Identification of Character Encodings, C017</a>, in <cite>Character Model for the World Wide Web: Fundamentals</cite></p>
-	    </details>
-	</div>
-    
-    <p class="issue">The above needs more work to incorporate the guidance to use UTF-8 when the protocol/format is used in a new context.</p>
-	
- 	<div class="req" id="char_charset">
-	    <p class="advisement">Specifications SHOULD avoid using the terms 'character set' and 'charset' to refer to a character encoding, except when the latter is used to refer to the MIME charset parameter or its IANA-registered values. The terms [=character encoding=] or [=character encoding form=] are RECOMMENDED.</p>
-	    <details class="links"><summary>explanations &amp; examples</summary>
-	        <p><a href="https://www.w3.org/TR/charmod/#sec-EncodingIdent">Mandating a unique character encoding, C020</a>, in <cite>Character Model for the World Wide Web: Fundamentals</cite></p>
-	    </details>
-	</div>
-    
-    <p class="issue">Is the above MUSTard needed?</p>
-    
     <div class="req" id="char-use-encoding-std">
-        <p class="advisement">If a specification permits [=legacy character encodings=], it <del>SHOULD</del>MUST restrict the set of [=character encodings=] to those listed in the [[[Encoding]]] in the section "Names and Labels". Other encodings SHOULD NOT be used, except by private agreement.</p>
+        <p class="advisement">If, for historical reasons, a specification permits [=legacy character encodings=], it MUST restrict the set of [=character encodings=] to those listed in the [[[Encoding]]] in the section "Names and Labels". Other encodings SHOULD NOT be used, except by private agreement.</p>
 	    <details class="links"><summary>explanations &amp; examples</summary>
 	        <p><a href="https://www.w3.org/TR/charmod/#sec-EncodingIdent">Character encoding identification, C021</a>, in <cite>Character Model for the World Wide Web: Fundamentals</cite></p>
     	    <p><a href="https://www.w3.org/TR/charmod/#sec-EncodingIdent">Character encoding identification, C022</a>, in <cite>Character Model for the World Wide Web: Fundamentals</cite></p>
@@ -2079,6 +2054,50 @@ Content-Disposition: attachment; filename="Åsa.txt"
 </ul>
 </aside>
 
+    <div class="req" id="char_identification">
+        <p class="advisement">Specifications that allow multiple [=character encoding forms=] MUST provide a mechanism, such as a field or parameter, that clearly identifies the encoding of text.</p>
+	    <details class="links"><summary>explanations &amp; examples</summary>
+	        <p><a href="https://www.w3.org/TR/charmod/#sec-Encodings">Choice and Identification of Character Encodings, C015</a>, in <cite>Character Model for the World Wide Web: Fundamentals</cite></p>
+	    </details>
+    </div>
+
+    <p>[=Character encodings=] cannot be reliably detected just from the byte values. If encodings other than UTF-8 are permitted, there has to be some mechanism for the [=consumer=] to determine what the encoding is.</p>
+    
+    <aside class="example" title="Examples of character encoding mechanisms">
+        <p>Here are a few examples of ways that some common specifications indicate encoding:</p>
+        <table>
+            <tr>
+                <th>Format</th><th>Example</th><th>Note</th>
+            </tr>
+            <tr>
+                <td>XML</td>
+                <td><code class="xml" style="color:gray">&lt;?xml version="1.0" <strong style="color:blue">encoding="UTF-8"</strong> ?&gt;</code></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>HTML</td>
+                <td><code class="html" style="color:gray">&lt;html&gt;<br><strong style="color:blue">&lt;meta charset="UTF-8"&gt;</strong>...</code></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>MIME type=text/*</td>
+                <td><code style="color:gray">Content-Type: text/plain<strong style="color:blue">;charset=UTF-8</strong></code></td>
+                <td>New MIME types should not specify a <code>charset</code> parameter. They should always specify UTF-8 instead.</td>
+            </tr>
+        </table>
+    </aside>
+    
+    
+	<div class="req" id="char_enc_rules">
+	    <p class="advisement">If a protocol, format, or API is based on a format that already has rules for choosing, applying, or labeling the character encoding, the specification MUST NOT define a separate mechanism for identifying the encoding.</p>
+	    <details class="links"><summary>explanations &amp; examples</summary>
+	        <p><a href="https://www.w3.org/TR/charmod/#sec-Encodings">Choice and Identification of Character Encodings, C017</a>, in <cite>Character Model for the World Wide Web: Fundamentals</cite></p>
+	    </details>
+	</div>
+    
+    <div class="req" id="char_enc_rules">
+	    <p class="advisement">If a specification is based on a format that permits encodings other than UTF-8, the specification SHOULD restrict the encoding to UTF-8.</p>
+	</div>
 
  	<div class="req" id="char_heuristics">
 	<p class="advisement">Specifications MUST NOT propose the use of heuristics to determine the encoding of data.</p>
