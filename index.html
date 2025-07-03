@@ -2013,6 +2013,8 @@ Content-Disposition: attachment; filename="Åsa.txt"
 </ul>
 </aside>
 
+    <p>Historically (and especially in the period before Unicode was created), there were many [=coded character sets=] in common use, with different schemes for encoding and serializing characters into the memory or storage of computer systems. In addition to standards-based schemes, such as those specified by ISO/IEC 8859, there were also many proprietary vendor or platform-specific [=character sets=], often with associated [=character encoding forms=]. When referring to the [=character encoding form=] of legacy (non-Unicode) [=coded character sets=] in this document, we mean the specific modern mappings of bytes to Unicode code points, as specified in [[Encoding]].</p>
+
     <div class="req" id="char-use-utf8">
         <p class="advisement">Use UTF-8 for all document formats, protocols, and serialization forms.</p>
     </div>
@@ -2098,6 +2100,8 @@ Content-Disposition: attachment; filename="Åsa.txt"
     <div class="req" id="char_enc_rules">
 	    <p class="advisement">If a specification is based on a format that permits [=character encodings=] other than UTF-8, the specification SHOULD restrict the [=character encoding=] to UTF-8.</p>
 	</div>
+    
+    <p>Document formats or protocols sometimes provide support for [=legacy character encodings=]. Specifications built upon those formats, where it is feasible to do so, can specify that conformant implementations use only UTF-8.</p>
 
  	<div class="req" id="char_heuristics">
 	<p class="advisement">Specifications MUST NOT propose the use of heuristics to determine the encoding of data.</p>
