@@ -2063,8 +2063,8 @@ Content-Disposition: attachment; filename="Åsa.txt"
 
     <p>[=Character encodings=] cannot be reliably detected just from the byte values. If encodings other than UTF-8 are permitted, there has to be some mechanism for the [=consumer=] to determine what the encoding is.</p>
     
-    <aside class="example" title="Examples of character encoding mechanisms">
-        <p>Here are a few examples of ways that some common specifications indicate encoding:</p>
+    <aside class="example" title="Examples of character encoding identification mechanisms">
+        <p>Here are a few examples of ways that some common specifications indicate the [=character encoding form=] used in a given document or protocol:</p>
         <table>
             <tr>
                 <th>Format</th><th>Example</th><th>Note</th>
@@ -2089,14 +2089,14 @@ Content-Disposition: attachment; filename="Åsa.txt"
     
     
 	<div class="req" id="char_enc_rules">
-	    <p class="advisement">If a protocol, format, or API is based on a format that already has rules for choosing, applying, or labeling the character encoding, the specification MUST NOT define a separate mechanism for identifying the encoding.</p>
+	    <p class="advisement">If a protocol, format, or API is based on a format that already has rules for choosing, applying, or labeling the [=character encoding=], the specification MUST NOT define a separate mechanism for identifying the [=character encoding=].</p>
 	    <details class="links"><summary>explanations &amp; examples</summary>
 	        <p><a href="https://www.w3.org/TR/charmod/#sec-Encodings">Choice and Identification of Character Encodings, C017</a>, in <cite>Character Model for the World Wide Web: Fundamentals</cite></p>
 	    </details>
 	</div>
     
     <div class="req" id="char_enc_rules">
-	    <p class="advisement">If a specification is based on a format that permits encodings other than UTF-8, the specification SHOULD restrict the encoding to UTF-8.</p>
+	    <p class="advisement">If a specification is based on a format that permits [=character encodings=] other than UTF-8, the specification SHOULD restrict the [=character encoding=] to UTF-8.</p>
 	</div>
 
  	<div class="req" id="char_heuristics">
@@ -2107,7 +2107,7 @@ Content-Disposition: attachment; filename="Åsa.txt"
 	</div>
 
  	<div class="req" id="char_conflict">
-	<p class="advisement">Specifications MUST define conflict-resolution mechanisms (e.g. priorities) for cases where there is multiple or conflicting information about character encoding.</p>
+	<p class="advisement">Specifications MUST define conflict-resolution mechanisms (e.g. priorities) for cases where there is multiple or conflicting information about [=character encoding=].</p>
 	<details class="links"><summary>explanations &amp; examples</summary>
 	<p><a href="https://www.w3.org/TR/charmod/#sec-EncodingIdent">Character encoding identification, C028</a>, in <cite>Character Model for the World Wide Web: Fundamentals</cite></p>
 	</details>
