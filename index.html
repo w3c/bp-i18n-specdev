@@ -1228,6 +1228,52 @@
 <p class="reviewComments"><a href="https://github.com/w3c/i18n-activity/labels/t%3Abidi_detection_x" target="_blank">See related review comments.</a></p>
 </section>
 
+<section id="bidi_user_interface" class="subtopic">
+<h3>User interface mirroring</h3>
+
+<p class="reviewComments"><a href="https://github.com/w3c/i18n-activity/labels/t%3Abidi_user_interface" target="_blank">See related review comments.</a></p>
+</section>
+
+<div class="req" id="layout_mirroring">
+	<p class="advisement">Specifications defining user agent-provided user interface controls SHOULD support automatic mirroring for right-to-left languages, ensuring that spatial relationships, navigation patterns, and directional elements are appropriately reversed while preserving semantic meaning.</p>
+</div>
+
+<p>When content is displayed in a right-to-left language context, user agent-provided UI controls should automatically mirror their layout. This includes reversing directional icons, repositioning control elements (such as the "on" position in toggle switches), and other spatial arrangements that have inherent directional meaning.</p>
+
+<p><strong>Note:</strong> This guidance applies specifically to user agent-provided UI elements that are rendered by the user agent itself. For, logical properties in CSS or Web API that authors use, see [[[#typ_logical]]].</p>
+
+<figure style="text-align: center; margin: 2em 0;">
+<div style="display: inline-block; padding: 1em; border: 1px solid #ccc; border-radius: 4px; margin: 0 1em;">
+<div style="margin-bottom: 0.5em; font-weight: bold;">LTR Context (dir="ltr")</div>
+<div style="display: flex; align-items: center; gap: 0.5em;">
+<span>OFF</span>
+<div style="width: 40px; height: 20px; background: #ddd; border-radius: 10px; position: relative;">
+<div style="width: 18px; height: 18px; background: #007acc; border-radius: 50%; position: absolute; top: 1px; right: 1px;"></div>
+</div>
+<span>ON</span>
+</div>
+</div>
+<div style="display: inline-block; padding: 1em; border: 1px solid #ccc; border-radius: 4px; margin: 0 1em;">
+<div style="margin-bottom: 0.5em; font-weight: bold;">RTL Context (dir="rtl")</div>
+<div style="display: flex; align-items: center; gap: 0.5em;" dir="rtl">
+<span>OFF</span>
+<div style="width: 40px; height: 20px; background: #ddd; border-radius: 10px; position: relative;">
+<div style="width: 18px; height: 18px; background: #007acc; border-radius: 50%; position: absolute; top: 1px; left: 1px;"></div>
+</div>
+<span>ON</span>
+</div>
+</div>
+<figcaption style="margin-top: 1em; font-style: italic; font-size: 0.9em;">Example: A toggle switch control should automatically mirror in RTL contexts, with the "on" position appearing on the left instead of the right.</figcaption>
+</figure>
+
+<p>Examples of UI elements that should support automatic mirroring include:</p>
+<ul>
+<li>Toggle switches and sliders</li>
+<li>Progress bars</li>
+<li>Navigation arrows and directional icons</li>
+<li>Scrollbars and scroll indicators</li>
+</ul>
+
 </section>
 
 
@@ -4219,14 +4265,14 @@ transactionResult: [ SUCCESS, NOT_AUTHORIZED, INTERNAL_ERROR, UNKNOWN_ERROR ]
 
 
 
-<section id="typ_bidi" class="subtopic">
-<h3>RTL/bidi text</h3>
+<section id="typ_letterforms" class="subtopic">
+<h3>Letterform slopes, weights, &amp; italics</h3>
 
-<p class="reviewComments"><a href="https://github.com/w3c/i18n-activity/labels/t%3Atyp_bidi" target="_blank">See related review comments.</a></p>
-<aside class="links" id="links_bidi_text">
+<p class="reviewComments"><a href="https://github.com/w3c/i18n-activity/labels/t%3Atyp_letterforms" target="_blank">See related review comments.</a></p>
+<aside class="links" id="links_letterforms">
 <p class="links_title">Useful background and overviews for this section</p>
 <ul>
-<li class="w3"><p class="link"><a href="https://www.w3.org/TR/typography/#bidi_text">Bidirectional text</a>, in the Language enablement index.</p></li>
+<li class="w3"><p class="link"><a href="https://www.w3.org/TR/typography/#letterforms">Letterform slopes, weights, &amp; italics</a>, in the Language enablement index.</p></li>
 </ul>
 </aside>
 
@@ -4234,11 +4280,6 @@ transactionResult: [ SUCCESS, NOT_AUTHORIZED, INTERNAL_ERROR, UNKNOWN_ERROR ]
 	<p class="advisement">Specifications that enable sloping of letterforms SHOULD provide for characters to slope either to the right or to the left according to the needs of the specific language.</p>
 </div>
 
-<div class="req" id="layout_mirroring">
-	<p class="advisement">Specifications defining user interface layouts SHOULD support automatic mirroring for right-to-left languages, ensuring that spatial relationships, navigation patterns, and directional elements are appropriately reversed while preserving semantic meaning.</p>
-</div>
-
-<p>When content is displayed in a right-to-left language context, many user interface elements should be mirrored. This includes reversing the directional icons, and other spatial arrangements that have inherent directional meaning.</p>
 
 </section>
 
