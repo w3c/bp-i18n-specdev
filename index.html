@@ -1228,52 +1228,6 @@
 <p class="reviewComments"><a href="https://github.com/w3c/i18n-activity/labels/t%3Abidi_detection_x" target="_blank">See related review comments.</a></p>
 </section>
 
-<section id="bidi_user_interface" class="subtopic">
-<h3>User interface mirroring</h3>
-
-<p class="reviewComments"><a href="https://github.com/w3c/i18n-activity/labels/t%3Abidi_user_interface" target="_blank">See related review comments.</a></p>
-</section>
-
-<div class="req" id="layout_mirroring">
-	<p class="advisement">Specifications defining user agent-provided user interface controls SHOULD support automatic mirroring for right-to-left languages, ensuring that spatial relationships, navigation patterns, and directional elements are appropriately reversed while preserving semantic meaning.</p>
-</div>
-
-<p>When content is displayed in a right-to-left language context, user agent-provided UI controls should automatically mirror their layout. This includes reversing directional icons, repositioning control elements (such as the "on" position in toggle switches), and other spatial arrangements that have inherent directional meaning.</p>
-
-<p><strong>Note:</strong> This guidance applies specifically to user agent-provided UI elements that are rendered by the user agent itself. For, logical properties in CSS or Web API that authors use, see [[[#typ_logical]]].</p>
-
-<figure style="text-align: center; margin: 2em 0;">
-<div style="display: inline-block; padding: 1em; border: 1px solid #ccc; border-radius: 4px; margin: 0 1em;">
-<div style="margin-bottom: 0.5em; font-weight: bold;">LTR Context (dir="ltr")</div>
-<div style="display: flex; align-items: center; gap: 0.5em;">
-<span>OFF</span>
-<div style="width: 40px; height: 20px; background: #ddd; border-radius: 10px; position: relative;">
-<div style="width: 18px; height: 18px; background: #007acc; border-radius: 50%; position: absolute; top: 1px; right: 1px;"></div>
-</div>
-<span>ON</span>
-</div>
-</div>
-<div style="display: inline-block; padding: 1em; border: 1px solid #ccc; border-radius: 4px; margin: 0 1em;">
-<div style="margin-bottom: 0.5em; font-weight: bold;">RTL Context (dir="rtl")</div>
-<div style="display: flex; align-items: center; gap: 0.5em;" dir="rtl">
-<span>OFF</span>
-<div style="width: 40px; height: 20px; background: #ddd; border-radius: 10px; position: relative;">
-<div style="width: 18px; height: 18px; background: #007acc; border-radius: 50%; position: absolute; top: 1px; left: 1px;"></div>
-</div>
-<span>ON</span>
-</div>
-</div>
-<figcaption style="margin-top: 1em; font-style: italic; font-size: 0.9em;">Example: A toggle switch control should automatically mirror in RTL contexts, with the "on" position appearing on the left instead of the right.</figcaption>
-</figure>
-
-<p>Examples of UI elements that should support automatic mirroring include:</p>
-<ul>
-<li>Toggle switches and sliders</li>
-<li>Progress bars</li>
-<li>Navigation arrows and directional icons</li>
-<li>Scrollbars and scroll indicators</li>
-</ul>
-
 </section>
 
 
@@ -4261,7 +4215,55 @@ transactionResult: [ SUCCESS, NOT_AUTHORIZED, INTERNAL_ERROR, UNKNOWN_ERROR ]
 </section>
 
 
+<section id="typ_bidi_styling" class="subtopic">
+<h3>Bidi styling</h3>
 
+<p class="reviewComments"><a href="https://github.com/w3c/i18n-activity/labels/t%3Abidistyling" target="_blank">See related review comments.</a></p>
+
+<div class="req" id="layout_mirroring">
+	<p class="advisement">Specifications defining user agent-provided user interface controls SHOULD support automatic mirroring for right-to-left languages, ensuring that spatial relationships, navigation patterns, and directional elements are appropriately reversed while preserving semantic meaning.</p>
+</div>
+
+<p>When content is displayed in a right-to-left language context, user agent-provided UI controls should automatically mirror their layout. This includes reversing directional icons, repositioning control elements (such as the "on" position in toggle switches), and other spatial arrangements that have inherent directional meaning.</p>
+
+<figure style="text-align: center; margin: 2em 0;">
+<div style="display: inline-block; padding: 1em; border: 1px solid #ccc; border-radius: 4px; margin: 0 1em;">
+<div style="margin-bottom: 0.5em; font-weight: bold;">LTR Context (dir="ltr")</div>
+<div style="display: flex; align-items: center; gap: 0.5em;">
+<span>OFF</span>
+<div style="width: 40px; height: 20px; background: #ddd; border-radius: 10px; position: relative;">
+<div style="width: 18px; height: 18px; background: #007acc; border-radius: 50%; position: absolute; top: 1px; right: 1px;"></div>
+</div>
+<span>ON</span>
+</div>
+</div>
+<div style="display: inline-block; padding: 1em; border: 1px solid #ccc; border-radius: 4px; margin: 0 1em;">
+<div style="margin-bottom: 0.5em; font-weight: bold;">RTL Context (dir="rtl")</div>
+<div style="display: flex; align-items: center; gap: 0.5em;" dir="rtl">
+<span>OFF</span>
+<div style="width: 40px; height: 20px; background: #ddd; border-radius: 10px; position: relative;">
+<div style="width: 18px; height: 18px; background: #007acc; border-radius: 50%; position: absolute; top: 1px; left: 1px;"></div>
+</div>
+<span>ON</span>
+</div>
+</div>
+<figcaption style="margin-top: 1em; font-style: italic; font-size: 0.9em;">Example: A toggle switch control should automatically mirror in RTL contexts, with the "on" position appearing on the left instead of the right.</figcaption>
+</figure>
+
+<p>Examples of UI elements that should support automatic mirroring include:</p>
+<ul>
+<li>Toggle switches and sliders</li>
+<li>Progress bars</li>
+<li>Navigation arrows and directional icons</li>
+<li>Scrollbars and scroll indicators</li>
+</ul>
+
+<div class="req" id="vertical_box_posn">
+	<p class="advisement">Box positioning coordinates MUST take into account the text direction.</p>
+	</div>
+
+<p>It is typical, when localizing a user interface or web page, to create mirror-images for the RTL and LTR versions. For example, it is likely that a box that appears near the left side of a window containing English content would appear near the right side of the window if the content is Arabic or Hebrew. It should preferably automatic for this to change, based on the base direction of the current context, unless there is a strong reason for using absolute geometry. One way to achieve this is to use keywords such as <code class="kw" translate="no">start</code> and <code class="kw" translate="no">end</code>, rather than <code class="kw" translate="no">left</code> and <code class="kw" translate="no">right</code>, to indicate position.</p>
+</section>
 
 
 
@@ -4286,29 +4288,6 @@ transactionResult: [ SUCCESS, NOT_AUTHORIZED, INTERNAL_ERROR, UNKNOWN_ERROR ]
 
 
 
-
-
-
-
-
-
-<section id="typ_box_posn" class="subtopic">
-<h3>Setting box positioning coordinates when text direction varies</h3>
-
-  	<div class="req" id="vertical_box_posn">
-	<p class="advisement">Box positioning coordinates must take into account whether the text is horizontal or vertical.</p>
-	</div>
-
-<p>It is typical, when localizing a user interface or web page, to create mirror-images for the RTL and LTR versions. For example, it is likely that a box that appears near the left side of a window containing English content would appear near the right side of the window if the content is Arabic or Hebrew. It should preferably automatic for this to change, based on the base direction of the current context, unless there is a strong reason for using absolute geometry. One way to achieve this is to use keywords such as <code class="kw" translate="no">start</code> and <code class="kw" translate="no">end</code>, rather than <code class="kw" translate="no">left</code> and <code class="kw" translate="no">right</code>, to indicate position.</p>
-  </section>
-
-
-
-<section id="typ_logical" class="subtopic">
-<h3><em>Logical properties (TBD)</em></h3>
-
-<p class="reviewComments"><a href="https://github.com/w3c/i18n-activity/labels/t%3Atyp_logical_x" target="_blank">See related review comments.</a></p>
-</section>
 
 
 
