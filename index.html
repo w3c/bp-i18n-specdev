@@ -4221,7 +4221,9 @@ transactionResult: [ SUCCESS, NOT_AUTHORIZED, INTERNAL_ERROR, UNKNOWN_ERROR ]
 <p class="reviewComments"><a href="https://github.com/w3c/i18n-activity/labels/t%3Abidistyling" target="_blank">See related review comments.</a></p>
 
 <div class="req" id="layout_mirroring">
-	<p class="advisement">Specifications defining user agent-provided user interface controls SHOULD support automatic mirroring for right-to-left languages, ensuring that spatial relationships, navigation patterns, and directional elements are appropriately reversed while preserving semantic meaning.</p>
+    <p class="advisement">User interfaces, including user agent provided controls, SHOULD be specified so that the layout of controls is in [=logical order=] and proceeds according to the [=block direction=].</p>
+    
+    <p>For example, a control that displays an icon to the left of some text in a left-to-right direction layout will display the icon to the right of some text in a right-to-left direction layout.</p>
 </div>
 
 <p>When content is displayed in a right-to-left language context, user agent-provided UI controls may need to automatically mirror their layout. This includes repositioning control elements (such as the "on" position in toggle switches), and other spatial arrangements that have inherent directional meaning.</p>
