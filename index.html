@@ -2821,6 +2821,21 @@ Content-Disposition: attachment; filename="Åsa.txt"
 
 <p>There are many situations where a software process needs to access a substring or to point within a string and does so by the use of indices, i.e. numeric &quot;positions&quot; within a string. Where such indices are exchanged between components of the Web, there is a need for an agreed-upon definition of string indexing in order to ensure consistent behavior. The two main questions that arise are: &quot;What is the unit of counting?&quot; and &quot;Do we start counting at 0 or 1?&quot;.</p>
 
+<p>The concept of a &quot;word&quot; is difficult to define across languages and scripts. While it usually refers to a grammatical unit smaller than a phrase and containing one or more syllables, the boundaries and separators used to delimit words vary significantly across languages and writing systems.</p>
+
+<p class="advisement">Specifications SHOULD NOT assume that words are always separated by spaces.</p>
+
+<p>Word separators differ across languages, and even for the same language, ancient and modern usage may differ. For example, in Arabic, short words like &quot;and&quot; (و) can be written directly next to the preceding word without a space (e.g., الجامعات والكليات means &quot;universities and colleges&quot;, but there is only one space between the two words). In typesetting, these words can be treated as part of the word they are attached to.</p>
+
+<p>Many scripts have different spacing conventions:</p>
+<ul>
+<li>Scripts such as Balinese, Batak, Tai Lue, and Khmer do not have word separators, and the definition of a word is subjective. Spaces may appear in these languages, but they may be phrase separators rather than word separators.</li>
+<li>In Vietnamese (written with the Latin alphabet) and Fraser script, spaces are used to separate syllables, not words.</li>
+<li>Writing systems like Chinese and Japanese have no spaces at all (except for a few exceptions, such as textbooks for foreigners). Although Japanese and Chinese don't use spaces, there are occasions where groups of characters are kept together for operations such as line-breaking (especially in headlines) or double-click selection.</li>
+</ul>
+
+<p>When specifications refer to 'words', it is typically in the context of performing some operation on text, such as line-breaking, text spacing, double-clicking, etc. For these operations, the appropriate boundary or location to support the operation must be identified. These boundaries and locations vary from script to script, and may also vary from language to language and depending on the operation being performed. They may or may not be marked by visible separators. For many scripts, these points of interest are indicated by space characters, but for many others they involve more complex heuristics.</p>
+
 
 	<div class="req" id="char_index_char">
 	<p class="advisement">The <a class="termref" href="https://www.w3.org/TR/charmod/#def-character-string">character string</a> is RECOMMENDED as a basis for string indexing.</p>
