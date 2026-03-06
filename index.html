@@ -2829,10 +2829,16 @@ Content-Disposition: attachment; filename="Åsa.txt"
 <p class="advisement">Specifications MUST NOT assume that words are always separated by spaces.</p>
 </div>
 
+<div class="req" id="char_index_word_define">
+<p class="advisement">Specifications that need to identify words or word boundaries SHOULD define the boundary analysis required for the relevant operation. They SHOULD either reference a standard segmentation algorithm, such as <cite>Unicode Text Segmentation</cite> [[UAX29]], or define the algorithm and any necessary tailoring so that implementations can produce interoperable results.</p>
+</div>
+
+<p>The text unit needed depends on the operation being performed. For example, search indexing, line-breaking, and double-click selection may require different boundary analyses. When language or locale affects the result, specifications should define how that information is determined and what fallback behavior applies when it is unavailable.</p>
+
 <p>A lot of languages use scripts that divide words using whitespace, but some scripts do not. Many scripts have different word boundary handling conventions:</p>
 <ul>
 <li>The scripts used for writing Chinese and Japanese generally do not use spaces, particularly between words. For example: <span lang="ja" translate="no">素早い茶色のキツネは怠け者の犬を飛び越える</span>. Although Japanese and Chinese don't use spaces, there are occasions where groups of characters are kept together for operations such as line-breaking (especially in headlines) or double-click selection.</li>
-<li>Scripts such as Thai, Baliese, Batak, Tai Lue, and Khmer do not have word separators. Spaces sometimes appear in these scripts, but more commonly as phrase separators. Word boundary analysis in these scripts often require language-specific dictionaries. For example: <span lang="th" translate="no">สุนัขสีน้ำตาลตัวนี้วิ่งเร็ว</span>.</li>
+<li>Scripts such as Thai, Balinese, Batak, Tai Lue, and Khmer do not have word separators. Spaces sometimes appear in these scripts, but more commonly as phrase separators. Word boundary analysis in these scripts often requires language-specific dictionaries. For example: <span lang="th" translate="no">สุนัขสีน้ำตาลตัวนี้วิ่งเร็ว</span>.</li>
 <li>In Vietnamese (written with the Latin script) and Fraser script, spaces are used to separate syllables, not words.</li>
 </ul>
 
