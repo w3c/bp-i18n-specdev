@@ -2827,11 +2827,11 @@ Content-Disposition: attachment; filename="Åsa.txt"
 <p class="advisement">Specifications MUST NOT assume that words are always separated by spaces.</p>
 </div>
 
-<p>A lot of languages use scripts that divide words using whitespace, but some scripts do not. Many scripts have different spacing conventions:</p>
+<p>A lot of languages use scripts that divide words using whitespace, but some scripts do not. Many scripts have different word boundary handling conventions:</p>
 <ul>
+<li>Writing systems like Chinese and Japanese have no spaces except for a few exceptions, such as textbooks for foreigners. Although Japanese and Chinese don't use spaces, there are occasions where groups of characters are kept together for operations such as line-breaking (especially in headlines) or double-click selection.</li>
 <li>Scripts such as Thai, Baliese, Batak, Tai Lue, and Khmer do not have word separators. Spaces sometimes appear in these scripts, but more commonly as phrase separators. Word boundary analysis in these scripts often require language-specific dictionaries. For example: <span lang="th" translate="no">สุนัขสีน้ำตาลตัวนี้วิ่งเร็ว</span>.</li>
 <li>In Vietnamese (written with the Latin alphabet) and Fraser script, spaces are used to separate syllables, not words.</li>
-<li>Writing systems like Chinese and Japanese have no spaces at all (except for a few exceptions, such as textbooks for foreigners). Although Japanese and Chinese don't use spaces, there are occasions where groups of characters are kept together for operations such as line-breaking (especially in headlines) or double-click selection.</li>
 </ul>
 
 <p>When specifications refer to 'words', it is typically in the context of performing some operation on text, such as line-breaking, text spacing, double-clicking, etc. For these operations, the appropriate boundary or location to support the operation must be identified. These boundaries and locations vary from script to script, and may also vary from language to language and depending on the operation being performed. They may or may not be marked by visible separators. For many scripts, these points of interest are indicated by space characters, but for many others they involve more complex heuristics.</p>
