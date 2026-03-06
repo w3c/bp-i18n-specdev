@@ -2823,7 +2823,9 @@ Content-Disposition: attachment; filename="Åsa.txt"
 
 <p>In addition to user-perceived characters, [=natural language=] text is often divided in various larger units of text, that is, dividing text into paragraphs, lines, sentences, and words. <dfn>Boundary analysis</dfn> is the general term for the process of computing these different units of text. A common requirement for specifications or implementations is the division of text into words.</p>
 
-<p class="advisement">Specifications SHOULD NOT assume that words are always separated by spaces.</p>
+<div class="req" id="char_index_word">
+<p class="advisement">Specifications MUST NOT assume that words are always separated by spaces.</p>
+</div>
 
 <p>Word separators differ across languages, and even for the same language, ancient and modern usage may differ. For example, in Arabic, short words like &quot;and&quot; (و) can be written directly next to the preceding word without a space (e.g., الجامعات والكليات means &quot;universities and colleges&quot;, but there is only one space between the two words). In typesetting, these words can be treated as part of the word they are attached to.</p>
 
