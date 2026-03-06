@@ -2821,7 +2821,7 @@ Content-Disposition: attachment; filename="Åsa.txt"
 
 <p>There are many situations where a software process needs to access a substring or to point within a string and does so by the use of indices, i.e. numeric &quot;positions&quot; within a string. Where such indices are exchanged between components of the Web, there is a need for an agreed-upon definition of string indexing in order to ensure consistent behavior. The two main questions that arise are: &quot;What is the unit of counting?&quot; and &quot;Do we start counting at 0 or 1?&quot;.</p>
 
-<p>The concept of a &quot;word&quot; is difficult to define across languages and scripts. While it usually refers to a grammatical unit smaller than a phrase and containing one or more syllables, the boundaries and separators used to delimit words vary significantly across languages and writing systems.</p>
+<p>In addition to user-perceived characters, [=natural language=] text is often divided in various larger units of text, that is, dividing text into paragraphs, lines, sentences, and words. <dfn>Boundary analysis</dfn> is the general term for the process of computing these different units of text. A common requirement for specifications or implementations is the division of text into words.</p>
 
 <p class="advisement">Specifications SHOULD NOT assume that words are always separated by spaces.</p>
 
