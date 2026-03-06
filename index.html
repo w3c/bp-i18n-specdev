@@ -2823,6 +2823,8 @@ Content-Disposition: attachment; filename="Åsa.txt"
 
 <p>In addition to user-perceived characters, [=natural language=] text is often divided in various larger units of text, that is, dividing text into paragraphs, lines, sentences, and words. <dfn>Boundary analysis</dfn> is the general term for the process of computing these different units of text. A common requirement for specifications or implementations is the division of text into words.</p>
 
+<p>When specifications refer to 'words', it is typically in the context of performing some operation on text, such as line-breaking, text spacing, double-clicking, etc. For these operations, the appropriate boundary or location to support the operation must be identified. These boundaries and locations vary from script to script, and may also vary from language to language and depending on the operation being performed. They may or may not be marked by visible separators. For many scripts, these points of interest are indicated by space characters, but for many others they involve more complex heuristics.</p>
+
 <div class="req" id="char_index_word">
 <p class="advisement">Specifications MUST NOT assume that words are always separated by spaces.</p>
 </div>
@@ -2833,8 +2835,6 @@ Content-Disposition: attachment; filename="Åsa.txt"
 <li>Scripts such as Thai, Baliese, Batak, Tai Lue, and Khmer do not have word separators. Spaces sometimes appear in these scripts, but more commonly as phrase separators. Word boundary analysis in these scripts often require language-specific dictionaries. For example: <span lang="th" translate="no">สุนัขสีน้ำตาลตัวนี้วิ่งเร็ว</span>.</li>
 <li>In Vietnamese (written with the Latin script) and Fraser script, spaces are used to separate syllables, not words.</li>
 </ul>
-
-<p>When specifications refer to 'words', it is typically in the context of performing some operation on text, such as line-breaking, text spacing, double-clicking, etc. For these operations, the appropriate boundary or location to support the operation must be identified. These boundaries and locations vary from script to script, and may also vary from language to language and depending on the operation being performed. They may or may not be marked by visible separators. For many scripts, these points of interest are indicated by space characters, but for many others they involve more complex heuristics.</p>
 
 
 	<div class="req" id="char_index_char">
