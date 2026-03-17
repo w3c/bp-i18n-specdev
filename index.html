@@ -3975,36 +3975,48 @@ p.私のクラス名 {
 
 
 <section id="markup_identifiers" class="subtopic">
-<h3>Defining identifiers</h3>
+<h3>Defining identifiers and namespaces</h3>
 
 <p class="reviewComments"><a href="https://github.com/w3c/i18n-activity/labels/t%3Amarkup_identifiers" target="_blank">See related review comments.</a></p>
 
-    <p>A common feature of document formats is the definition of various identifiers. This includes reserved keywords as well as user-defined values. To foster interoperability, implementations need to be able to match identifier values reliably and consistently. For a detailed look at this problem, see <cite>Character Model: String Matching</cite> [[CHARMOD-NORM]].</p>
+    <p>Specifications that define document formats, protocols, and other domain specific languages or markup regimes usually include definitions for structural elements of a given grammar. These can include an enumerated list of allowed or defined values; a "namespace" for user-defined values; or a combination of both. To foster interoperability, implementations need to be able to match the resulting strings reliably and consistently. For a detailed look at this problem, see <cite>Character Model: String Matching</cite> [[CHARMOD-NORM]].</p>
+    
+    <p>Some examples of the kinds of definitions here include (but are not limited to):</p>
+    <ul>
+        <li>Protocol elements (for example, HTTP header names like <code>Content-Type</code> or <code>Accept-Language</code>)</li>
+        <li>Markup elements (for example, elements in HTML like <code>p</code>, <code>div</code>, <code>span</code> and so on)</li>
+        <li>Attribute names (for example, HTML attributes such as <code>class</code> or <code>id</code>)</li>
+        <li>Identifiers in domain specific languages or protocols (for example, ...)</li>
+        <li>Values associated with these items</li>
+        <li>... and many more</li>
+    </ul>
     
 	<div class="req" id="identifier_content_internal_id">
-	<p class="advisement">Limit <a>application internal identifiers</a> to a printable subset of ASCII.</p>
+	<p class="advisement">Limit <a>application internal identifiers</a> to a [=printable subset of ASCII=].</p>
 	<details class="links"><summary>explanations &amp; examples</summary>
 	    <p><a href="https://www.w3.org/TR/charmod-norm/#specifying-content-restrictions">Specifying Content Restrictions</a> in [[CHARMOD-NORM]]</p>
 	</details>
 	</div>
     
+    <p>A <dfn id="printable-subset-of-ascii" class="lint-ignore export">printable subset of ASCII</dfn> is some subset of the Basic Latin [=code points=] of [=Unicode=] that excludes the <code>C0</code> control characters (in the range <kbd>U+0000</kbd> through <kbd>U+001F</kbd> inclusive)) and <span class="codepoint" translate="no"><img alt="DEL" src="images/007f.png"><code class="uname">U+007F DEL</code></span>. The specific subset will depend on the specification or application's local requirements. Most subsets include all of the <a data-cite="infra">ASCII alphanumeric</a> characters. The range of punctuation allowed and/or the inclusion of the <span class="codepoint" translate="no"><img alt="space" src="images/0020.png"><code class="uname">U+0020 SPACE</code></span> character depend on local requirements (such as the use of such characters for syntax, escapes, or separators).</p>
+    
     <div class="req" id="identifier_content_internal_id_caseless">
-    <p class="advisement">Use an [=ASCII case-insensitive=] match for <a>application internal identifiers</a> whose content is limited to ASCII.</p>
+    <p class="advisement">Specifications SHOULD use an [=ASCII case-insensitive=] match for <a>application internal identifiers</a> that are limited to ASCII.</p>
     </div>
     
-    <p>Specifications often need to define identifiers or other values that are part of a protocol or document format. Usually these types of identifiers are defined with human-readable names to aid with operations (such as debugging, validation, and so forth). When these identifiers are not visible to users and cannot be used to transmit arbitrary data, restricting the names and values to a printable subset of ASCII avoids the technical challenges inherent in comparing Unicode strings.</p>
+    <p>Specifications often use human-readable names for values to aid with operations such as debugging, validation, and so forth. When these values are not visible to users and cannot be used to transmit arbitrary data, restricting the names and values to a [=printable subset of ASCII=] avoids the technical challenges inherent in inputting, displaying, and especially comparing Unicode strings.</p>
     
-    <p>When the identifiers can be user-defined (such as machine-generated from data values or chosen by end users) or when an identifier or value can contain data intended for transmission of or display to various types of end-user, restricting the set of allowable characters to ASCII impedes usability, particularly for speakers of languages that do not use the Latin script or that use characters outside of the ASCII range.</p>
+    <p>When the values can be user-defined (such as machine-generated from data values or chosen by end users) or when such a value can contain data intended for transmission of or display to various types of end-user, restricting the set of allowable characters to ASCII can impede international usability, particularly for speakers of languages that do not use the Latin script or for applications that use characters outside of the ASCII range.</p>
 	
     <div class="req" id="identifier_content_visible">
-	<p class="advisement">When identifiers are visible or potentially visible to users, specifications should allow the use of non-ASCII Unicode characters, in order to ensure that users in all languages can use the resulting document format or protocol with equal access. Case sensitivity (i.e. no case folding) is recommended.</p>
+	<p class="advisement">Specifications SHOULD allow the use of non-ASCII Unicode characters for data values or for identifiers displayed to end-users or based on data not itself restricted to ASCII. This ensures that users and their data work reliably in all languages and can use the resulting document format or protocol with equal access. Case sensitivity (i.e. no case folding) is RECOMMENDED.</p>
 	<details class="links"><summary>explanations &amp; examples</summary>
 	    <p><a href="https://www.w3.org/TR/charmod-norm/#specifying-content-restrictions">Specifying Content Restrictions</a> in [[CHARMOD-NORM]]</p>
 	</details>
 	</div>
 		
 	<div class="req" id="identifier_non_ascii_namespace">
-	<p class="advisement">If <a>application internal identifiers</a> are not restricted to ASCII, specifications should define the characters that are allowed to start and be part of a valid identifier.</p>
+	<p class="advisement">For namespaces or values not restricted to ASCII, specifications SHOULD define the characters that are allowed to start and be part of a valid value.</p>
 	<details class="links"><summary>explanations &amp; examples</summary>
 	    <p><a href="https://unicode.org/reports/tr31/">Unicode Identifier and Pattern Syntax</a> [[UAX31]]</p>
         <p><a href="http://es5.github.io/x7.html#x7.6">Example</a>: ECMAScript 5, section 7.6 <em>Identifier Names and Identifiers</em></p>
@@ -4026,24 +4038,24 @@ PCENChar ::=
 		<p>HTML and CSS processing is defined such that Unicode character properties (such as whether a given character is a combining mark) are not considered when parsing identifiers and tokens. This allows identifiers to start with a combining character and still be processed reliably, but a plain text editor might not handle the value identically.</p>
 	</div>
 	
-	<p>Specifications should exercise care when defining identifiers with regards to the handling of whitespace. Note that there are Unicode horizontal whitespace characters other than the ASCII characters <span class="codepoint" translate="no"><img alt="SP" src="images/0020.png"><code class="uname">U+0020 SPACE</code></span> and <span class="codepoint" translate="no"><img alt="HTAB" src="images/0009.png"><code class="uname">U+0009 TAB</code></span>.</p>
+	<p>Specifications SHOULD exercise care when defining identifiers with regards to the handling of whitespace. Note that there are Unicode horizontal whitespace characters other than the ASCII characters <span class="codepoint" translate="no"><img alt="SP" src="images/0020.png"><code class="uname">U+0020 SPACE</code></span> and <span class="codepoint" translate="no"><img alt="HTAB" src="images/0009.png"><code class="uname">U+0009 TAB</code></span>.</p>
 	
 	<div class="req" id="identifier_content_surrogates">
-	<p class="advisement">Specifications should not allow surrogate <a>code points</a> (<code>U+D800</code> to <code>U+DFFF</code>) or non-character code points in identifiers.</p>
+	<p class="advisement">Specifications SHOULD NOT allow surrogate <a>code points</a> (<code>U+D800</code> to <code>U+DFFF</code>) or non-character code points in identifiers.</p>
 	<details class="links"><summary>explanations &amp; examples</summary>
 	    <p><a href="https://www.w3.org/TR/charmod-norm/#specifying-content-restrictions">Specifying Content Restrictions</a> in [[CHARMOD-NORM]]</p>
 	</details>
 	</div>
 	
 	<div class="req" id="identifier_content_controls">
-	<p class="advisement">Specifications should not allow the <kbd>C0</kbd> (<code>U+0000</code> to <code>U+001F</code>) and <kbd>C1</kbd> (<code>U+0080</code> to <code>U+009F</code>) control characters in identifiers.</p>
+	<p class="advisement">Specifications SHOULD NOT allow the <kbd>C0</kbd> (<code>U+0000</code> to <code>U+001F</code>) and <kbd>C1</kbd> (<code>U+0080</code> to <code>U+009F</code>) control characters in identifiers.</p>
 	<details class="links"><summary>explanations &amp; examples</summary>
 	    <p><a href="https://www.w3.org/TR/charmod-norm/#specifying-content-restrictions">Specifying Content Restrictions</a> in [[CHARMOD-NORM]]</p>
 	</details>
 	</div>
 
   	<div class="req" id="identifier_case">
-	<p class="advisement">Identifiers should be case-sensitive when non-ASCII characters are allowed and case <strong>insensitive</strong> when only ASCII characters are allowed.</p>
+	<p class="advisement">Identifiers SHOULD be case-sensitive when non-ASCII characters are allowed and case <strong>insensitive</strong> when only ASCII characters are allowed.</p>
 	<details class="links"><summary>explanations &amp; examples</summary>
 	    <p><a href="https://www.w3.org/TR/charmod-norm/#specifying-content-restrictions">Specifying Content Restrictions</a> in [[CHARMOD-NORM]]</p>
 	</details>
