@@ -3975,21 +3975,17 @@ p.私のクラス名 {
 
 
 <section id="markup_identifiers" class="subtopic">
-<h3>Defining identifiers and namespaces</h3>
+<h3>Defining identifiers and namespaces in syntactic content</h3>
 
 <p class="reviewComments"><a href="https://github.com/w3c/i18n-activity/labels/t%3Amarkup_identifiers" target="_blank">See related review comments.</a></p>
 
-    <p>Specifications that define document formats, protocols, and other domain specific languages or markup regimes usually include definitions for structural elements of a given grammar. These can include an enumerated list of allowed or defined values; a "namespace" for user-defined values; or a combination of both. To foster interoperability, implementations need to be able to match the resulting strings reliably and consistently. For a detailed look at this problem, see <cite>Character Model: String Matching</cite> [[CHARMOD-NORM]].</p>
+    <p>Specifications that define document formats, protocols, and other domain specific languages or markup regimes usually include definitions for structural elements of a given grammar. We call these types of values the [=syntactic content=] and the reserved words in a formal grammar the [=vocabulary=]. To foster interoperability, implementations need to be able to match these sort of strings reliably and consistently.</p>
     
-    <p>Some examples of the kinds of definitions here include (but are not limited to):</p>
-    <ul>
-        <li>Protocol elements (for example, HTTP header names like <code>Content-Type</code> or <code>Accept-Language</code>)</li>
-        <li>Markup elements (for example, elements in HTML like <code>p</code>, <code>div</code>, <code>span</code> and so on)</li>
-        <li>Attribute names (for example, HTML attributes such as <code>class</code> or <code>id</code>)</li>
-        <li>Identifiers in domain specific languages or protocols (for example, ...)</li>
-        <li>Values associated with these items</li>
-        <li>... and many more</li>
-    </ul>
+    <div class="note" title="">
+        <p>For a detailed look at this problem, as well as an <a href="https://www.w3.org/TR/charmod-norm/#terminology-examples" target="_blank">illustration of the terminology</a> used here, see <cite>Character Model: String Matching</cite> [[CHARMOD-NORM]].</p>
+    </div>
+    
+    <p>The [=vocabulary=] of a document format or protocol often consists of [=application internal identifiers=].</p>
     
 	<div class="req" id="identifier_content_internal_id">
 	<p class="advisement">Limit <a>application internal identifiers</a> to a [=printable subset of ASCII=].</p>
