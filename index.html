@@ -3975,17 +3975,27 @@ p.私のクラス名 {
 
 
 <section id="markup_identifiers" class="subtopic">
-<h3>Defining identifiers and namespaces in syntactic content</h3>
+<h3>Defining keywords, identifiers, and namespaces in syntactic content</h3>
 
 <p class="reviewComments"><a href="https://github.com/w3c/i18n-activity/labels/t%3Amarkup_identifiers" target="_blank">See related review comments.</a></p>
 
-    <p>Specifications that define document formats, protocols, and other domain specific languages or markup regimes usually include definitions for structural elements of a given grammar. We call these types of values the [=syntactic content=] and the reserved words in a formal grammar the [=vocabulary=]. To foster interoperability, implementations need to be able to match these sort of strings reliably and consistently.</p>
+    <p>Specifications frequently define textual formats of various types, such as document formats, protocols, markup, or domain specific languages. Any such specification that depends on text to convey data needs to define how the various components being defined are parsed and processed. Of particular importance it the ability to <strong>match</strong> the resulting tokens or keywords.</p>
+
+    <p>[=Syntactic content=] refers to the overall text content of such a defined format. Words (usually identifiers) in a formal grammar are referred to as the [=vocabulary=].</p>
     
-    <div class="note" title="">
+    <p>Usually the "reserved keywords" in [=syntactic content=] are considered [=application internal identifiers=]: values that are program internal and not for display to the end-user, even though the values chosen convey some semantic meaning (usually in English). For example, the CSS <code lang="css">color: blue</code>, uses recognizable English words to set the color value to blue.</p>
+    
+    <p>Specifications sometimes also define <em>namespaces</em> for user-defined values. Often these are used for variable names or for IDs of various kinds.</p>
+    
+    <p>To foster interoperability, implementations need to be able to match these sort of strings reliably and consistently.</p>
+    
+    <div class="seealso" title="">
         <p>For a detailed look at this problem, as well as an <a href="https://www.w3.org/TR/charmod-norm/#terminology-examples" target="_blank">illustration of the terminology</a> used here, see <cite>Character Model: String Matching</cite> [[CHARMOD-NORM]].</p>
     </div>
     
-    <p>The [=vocabulary=] of a document format or protocol often consists of [=application internal identifiers=].</p>
+    <p>A common strategy used by specification authors is to restrict their [=vocabulary=] or namespace to some carefully chosen set of ASCII characters.</p>
+    
+    <p>A <dfn id="printable-subset-of-ascii" class="lint-ignore export">printable subset of ASCII</dfn> is some subset of the Basic Latin [=code points=] of [=Unicode=] that excludes the <code>C0</code> control characters (in the range <kbd>U+0000</kbd> through <kbd>U+001F</kbd> inclusive)) and <span class="codepoint" translate="no"><img alt="DEL" src="images/007f.png"><code class="uname">U+007F DEL</code></span>. The specific subset will depend on the specification or application's local requirements. Most subsets include all of the <a data-cite="infra">ASCII alphanumeric</a> characters. The range of punctuation allowed and/or the inclusion of the <span class="codepoint" translate="no"><img alt="space" src="images/0020.png"><code class="uname">U+0020 SPACE</code></span> character depend on local requirements (such as the use of such characters for syntax, escapes, or separators).</p>
     
 	<div class="req" id="identifier_content_internal_id">
 	<p class="advisement">Limit <a>application internal identifiers</a> to a [=printable subset of ASCII=].</p>
@@ -3993,11 +4003,11 @@ p.私のクラス名 {
 	    <p><a href="https://www.w3.org/TR/charmod-norm/#specifying-content-restrictions">Specifying Content Restrictions</a> in [[CHARMOD-NORM]]</p>
 	</details>
 	</div>
-    
-    <p>A <dfn id="printable-subset-of-ascii" class="lint-ignore export">printable subset of ASCII</dfn> is some subset of the Basic Latin [=code points=] of [=Unicode=] that excludes the <code>C0</code> control characters (in the range <kbd>U+0000</kbd> through <kbd>U+001F</kbd> inclusive)) and <span class="codepoint" translate="no"><img alt="DEL" src="images/007f.png"><code class="uname">U+007F DEL</code></span>. The specific subset will depend on the specification or application's local requirements. Most subsets include all of the <a data-cite="infra">ASCII alphanumeric</a> characters. The range of punctuation allowed and/or the inclusion of the <span class="codepoint" translate="no"><img alt="space" src="images/0020.png"><code class="uname">U+0020 SPACE</code></span> character depend on local requirements (such as the use of such characters for syntax, escapes, or separators).</p>
+
+    <p>One consideration after adopting a [=printable subset of ASCII=] is whether the format is case <strong>sensitive</strong> or case <strong>insensitive</strong>. For example, does the value <code>green</code> match the values <code>GREEN</code> or <code>GrEeN</code>.</p>
     
     <div class="req" id="identifier_content_internal_id_caseless">
-    <p class="advisement">Specifications SHOULD use an [=ASCII case-insensitive=] match for <a>application internal identifiers</a> that are limited to ASCII.</p>
+    <p class="advisement">Specifications SHOULD only use an [=ASCII case-insensitive=] match when values that are limited to ASCII.</p>
     </div>
     
     <p>Specifications often use human-readable names for values to aid with operations such as debugging, validation, and so forth. When these values are not visible to users and cannot be used to transmit arbitrary data, restricting the names and values to a [=printable subset of ASCII=] avoids the technical challenges inherent in inputting, displaying, and especially comparing Unicode strings.</p>
