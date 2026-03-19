@@ -3999,6 +3999,8 @@ p.私のクラス名 {
     
     <p>Start with a presumption that any document format or protocol consists of Unicode strings and that it must be able to transmit Unicode data. Restrictions on content impair usability by international users, particularly those whose native language does not use the Latin script. The ability to transmit, process, and interchange international data can be greatly impaired or blocked by restrictions on the range of characters in a given format or protocol.</p>
     
+    <p>There are many reasons for a specification to limit content: what is important is that the specification's authors have thought about the impact of the decision to limit content and have documented the restriction for implementers. A content restriction is "obvious from the context" when the reason is documented by some parent specification. For example, using JSON [[RFC8259]] as your document format imposes some limits on the range of characters used.</p>
+    
     <div class="req" id="identifier_content_internal_id">
 	    <p class="advisement">Limit [=vocabulary=], including [=application internal identifiers=], to a [=printable subset of ASCII=].</p>
 	    <details class="links"><summary>explanations &amp; examples</summary>
@@ -4008,23 +4010,26 @@ p.私のクラス名 {
     
     <p>A common strategy used by specification authors is to restrict their [=vocabulary=] or subsets of it, such as [=application internal identifiers=] or locally defined namespaces to some carefully chosen set of ASCII characters. When these values are not meant to transmit arbitrary data, restricting the identifiers, reserved keywords, and values to a [=printable subset of ASCII=] avoids the technical challenges inherent in inputting, displaying, and (most especially) comparing Unicode strings.</p> 
     
-    <div class="example" title="Use of ASCII keywords to help authors">
-        <p>Specifications often use human-readable names for values to aid with operations such as debugging, validation, and so forth. For example, the CSS fragment <code>color: orange</code> uses recognizable English words to set the value of color to an orange color. It is easier for end-users to figure out the effect versus using a value such as <code>color: #FFA500</code>.</p>
-    </div>
+    <aside class="example" title="Use of ASCII keywords to help authors">
+        <p>Specifications often use human-readable names for values to aid with operations such as debugging, validation, and so forth. For example, the CSS fragment <code>color: orange</code> uses recognizable English words to set the value of color to an orange color. It is easier for end-users to figure out the effect versus using a value such as <code>color: #FFA500</code> (which means the same thing).</p>
+    </aside>
     
     <p>A <dfn id="printable-subset-of-ascii" class="lint-ignore export">printable subset of ASCII</dfn> is some subset of the Basic Latin [=code points=] of [=Unicode=] that excludes the <code>C0</code> control characters (in the range <kbd>U+0000</kbd> through <kbd>U+001F</kbd> inclusive)) and <span class="codepoint" translate="no"><img alt="DEL" src="images/007f.png"><code class="uname">U+007F DEL</code></span>. The specific subset will depend on the specification or application's local requirements. Most subsets include all of the <a data-cite="infra">ASCII alphanumeric</a> characters. The range of punctuation allowed and/or the inclusion of the <span class="codepoint" translate="no"><img alt="space" src="images/0020.png"><code class="uname">U+0020 SPACE</code></span> character depend on local requirements (such as the use of such characters for syntax, escapes, or separators).</p>
     
     <p>One consideration after adopting a [=printable subset of ASCII=] is whether the format is case <strong>sensitive</strong> or case <strong>insensitive</strong>. For example, does the value <code>green</code> match the values <code>GREEN</code> or <code>GrEeN</code>.</p>
     
     <div class="req" id="identifier_content_internal_id_caseless">
-        <p class="advisement">Only use an [=ASCII case-insensitive=] match when values that are limited to [=printable subset of ASCII=].</p>
+        <p class="advisement">Only use an [=ASCII case-insensitive=] match for values that are limited to [=printable subset of ASCII=].</p>
     </div>
     
-    <p>When the values can be user-defined (such as machine-generated from data values or chosen by end users) or when such a value can contain data intended for transmission of or display to various types of end-user, restricting the set of allowable characters to ASCII can impede international usability, particularly for speakers of languages that do not use the Latin script or for applications that use characters outside of the ASCII range.</p>
+    <div class="req" id="identifier_content_internal_id_caseless_recommended">
+        <p class="advisement">Case <strong>insensitivity</strong> (that is, the use of an [=ASCII case-insensitive=] match) is RECOMMENDED for values are limited to [=printable subset of ASCII=].</p>
+    </div>
     
-	
+    <p>Identifiers or data values that can be chosen by document authors (or derived from data) often need to support other languages. Therefore, restricting the set of allowable characters to ASCII can impede international usability, particularly for speakers of languages that do not use the Latin script or for applications that use characters outside of the ASCII range.</p>
+    
     <div class="req" id="identifier_content_visible">
-	   <p class="advisement">Specifications SHOULD allow the use of non-ASCII Unicode characters for data values or for identifiers displayed to end-users or based on data not itself restricted to ASCII. This ensures that users and their data work reliably in all languages and can use the resulting document format or protocol with equal access. Case sensitivity (i.e. no case folding) is RECOMMENDED.</p>
+	   <p class="advisement">Specifications SHOULD allow the use of non-ASCII Unicode characters for data values or for identifiers for cases where the data itself is not restricted to ASCII. This ensures that users and their data work reliably in all languages and can use the resulting document format or protocol with equal access. Case sensitivity (i.e. no case folding) is RECOMMENDED.</p>
 	<details class="links"><summary>explanations &amp; examples</summary>
 	    <p><a href="https://www.w3.org/TR/charmod-norm/#specifying-content-restrictions">Specifying Content Restrictions</a> in [[CHARMOD-NORM]]</p>
 	</details>
