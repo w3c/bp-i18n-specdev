@@ -2806,7 +2806,7 @@ Content-Disposition: attachment; filename="Åsa.txt"
 
 
 <section id="char_indexing" class="subtopic">
-<h3>Choosing text units for segmentation, indexing, etc.</h3>
+<h3>Boundary analysis, segmentation, and indexing</h3>
 
 <p class="reviewComments"><a href="https://github.com/w3c/i18n-activity/labels/t%3Achar_indexing" target="_blank">See related review comments.</a></p>
 
@@ -2817,6 +2817,9 @@ Content-Disposition: attachment; filename="Åsa.txt"
 <p>[[[#char_truncation]]].</p>
 </div>
 
+<p>In addition to user-perceived characters, [=natural language=] text is often divided in various larger units of text. Finding, selecting, and extracting these units are covered by this section.</p>
+
+<p><dfn>Boundary analysis</dfn> is the general term for the process of computing potential boundary or "break" positions in text. There are many types of break position. Some common ones are: paragraph, line, sentence, word, syllable, and grapheme.</p>
 
 <section id="char_index_string">
 <h4>String indexing</h4>
@@ -2905,7 +2908,7 @@ Content-Disposition: attachment; filename="Åsa.txt"
 <section id="char_index_boundary">
 <h4>Boundary analysis</h4>
 
-<p>In addition to user-perceived characters, [=natural language=] text is often divided in various larger units of text, that is, dividing text into paragraphs, lines, sentences, and words. <dfn>Boundary analysis</dfn> is the general term for the process of computing these different units of text. A common requirement for specifications or implementations is the division of text into words.</p>
+<p>A common requirement for specifications or implementations is the division of text into words.</p>
 
 <div class="req" id="char_index_word">
 <p class="advisement">Specifications MUST NOT assume that words are always separated by spaces.</p>
