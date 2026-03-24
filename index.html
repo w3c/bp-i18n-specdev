@@ -3979,27 +3979,28 @@ p.私のクラス名 {
 
 <p class="reviewComments"><a href="https://github.com/w3c/i18n-activity/labels/t%3Amarkup_identifiers" target="_blank">See related review comments.</a></p>
 
+    <p>The following is taken verbatim from <a href="https://www.w3.org/TR/charmod-norm/#problemStatement" target="_blank">Section 2. The String Matching Problem</a> of [[[CHARMOD-NORM]]] [[CHARMOD-NORM]].</p>
+    <blockquote>
     <p>The Web is primarily made up of document formats and protocols based on character data. These formats or protocols can be viewed as a set of [=resources=] consisting mainly of text files that include some form of structural markup or [=syntactic content=]. Processing such [=syntactic content=] or document data requires string-based operations such as matching (including regular expressions), indexing, searching, sorting, and so forth.</p>
 
     <p>Users, particularly implementers, sometimes have naïve expectations regarding the matching or non-matching of similar strings or of the efficacy of different transformations they might apply to text, particularly to syntactic content, but including many types of text processing on the Web.</p>
 
     <p>Because the Web is sensitive to the different ways in which text might be represented in a document, failing to consider the different ways in which the same text can be represented can confuse users or cause unexpected or frustrating results.</p>
+    </blockquote>
     
-    <aside class="note" title="About the content of this section">
-        <p>The text above is taken verbatim from <a href="https://www.w3.org/TR/charmod-norm/#problemStatement" target="_blank">Section 2</a> of [[[CHARMOD-NORM]]].</p>
-        
-        <p>The content of this section contains specialized local terminology borrowed from that specification. A brief summary of these terms is given just below, but it can be useful to review the <a href="https://www.w3.org/TR/charmod-norm/#terminology-examples" target="_blank">illustration of terminology</a> [[CHARMOD-NORM]] before proceeding.</p>
-        
-        <p>Finally, the terms "case-<strong>sensitive</strong> and case-<strong>insensitive</strong> appear with additional emphasis, as shown here, because the terms <q>sensitive</q> and <q>insensitive</q> are easily confused.</p>
-    </aside>
+    <p>The content below uses specialized terminology from [[CHARMOD-NORM]]. A brief summary of these terms is given just below, but it can be useful to review the <a href="https://www.w3.org/TR/charmod-norm/#terminology-examples" target="_blank">illustration of terminology</a> before proceeding.</p>
 
     <p>[=Syntactic content=] refers to the overall text content of such a defined format. The various tokens (such as identifiers) in a formal grammar are referred to as the [=vocabulary=].</p>
     
     <p>Usually the "reserved keywords" in a [=vocabulary=] are considered [=application internal identifiers=]: values that are program internal and not for display to the end-user, even though the values chosen convey some semantic meaning (usually in English).</p>
     
-    <p>Specifications sometimes also allow content authors to set values, such as (but not restricted to) variable names or for IDs of various kinds.</p>
+    <p>Specifications might also allow content authors to set values, such as (but not restricted to) variable names or for IDs of various kinds.</p>
     
-    <p>To foster interoperability, implementations need to be able to match all these sorts of strings reliably and consistently.</p>
+    <p>In this section, the terms <q>case-<strong>sensitive</strong></q> and <q>case-<strong>insensitive</strong></q> appear with additional emphasis, as shown here, because the terms <q>sensitive</q> and <q>insensitive</q> are easily confused.</p>
+    
+    <hr>
+   
+    <p>To foster interoperability, implementations need to be able to match the different parts of the [=syntactic content=] they define reliably and consistently.</p>
     
     <div class="req" id="identifier-content-assume-unicode">
         <p class="advisement">Permit the full range of Unicode except where otherwise documented.</p>
