@@ -5912,6 +5912,75 @@ transactionResult: [ SUCCESS, NOT_AUTHORIZED, INTERNAL_ERROR, UNKNOWN_ERROR ]
 
 
 
+<section id="loc_addresses" class="subtopic">
+<h3>Working with postal addresses</h3>
+
+<p class="reviewComments"><a href="https://github.com/w3c/i18n-activity/labels/t%3Aloc_addresses" target="_blank">See related review comments.</a></p>
+
+<p>Postal addresses vary significantly across countries, and sometimes within a single country. Assumptions that seem natural in one locale can fail internationally when they are built into forms, APIs, or data models.</p>
+<p>Address-related requirements often need to account for local delivery practices and the fact that users may need to enter information that doesn't fit a rigid component model.</p>
+<aside class="links" id="links_loc_addresses">
+<p class="links_title">Useful background and overviews for this section</p>
+<ul>
+<li class="w3"><p class="link"><a href="https://www.w3.org/International/questions/qa-address-formats">Address formats around the world</a>.</p></li>
+</ul>
+</aside>
+
+<section id="loc_addresses_forms">
+<h4>Form design and capture</h4>
+
+	<div class="req" id="loc_addresses_structure">
+	<p class="advisement">Avoid rigid field labels and formats that assume concepts such as "street address" or "ZIP code" are universal.</p>
+	</div>
+
+	<div class="req" id="loc_addresses_lines">
+	<p class="advisement">Allow multiple address lines, and don't assume that street name and house number appear together or on the first line.</p>
+	</div>
+
+	<div class="req" id="loc_addresses_postcode">
+	<p class="advisement">Don't require a postal code in every address.</p>
+	</div>
+
+<p>Postal addresses may include house names, building names, apartment or flat identifiers, care-of information, rural descriptions, landmarks, or other location cues. Address lines can move from the smallest geographic unit to the largest or the other way around, and some countries either do not use postal codes or use them only in some situations.</p>
+</section>
+
+<section id="loc_addresses_modeling">
+<h4>Validation and data modeling</h4>
+
+	<div class="req" id="loc_addresses_split">
+	<p class="advisement">Split postal addresses into separately identified components only when your use case really needs it, and make sure those components can represent country-specific structures.</p>
+	</div>
+
+	<div class="req" id="loc_addresses_validation">
+	<p class="advisement">Avoid over-restrictive validation for postal codes and other address parts.</p>
+	</div>
+
+	<div class="req" id="loc_addresses_preserve">
+	<p class="advisement">Preserve the address as the user supplied it, even when you also store a normalized representation.</p>
+	</div>
+
+<p>Specifications and APIs often need structured interchange, but user-entered text and normalized address data are not the same thing. Postal-code schemes evolve, separators and spaces may be meaningful, and line-based capture is often a safer fallback than unreliable parsing.</p>
+</section>
+
+<section id="loc_addresses_localization">
+<h4>Localization and delivery needs</h4>
+
+	<div class="req" id="loc_addresses_locale">
+	<p class="advisement">Allow labels, field ordering, and examples to be localized for the country or locale of the address being collected.</p>
+	</div>
+
+	<div class="req" id="loc_addresses_scripts_delivery">
+	<p class="advisement">Allow native-script addresses, and collect separate Latin-script forms only when you actually need both.</p>
+	</div>
+
+<p>The right presentation and storage strategy depends on whether an address is intended for local delivery, international shipping, customs, or back-office processing. Native-script addresses may be essential for last-mile delivery, while a separate normalized representation may be useful for locale-neutral interchange.</p>
+</section>
+</section>
+
+
+
+
+
 <section id="loc_numbers" class="subtopic">
 <h3>Working with numbers</h3>
 
