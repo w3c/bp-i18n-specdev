@@ -6057,8 +6057,12 @@ transactionResult: [ SUCCESS, NOT_AUTHORIZED, INTERNAL_ERROR, UNKNOWN_ERROR ]
 <p class="reviewComments"><a href="https://github.com/w3c/i18n-activity/labels/t%3Alang_negotiation" target="_blank">See related review comments.</a></p>
 
 	<div class="req" id="lang_neg">
-	<p class="advisement">In a multilingual environment it must be possible for the user to receive text in the language they prefer. This may depend on implicit user preferences based on the user's system or browser setup, or on user settings explicitly negotiated with the user.</p>
+	<p class="advisement">In a multilingual environment it must be possible for the user to receive text in the language they prefer. This may depend on an explicit user override, on implicit user preferences based on the user's system or browser setup, or, if neither is available, on a document or resource default. Specifications SHOULD define how these sources interact and which takes precedence.</p>
 	</div>
+
+<p>Specifications need to distinguish between different sources of language choice. First, there may be an explicit choice made by the user for the current interaction, account, or application. Second, there may be implicit preferences supplied by the user agent or operating system, such as browser language settings or an <code>Accept-Language</code> header. Third, a resource may define its own default language for cases where no user preference is known or no preferred version is available.</p>
+
+<p>In general, an explicit user override ought to take priority over user agent or browser preferences. User agent or browser preferences provide a useful default when the user has not made such a choice. A document or resource default can help ensure predictable behavior, but it should not prevent the user from discovering that other language versions exist or from switching to a different language.</p>
 </section>
 </section>
 
