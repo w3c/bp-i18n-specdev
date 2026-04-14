@@ -6058,16 +6058,19 @@ transactionResult: [ SUCCESS, NOT_AUTHORIZED, INTERNAL_ERROR, UNKNOWN_ERROR ]
 
 	<div class="req" id="lang_neg">
 	<p class="advisement">
-		Where implementations or specifications support multiple languages it SHOULD be possible for the user to receive content in the language that they prefer from among those available.
-		Such indications might depend on an explicit user override;
-		on explicit user preferences, including those based on the user's system or browser configuration;
-		or, if no indications are available, on document or resource defaults.
+		Where implementations or specifications support multiple languages it MUST be possible for users to select the language that they prefer.
+	</p>
+	</div>
+
+	<div class="req" id="lang_neg_override">
+	<p class="advisement">
+		An explicit user override SHOULD take priority over user agent or browser preferences.
 	</p>
 	</div>
 
 <p>Specifications need to distinguish between different sources of language choice. First, there may be an explicit choice made by the user for the current interaction, account, or application. Second, there may be implicit preferences supplied by the user agent or operating system, such as browser language settings or an <code>Accept-Language</code> header. Third, a resource may define its own default language for cases where no user preference is known or no preferred version is available.</p>
 
-<p>In general, an explicit user override ought to take priority over user agent or browser preferences. User agent or browser preferences provide a useful default when the user has not made such a choice. A document or resource default can help ensure predictable behavior, but it should not prevent the user from discovering that other language versions exist or from switching to a different language.</p>
+<p>User agent or browser preferences provide a useful default when the user has not made such a choice. A document or resource default can help ensure predictable behavior, but it should not prevent the user from discovering that other language versions exist or from switching to a different language.</p>
 </section>
 </section>
 
