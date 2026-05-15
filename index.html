@@ -660,7 +660,11 @@
  	
 <aside class="issue"><p>This section is under development.</p></aside>
 
-<p>The best practices in this document, as well as [[[STRING-META]]], require natural language content to be associated with language metadata. On the Web, "language metadata" means a [=language tag=], specifically one defined by [[BCP47]]. Specifications or applications sometimes need to select or filter content according to language.</p>
+<p>The best practices in this document, as well as [[[STRING-META]]] [[STRING-META]], require natural language content to be associated with language metadata. On the Web, "language metadata" means a [=language tag=], specifically one defined by [[BCP47]]. Specifications or applications sometimes need to select or filter content according to language.</p>
+
+<div class="xref">
+<p></p><span class="seealso">See also: [[[LTLI]]] [[LTLI]]</span></p>
+</div>
 
 <p>In addition to defining [=language tags=] and the [=IANA Language Subtag Registry=], [[BCP47]] includes a second RFC, [[[RFC4647]]] [[RFC4647]], which defines [=language ranges=], [=language priority lists=], and several common matching schemes that applications can use (or specifications specify) when selecting or filtering using language tags.</p>
 
@@ -676,13 +680,15 @@
 
 <p>There are two different types of matching for [=language tags=]: lookup and filtering.</p>
 
-<p><a href="https://datatracker.ietf.org/doc/html/rfc4647#section-3.4" target="_blank">Lookup</a> [[RFC4647]] matches a [=language priority list=] consisting of [=basic language ranges=] to sets of [=language tags=] to find the one exact [=language tag=] that best matches the specified range or ranges. That is, lookup is used when the result needs to be a single item that best matches the user's needs (or an appropriate default). Examples of lookup include:</p>
+<p><a href="https://datatracker.ietf.org/doc/html/rfc4647#section-3.4" target="_blank">Lookup</a> [[RFC4647]] matches a [=language priority list=] consisting of [=basic language ranges=] to sets of [=language tags=] to find the one exact [=language tag=] that best matches the specified range or ranges. That is, use Lookup when the result needs to be <strong>exactly one</strong> item or value that best matches the user's needs (or an appropriate default). Examples of lookup include:</p>
 <ul>
+    <li>Selecting the appropriate localized value, such as a paragraph of text; an image; an icon; etc.</li>
+    <li>Selecting a specific value (such as a string)</li>
     <li>Selecting a resource file</li>
-    <li>...</li>
+    <li>Computing the result of language negotiation</li>
 </ul>
 
-<p>Filtering matches a [=language priority list=] to sets of [=language tags=] to produce zero or more matches. That is, it is used to filter content to produce only those items that match the [=language priority list=]. This might eliminate all of the language tags, or it might include many items.</p>
+<p>Filtering matches a [=language priority list=] to sets of [=language tags=] to produce zero or more matches. That is, it is used to filter content to produce only those items that match the [=language priority list=]. This might eliminate all of the language tag values, or it might include many items.</p>
 
 <p>[[BCP47]] defines two types of filtering: <a href="https://datatracker.ietf.org/doc/html/rfc4647#section-3.3.1">basic filtering</a> and <a href="https://datatracker.ietf.org/doc/html/rfc4647#section-3.3.2">extended filtering</a> [[RFC4647]].</p>
 
