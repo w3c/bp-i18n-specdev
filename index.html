@@ -706,10 +706,163 @@
 
 <p><dfn class="lint-ignore">Basic filtering</dfn> uses a [=language priority list=] consisting of [=basic language ranges=] to filter lists of language tags or language tagged content. In basic filtering, the language tags are prefix matched to each language range.</p>
 
+<aside class="example" title="Basic Filtering">
+    <p>[=Basic filtering=] matches [=basic language ranges=], which are just language tags, to the language tags associated with the content being filtered. A language range matches a language tag if it is an exact prefix for the language tag, paying attention to subtag boundaries.</p>
+    
+    <table>
+  <thead>
+    <tr>
+      <th>Language range</th>
+      <th>Language tag</th>
+      <th>Match?</th>
+      <th>Reason</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>de</code></td>
+      <td><code>de</code></td>
+      <td>Yes</td>
+      <td>Exact match.</td>
+    </tr>
+    <tr>
+      <td><code>de</code></td>
+      <td><code>de-CH</code></td>
+      <td>Yes</td>
+      <td>The tag starts with <code>de</code> followed by a hyphen.</td>
+    </tr>
+    <tr>
+      <td><code>de</code></td>
+      <td><code>de-Latn-DE</code></td>
+      <td>Yes</td>
+      <td>The range matches the initial subtags of the tag.</td>
+    </tr>
+    <tr>
+      <td><code>de</code></td>
+      <td><code>den</code></td>
+      <td>No</td>
+      <td><code>den</code> does not equal <code>de</code>.</td>
+    </tr>
+    <tr>
+        <td><code>de-DE</code></td>
+        <td><code>de-Latn-DE</code></td>
+        <td>No</td>
+        <td>Basic filtering requires a prefix match; it does not skip subtags.</td>
+    </tr>
+    <tr>
+      <td><code>zh-Hant</code></td>
+      <td><code>zh-Hant-TW</code></td>
+      <td>Yes</td>
+      <td>The tag begins with the full range <code>zh-Hant</code>.</td>
+    </tr>
+    <tr>
+      <td><code>zh-Hant</code></td>
+      <td><code>zh-Hans-CN</code></td>
+      <td>No</td>
+      <td>The script subtag differs: <code>Hant</code> vs. <code>Hans</code>.</td>
+    </tr>
+    <tr>
+      <td><code>en-US</code></td>
+      <td><code>en-US-x-twain</code></td>
+      <td>Yes</td>
+      <td>The range matches the initial subtags before the private-use extension.</td>
+    </tr>
+    <tr>
+      <td><code>*</code></td>
+      <td><code>fr-CA</code></td>
+      <td>Yes</td>
+      <td>The wildcard range matches any language tag.</td>
+    </tr>
+  </tbody>
+</table>
+</aside>
+
 <p><dfn class="lint-ignore">Extended filtering</dfn> uses a [=language priority list=] consisting of [=extended language ranges=] to filter lists of language tags or language tagged content. An [=extended language range=] can contain a wildcard <code>*</code> subtag in place of one or more of its subtags. (Wildcards outside the first "primary language subtag" position are ignored). Unlike [=basic filtering=], the extended filtering can be used to select match subtags inside of a language tag.</p>
 
 <aside class="example">
-    <p>For example, the range <code>*-Latn</code> might be used to select content tagged as being in the Latin (<code>Latn</code>) script, regardless of the primary language. That language range would match tags like <code>de-Latn</code>, <code>sr-Latn-RS</code>, and <code>zh-cmn-Latn-CN-wadegile</code>, but not tags such as <code>de-DE</code>, <code>sr-RS</code>, or <code>zh-CN-wadegile</code>.</p>
+    <p>[=Extended filtering=] exists to allow applications to select or match content based on specific subtags <em>within</em> a langauge tag. This is often needed when trying to match a specific script (<code>*-Latn</code>, <code>*-Hant</code>) or a specific region (<code>*-DE</code>, <code>*-US</code>), regardless of what language is being used.</p>
+    
+    <p>The wildcard in an [=extended language range=] can be visible, in ranges such as <code>*-Latn</code> or <code>zh-*-SG</code> but outside the first position, it can also be (and usually is) implied. For example, the range <code>de-DE</code> implies <code>de-<span style="color:blue">*-</span>DE</code> or <code>zh-wadegile</code> implies <code>zh-<span style="color:blue">*-*-</span>wadegile</code>.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Extended language range</th>
+      <th>Language tag</th>
+      <th>Match?</th>
+      <th>Reason</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>de</code></td>
+          <td><code>de-DE</code></td>
+          <td>Yes</td>
+          <td>The language range is a prefix of the language tag.</td>
+      </tr>
+    <tr>
+      <td><code>de-DE</code></td>
+      <td><code>de-DE</code></td>
+      <td>Yes</td>
+      <td>The language range subtags match the language tag subtags directly.</td>
+    </tr>
+    <tr>
+      <td><code>de-DE</code></td>
+      <td><code>de-Latn-DE</code></td>
+      <td>Yes</td>
+      <td>The implied wildcard matches <code>Latn</code> while looking for the region subtag <code>DE</code>.</td>
+    </tr>
+    <tr>
+      <td><code>de-DE</code></td>
+      <td><code>de-CH</code></td>
+      <td>No</td>
+      <td>The required <code>DE</code> subtag is not present.</td>
+    </tr>
+    <tr>
+      <td><code>zh-CN</code></td>
+      <td><code>zh-Hans-CN</code></td>
+      <td>Yes</td>
+      <td>The implied wildcard matches <code>Hans</code> while looking for <code>CN</code>.</td>
+    </tr>
+    <tr>
+      <td><code>zh-CN</code></td>
+      <td><code>zh-CN</code></td>
+      <td>Yes</td>
+      <td>The language range subtags match the language tag subtags directly.</td>
+    </tr>
+    <tr>
+      <td><code>zh-CN</code></td>
+      <td><code>zh-Hant-TW</code></td>
+      <td>No</td>
+      <td>The required <code>CN</code> subtag is not present.</td>
+    </tr>
+    <tr>
+      <td><code>en-US</code></td>
+      <td><code>en-Latn-US</code></td>
+      <td>Yes</td>
+      <td><code>Latn</code> is skipped while looking for <code>US</code>.</td>
+    </tr>
+    <tr>
+      <td><code>*-CH</code></td>
+      <td><code>de-CH</code></td>
+      <td>Yes</td>
+      <td>The initial wildcard matches any primary language; <code>CH</code> then matches.</td>
+    </tr>
+    <tr>
+      <td><code>*-CH</code></td>
+      <td><code>fr-Latn-CH</code></td>
+      <td>Yes</td>
+      <td>The initial wildcard matches the primary language and also the <code>Latn</code> subtag while looking for <code>CH</code>.</td>
+    </tr>
+    <tr>
+      <td><code>*-CH</code></td>
+      <td><code>it-IT</code></td>
+      <td>No</td>
+      <td>The required <code>CH</code> subtag is not present.</td>
+    </tr>
+  </tbody>
+</table>
+    
 </aside>
 
 </section>
