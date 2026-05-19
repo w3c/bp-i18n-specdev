@@ -704,12 +704,12 @@
 
 <p>[[BCP47]] defines two types of filtering: <a href="https://datatracker.ietf.org/doc/html/rfc4647#section-3.3.1">basic filtering</a> and <a href="https://datatracker.ietf.org/doc/html/rfc4647#section-3.3.2">extended filtering</a> [[RFC4647]].</p>
 
-<p><dfn class="lint-ignore">Basic filtering</dfn> uses a [=language priority list=] consisting of [=basic language ranges=] to filter lists of language tags or language tagged content. In basic filtering, the language tags are prefix matched to each language range.</p>
+<p><dfn class="lint-ignore">Basic filtering</dfn> uses a [=language priority list=] consisting of [=basic language ranges=] to filter lists of language tags or language tagged content. In basic filtering, the language tags are prefix matched to each language range. Basic filtering is useful when you need to select all and only those language tags that are strict descendants of the language ranges in the language priority list.</p>
 
 <aside class="example" title="Basic Filtering">
-    <p>[=Basic filtering=] matches [=basic language ranges=], which are just language tags, to the language tags associated with the content being filtered. A language range matches a language tag if it is an exact prefix for the language tag, paying attention to subtag boundaries.</p>
+    <p>[=Basic filtering=] matches [=basic language ranges=], which are just language tags, to the language tags associated with the content that is being filtered. A language range matches a language tag if it is an exact prefix for the language tag, paying attention to subtag boundaries.</p>
     
-    <table>
+<table>
   <thead>
     <tr>
       <th>Language range</th>
@@ -775,14 +775,21 @@
     </tr>
   </tbody>
 </table>
+        
+    <p>You can use [=basic filtering=] when the [=language tags=] can contain additional subtags, including extensions, and you don't want to specify all possible permutations. For example, if you were selecting audio content, you might want to match all Serbian (range: <code>sr</code>) language tags, because the script subtags (<code>Latn</code>, <code>Cyrl</code>) or region subtags (<code>RS</code>, etc.) often associated with the Serbian language are not important to the selection. Or you might wish to select any English (range: <code>en</code>) tags without having to list all possible regional subtags.</p>
+    
+    <p>In [=basic filtering=], using a [=language priority list=] with multiple [=language ranges=] is the only means of filtering when the language tags can take different forms, such as when some content includes and other content excludes the script subtag.</p>
+
 </aside>
 
-<p><dfn class="lint-ignore">Extended filtering</dfn> uses a [=language priority list=] consisting of [=extended language ranges=] to filter lists of language tags or language tagged content. An [=extended language range=] can contain a wildcard <code>*</code> subtag in place of one or more of its subtags. (Wildcards outside the first "primary language subtag" position are ignored). Unlike [=basic filtering=], the extended filtering can be used to select match subtags inside of a language tag.</p>
+<p><dfn class="lint-ignore">Extended filtering</dfn> uses a [=language priority list=] consisting of [=extended language ranges=] to filter lists of language tags or language tagged content. An [=extended language range=] can contain a wildcard <code>*</code> subtag in place of one or more of its subtags. (Wildcards outside the first "primary language subtag" position are ignored). Unlike [=basic filtering=], extended filtering is used to select specific subtags inside of a language tag. Use extended filtering to filter out [=language tags=] that do not match the specific list of subtags within the specified [=language ranges=].</p>
 
 <aside class="example">
     <p>[=Extended filtering=] exists to allow applications to select or match content based on specific subtags <em>within</em> a langauge tag. This is often needed when trying to match a specific script (<code>*-Latn</code>, <code>*-Hant</code>) or a specific region (<code>*-DE</code>, <code>*-US</code>), regardless of what language is being used.</p>
     
-    <p>The wildcard in an [=extended language range=] can be visible, in ranges such as <code>*-Latn</code> or <code>zh-*-SG</code> but outside the first position, it can also be (and usually is) implied. For example, the range <code>de-DE</code> implies <code>de-<span style="color:blue">*-</span>DE</code> or <code>zh-wadegile</code> implies <code>zh-<span style="color:blue">*-*-</span>wadegile</code>.</p>
+    <p>For example, you might use [=extended filtering=] when an operation, such as assigning a font, depends mostly on the script but there can be many different languages. Or you might use this scheme when a specific region (such as a country) is the distinguishing factor.</p>
+    
+    <p>The wildcard in an [=extended language range=] can be included anywhere in the language range, such as <code>*-Latn</code> or <code>zh-*-SG</code>. However, outside the first position, it usually is not included in the range, but remains implied. For example, the range <code>de-DE</code> implies <code>de-<span style="color:blue">*-</span>DE</code> or <code>zh-wadegile</code> implies <code>zh-<span style="color:blue">*-*-</span>wadegile</code>.</p>
 
 <table>
   <thead>
@@ -835,6 +842,12 @@
       <td><code>zh-Hant-TW</code></td>
       <td>No</td>
       <td>The required <code>CN</code> subtag is not present.</td>
+    </tr>
+    <tr>
+        <td><code>zh-CN</code></td>
+        <td><code>zh-x-CN</code></td>
+        <td>No</td>
+        <td>Matching stops at private use or extensions unless specified in the range.</td>
     </tr>
     <tr>
       <td><code>*-CH</code></td>
