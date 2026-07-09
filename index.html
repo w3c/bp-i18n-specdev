@@ -5972,19 +5972,6 @@ transactionResult: [ SUCCESS, NOT_AUTHORIZED, INTERNAL_ERROR, UNKNOWN_ERROR ]
 
 
 
-
-<section id="loc_examples" class="subtopic">
-<h3><em>Creating examples (TBD)</em></h3>
-
-<p class="reviewComments"><a href="https://github.com/w3c/i18n-activity/labels/t%3Aloc_examples_x" target="_blank">See related review comments.</a></p>
-</section>
-
-
-
-
-
-
-
 <section id="loc_localization" class="subtopic">
 <h3>Localization</h3>
 
@@ -6065,6 +6052,71 @@ transactionResult: [ SUCCESS, NOT_AUTHORIZED, INTERNAL_ERROR, UNKNOWN_ERROR ]
 	<p class="advisement">In a multilingual environment it must be possible for the user to receive text in the language they prefer. This may depend on implicit user preferences based on the user's system or browser setup, or on user settings explicitly negotiated with the user.</p>
 	</div>
 </section>
+</section>
+
+
+
+
+
+<section id="writing_specs" class="topic">
+<h3>Additional guidelines when writing Specifications</h3>
+
+<div id="writing_specs_checklist" class="summaryC"></div>
+
+
+
+<p>Specifications serve diverse audiences. In addition to ensuring that whatever is being specified meets the needs of global audiences, authors can help users of the specification, particularly implementers, but applying some additional best practices to their writing.</p>
+
+<section id="loc_examples" class="subtopic">
+<h3>Creating examples</h3>
+
+<p class="reviewComments"><a href="https://github.com/w3c/i18n-activity/labels/t%3Aloc_examples_x" target="_blank">See related review comments.</a></p>
+
+
+<div class="req" id="provide-diverse-examples">
+    <p class="advisement">Ensure that your examples represent your global audience, including languages, regions, cultures, time zones, and other variations appropriate to your specification.</p>
+</div>
+
+<div class="req" id="non-ascii-examples">
+    <p class="advisement">If value supports non-ASCII characters, include an appropriate number of non-ASCII values in the examples so that it is clear that such values are permitted and support for such values is required.</p>
+</div>
+
+<p>If you permit it: show it. If a field, name, or other value can contain non-ASCII data, include at least a few examples that demonstrate this. Often this can be a second or third example, rather than the primary one, so as not to interfere with readability or editing. Showing non-ASCII values reminds implementers that they need to support international values.</p>
+
+<div class="req" id="non-english-examples">
+    <p class="advisement">Where appropriate, specifications SHOULD include non-English names, values, or tokens in examples.</p>
+</div>
+
+<p></p>
+
+<p class="seealso">See also: [[[#personal_name_examples]]]</p>
+
+<div class="req" id="non-american-examples">
+    <p class="advisement">Specifications SHOULD represent diverse regions and cultures by including examples from different countries or regions. Avoid examples that are idiosyncratic to one country, such as the USA, which might not be understood by international users.</p>
+</div>
+
+<div class="req" id="use-bp-examples">
+    <p class="advisement">Where it does not interfere with clarity, follow best practices found elsewhere in this document in examples.</p>
+</div>
+
+<p>For example, always include language and direction metadata with [=natural language=] content. If an item is [=localizable text=], show how it is localized. Show direction metadata for both left-to-right and right-to-left content.</p>
+
+<div class="req" id="use-lang-in-examples">
+    <p class="advisement">Use the <code>lang</code> attribute with an appropriate [=language tag=] to ensure correct font selection and rendering of non-English examples.</p>
+</div>
+
+<p>To ensure proper rendering, including by assistive technologies, use the HTML <code>lang</code> attribute with an appropriate language tag around non-English examples. (This is one of the purposes behind inclusion of <code>lang</code> in the character reference templates in [[[#char_ref]]].)</p>
+
+<div class="req" id="use-bidi-in-examples">
+    <p class="advisement">Use the <code>dir</code> attribute and appropriate Unicode bidirectional formatting characters in the <em>specification's</em> markup to ensure that bidirectional text examples to display properly (and to ensure that they are appropriately using [=bidi isolation=]).</p>
+</div>
+
+</section>
+
+
+
+
+
 </section>
 
 
