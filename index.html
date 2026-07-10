@@ -6063,9 +6063,34 @@ transactionResult: [ SUCCESS, NOT_AUTHORIZED, INTERNAL_ERROR, UNKNOWN_ERROR ]
 
 <div id="writing_specs_checklist" class="summaryC"></div>
 
+<p>Specifications serve diverse audiences. Most of the best practices in this document are focused on the technical requirements of whatever it is that your Specification is specifying. In this section, you'll find some additional best practices to apply to your writing. These will help you address a global audience more effectively by avoiding cultural biases or help implementers understand [=internationalization=] and [=localization=] requirements.</p>
 
+<section id="writing_considerations" class="subtopic">
+<h3>Writing Considerations</h3>
 
-<p>Specifications serve diverse audiences. In addition to ensuring that whatever is being specified meets the needs of global audiences, authors can help users of the specification, particularly implementers, but applying some additional best practices to their writing.</p>
+<div class="req" id="use-no-translate">
+    <p class="advisement">Use the HTML attribute <code translate="no">translate</code> [[ITS]] to signal to translators portions of the document (primarily keywords reserved by your specification) which text to preserve when translating your specification.</p>
+</div>
+
+<aside class="example" title="Use of translate attribute">
+    <p>For example:</p>
+    
+<pre class="html">
+    &lt;p&gt;This sentence contains a keyword &lt;code translate="no"&gt;foo&lt;/code&gt;.&lt;/p&gt;
+</pre>
+</aside>
+
+<div class="req" id="use-lang-in-examples">
+    <p class="advisement">Use the <code>lang</code> attribute with an appropriate [=language tag=] to ensure correct font selection and rendering of non-English examples.</p>
+</div>
+
+<p>To ensure proper rendering, including by assistive technologies, use the HTML <code>lang</code> attribute with an appropriate language tag around non-English examples. (This is one of the purposes behind inclusion of <code>lang</code> in the character reference templates in [[[#char_ref]]].)</p>
+
+<div class="req" id="use-bidi-in-examples">
+    <p class="advisement">Use the <code>dir</code> attribute and appropriate Unicode bidirectional formatting characters in the <em>specification's</em> markup to ensure that bidirectional text examples to display properly (and to ensure that they are appropriately using [=bidi isolation=]).</p>
+</div>
+
+</section>
 
 <section id="loc_examples" class="subtopic">
 <h3>Creating examples</h3>
@@ -6077,6 +6102,12 @@ transactionResult: [ SUCCESS, NOT_AUTHORIZED, INTERNAL_ERROR, UNKNOWN_ERROR ]
     <p class="advisement">Ensure that your examples represent your global audience, including languages, regions, cultures, time zones, and other variations appropriate to your specification.</p>
 </div>
 
+<p>Your first responsibility, of course, is to make your Specification clear and highly readable. To that end, when providing examples of data formats, APIs, and such, you'll often use English language values to help illuminate concepts. When you have room or when it doesn't interfere with readability, though, choose values that are non-ASCII, non-English, and non-provincial. This makes the Specification more relevant to global audiences while reminding implementers that they need to support these diverse audiences.</p>
+
+<aside class="links">
+<p>We covered choosing and exhibiting personal names earlier here: [[[#personal_name_examples]]]</p>
+</aside>
+
 <div class="req" id="non-ascii-examples">
     <p class="advisement">If a value (field, name, property, etc.) supports non-ASCII characters, include non-ASCII examples so that it is clear that such values are permitted and support for such values is required.</p>
 </div>
@@ -6084,12 +6115,9 @@ transactionResult: [ SUCCESS, NOT_AUTHORIZED, INTERNAL_ERROR, UNKNOWN_ERROR ]
 <p><strong>If you permit it: show it.</strong> If a field, name, or other value can contain non-ASCII data, include at least a few examples that demonstrate this. Often this can be a second or third example, rather than the primary one, so as not to interfere with readability or editing. Showing non-ASCII values reminds implementers that they need to support international values.</p>
 
 <div class="req" id="non-english-examples">
-    <p class="advisement">Where appropriate, specifications SHOULD include non-English names, values, or tokens in examples.</p>
+    <p class="advisement">Where appropriate, specifications SHOULD include non-English data in examples.</p>
 </div>
 
-<p></p>
-
-<p class="seealso">See also: [[[#personal_name_examples]]]</p>
 
 <div class="req" id="non-american-examples">
     <p class="advisement">Specifications SHOULD represent diverse regions and cultures by including examples from different countries or regions. Avoid examples that are idiosyncratic to one country, such as the USA, which might not be understood by international users.</p>
@@ -6100,16 +6128,6 @@ transactionResult: [ SUCCESS, NOT_AUTHORIZED, INTERNAL_ERROR, UNKNOWN_ERROR ]
 </div>
 
 <p>For example, always include language and direction metadata with [=natural language=] content. If an item is [=localizable text=], show how it is localized. Show direction metadata for both left-to-right and right-to-left content.</p>
-
-<div class="req" id="use-lang-in-examples">
-    <p class="advisement">Use the <code>lang</code> attribute with an appropriate [=language tag=] to ensure correct font selection and rendering of non-English examples.</p>
-</div>
-
-<p>To ensure proper rendering, including by assistive technologies, use the HTML <code>lang</code> attribute with an appropriate language tag around non-English examples. (This is one of the purposes behind inclusion of <code>lang</code> in the character reference templates in [[[#char_ref]]].)</p>
-
-<div class="req" id="use-bidi-in-examples">
-    <p class="advisement">Use the <code>dir</code> attribute and appropriate Unicode bidirectional formatting characters in the <em>specification's</em> markup to ensure that bidirectional text examples to display properly (and to ensure that they are appropriately using [=bidi isolation=]).</p>
-</div>
 
 </section>
 
