@@ -6068,6 +6068,39 @@ transactionResult: [ SUCCESS, NOT_AUTHORIZED, INTERNAL_ERROR, UNKNOWN_ERROR ]
 <section id="writing_considerations" class="subtopic">
 <h3>Writing Considerations</h3>
 
+<div class="req" id="use-lang-in-examples">
+    <p class="advisement">Use the <code>lang</code> attribute with an appropriate [=language tag=] to ensure correct font selection and rendering of examples (particularly those not in the document's primary language).</p>
+</div>
+
+<details class="links">
+    <summary>more</summary>
+    <p><a href="https://www.w3.org/International/questions/qa-choosing-language-tags.en.html">Choosing a Language Tag</a></p>
+</details>
+
+<p>To ensure proper rendering, including by assistive technologies, use the HTML <code>lang</code> attribute with an appropriate language tag around examples that are not in the document's primary language. (This is one of the purposes behind inclusion of <code>lang</code> in the character reference templates in [[[#char_ref]]].) For non-linguistic content, use the language tag <code translate="no" lang="zxx">zxx</code> to indicate that the content does not contain [=natural language=].</p>
+
+<aside class="example" title="Use of the 'lang' attribute">
+    <p>Here is an example of how the <code translate="no">lang</code> attribute might be used in a specification. Note that a [=language tag=] is still needed for values that are ASCII-only, not just for the names that use a non-Latin script!</p>
+<pre class="html">
+&lt;html lang="en"&gt; &lt;!-- Establishes the document language --&gt;
+...
+&lt;p&gt;We invited Terry, &lt;span lang="ru"&gt;<span lang="ru">Е́ва</span>&lt/span&gt;, &lt;span lang="es"&gt;<span lang="es">Lucas</span>&lt;/span&gt;,
+   &lt;span lang="am"&gt;<span lang="am">ገነት</span>&lt;/span&gt;, and &lt;span lang="tr"&gt;<span lang="am">Mahmut</span>&lt;/span&gt; to the party.&lt;/p&gt;
+</pre>
+</aside>
+
+<div class="req" id="use-bidi-in-examples">
+    <p class="advisement">Use the <code>dir</code> attribute and appropriate Unicode bidirectional formatting characters in the <em>specification's</em> markup to ensure that text examples display properly (and to ensure that they are appropriately using [=bidi isolation=]).</p>
+</div>
+
+<details class="links">
+    <summary>more</summary>
+    <p><a href="https://www.w3.org/TR/string-meta">Strings on the Web: Language and Direction Metadata</a> [[STRING-META]]</p>
+    <p><a href="https://www.w3.org/International/articles/strings-and-bidi/index.en.html">Strings and bidi</a></p>
+    <p><a href="https://www.w3.org/International/articles/inline-bidi-markup/index.en.html">Inline markup and bidirectional text in HTML</a></p>
+    <p><a href="https://www.w3.org/International/questions/qa-bidi-source.en.html">Working with source code markup and code examples for RTL scripts</a></p>
+</details>
+
 <div class="req" id="use-translate-no">
     <p class="advisement">Use the HTML attribute <code translate="no">translate</code> [[ITS]] with a value of <code translate="no">no</code> to signal to translators portions of the document which text to preserve when translating your specification.</p>
 </div>
@@ -6092,23 +6125,6 @@ transactionResult: [ SUCCESS, NOT_AUTHORIZED, INTERNAL_ERROR, UNKNOWN_ERROR ]
 </pre>
 </aside>
 
-<div class="req" id="use-lang-in-examples">
-    <p class="advisement">Use the <code>lang</code> attribute with an appropriate [=language tag=] to ensure correct font selection and rendering of non-English examples.</p>
-</div>
-
-<details class="links">
-    <summary>more</summary>
-    <p><a href="https://www.w3.org/International/questions/qa-choosing-language-tags.en.html">Choosing a Language Tag</a></p>
-</details>
-
-<p>To ensure proper rendering, including by assistive technologies, use the HTML <code>lang</code> attribute with an appropriate language tag around non-English examples. (This is one of the purposes behind inclusion of <code>lang</code> in the character reference templates in [[[#char_ref]]].)</p>
-
-<p>For non-linguistic content, use the language tag <code translate="no" lang="zxx">zxx</code> to indicate that the content does not contain [=natural language=].</p>
-
-<div class="req" id="use-bidi-in-examples">
-    <p class="advisement">Use the <code>dir</code> attribute and appropriate Unicode bidirectional formatting characters in the <em>specification's</em> markup to ensure that bidirectional text examples to display properly (and to ensure that they are appropriately using [=bidi isolation=]).</p>
-</div>
-
 </section>
 
 <section id="loc_examples" class="subtopic">
@@ -6118,10 +6134,10 @@ transactionResult: [ SUCCESS, NOT_AUTHORIZED, INTERNAL_ERROR, UNKNOWN_ERROR ]
 
 
 <div class="req" id="provide-diverse-examples">
-    <p class="advisement">Ensure that your examples represent your global audience, including languages, regions, cultures, time zones, and other variations appropriate to your specification.</p>
+    <p class="advisement">Ensure that your examples represent your global audience, including examples that vary in language, region, time zones, and other variations appropriate to your specification.</p>
 </div>
 
-<p>Your first responsibility, of course, is to make your Specification clear and highly readable. To that end, when providing examples of data formats, APIs, and such, you'll often use English language values to help illuminate concepts. When you have room or when it doesn't interfere with readability, though, choose values that are non-ASCII, non-English, and non-provincial. This makes the Specification more relevant to global audiences while reminding implementers that they need to support these diverse audiences.</p>
+<p>Your first responsibility, of course, is to make your Specification clear and highly readable. To that end, when providing examples of data formats, APIs, and such, you'll often use English language values to help illuminate concepts. When you have room or when it doesn't interfere with readability, though, choose values (or add additional examples) that are non-ASCII, non-English, and non-provincial. This makes the Specification more relevant to global audiences while reminding implementers that they need to support these diverse audiences.</p>
 
 <aside class="links">
 <p>We covered choosing and exhibiting personal names earlier here: [[[#personal_name_examples]]]</p>
