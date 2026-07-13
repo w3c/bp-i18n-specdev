@@ -4012,12 +4012,14 @@ p.私のクラス名 {
     </div>
     
     <div class="req" id="document-content-range-exceptions">
-        <p class="advisement">Restrictions on content, especially those on the range of [=code points=] permitted, MUST be documented except where the restrictions are obvious from the context.</p>
+        <p class="advisement">Restrictions on content, especially those on the range of [=code points=] permitted, MUST be documented except where the restrictions are [=obvious from the context=].</p>
     </div>
     
     <p>Start with a presumption that any document format or protocol consists of Unicode strings and that it must be able to transmit Unicode data. Characters whose properties seem to "complicate" processing are a necessary element of many languages. When restrictions are imposed on the range of valid characters, it can inadvertently impair usability for international users, particularly those whose native language does not use the Latin script. Avoid impairing or prohibiting the ability to transmit, process, and interchange international data except when it is absolutely necessary to do so.</p>
     
-    <p>There are many reasons for a specification to limit content: what is important is that the specification's authors have thought about the impact of the decision to impose such a limit on content and have documented the restriction for implementers. A content restriction is "obvious from the context" when the reason is documented by some parent specification. For example, if one is defining an HTTP header, the restriction of the header's name to a specific subset of ASCII is implied (note that this does not apply to the value of an HTTP header).</p>
+    <p>There are many reasons for a specification to limit content: what is important is that the specification's authors have thought about the impact of the decision to impose such a limit on content and have documented the restriction for implementers.</p>
+    
+    <p>A content restriction is <dfn>obvious from the context</dfn> when the restriction is documented by some parent specification. For example, if one is defining an HTTP header, the restriction of the header's <em>name</em> to a specific subset of ASCII is implied (note that this does not apply to the <em>value</em> of an HTTP header).</p>
     
     <div class="req" id="identifier_content_internal_id">
 	    <p class="advisement">Limit [=vocabulary=], including [=application internal identifiers=], to a [=printable subset of ASCII=].</p>
