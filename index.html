@@ -2224,10 +2224,15 @@ Content-Disposition: attachment; filename="Åsa.txt"
 	</div>
 
  	<div class="req" id="char_esc_end">
-	<p class="advisement">Escape syntax SHOULD require either explicit end delimiters or a fixed number of characters in each character escape. Escape syntaxes where the end is determined by any character outside the set of characters admissible in the character escape itself SHOULD be avoided.</p>
+	<p class="advisement">Escape syntax MUST either use an explicit end delimiter, such as in <code>&amp;#x12AB;</code> or <code>\u{12F}</code>, or a fixed number of digits, such as in <code>\u12AB</code> or <code>\U001234AB</code>.</p>
 	<details class="links"><summary>explanations &amp; examples</summary>
 	<p><a href="https://www.w3.org/TR/charmod/#sec-Escaping">Character Escaping, C044</a>, in <cite>Character Model for the World Wide Web: Fundamentals</cite></p>
 	</details>
+	</div>
+
+ 	<div class="req" id="char_esc_end_delimited">
+	<p class="advisement">End-delimited forms are RECOMMENDED.</p>
+	<p>End-delimited escapes can use only the digits needed for the code point, which makes them more compact than fixed-width forms, and the closing delimiter makes it easier to see where the escape ends.</p>
 	</div>
 
  	<div class="req" id="char_esc_hex">
