@@ -551,3 +551,12 @@ table.byte-oriented-example  th:not(:first-child),
   td:not(:first-child) {
     text-align: center;
   }
+  
+table.lang-tag-matching {
+   border-collapse: collapse;
+   }
+   
+table.lang-tag-matching td {
+   text-align: left;
+   }
+
