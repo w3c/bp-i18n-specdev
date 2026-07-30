@@ -1828,9 +1828,9 @@
 
 <p>On the Web, there are three types of strings:</p>
 <ul>
-	<li>{{USVString}}. Strings whose code points are all <a>Unicode Scalar Values</a>.</li>
-	<li>{{DOMString}}. Strings based on <a href="https://www.w3.org/TR/i18n-glossary/#dfn-utf-16">UTF-16</a> <a>code units</a>.</li>
-	<li>{{ByteString}}. Strings based on bytes in some <a>character encoding form</a> (preferably <a>UTF-8</a>).</li>
+	<li>{{USVString}}. Strings consisting of a sequence of [=Unicode Scalar Values=], that is, each [=code unit=] in the string is a Unicode [=code point=].</li>
+	<li>{{DOMString}}. Strings consisting of a sequence of <a href="https://www.w3.org/TR/i18n-glossary/#dfn-utf-16">UTF-16</a> [=code units=].</li>
+	<li>{{ByteString}}. Strings consisting of a sequence of bytes that are interpreted using some specific [=character encoding form=] (preferably <a>UTF-8</a>).</li>
 </ul>
 
 <p>One difference between these different string types is how <a>surrogate</a> <a>code points</a> are handled. A <a>Unicode Scalar Value</a> is a Unicode <a>code point</a> other than a surrogate code point. A <a>code unit</a> is a unit of encoding in a <a>character encoding form</a>.</p>
