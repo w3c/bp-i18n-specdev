@@ -1866,7 +1866,7 @@
 </div>
 
 <div class="req" id="char_string_usv">
-	<p class="advisement">Use a {{USVString}} when an operation requires a scalar value string. This includes algorithms that iterate over the <a>code points</a> in a string, processes that involve <a>UTF-8 encode</a>, and operations that pass the string to another component or API for which an unpaired <a>surrogate</a> <a>code point</a> would produce an error.</p>
+	<p class="advisement">Use a {{USVString}} for strings whose most common algorithms operate on [=Unicode Scalar Values=], or for operations which can't handle [=surrogates=] in input. This includes algorithms that iterate over the <a>code points</a> in a string, processes that involve <a>UTF-8 encode</a>, and operations that pass the string to another component or API for which an unpaired <a>surrogate</a> <a>code point</a> would produce an error.</p>
 	
 	<details class="links"><summary>explanations &amp; examples</summary>
 	   <p><a href="https://infra.spec.whatwg.org/#scalar-value-string">Scalar value string</a> definition in [[INFRA]]</p>
