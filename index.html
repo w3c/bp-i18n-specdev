@@ -1824,19 +1824,18 @@
 
 <p class="localdef">A <dfn class="lint-ignore">string</dfn> is a well-formed sequence of zero or more <a>Unicode Scalar Values</a>.</p>
 
-<p>Because there are multiple ways of working with strings, different definitions of "string" have evolved to support the needs of different specifications. Be sure to understand your specification's needs and use the most appropriate and precise definition.</p>
+<p>Because there are multiple ways of working with strings, different definitions of "string" have evolved to support the needs of different specifications. Be sure to understand your specification's needs and use the most appropriate and precise definition. When choosing a string type, consider the requirements of the entire operation, including other components or platform APIs to which the string is passed, rather than only the algorithms defined directly in your specification.</p>
 
-<p>On the Web, there are three types of strings:
-
+<p>On the Web, there are three types of strings:</p>
 <ul>
-	<li>{{USVString}}. Strings based on Unicode <a>code points</a>, also known as </a><a>Unicode Scalar Values</a></li>
-	<li>{{DOMString}}. Strings based on <a href="https://www.w3.org/TR/i18n-glossary/#dfn-utf-16">UTF-16</a> <a>code units</a></li>
-	<li>{{ByteString}}. Strings based on bytes in some <a>character encoding form</a> (preferably <a>UTF-8</a>)</li>
-</ul></p>
+	<li>{{USVString}}. Strings consisting of a sequence of one or more [=Unicode Scalar Values=], that is, each [=code unit=] in the string is a Unicode [=code point=].</li>
+	<li>{{DOMString}}. Strings consisting of a sequence of one or more <a href="https://www.w3.org/TR/i18n-glossary/#dfn-utf-16">UTF-16</a> [=code units=].</li>
+	<li>{{ByteString}}. Strings consisting of a sequence of one or more bytes that are interpreted using some specific [=character encoding form=] (preferably <a>UTF-8</a>).</li>
+</ul>
 
-<p>One difference between these different string types is how <a>surrogate</a> <a>code points</a> are handled. Note the difference between a <a>code point</a> (which represents a <a>Unicode Scalar Value</a>, i.e. a character) and a <a>code unit</a> (a unit of encoding in a <a>character encoding form</a>).</p>
+<p>One difference between these different string types is how <a>surrogate</a> <a>code points</a> are handled. A <a>Unicode Scalar Value</a> is a Unicode <a>code point</a> other than a surrogate code point. A <a>code unit</a> is a unit of encoding in a <a>character encoding form</a>.</p>
 
-<p>The <a href="https://www.w3.org/TR/i18n-glossary/#dfn-utf-16">UTF-16</a> <a>character encoding form</a> uses 16-bit <a>code units</a>. Characters whose <a>scalar values</a> require more than 16-bits are encoded using a pair of <a>surrogate</a> <a>code units</a>: a "low surrogate" (in the range <code class="uname">U+D800-U+DBFF</code>) followed by a "high surrogate" (in the range <code class="uname">U+DC00-U+DFFF</code>). Unicode reserves the <a>code points</a> in these ranges as non-characters so that there is no confusion between the <a>code units</a> in <a href="https://www.w3.org/TR/i18n-glossary/#dfn-utf-16">UTF-16</a> and normal text.</p>
+<p>The <a href="https://www.w3.org/TR/i18n-glossary/#dfn-utf-16">UTF-16</a> <a>character encoding form</a> uses 16-bit <a>code units</a>. In this encoding form, characters whose <a>scalar values</a> require more than 16 bits are encoded using a pair of <a>surrogate</a> <a>code units</a>: a "high surrogate" (in the range <code class="uname">U+D800-U+DBFF</code>) followed by a "low surrogate" (in the range <code class="uname">U+DC00-U+DFFF</code>). Unicode reserves the <a>code points</a> in these ranges exclusively for use as UTF-16 surrogate code units. They are not Unicode Scalar Values.</p>
 
 <p>In a {{USVString}}, isolated <a>surrogate</a> code points are invalid and implementations are required to replace any found in a string with the Unicode replacement character (<span class="codepoint" translate="no"><bdi lang="und">&#xFFFD;</bdi><code class="uname">U+FFFD REPLACEMENT CHARACTER</code></span>). For strings whose most common algorithms operate on scalar values (such as percent-encoding), or for operations which can’t handle surrogates in input (such as APIs that pass strings through to native platform APIs), {{USVString}} should be used. Any of these references are equivalent to this:
 	<ul>
@@ -1867,7 +1866,7 @@
 </div>
 
 <div class="req" id="char_string_usv">
-	<p class="advisement">Use a {{USVString}} when defining an algorithm that iterates over the <a>code points</a> in a string. Use {{USVString}} for any process which involves <a>UTF-8 encode</a> or for anywhere in which an unpaired <a>surrogate</a> <a>code point</a> would produce an error.</p>
+	<p class="advisement">Use a {{USVString}} for strings whose most common algorithms operate on [=Unicode Scalar Values=], or for operations which can't handle [=surrogates=] in input. This includes algorithms that iterate over the <a>code points</a> in a string, processes that involve <a>UTF-8 encode</a>, and operations that pass the string to another component or API for which an unpaired <a>surrogate</a> <a>code point</a> would produce an error.</p>
 	
 	<details class="links"><summary>explanations &amp; examples</summary>
 	   <p><a href="https://infra.spec.whatwg.org/#scalar-value-string">Scalar value string</a> definition in [[INFRA]]</p>
