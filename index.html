@@ -1837,7 +1837,7 @@
 
 <p>The <a href="https://www.w3.org/TR/i18n-glossary/#dfn-utf-16">UTF-16</a> <a>character encoding form</a> uses 16-bit <a>code units</a>. In this encoding form, characters whose <a>scalar values</a> require more than 16 bits are encoded using a pair of <a>surrogate</a> <a>code units</a>: a "high surrogate" (in the range <code class="uname">U+D800-U+DBFF</code>) followed by a "low surrogate" (in the range <code class="uname">U+DC00-U+DFFF</code>). Unicode reserves the <a>code points</a> in these ranges exclusively for use as UTF-16 surrogate code units. They are not Unicode Scalar Values.</p>
 
-<p>In a {{USVString}}, isolated <a>surrogate</a> code points are invalid and implementations are required to replace any found in a string with the Unicode replacement character (<span class="codepoint" translate="no"><bdi lang="und">&#xFFFD;</bdi><code class="uname">U+FFFD REPLACEMENT CHARACTER</code></span>). For strings whose most common algorithms operate on scalar values (such as percent-encoding), or for operations which can’t handle surrogates in input (such as APIs that pass strings through to native platform APIs), {{USVString}} should be used. Any of these references are equivalent to this:
+<p>In a {{USVString}}, isolated (unpaired) <a>surrogate</a> code points are invalid and implementations are required to replace any found in a string with the Unicode replacement character (<span class="codepoint" translate="no"><bdi lang="und">&#xFFFD;</bdi><code class="uname">U+FFFD REPLACEMENT CHARACTER</code></span>). For strings whose most common algorithms operate on scalar values (such as percent-encoding), or for operations which can’t handle surrogates in input (such as APIs that pass strings through to native platform APIs), {{USVString}} should be used. Any of these references are equivalent to this:
 	<ul>
 	    <li>{{USVString}} [[WEBIDL]]</li>
 	    <li><a>scalar value string</a> [[INFRA]]</li>
@@ -1845,7 +1845,7 @@
     </ul>
 </p>
 
-<p>In a {{DOMString}}, unpaired <a>surrogate</a> <a>code units</a> can appear in a string. Most string operations don’t need to interpret the <a>code units</a> inside of strings. Specifying {{DOMString}} means that implementations are not required to validate the contents of the string, making this the ideal string type for most data structures, formats, or APIs. The [[DOM]] and JavaScript strings use {{DOMString}} as their string type and the [[INFRA]] standard defines the term 'string' to mean a {{DOMString}}:</p>
+<p>In a {{DOMString}}, isolated (unpaired) <a>surrogate</a> <a>code units</a> can appear in a string. Specifying {{DOMString}} means that implementations are not required to validate the contents of the string to ensure that there are no unpaired surrogates. This makes {{DOMString}} more efficient for processing or interchange. This is why it is usually the preferred string type for most data structures, formats, or APIs. The [[DOM]] and JavaScript strings use {{DOMString}} as their string type and the [[INFRA]] standard defines the term 'string' to mean a {{DOMString}}:</p>
 
 <p class="localdef">A string is a sequence of unsigned 16-bit integers, also known as <a>code units</a>.</p>
 
