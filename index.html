@@ -4146,10 +4146,13 @@ p.私のクラス名 {
 
 <p class="reviewComments"><a href="https://github.com/w3c/i18n-activity/labels/t%3Amarkup_elements_attributes" target="_blank">See related review comments.</a></p>
 
+<p>Element content is the right place for text that a user will read, because it can be localized and annotated with language, direction, and other internationalization metadata. Attributes should generally carry structural or machine-readable information, such as identifiers, state, or a link target. Putting a label, description, or other natural-language text in an attribute can make it difficult for authors and tools to translate or correctly render that text.</p>
+
   	<div class="req" id="markup_attributes">
 	<p class="advisement">Do not define attribute values that will contain user readable content. Use elements for such content.</p>
 	<details class="links"><summary>explanations &amp; examples</summary>
 	<p><a href="https://www.w3.org/TR/xml-i18n-bp/#DevAttributes">Best Practice 3: Avoiding translatable attribute values</a>, in Best Practices for XML Internationalization</p>
+	<p><a href="https://www.w3.org/International/questions/qa-site-conneg.en.html#inpageLinks" target="_blank">In-page links example</a>, in Guiding users to translated pages</p>
 	</details>
 	</div>
 
