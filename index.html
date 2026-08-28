@@ -6293,7 +6293,10 @@ transactionResult: [ SUCCESS, NOT_AUTHORIZED, INTERNAL_ERROR, UNKNOWN_ERROR ]
 <p>Some user agents can automatically translate <a>natural language</a> content. Specifications that define or enable automatic translation need to ensure that translated content can be processed correctly, and includes all translatable text presented to the user.</p>
 
 	<div class="req" id="l10n_auto_translation_controls">
-	<p class="advisement">Specifications MUST require automatic translation to respect markup or metadata that indicate whether content is translatable, such as the rules of the HTML <code translate="no">translate</code> attribute [[HTML]].</p>
+	<p class="advisement">Specifications MUST require automatic translation to respect markup or metadata that indicate whether content is translatable, such as the rules of the HTML <code translate="no">translate</code> attribute [[HTML]] and the ITS Translate data category [[ITS]].</p>
+	<details class="links"><summary>more</summary>
+		<p><a href="https://www.w3.org/TR/its20/#trans-datacat">ITS 2.0: Translate</a></p>
+	</details>
 	</div>
 
 	<div class="req" id="l10n_auto_translation_metadata">
@@ -6302,6 +6305,13 @@ transactionResult: [ SUCCESS, NOT_AUTHORIZED, INTERNAL_ERROR, UNKNOWN_ERROR ]
 
 	<div class="req" id="l10n_auto_translation_status">
 	<p class="advisement">User agents SHOULD clearly indicate when content has been automatically translated and allow users to view the original text.</p>
+	</div>
+
+	<div class="req" id="l10n_auto_translation_source_target">
+	<p class="advisement">When a format retains source and translated content together, specifications SHOULD associate corresponding source and target content so that user agents can reliably present the original text. This does not imply that formats should store source and target content together solely for this purpose. [[ITS]]</p>
+	<details class="links"><summary>more</summary>
+		<p><a href="https://www.w3.org/TR/its20/#target-pointer">ITS 2.0: Target Pointer</a></p>
+	</details>
 	</div>
 
 	<div class="req" id="l10n_auto_translation_scope">
