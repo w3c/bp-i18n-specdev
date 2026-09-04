@@ -6287,6 +6287,43 @@ transactionResult: [ SUCCESS, NOT_AUTHORIZED, INTERNAL_ERROR, UNKNOWN_ERROR ]
 
 
 
+<section id="automatic_translation">
+<h4>Automatic translation by user agents</h4>
+
+<p>Some user agents can automatically translate <a>natural language</a> content. The requirements in this section apply to specifications that define or enable automatic translation. Such specifications need to ensure that translated content can be processed correctly.</p>
+
+	<div class="req" id="l10n_auto_translation_scope">
+	<p class="advisement">Specifications that define or enable automatic translation MUST require all translatable <a>natural language</a> content presented to users to be translated, including content provided outside markup, such as CSS-generated content, scripting, and natural language strings supplied through APIs.</p>
+	</div>
+
+	<div class="req" id="l10n_auto_translation_controls">
+	<p class="advisement">Specifications that define or enable automatic translation SHOULD define or reuse a mechanism to indicate that content must not be translated, such as the HTML <code translate="no">translate="no"</code> attribute [[HTML]] or the ITS Translate data category [[ITS]].</p>
+	<details class="links"><summary>more</summary>
+		<p><a href="https://www.w3.org/TR/its20/#trans-datacat">ITS 2.0: Translate</a></p>
+	</details>
+	</div>
+
+
+	<div class="req" id="l10n_auto_translation_metadata">
+	<p class="advisement">Specifications that define or enable automatic translation SHOULD require automatically translated content to expose the correct language and base direction metadata for the translated text.</p>
+	</div>
+
+	<div class="req" id="l10n_auto_translation_status">
+	<p class="advisement">Specifications that define or enable automatic translation SHOULD require user agents to clearly indicate when content has been automatically translated and allow users to view the original text.</p>
+	</div>
+
+	<div class="req" id="l10n_auto_translation_source_target">
+	<p class="advisement">When a specification defines or enables automatic translation and its format retains source and translated content together, it SHOULD associate corresponding source and target content so that user agents can reliably present the original text. This does not imply that formats should store source and target content together solely for this purpose. [[ITS]]</p>
+	<details class="links"><summary>more</summary>
+		<p><a href="https://www.w3.org/TR/its20/#target-pointer">ITS 2.0: Target Pointer</a></p>
+	</details>
+	</div>
+
+</section>
+
+
+
+
 <section id="errors">
 <h4>Working with error and exception messages</h4>
 
