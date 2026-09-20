@@ -2895,17 +2895,17 @@ Content-Disposition: attachment; filename="Åsa.txt"
 <p>For most characters, the template looks like this:</p>
 
 <code>
-&lt;span class="codepoint" translate="no">&lt;bdi lang="??">&#xXXXX;&lt;/bdi>&lt;code class="uname">U+XXXX UNICODE_CHARACTER_NAME_ALL_IN_CAPS&lt;/code>&lt;/span>
+&lt;span class="codepoint" translate="no">&lt;bdi lang="??">&#xXXXX;&lt;/bdi> &lt;code class="uname">U+XXXX UNICODE_CHARACTER_NAME_ALL_IN_CAPS&lt;/code>&lt;/span>
 </code>
 
 <aside class="example" title="Example of a character reference">
 <p>Filling in the above template like this:</p>
 
 <code>
-&lt;span class="codepoint" translate="no">&lt;bdi lang="fr">&#x00E9;&lt;/bdi>&lt;code class="uname">U+00E9 LATIN SMALL LETTER E WITH ACUTE&lt;/code>&lt;/span>
+&lt;span class="codepoint" translate="no">&lt;bdi lang="fr">&#x00E9;&lt;/bdi> &lt;code class="uname">U+00E9 LATIN SMALL LETTER E WITH ACUTE&lt;/code>&lt;/span>
 </code>
 
-<p>Produces output in the page like this: <span class="codepoint" translate="no"><bdi lang="fr">é</bdi><code class="uname">U+00E9 LATIN SMALL LETTER E WITH ACUTE</code></span>.</p>
+<p>Produces output in the page like this: <span class="codepoint" translate="no"><bdi lang="fr">é</bdi> <code class="uname">U+00E9 LATIN SMALL LETTER E WITH ACUTE</code></span>.</p>
 </aside>
 
 <p>The <code translate="no" class="kw">bdi</code> element is used to ensure that example characters that are right-to-left do not interfere with the layout of the page. Do not include line breaks or a space between the closing <code translate="no" class="kw">bdi</code> and the following <code translate="no" class="kw">code</code> element; spacing and presentation is controlled by styling.</p>
@@ -2931,15 +2931,15 @@ Content-Disposition: attachment; filename="Åsa.txt"
 <p>Short sequences of characters should list the character names, separated by <span class="codepoint" translate="no">+</span>.
 
 <aside class="example" title="Example of a code point sequence">
-	<p>This example: <span class="codepoint" translate="no"><bdi lang="hi">&#x0928&#x093f;</bdi><code class="uname">U+0928 DEVANAGARI LETTER NA</code> + <code class="uname">U+093F  DEVANAGARI VOWEL SIGN I</code></span> uses the following markup:</p>
+	<p>This example: <span class="codepoint" translate="no"><bdi lang="hi">&#x0928&#x093f;</bdi> <code class="uname">U+0928 DEVANAGARI LETTER NA</code> + <code class="uname">U+093F  DEVANAGARI VOWEL SIGN I</code></span> uses the following markup:</p>
 
 <code>
-&lt;span class="codepoint" translate="no">&lt;bdi lang="hi">&amp;#x0928;&amp;#x093f;&lt;/bdi>&lt;code class="uname">U+0928 DEVANAGARI LETTER NA&lt;/code> + &lt;code class="uname">U+093F DEVANAGARI VOWEL SIGN I&lt;/code>&lt;/span>
+&lt;span class="codepoint" translate="no">&lt;bdi lang="hi">&amp;#x0928;&amp;#x093f;&lt;/bdi> &lt;code class="uname">U+0928 DEVANAGARI LETTER NA&lt;/code> + &lt;code class="uname">U+093F DEVANAGARI VOWEL SIGN I&lt;/code>&lt;/span>
 </code>	
 
 </aside>
 
-<p>There are cases where including the character name and additional markup is overly pedantic and detracts from usability, but be cautious about being so informal as to impair meaning. In particular, long sequences will sometimes just list the code points, although the character names should be retained where possible for clarity. An example can be found in this document in the <a href="#family-example">discussion of the composed "family" emoji</a>: <span class="codepoint"><bdi lang="en">👨‍👩‍👧‍👧</bdi><code class="uname">U+1F468 U+200D U+1F469 U+200D U+1F467 U+200D U+1F467</code></span></p>
+<p>There are cases where including the character name and additional markup is overly pedantic and detracts from usability, but be cautious about being so informal as to impair meaning. In particular, long sequences will sometimes just list the code points, although the character names should be retained where possible for clarity. An example can be found in this document in the <a href="#family-example">discussion of the composed "family" emoji</a>: <span class="codepoint"><bdi lang="en">👨‍👩‍👧‍👧</bdi> <code class="uname">U+1F468 U+200D U+1F469 U+200D U+1F467 U+200D U+1F467</code></span></p>
 
 </section>
 </section>
