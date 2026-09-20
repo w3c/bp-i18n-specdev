@@ -3018,7 +3018,7 @@ Content-Disposition: attachment; filename="Åsa.txt"
 
 
 <section id="char_indexing" class="subtopic">
-<h3>Choosing text units for segmentation, indexing, etc.</h3>
+<h3>Boundary analysis, segmentation, and indexing</h3>
 
 <p class="reviewComments"><a href="https://github.com/w3c/i18n-activity/labels/t%3Achar_indexing" target="_blank">See related review comments.</a></p>
 
@@ -3029,10 +3029,14 @@ Content-Disposition: attachment; filename="Åsa.txt"
 <p>[[[#char_truncation]]].</p>
 </div>
 
+<p>In addition to user-perceived characters, [=natural language=] text is often divided in various larger units of text. Finding, selecting, and extracting these units are covered by this section.</p>
 
+<p><dfn>Boundary analysis</dfn> is the general term for the process of computing potential boundary or "break" positions in text. There are many types of break position. Some common ones are: paragraph, line, sentence, word, syllable, and grapheme.</p>
+
+<section id="char_index_string">
+<h4>String indexing</h4>
 
 <p>There are many situations where a software process needs to access a substring or to point within a string and does so by the use of indices, i.e. numeric &quot;positions&quot; within a string. Where such indices are exchanged between components of the Web, there is a need for an agreed-upon definition of string indexing in order to ensure consistent behavior. The two main questions that arise are: &quot;What is the unit of counting?&quot; and &quot;Do we start counting at 0 or 1?&quot;.</p>
-
 
 	<div class="req" id="char_index_char">
 	<p class="advisement">The <a class="termref" href="https://www.w3.org/TR/charmod/#def-character-string">character string</a> is RECOMMENDED as a basis for string indexing.</p>
@@ -3112,6 +3116,32 @@ Content-Disposition: attachment; filename="Åsa.txt"
 	</details>
 	</div>
 </section>
+
+<section id="char_index_boundary">
+<h4>Boundary analysis</h4>
+
+<p>A common requirement for specifications or implementations is the division of text into words.</p>
+
+<div class="req" id="char_index_word">
+<p class="advisement">Specifications MUST NOT assume that words are always separated by spaces.</p>
+</div>
+
+<p>When specifications refer to 'words', it is typically in the context of performing some operation on text, such as line-breaking, text spacing, double-clicking, etc. For these operations, the appropriate boundary or location to support the operation must be identified. These boundaries and locations vary from script to script, and may also vary from language to language and depending on the operation being performed. They may or may not be marked by visible separators. For many scripts, these points of interest are indicated by space characters, but for many others they involve more complex heuristics.</p>
+
+<div class="req" id="char_index_word_define">
+<p class="advisement">Specifications that need to identify words or word boundaries SHOULD define the boundary analysis required for the relevant operation. They SHOULD either reference a standard segmentation algorithm, such as <cite>Unicode Text Segmentation</cite> [[UAX29]], or define the algorithm and any necessary tailoring so that implementations can produce interoperable results.</p>
+</div>
+
+<p>The text unit needed depends on the operation being performed. For example, search indexing, line-breaking, and double-click selection may require different boundary analyses. When language or locale affects the result, specifications should define how that information is determined and what fallback behavior applies when it is unavailable.</p>
+
+<p>A lot of languages use scripts that divide words using whitespace, but some scripts do not. Many scripts have different word boundary handling conventions:</p>
+<ul>
+<li>The scripts used for writing Chinese and Japanese generally do not use spaces, particularly between words. For example: <span lang="ja" translate="no">素早い茶色のキツネは怠け者の犬を飛び越える</span>. Although Japanese and Chinese don't use spaces, there are occasions where groups of characters are kept together for operations such as line-breaking (especially in headlines) or double-click selection.</li>
+<li>Scripts such as Thai, Balinese, Batak, Tai Lue, and Khmer do not have word separators. Spaces sometimes appear in these scripts, but more commonly as phrase separators. Word boundary analysis in these scripts often requires language-specific dictionaries. For example: <span lang="th" translate="no">สุนัขสีน้ำตาลตัวนี้วิ่งเร็ว</span>.</li>
+<li>In Vietnamese (written with the Latin script) and Fraser script, spaces are used to separate syllables, not words.</li>
+</ul>
+	</section>
+	</section>
 
 
 
