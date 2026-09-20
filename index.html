@@ -4494,18 +4494,75 @@ transactionResult: [ SUCCESS, NOT_AUTHORIZED, INTERNAL_ERROR, UNKNOWN_ERROR ]
 </section>
 
 
+<section id="typ_bidi_styling" class="subtopic">
+<h3>Bidi styling</h3>
+
+<p class="reviewComments"><a href="https://github.com/w3c/i18n-activity/labels/t%3Abidistyling" target="_blank">See related review comments.</a></p>
+
+<div class="req" id="layout_mirroring">
+    <p class="advisement">User interfaces, including user agent provided controls, SHOULD be specified so that the layout of controls is in [=logical order=] and proceeds according to the [=block direction=].</p>
+    
+    <p>For example, a control that displays an icon to the left of some text in a left-to-right direction layout will display the icon to the right of some text in a right-to-left direction layout.</p>
+</div>
+
+<p>User agent-provided UI controls should automatically mirror their layout to match the directionality of the content. This includes repositioning control elements (such as the "on" position in toggle switches) and other spatial arrangements that have inherent directional meaning, so they appear in the appropriate location.</p>
+
+<figure style="text-align: center; margin: 2em 0;">
+<div style="display: inline-block; padding: 1em; border: 1px solid #ccc; border-radius: 4px; margin: 0 1em;">
+<div style="margin-bottom: 0.5em; font-weight: bold;">LTR Context (dir="ltr")</div>
+<div style="display: flex; align-items: center; gap: 0.5em;">
+<span>OFF</span>
+<div style="width: 40px; height: 20px; background: #ddd; border-radius: 10px; position: relative;">
+<div style="width: 18px; height: 18px; background: #007acc; border-radius: 50%; position: absolute; top: 1px; right: 1px;"></div>
+</div>
+<span>ON</span>
+</div>
+</div>
+<div style="display: inline-block; padding: 1em; border: 1px solid #ccc; border-radius: 4px; margin: 0 1em;">
+<div style="margin-bottom: 0.5em; font-weight: bold;">RTL Context (dir="rtl")</div>
+<div style="display: flex; align-items: center; gap: 0.5em;" dir="rtl">
+<span>OFF</span>
+<div style="width: 40px; height: 20px; background: #ddd; border-radius: 10px; position: relative;">
+<div style="width: 18px; height: 18px; background: #007acc; border-radius: 50%; position: absolute; top: 1px; left: 1px;"></div>
+</div>
+<span>ON</span>
+</div>
+</div>
+<figcaption style="margin-top: 1em; font-style: italic; font-size: 0.9em;">Example: A toggle switch control should automatically mirror in RTL contexts, with the "on" position appearing on the left instead of the right.</figcaption>
+</figure>
+
+<p>Examples of UI elements that should support automatic mirroring include:</p>
+<ul>
+<li>Toggle switches and sliders</li>
+<li>Progress bars</li>
+<li>Bullets and list markers</li>
+<li>Radio buttons and checkboxes (including their alignment and positioning relative to labels)</li>
+<li>Scroll bars (both vertical and horizontal positioning)</li>
+<li>Text overflow indicators (like ellipses)</li>
+<li>Grouping progression indicators (such as tab bars and button groups)</li>
+<li>Disclosure triangles and expansion indicators</li>
+<li>Text alignment in input fields</li>
+<li>Toolbars and action button layouts</li>
+<li>Carousel and slideshow navigation controls</li>
+</ul>
+
+<div class="req" id="vertical_box_posn">
+	<p class="advisement">Box positioning coordinates MUST take into account the text direction.</p>
+	</div>
+
+<p>It is typical, when localizing a user interface or web page, to create mirror-images for the RTL and LTR versions. For example, it is likely that a box that appears near the left side of a window containing English content would appear near the right side of the window if the content is Arabic or Hebrew. It should be preferably automatic for this to change, based on the base direction of the current context, unless there is a strong reason for using absolute geometry. To enable this automatic mirroring, logical property values such as <code class="kw" translate="no">start</code> and <code class="kw" translate="no">end</code> should be used, rather than <code class="kw" translate="no">left</code> and <code class="kw" translate="no">right</code>.</p>
+</section>
 
 
 
+<section id="typ_letterforms" class="subtopic">
+<h3>Letterform slopes, weights, &amp; italics</h3>
 
-<section id="typ_bidi" class="subtopic">
-<h3>RTL/bidi text</h3>
-
-<p class="reviewComments"><a href="https://github.com/w3c/i18n-activity/labels/t%3Atyp_bidi" target="_blank">See related review comments.</a></p>
-<aside class="links" id="links_bidi_text">
+<p class="reviewComments"><a href="https://github.com/w3c/i18n-activity/labels/t%3Atyp_letterforms" target="_blank">See related review comments.</a></p>
+<aside class="links" id="links_letterforms">
 <p class="links_title">Useful background and overviews for this section</p>
 <ul>
-<li class="w3"><p class="link"><a href="https://www.w3.org/TR/typography/#bidi_text">Bidirectional text</a>, in the Language enablement index.</p></li>
+<li class="w3"><p class="link"><a href="https://www.w3.org/TR/typography/#letterforms">Letterform slopes, weights, &amp; italics</a>, in the Language enablement index.</p></li>
 </ul>
 </aside>
 
@@ -4513,34 +4570,12 @@ transactionResult: [ SUCCESS, NOT_AUTHORIZED, INTERNAL_ERROR, UNKNOWN_ERROR ]
 	<p class="advisement">Specifications that enable sloping of letterforms SHOULD provide for characters to slope either to the right or to the left according to the needs of the specific language.</p>
 </div>
 
+
 </section>
 
 
 
 
-
-
-
-
-
-
-<section id="typ_box_posn" class="subtopic">
-<h3>Setting box positioning coordinates when text direction varies</h3>
-
-  	<div class="req" id="vertical_box_posn">
-	<p class="advisement">Box positioning coordinates must take into account whether the text is horizontal or vertical.</p>
-	</div>
-
-<p>It is typical, when localizing a user interface or web page, to create mirror-images for the RTL and LTR versions. For example, it is likely that a box that appears near the left side of a window containing English content would appear near the right side of the window if the content is Arabic or Hebrew. It should preferably automatic for this to change, based on the base direction of the current context, unless there is a strong reason for using absolute geometry. One way to achieve this is to use keywords such as <code class="kw" translate="no">start</code> and <code class="kw" translate="no">end</code>, rather than <code class="kw" translate="no">left</code> and <code class="kw" translate="no">right</code>, to indicate position.</p>
-  </section>
-
-
-
-<section id="typ_logical" class="subtopic">
-<h3><em>Logical properties (TBD)</em></h3>
-
-<p class="reviewComments"><a href="https://github.com/w3c/i18n-activity/labels/t%3Atyp_logical_x" target="_blank">See related review comments.</a></p>
-</section>
 
 
 
