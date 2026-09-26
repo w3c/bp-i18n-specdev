@@ -6249,9 +6249,41 @@ transactionResult: [ SUCCESS, NOT_AUTHORIZED, INTERNAL_ERROR, UNKNOWN_ERROR ]
 
 
 <section id="loc_input" class="subtopic">
-<h3><em>User input (TBD)</em></h3>
+<h3>User input</h3>
 
 <p class="reviewComments"><a href="https://github.com/w3c/i18n-activity/labels/t%3Aloc_input_x" target="_blank">See related review comments.</a></p>
+
+	<div class="req" id="loc_input_composition">
+	<p class="advisement">Specifications defining text input MUST allow for input methods and other mechanisms that use text composition or where input is not direct from keystrokes.</p>
+	</div>
+
+	<div class="req" id="loc_input_composition_restrictions">
+	<p class="advisement">Specifications that impose constraints on text input MAY restrict input methods or text composition. Use care in specifying such restrictions, as this type of requirement can prevent some languages from being input.</p>
+	</div>
+
+	<div class="req" id="loc_input_keystrokes">
+	<p class="advisement">Specifications MUST NOT assume that a character can be input from a single keystroke.</p>
+	</div>
+
+	<div class="req" id="loc_input_committed_text">
+	<p class="advisement">Specifications MUST NOT assume that committed text consists of a single code point.</p>
+	</div>
+
+	<div class="req" id="loc_input_disable_composition">
+	<p class="advisement">For applications where text composition needs to be disabled, such as some password input contexts, specifications MUST clearly define that composition is disabled.</p>
+	</div>
+
+	<div class="req" id="loc_input_implementation_composition">
+	<p class="advisement">Implementations SHOULD support input methods and text composition. Native support ("on the spot") editing is preferred.</p>
+	</div>
+
+	<div class="req" id="loc_input_uncommitted_text">
+	<p class="advisement">Specifications and implementations SHOULD avoid processing uncommitted text. Text measurement, such as length checking, SHOULD be reserved for committed text.</p>
+	</div>
+
+	<p>In some languages, text entry may involve an input method that uses a composition phase, during which users build up text before it is committed. Text can also be supplied by speech input, handwriting recognition, assistive technology, paste operations, or other mechanisms that are not direct key presses. Specifications that define user input handling need to allow these forms of input so that text entry is not disrupted or limited to only those languages that can be typed directly from a keyboard.</p>
+
+	<p>Specifications and implementations should generally process committed text rather than intermediate composition text. Processing key presses, such as key down, key up, or typed events, is valid in some circumstances, for example for command shortcuts or low-level input features, but it should not be treated as the general model for text input.</p>
 </section>
 
 
