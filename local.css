@@ -66,7 +66,7 @@ body.darkmode {
 	--blue: rgb(51 125 255);
 	--checklistGroup-li-bg: rgb(69 43 9);
 	--checklistGroup-li-input: rgb(228 132 63);
-	--checklistGroup-li: rgb(215 99 99);
+	--checklistGroup-li: rgb(215 140 140);
 	--example-note-bg: #181a1b;
 	--bidi-example-table-bg: black;
 	--bidi-example-table-tr-border: #3a3e41;
@@ -80,7 +80,7 @@ body.darkmode {
 	--localdef-border: rgb(154 39 39);
 	--review-comments-bg: rgb(30 33 34);
 	--summary-text: rgb(236 164 113);
-	--uname-text: rgb(215 99 99);
+	--uname-text: rgb(215 140 140);
 	--xref-bg: rgb(53 42 11);
 	--start-here-border: #00d900;
 	--start-here-bg: #16380a;
