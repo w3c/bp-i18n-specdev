@@ -4498,6 +4498,42 @@ transactionResult: [ SUCCESS, NOT_AUTHORIZED, INTERNAL_ERROR, UNKNOWN_ERROR ]
 
 
 
+<section id="typ_baseline" class="subtopic">
+<h3>Baselines and mixed-script alignment</h3>
+
+<p class="reviewComments"><a href="https://github.com/w3c/i18n-activity/labels/t%3Atyp_baseline" target="_blank">See related review comments.</a></p>
+
+<aside class="links" id="links_baseline">
+<p class="links_title">Useful background and overviews for this section</p>
+<ul>
+<li class="w3"><p class="link"><a href="https://www.w3.org/TR/typography/#baselines">Baselines, line-height, etc.</a>, in the Language enablement index.</p></li>
+<li class="w3"><p class="link"><a href="https://www.w3.org/TR/css-inline-3/#baseline-types">Baselines and Metrics</a>, in CSS Inline Layout Module Level 3.</p></li>
+<li class="w3"><p class="link"><a href="https://www.w3.org/TR/jlreq/#kanji_hiragana_and_katakana">Character frame</a>, in Requirements for Japanese Text Layout.</p></li>
+<li class="w3"><p class="link"><a href="https://github.com/w3c/jlreq/issues/246">Central alignment of sideways Latin text in vertical Japanese lines</a>. GitHub issue discussion.</p></li>
+<li class="w3"><p class="link"><a href="https://github.com/w3c/csswg-drafts/issues/5381">Ascent and descent metrics in vertical flow</a>. GitHub issue discussion.</p></li>
+</ul>
+</aside>
+
+<p>Scripts differ in how they position text on a line, and not all of them use a baseline.</p>
+
+<p>Latin, Cyrillic, Greek and similar scripts sit on an <strong>alphabetic baseline</strong>. In scripts such as Devanagari the letters hang from a horizontal line, which can be exposed as a <strong>hanging baseline</strong>.</p>
+
+<p>Chinese, Japanese and Korean text, by contrast, has no baseline at all: characters are designed and positioned within a square <strong>character frame</strong> (the em box), and lines are positioned on that basis. CJK fonts are built on the Latin metric model, and so they carry baseline information, but that is a property of the font technology rather than of CJK typography.</p>
+
+<div class="req" id="baseline_mixed">
+<p class="advisement">Specifications that define text layout should require text from baseline-based scripts and text from em-box-based scripts such as Chinese and Japanese to be aligned on a common reference that is appropriate to the scripts in use.</p>
+</div>
+
+<p>When scripts are mixed on the same line, an alignment has to be chosen between the two models. CSS and OpenType do this by synthesizing baselines from the em box: an <strong>ideographic baseline</strong> at the edge of the ideographic em box, and a <strong>central baseline</strong> through its middle. These constructs make it possible to position Latin text against CJK text.</p>
+
+<div class="req" id="baseline_selectable">
+<p class="advisement">Specifications should make it possible to choose how a line of mixed text is aligned, for example on the alphabetic baseline, or on the ideographic em box, rather than providing only the alphabetic baseline.</p>
+</div>
+</section>
+
+
+
+
 <section id="typ_bidi" class="subtopic">
 <h3>RTL/bidi text</h3>
 
